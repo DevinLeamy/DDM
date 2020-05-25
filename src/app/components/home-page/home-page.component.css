@@ -1,0 +1,8 @@
+.home-container {
+  background-image: url("../../../assets/images/Moon.jpg");
+  background-color: black;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 100%;
+  overflow: hidden;
+}

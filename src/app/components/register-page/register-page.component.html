@@ -1,0 +1,81 @@
+<div class="register-background">
+    <mat-card class="register-form-card">
+      <!-- Inside Container (start) -->
+      <form #registerForm="ngForm" (submit)="register(registerForm)">
+        <!-- Username Field -->
+        <div class="form-input-container">
+          <mat-form-field>
+            <input
+              matInput
+              type="text"
+              name="username"
+              ngModel
+              required
+              placeholder="username"
+              #username="ngModel"
+              class="input-field"
+            >
+            <mat-error *ngIf="username.invalid">Enter your username</mat-error>
+          </mat-form-field>
+        </div>
+
+         <!-- Email Field -->
+         <div class="form-input-container">
+          <mat-form-field>
+            <input
+              matInput
+              type="text"
+              name="email"
+              ngModel
+              required
+              placeholder="email"
+              #email="ngModel"
+              class="input-field"
+            >
+            <mat-error *ngIf="email.invalid">Enter your email</mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Password Field -->
+        <div class="form-input-container">
+          <mat-form-field>
+            <input
+              matInput
+              name="password"
+              ngModel
+              required
+              placeholder="password"
+              #password="ngModel"
+              type="password"
+              class="input-field"
+            >
+            <mat-error *ngIf="password.invalid">Enter your password</mat-error>
+          </mat-form-field>
+        </div>
+
+         <!-- Re-entered Password Field -->
+         <div class="form-input-container">
+          <mat-form-field>
+            <input
+              matInput
+              name="reEnteredPassword"
+              ngModel
+              required
+              placeholder="re-enter password"
+              #reEnteredPassword="ngModel"
+              type="password"
+              class="input-field"
+            >
+            <mat-error>Re-enter your password</mat-error>
+          </mat-form-field>
+          </div>
+
+        <!-- Submit Button -->
+        <div class="form-button-container">
+          <button mat-raised-button type="submit" class="form-submit-button">Register</button>
+        </div>
+
+      </form>
+      <!-- Inside Container (end) -->
+    </mat-card>
+  </div>

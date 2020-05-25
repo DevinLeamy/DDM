@@ -1,0 +1,20 @@
+<h1>message create</h1>
+<mat-card *ngIf="isAuthenticated()">
+  <form #messageForm="ngForm" (submit)="postMessage(messageForm)">
+    <!-- Message Field -->
+    <div class="form-input-container">
+      <mat-form-field>
+        <input
+          matInput
+          type="text"
+          name="message"
+          ngModel
+          placeholder="message"
+          #message="ngModel"
+          class="message-field"
+        >
+      </mat-form-field>
+      <button mat-raised-button type="submit" class="form-submit-button">Send</button>
+    </div>
+  </form>
+</mat-card>

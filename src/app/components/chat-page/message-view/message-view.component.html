@@ -1,0 +1,11 @@
+<div class="view-background">
+  <h1>{{chat.title}}</h1>
+  <div class="messages">
+    <div *ngFor="let message of chat.messages">
+      <app-message-received *ngIf="received(message);">{{message.text}}</app-message-received>
+      <app-message-sent *ngIf="sent(message);">{{message.text}}</app-message-sent>
+    </div>
+  </div>
+  <app-message-create></app-message-create>
+</div>
+

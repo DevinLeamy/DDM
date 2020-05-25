@@ -1,0 +1,10 @@
+.view-background {
+  background-color: whitesmoke;
+  height: 100%;
+  width: 100%;
+}
+
+.messages {
+  width: 60%;
+  margin: auto;
+}

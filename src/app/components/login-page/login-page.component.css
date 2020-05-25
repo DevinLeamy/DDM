@@ -1,0 +1,36 @@
+.login-background {
+  height: 100%;
+  width: 100%;
+  background-image: url("../../../assets/images/NetworkImage.jpg");
+}
+
+.login-form-card {
+  height: 300px;
+  width: 300px;
+  margin: auto;
+  top: 35%;
+  background-color: #2a4d69;
+}
+
+.form-input-container {
+  margin: auto;
+  display: block;
+  width: 200px;
+  margin-top: 30px;
+}
+
+.input-field {
+  color: white;
+}
+
+.form-button-container {
+  display: flex;
+  justify-content: center;
+}
+.form-submit-button {
+  width: 200px;
+  top: 75px;
+  background-color: white;
+  color: black;
+}
+

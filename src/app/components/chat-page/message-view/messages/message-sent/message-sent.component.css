@@ -1,0 +1,26 @@
+.message {
+  margin-bottom: 10px;
+  font-size: 15px;
+  background-color: #1e4588e0;
+  color: white;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+  float: right;
+  margin-right: 20px;
+}
+
+hr {
+  background: none;
+  border: 0;
+  clear: both;
+  display: block;
+  float: none;
+  font-size: 0;
+  padding: 0;
+  overflow: hidden;
+  visibility: hidden;
+}

@@ -1,0 +1,70 @@
+<h1>Create a new chat</h1>
+<div>
+  <mat-card>
+    <form #chatForm="ngForm" (submit)="createChat(chatForm)">
+      <div>
+        <mat-form-field>
+          <input
+            type="text"
+            matInput
+            name="title"
+            ngModel
+            required
+            #title="ngModel"
+            placeholder="title"
+          >
+          <mat-error *ngIf="title.invalid">Enter a chat title</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-button-container">
+        <button mat-raised-button type="submit" class="form-submit-button">Login</button>
+      </div>
+    </form>
+  </mat-card>
+</div>
+
+
+
+<!-- <div class="login-background">
+  <mat-card class="login-form-card">
+    <form #loginForm="ngForm" (submit)="login(loginForm)">
+      <div class="form-input-container">
+        <mat-form-field>
+          <input
+            matInput
+            type="text"
+            name="email"
+            ngModel
+            required
+            placeholder="email"
+            #email="ngModel"
+            class="input-field"
+          >
+          <mat-error *ngIf="email.invalid">Enter your email</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-input-container">
+        <mat-form-field>
+          <input
+            matInput
+            name="password"
+            ngModel
+            required
+            placeholder="Password"
+            #password="ngModel"
+            type="password"
+            class="input-field"
+          >
+          <mat-error *ngIf="password.invalid">Enter your password</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-button-container">
+        <button mat-raised-button type="submit" class="form-submit-button">Login</button>
+      </div>
+
+    </form>
+  </mat-card>
+</div>
+   -->
