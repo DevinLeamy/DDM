@@ -1,4 +1,12 @@
-<h1>Chat display</h1>
-<div *ngFor="let chatId of chatIds">
-  <button mat-raised-button [routerLink]="['/api/chat/view', chatId]" color="primary">text</button>
+<div class="chat-display-container">
+    <h1>Chat display</h1>
+    <div class="icon-container">
+        <app-chat-icon 
+        *ngFor="let chat of chats" 
+        [chatTitle]=chat.title 
+        [chatId]=chat._id
+      ></app-chat-icon>
+    </div>
 </div>
+
+

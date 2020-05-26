@@ -57,21 +57,12 @@ router.post("/chat-create/create", function(req, res) {
   )
 })
 
-//temp
-//Get all chat ids
-router.get("/chatIds", function(req, res) {
+//Gets all chats
+router.get("/chats", function(req, res) {
   getChats().then(
-    (resolve) => {
-      chatIds = getChatIds(resolve)
-      res.json(chatIds)
-    }
+    (resolve) => res.json(resolve)
   ).catch((reject) => console.log(reject))
 })
-
-//temp
-// router.get("/view/:id", function(req, res) {
-//   res.send("view")
-// })
 
 //-----------------------------------Middleware----------------------------------------
 
@@ -154,7 +145,6 @@ function postChat(newChat) {
   })
 }
 
-//temp
 //Gets all chats
 function getChats() {
   return new Promise((resolve, reject) => {
@@ -168,14 +158,26 @@ function getChats() {
   })
 }
 
-//temp
 //Get chat ids from given chats
-function getChatIds(chats) {
+function getChatIds(rawChats) {
+  if (rawChats == undefined || rawChats == null) return []
   var chatIds = []
-  for (var i = 0; i < chats.length; i++) {
-    chatIds.push(chats[i]._id)
+  for (var i = 0; i < rawChats.length; i++) {
+    chatIds.push(rawChats[i]._id)
   }
   return chatIds
 }
+
+// function parseChats(rawChats) {
+//   if (rawChats == undefined || rawChats == null) return []
+//   var chats = []
+//   for (var i = 0; i < rawChats.length; i++) {
+//     chats.push({
+//       title: rawChats[i].title,
+//       _id: rawChats[i]._id,
+//       messages: rawChats
+//     })
+//   }
+// }
 
 module.exports = router

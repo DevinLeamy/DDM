@@ -1,6 +1,14 @@
-<app-navbar>
+<app-navbar style="overflow: hidden;">
   <div class="home-container">
-    <app-chat-display></app-chat-display>
+    <div class="column left">
+        <h1>Left column</h1>
+    </div>
+    <div class="column middle">
+        <app-chat-display></app-chat-display>
+    </div>
+    <div class="column right">
+      <h1>Right column</h1>
+    </div>
   </div>
 </app-navbar>
 

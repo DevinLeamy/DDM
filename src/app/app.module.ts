@@ -28,6 +28,7 @@ import { MessageReceivedComponent } from './components/chat-page/message-view/me
 import { MessageSentComponent } from "./components/chat-page/message-view/messages/message-sent/message-sent.component"
 import { CreateChatComponent } from "./components/create-chat/create-chat.component"
 import { ChatDisplayComponent } from "./components/chat-display/chat-display.component"
+import { ChatIconComponent } from "./components/chat-display/chat-icon/chat-icon.component"
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +42,8 @@ import { ChatDisplayComponent } from "./components/chat-display/chat-display.com
     MessageSentComponent,
     GlobalChatComponent,
     CreateChatComponent,
-    ChatDisplayComponent
+    ChatDisplayComponent,
+    ChatIconComponent
   ],
   imports: [
     BrowserModule,

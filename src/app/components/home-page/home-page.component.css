@@ -1,8 +1,28 @@
 .home-container {
   background-image: url("../../../assets/images/Moon.jpg");
-  background-color: black;
   background-repeat: no-repeat;
   background-size: contain;
   height: 100%;
-  overflow: hidden;
+}
+
+.column {
+  float: left;
+  height: 100%;
+}
+
+.left {
+  width: 25%;
+  background-color: whitesmoke;
+  color: black;
+}
+
+.right {
+  width: 25%;
+  background-color: whitesmoke;
+  color: black;
+}
+
+.middle {
+  width: 50%;
+  background-color: black;
 }

@@ -1,0 +1,28 @@
+.icon {
+        background-image: url("../../../../assets/images/ChatIconImage.png");
+        background-size: contain;
+        border-radius: 10px;
+        width: 125px;
+        height: 125px;
+        opacity: 0.8;
+        transition: 0.5s;
+        padding: 10px;
+}
+
+.icon:hover {
+        opacity: 1;
+}
+
+.chat-title {
+        font-size: 18px;
+        color: white;
+        background-color: black;
+        padding: 10px;
+        text-align: center;
+        opacity: 0;
+        transition: 0.5s;
+}
+
+.icon:hover .chat-title {
+        opacity: 1;
+}
