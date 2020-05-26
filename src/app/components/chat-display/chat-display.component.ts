@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from "@angular/core"
-import { ChatService } from "../../services/chat"
+import { ChatsService } from "../../services/chats"
 import { Subscription } from "rxjs"
 
 @Component({
@@ -10,15 +10,15 @@ import { Subscription } from "rxjs"
 export class ChatDisplayComponent {
   chatIdsSub: Subscription
   chatIds: string[] = []
-  constructor(private chatService: ChatService) {}
+  constructor(private chatsService: ChatsService) {}
 
   //Gets chat ids
   ngOnInit() {
-    this.chatIdsSub = this.chatService.getChatIdsUpdated()
+    this.chatIdsSub = this.chatsService.getChatIdsUpdated()
       .subscribe(chatIds => {
         this.chatIds = chatIds
       })
-    this.chatService.getChatIds()
+    this.chatsService.getChatIds()
   }
 
 

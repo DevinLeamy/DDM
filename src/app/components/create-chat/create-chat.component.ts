@@ -1,5 +1,5 @@
 import { Component } from "@angular/core"
-import { ChatService } from "../../services/chat"
+import { ChatsService } from "../../services/chats"
 import { NgForm } from '@angular/forms'
 
 @Component({
@@ -8,12 +8,12 @@ import { NgForm } from '@angular/forms'
   styleUrls: ["create-chat.component.css"]
 })
 export class CreateChatComponent {
-  constructor(private chatService: ChatService) {}
+  constructor(private chatsService: ChatsService) {}
 
   createChat(chatForm: NgForm) {
     if (!chatForm.invalid) {
       const title = chatForm.value.title
-      this.chatService.postChat(title)
+      this.chatsService.postChat(title)
       chatForm.resetForm()
     }
   }

@@ -1,4 +1,5 @@
 //Service for the chat API
+//Handles a single chat
 const BASE_URL = "http://localhost:3000/api/chat/"
 import { Injectable } from "@angular/core"
 import { HttpHeaders, HttpClient } from '@angular/common/http'
@@ -15,31 +16,11 @@ export class ChatService {
   chat: Chat
   chatUpdated = new Subject<Chat>()
   chatId: string
-  chatIds: string[]
-  chatIdsUpdated = new Subject<string[]>()
   constructor(private http: HttpClient) {}
 
   //Get subscription to chat object
   getChatUpdated() {
     return this.chatUpdated.asObservable()
-  }
-
-  //Gets subscription to all chat Ids
-  getChatIdsUpdated() {
-    return this.chatIdsUpdated.asObservable()
-  }
-
-  //temp
-  //Gets all chat ids
-  getChatIds() {
-    this.http.get(BASE_URL + "chatIds")
-      .subscribe((res : string[]) => {
-        this.chatIds = [];
-        for (var i = 0; i < res.length; i++) {
-          this.chatIds.push(res[i])
-        }
-        this.updateChatIds()
-      })
   }
 
   initChatService(chatId: string) {
@@ -102,10 +83,5 @@ export class ChatService {
   //Update chat object
   updateChat() {
     this.chatUpdated.next({...this.chat})
-  }
-
-  //Update chat ids
-  updateChatIds() {
-    this.chatIdsUpdated.next([...this.chatIds])
   }
 }
