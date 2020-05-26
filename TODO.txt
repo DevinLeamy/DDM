@@ -1,0 +1,42 @@
+Front End {
+  Services
+  {
+    -Redirect to home after login is breaking code
+    -Make ChatService unique to each chat
+    -Cache loaded chats
+  }
+  Other
+  {
+    -Messages not displayed correctly
+    -Trigger loggin or register dialog if user tries to post message without having logged in
+  }
+
+}
+
+
+Back End {
+
+  APIs
+  {
+    Authentication
+    {
+      - Find a better way to store JSON Web Token private keys
+
+
+    }
+    Chat
+    {
+      -Potentially refactor chat API, splitting it into two APIs. A messages API and a chats API
+    }
+
+
+  }
+
+  Other
+  {
+    -Initialize socket.io in a better way
+
+
+
+  }
+}
