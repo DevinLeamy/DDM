@@ -18,7 +18,11 @@ export class MessageViewComponent {
   chat: Chat = {
     messages: [],
     title: "",
-    _id: ""
+    _id: "",
+    categoryId: "",
+    subIds: [],
+    adminId: "",
+    global: true
   }
   //Chat Id
   chatId: string

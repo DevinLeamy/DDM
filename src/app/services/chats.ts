@@ -34,9 +34,13 @@ export class ChatsService {
   }
 
   //Create new chat
-  postChat(title: string) {
+  postChat(title: string, senderId: string, categoryId: string, global: boolean, senderUsername: string) {
     const body = {
-      title: title
+      title: title,
+      adminId: senderId,
+      categoryId: categoryId,
+      global: global,
+      adminUsername: senderUsername
     }
     var headers = new HttpHeaders()
     headers = headers.append('Content-type', 'application/json')

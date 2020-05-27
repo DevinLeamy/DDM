@@ -48,10 +48,17 @@ router.get("/init", function(req, res) {
 router.post("/chat-create/create", function(req, res) {
   const chat = req.body
   const title = chat.title
+  const adminId = chat.adminId
+  const categoryId = chat.categoryId
+  const global = chat.global
+  const adminUsername = chat.adminUsername
+  const subIds = [
+    { _id: adminId, username: adminUsername }
+  ]
   chatExistsWithTitle(title).then(
     //Chat already exists
     (resolve) => console.log(resolve)
-  ).catch(() => postChat(createChatWithTitle(title)).then(
+  ).catch(() => postChat(createChat(title, adminId, categoryId, global, subIds)).then(
       (resolve) => res.json(resolve)
     ).catch((reject) => console.log(reject))
   )
@@ -126,11 +133,15 @@ function chatExistsWithTitle(title) {
 }
 
 //Create chat with given title
-function createChatWithTitle(title) {
+function createChat(title, adminId, categoryId, global, subIds) {
   return {
     _id: new mongojs.ObjectId(),
     title: title,
-    messages: []
+    messages: [],
+    adminId: adminId,
+    categoryId: categoryId,
+    global: global,
+    subIds: subIds
   }
 }
 
@@ -167,17 +178,5 @@ function getChatIds(rawChats) {
   }
   return chatIds
 }
-
-// function parseChats(rawChats) {
-//   if (rawChats == undefined || rawChats == null) return []
-//   var chats = []
-//   for (var i = 0; i < rawChats.length; i++) {
-//     chats.push({
-//       title: rawChats[i].title,
-//       _id: rawChats[i]._id,
-//       messages: rawChats
-//     })
-//   }
-// }
 
 module.exports = router
