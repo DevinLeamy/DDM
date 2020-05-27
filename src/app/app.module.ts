@@ -16,7 +16,7 @@ import { MatSelectModule } from '@angular/material/select'
 import { HomePageComponent } from './components/home-page/home-page.component'
 import { RegisterPageComponent } from "./components/register-page/register-page.component"
 import { LoginPageComponent } from './components/login-page/login-page.component'
-import { NavbarComponent } from './components/home-page/navbar/navbar.component'
+import { NavbarComponent } from './components/navbar/navbar.component'
 import { AppComponent } from './app.component'
 import { AuthenticationService } from './services/authentication'
 import { UserService } from './services/user'
@@ -30,6 +30,8 @@ import { MessageSentComponent } from "./components/chat-page/message-view/messag
 import { CreateChatComponent } from "./components/create-chat/create-chat.component"
 import { ChatDisplayComponent } from "./components/chat-display/chat-display.component"
 import { ChatIconComponent } from "./components/chat-display/chat-icon/chat-icon.component"
+import { UserPageComponent } from "./components/user-page/user-page.component"
+import { UserIconComponent } from "./components/user-icon/user-icon.component"
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +46,9 @@ import { ChatIconComponent } from "./components/chat-display/chat-icon/chat-icon
     GlobalChatComponent,
     CreateChatComponent,
     ChatDisplayComponent,
-    ChatIconComponent
+    ChatIconComponent,
+    UserPageComponent,
+    UserIconComponent
   ],
   imports: [
     BrowserModule,

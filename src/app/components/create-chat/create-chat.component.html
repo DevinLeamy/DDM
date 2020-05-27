@@ -1,32 +1,34 @@
-<h1>Create a new chat</h1>
-<div>
-  <mat-card>
-    <form #chatForm="ngForm" (submit)="createChat(chatForm)">
-      <div>
-        <mat-form-field>
-          <input
-            type="text"
-            matInput
-            name="title"
-            ngModel
-            required
-            #title="ngModel"
-            placeholder="title"
-          >
-          <mat-error *ngIf="title.invalid">Enter a chat title</mat-error>
-        </mat-form-field>
-        <!-- Mat select for categories -->
-        <mat-form-field>
-          <mat-select placeholder="Select a Category" ngModel #category="ngModel" name="category">
-            <mat-option [value]="category._id" *ngFor="let category of categories">
-              {{category.name}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="form-button-container">
-        <button mat-raised-button type="submit" class="form-submit-button">Create</button>
-      </div>
-    </form>
-  </mat-card>
-</div>
+<app-navbar>
+    <h1>Create a new chat</h1>
+    <div>
+      <mat-card>
+        <form #chatForm="ngForm" (submit)="createChat(chatForm)">
+          <div>
+            <mat-form-field>
+              <input
+                type="text"
+                matInput
+                name="title"
+                ngModel
+                required
+                #title="ngModel"
+                placeholder="title"
+              >
+              <mat-error *ngIf="title.invalid">Enter a chat title</mat-error>
+            </mat-form-field>
+            <!-- Mat select for categories -->
+            <mat-form-field>
+              <mat-select placeholder="Select a Category" ngModel #category="ngModel" name="category">
+                <mat-option [value]="category._id" *ngFor="let category of categories">
+                  {{category.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="form-button-container">
+            <button mat-raised-button type="submit" class="form-submit-button">Create</button>
+          </div>
+        </form>
+      </mat-card>
+    </div>
+</app-navbar>

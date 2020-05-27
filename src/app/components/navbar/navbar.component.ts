@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core"
-import { AuthenticationService } from "../../../services/authentication"
-import { UserService } from "../../../services/user"
+import { AuthenticationService } from "../../services/authentication"
+import { UserService } from "../../services/user"
 import { Subscription } from 'rxjs'
 import { User } from 'src/app/models/user'
 

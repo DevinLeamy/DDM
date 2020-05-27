@@ -1,1 +1,21 @@
 /* Placeholder text */
+.column {
+        float: left;
+        height: 100%;
+        overflow: hidden;
+}
+
+.left {
+        background-color: red;
+        width: 20%;
+}
+
+.right {
+        background-color: orange;
+        width: 20%;
+}
+
+.middle {
+        background-color: black;
+        width: 60%;
+}
