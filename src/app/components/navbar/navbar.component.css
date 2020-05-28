@@ -4,6 +4,13 @@
   height: 80px;
 }
 
+.sandwich-icon {
+  width: 60px;
+  height: 60px;
+  padding: 10px;
+  font-size: 30px;
+}
+
 .button-login {
   margin-right: 10px;
   color: #2a4d69;
@@ -16,9 +23,14 @@
   background-color: white;
   font-size: 18px;
 }
-/* Spacer */
+
 .flexExpand {
-  flex: 1 1 auto;
+  flex: 1 1 auto; 
+}
+
+.spacer {
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .home-container {

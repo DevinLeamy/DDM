@@ -1,4 +1,19 @@
-<span class="message">
-  <ng-content></ng-content>
-</span>
+<div class="message-container">
+  <div class="user-container">
+    <!-- User icon -->
+    <div class="user-icon-container">
+      <app-user-icon></app-user-icon>
+    </div>
+    <!-- Username -->
+    <div class="username-container">
+        <span class="username">{{this.user.username}}</span>
+    </div>
+  </div>
+  <div class="message-body-container">
+    <!-- Text and timestamp -->
+    <span class="message-text"><ng-content></ng-content></span>
+  </div>
+
+  
+</div>
 <hr>

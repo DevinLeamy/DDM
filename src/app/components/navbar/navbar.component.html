@@ -2,14 +2,19 @@
   <mat-toolbar class="navbar-main">
     <!-- Shows on small displays (start) -->
     <div fxShow="true" fxHide.gt-sm="true">
-      <button mat-icon-button (click)="sidenav.toggle()" aria-label="Example icon-button with a menu">
-        <mat-icon>menu</mat-icon>
+      <button mat-icon-button (click)="sidenav.toggle()" class="sandwich-icon">
+        <mat-icon [inline]="true">menu</mat-icon>
       </button>
     </div>
     <!-- Shows on small displays (end) -->
-    <app-user-icon *ngIf="this.user != undefined"></app-user-icon>
+    <span class="spacer"></span>
+
+    <!-- Div there so the app-user-icon is the right size -->
+    <div style="width: 80px; height: 80px;">
+      <app-user-icon *ngIf="this.user != undefined"></app-user-icon>
+    </div>
     <span class="flexExpand"></span>
-    <span>DDM</span>
+    <span>DDM</span> 
     <!-- Shows on large displays (start) -->
     <span fxShow="true" fxHide.lt-md="true" class="flexExpand"></span>
     <div fxShow="true" fxHide.lt-md="true">
