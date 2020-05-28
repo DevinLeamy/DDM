@@ -1,28 +1,40 @@
-.message-container {
+.container {
   float: right;
-  background-color: orange;
+  background-color: #616161;
+  border-radius: 20px;
+}
+
+.message-container {
+  height: 100px;
+  float: right;
 }
 
 .message-body-container {
-  background-color: green;
-  float: right;
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-bottom: 20px;
 }
 
 .user-container {
   float: right;
-  height: 80px;
-  width: 50px;
-  background-color: red;
+  height: 100px;
+  width: 70px;
 }
 
 .user-icon-container {
-  width: 50px;
-  height: 50px;
+  width: 70px;
+  height: 70px;
 }
 
 .username-container {
-  width: 50px;
+  margin-top: -20px;
+  width: 70px;
   height: 30px;
+  text-align: center;
+}
+
+.username {
+  font-family: Arial, sans-serif;
 }
 
 
