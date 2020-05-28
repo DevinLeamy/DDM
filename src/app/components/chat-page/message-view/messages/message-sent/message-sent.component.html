@@ -1,14 +1,4 @@
 <div class="container">
-  <div class="user-container">
-    <!-- User icon -->
-    <div class="user-icon-container">
-      <app-user-icon></app-user-icon>
-    </div>
-    <!-- Username -->
-    <div class="username-container">
-        <p class="username">{{this.user.username}}</p>
-    </div>
-  </div>
   <div class="message-container">
     <!-- Text -->
     <div class="message-body-container">
@@ -17,10 +7,15 @@
 
     <!-- Timestamp -->
   </div>
-
-  
+  <div class="user-container">
+      <!-- User icon -->
+      <div class="user-icon-container">
+        <app-user-icon></app-user-icon>
+      </div>
+      <!-- Username -->
+      <div class="username-container">
+          <p class="username">{{this.senderUsername}}</p>
+      </div>
+    </div>
 </div>
-<hr>
-<hr>
-<hr>
 <hr>

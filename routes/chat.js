@@ -106,6 +106,7 @@ function postMessage(rawMessage) {
     const chatId = rawMessage.chatId
     const message = {
       senderId: rawMessage.senderId,
+      senderUsername: rawMessage.senderUsername,
       text: rawMessage.text,
       _id: new mongojs.ObjectId()
     }

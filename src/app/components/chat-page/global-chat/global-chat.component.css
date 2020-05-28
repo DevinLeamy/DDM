@@ -2,7 +2,6 @@
 .column {
         float: left;
         height: 100%;
-        overflow: hidden;
 }
 
 .left {

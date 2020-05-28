@@ -1,12 +1,9 @@
 .container {
+  display: flex;
   float: right;
   background-color: #616161;
   border-radius: 20px;
-}
-
-.message-container {
-  height: 100px;
-  float: right;
+  max-width: 80%;
 }
 
 .message-body-container {
@@ -17,8 +14,8 @@
 
 .user-container {
   float: right;
-  height: 100px;
-  width: 70px;
+  min-width: 70px;
+  max-width: 70px;
 }
 
 .user-icon-container {
@@ -40,20 +37,8 @@
 
 .message-text {
   font-size: 15px;
-  background-color: #1e4588;
-  border-width: 3px;
-  border-color: black;
-  color: white;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 8px;
-  padding-right: 8px;
-  border-radius: 10px;
+  color: whitesmoke;
   font-family: Arial, sans-serif;
-}
-
-.flexExpand {
-  flex: 1 1 auto; 
 }
 
 hr {
@@ -63,7 +48,7 @@ hr {
   display: block;
   float: none;
   font-size: 0;
-  padding: 0;
+  padding-top: 10px;
   overflow: hidden;
   visibility: hidden;
 }
