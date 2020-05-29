@@ -1,20 +1,24 @@
 /* Placeholder text */
 .column {
         float: left;
-        height: 100%;
 }
 
 .left {
         background-color: red;
         width: 20%;
+        height: 100%;
+
 }
 
 .right {
         background-color: orange;
         width: 20%;
+        height: 100%;
+
 }
 
 .middle {
+        display: inline-block;
         background-color: black;
         width: 60%;
 }

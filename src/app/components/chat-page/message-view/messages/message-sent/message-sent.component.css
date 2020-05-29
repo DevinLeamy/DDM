@@ -1,7 +1,7 @@
 .container {
   display: flex;
   float: right;
-  background-color: #616161;
+  background-color: #37474F;
   border-radius: 20px;
   max-width: 80%;
 }
@@ -32,8 +32,8 @@
 
 .username {
   font-family: Arial, sans-serif;
+  color: #63ace5;
 }
-
 
 .message-text {
   font-size: 15px;

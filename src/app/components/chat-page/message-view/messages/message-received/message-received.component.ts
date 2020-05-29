@@ -6,5 +6,5 @@ import { Component, Input } from '@angular/core'
   styleUrls: ["message-received.component.css"]
 })
 export class MessageReceivedComponent {
-  @Input() senderUsername
+  @Input() senderUsername: string
 }

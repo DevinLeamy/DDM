@@ -1,5 +1,5 @@
 <div class="view-background">
-  <h1>{{chat.title}}</h1>
+  <app-chat-title>{{chat.title}}</app-chat-title>
   <div class="messages">
     <div *ngFor="let message of chat.messages">
       <app-message-received *ngIf="received(message);" [senderUsername]="message.senderUsername">{{message.text}}</app-message-received>
