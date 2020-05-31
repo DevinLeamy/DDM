@@ -1,4 +1,3 @@
-export class Subscriber {
-        username: string
+export class Sub {
         _id: string
 }

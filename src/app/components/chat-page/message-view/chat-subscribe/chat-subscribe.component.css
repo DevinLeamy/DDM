@@ -1,0 +1,12 @@
+.container {
+        background-color: orange;
+}
+
+.subscribe-button {
+        background-color: red;
+}
+
+.subcribed-label {
+        color: black;
+        background-color: blueviolet;
+}

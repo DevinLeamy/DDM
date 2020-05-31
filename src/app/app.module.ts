@@ -33,6 +33,7 @@ import { ChatIconComponent } from "./components/chat-display/chat-icon/chat-icon
 import { UserPageComponent } from "./components/user-page/user-page.component"
 import { UserIconComponent } from "./components/user-icon/user-icon.component"
 import { ChatTitleComponent } from  "./components/chat-page/message-view/chat-title/chat-title.component"
+import { ChatSubscribeComponent } from "./components/chat-page/message-view/chat-subscribe/chat-subscribe.component"
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +51,8 @@ import { ChatTitleComponent } from  "./components/chat-page/message-view/chat-ti
     ChatIconComponent,
     UserPageComponent,
     UserIconComponent,
-    ChatTitleComponent
+    ChatTitleComponent,
+    ChatSubscribeComponent
   ],
   imports: [
     BrowserModule,

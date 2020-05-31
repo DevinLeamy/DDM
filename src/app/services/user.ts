@@ -19,6 +19,7 @@ export class UserService {
   }
 
   getUser() {
+    //Allow user to pull from database or pull user from local user variable
     this.http.get(BASE_URL + "data")
     .subscribe((res : RawUser) => {
       console.log(res)

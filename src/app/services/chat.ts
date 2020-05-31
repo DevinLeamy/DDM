@@ -3,10 +3,11 @@
 const BASE_URL = "http://localhost:3000/api/chat/"
 import { Injectable } from "@angular/core"
 import { HttpHeaders, HttpClient } from '@angular/common/http'
-import { Subject } from 'rxjs'
+import { Subject, Subscriber, fromEventPattern } from 'rxjs'
 import { Chat } from '../models/chat'
 import { Message } from "../models/message"
 import * as io from 'socket.io-client'
+import { Sub } from "../models/sub"
 
 @Injectable({
   providedIn: "root"
@@ -33,6 +34,11 @@ export class ChatService {
   //Sets the chat id
   setChatId(chatId: string) {
     this.chatId = chatId
+  }
+
+  //Returns chat id
+  getChatId() {
+    return this.chatId
   }
 
   //For testing
@@ -79,6 +85,21 @@ export class ChatService {
     headers = headers.append('Content-type', 'application/json')
     this.http.post(BASE_URL + "chat-create/create", body, { headers: headers })
       .subscribe(res => console.log(res))
+  }
+
+  // Requests a subscription to a given chat
+  subscribeToChat() {
+    return new Promise( (resolve, reject) => {
+      if (this.chatId == undefined || this.chatId == null) reject("Bad Data")
+      this.http.get(BASE_URL + "subscribe/" + this.chatId)
+      .subscribe((res: Sub) => {
+        if (res == undefined || res == null) reject("Subscription was unsuccessful")
+        console.log("User subscribed to chat")
+        this.chat.subIds.push({ _id: res._id })
+        this.updateChat()
+        resolve(0)
+      })
+    })
   }
 
   //Update chat object

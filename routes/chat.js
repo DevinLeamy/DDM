@@ -2,6 +2,8 @@
 const express = require("express")
 const router = express.Router()
 const mongojs = require("mongojs")
+const jwt = require("jsonwebtoken")
+const { tokenParser } = require("./functions/userFunc")
 var io;
 //-----------------------------------Constants----------------------------------------
 
@@ -10,7 +12,7 @@ const databaseUsername = "test"
 const databasePassword = "test"
 const databaseName = "messenger-database"
 const databaseUrl = "mongodb+srv://" + databaseUsername + ":" + databasePassword + "@messenger-db-jzhdw.mongodb.net/" + databaseName + "?retryWrites=true&w=majority"
-const database = mongojs(databaseUrl, ["chats"])
+const database = mongojs(databaseUrl, ["chats", "users"])
 //-----------------------------------Requests----------------------------------------
 //Gets chat by ID
 router.get("/data/:id", function(req, res) {
@@ -71,7 +73,44 @@ router.get("/chats", function(req, res) {
   ).catch((reject) => console.log(reject))
 })
 
+//Add user to chat subscribers list and add chat to user subscriptions list
+router.get("/subscribe/:id", authenticateToken, function(req, res) {
+  const chatId = req.params.id
+  const userId = req.user._id
+  //Check if chat exists
+  chatExistsWithId(chatId).then(
+    //Check if user exists
+    () => userExistsWithId(userId).then(
+      //Add user id to chat
+      () => addUserToChatSubs(chatId, userId).then(
+        //Add chat to user
+        () => addChatToUserSubs(chatId, userId).then(
+          //Sends chat userId 
+          () => res.json({ _id: userId })
+        ).catch((reject) => console.log(reject))
+      ).catch((reject) => console.log(reject))
+    ).catch((reject) => console.log(reject))
+  ).catch((reject) => console.log(reject))
+})
+
 //-----------------------------------Middleware----------------------------------------
+
+//Checks if tokens exists and extracts the user from it if it does
+function authenticateToken(req, res, next) {
+  console.log("Authenticating Token")
+  const bearerToken = req.headers["authorization"]
+  if (bearerToken) {
+    const token = tokenParser(bearerToken)
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, function(err, payload) {
+      if (payload) {
+        req.user = payload
+        next()
+      }
+    })
+  } else {
+    res.send("BAD")
+  }
+}
 
 //-----------------------------------Functions----------------------------------------
 //Check if the given message exists
@@ -179,5 +218,57 @@ function getChatIds(rawChats) {
   }
   return chatIds
 }
+
+function userExistsWithId(userId) {
+  return new Promise((resolve, reject) => {
+    if (userId == undefined || userId == null) reject("Bad Data")
+    database.users.count({ _id: mongojs.ObjectId(userId) }, function(err, count) {
+      if (err) reject("Error quering database for userId")
+      if (count == 0) reject("User with given id does not exist")
+      else resolve(0)
+    })
+  })
+} 
+
+function addUserToChatSubs(chatId, userId) {
+  return new Promise((resolve, reject) => {
+    if (userId == undefined || userId == null || chatId == undefined || chatId == null) reject("Bad data")
+    database.chats.update({ _id: mongojs.ObjectId(chatId) }, {
+      $push: {
+        subIds: userId
+      }
+    }, (err, data) => {
+      if (err) reject("Error posting userId to chat subIds list")
+      else resolve(0)
+    })
+  })
+}
+
+function addChatToUserSubs(chatId, userId) {
+  return new Promise((resolve, reject) => {
+    if (userId == undefined || userId == null || chatId == undefined || chatId == null) reject("Bad data")
+    database.users.update({ _id: mongojs.ObjectId(userId) }, {
+      $push: {
+        subscription_ids: chatId
+      }
+    }, (err, data) => {
+      if (err) reject("Error posting chatId to user subscriptions list")
+      resolve(0)
+    })
+  })
+}
+
+//Add chatId to user subs
+// function subUserToChat(chatId) {
+//   return new Promise((resolve, reject) => {
+//     if (chatId == undefined || chatId == null) reject("Bad data")
+//     database.users.update({ _id: mongojs.ObjectId(chatId) }, {
+//       $push: {
+//         messages: message
+//       }
+//   })
+//   }
+// }
+
 
 module.exports = router

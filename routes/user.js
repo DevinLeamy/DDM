@@ -6,8 +6,18 @@ const jwt = require("jsonwebtoken")
 const path = require("path")
 const { tokenParser } = require("./functions/userFunc")
 
+//-----------------------------------Initialize Database----------------------------------------
+const databaseUsername = "test"
+const databasePassword = "test"
+const databaseName = "messenger-database"
+const databaseUrl = "mongodb+srv://" + databaseUsername + ":" + databasePassword + "@messenger-db-jzhdw.mongodb.net/" + databaseName + "?retryWrites=true&w=majority"
+const database = mongojs(databaseUrl, ["users"])
+
+//-----------------------------------Requests----------------------------------------
 router.get("/data", authenticateToken, function(req, res) {
-  res.send(req.user);
+  getUserById(req.user._id).then(
+    (resolve) => res.json(resolve)
+  ).catch((reject) => console.log(reject))
 })
 
 //----------------------------Middle ware-------------------------------
@@ -28,5 +38,14 @@ function authenticateToken(req, res, next) {
     res.send("BAD")
   }
 }
-
+//----------------------------Functions-------------------------------
+function getUserById(userId) {
+  return new Promise((resolve, reject) => {
+    if (userId == null || userId == undefined) reject("Bad Data")
+    database.users.findOne({_id: mongojs.ObjectId(userId)}, (err, user) => {
+      if (err || user == null || user == undefined) reject("Error retrieving user data from database")
+      resolve(user)
+    })
+  })
+}
 module.exports = router

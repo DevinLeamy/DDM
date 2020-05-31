@@ -1,5 +1,5 @@
 import { Message } from "./message"
-import { Subscriber } from "./sub"
+import { Sub } from "./sub"
 
 export class Chat {
   _id: string
@@ -7,7 +7,7 @@ export class Chat {
   messages: Message[]
   categoryId: string
   adminId: string
-  subIds: Subscriber[]
+  subIds: Sub[]
   //If global than the given chat is a global chat
   //Otherwise, the given chat is a private chat
   global: boolean

@@ -19,7 +19,6 @@ export class ChatsService {
     return this.chatsUpdated.asObservable()
   }
 
-  //temp
   //Gets all chat ids
   getChats() {
     this.http.get(BASE_URL + "chats")
