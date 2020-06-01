@@ -3,4 +3,10 @@ body, html {
   margin: 0px;
   width: 100%;
   height: 100%;
+  overflow: scroll;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
 }

@@ -4,21 +4,21 @@
 }
 
 .left {
+        height: 100%;
         background-color: red;
         width: 20%;
-        height: 100%;
-
 }
 
 .right {
+        height: 100%;
         background-color: orange;
         width: 20%;
-        height: 100%;
-
 }
 
 .middle {
+        height: 100%;
         display: inline-block;
         background-color: black;
         width: 60%;
+        overflow: auto;
 }

@@ -5,18 +5,17 @@
         border-color: black;
         margin-top: 10px;
         border-radius: 5px;
-
 }
 
 .icon-container {
         float: left;
-        width: 75px;
-        height: 75px;
+        width: 45px;
+        height: 45px;
 }       
 
 .title-container {
         display: table;
-        height: 75px;
+        height: 45px;
         float: left;
         padding-right: 10px;
 }
@@ -24,8 +23,12 @@
 .title {
         display: table-cell;
         font-family: "Roboto";
-        font-size: 25px;
+        font-size: 15px;
         vertical-align: middle;
         font-weight: bold;
         color: black;
+}
+
+.flexExpand {
+        flex: 1 1 auto; 
 }
