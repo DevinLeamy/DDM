@@ -86,7 +86,7 @@ router.get("/subscribe/:id", authenticateToken, function(req, res) {
         //Add chat to user
         () => addChatToUserSubs(chatId, userId).then(
           //Sends chat userId 
-          () => res.json({ _id: userId })
+          () => res.json({_id: userId})
         ).catch((reject) => console.log(reject))
       ).catch((reject) => console.log(reject))
     ).catch((reject) => console.log(reject))
@@ -257,18 +257,5 @@ function addChatToUserSubs(chatId, userId) {
     })
   })
 }
-
-//Add chatId to user subs
-// function subUserToChat(chatId) {
-//   return new Promise((resolve, reject) => {
-//     if (chatId == undefined || chatId == null) reject("Bad data")
-//     database.users.update({ _id: mongojs.ObjectId(chatId) }, {
-//       $push: {
-//         messages: message
-//       }
-//   })
-//   }
-// }
-
 
 module.exports = router

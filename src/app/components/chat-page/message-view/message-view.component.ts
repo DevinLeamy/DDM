@@ -5,13 +5,11 @@ import { User } from 'src/app/models/user'
 import { Subscription } from 'rxjs'
 import { Chat } from 'src/app/models/chat'
 import { ChatService } from "../../../services/chat"
-import { ActivatedRoute } from '@angular/router'
 
 @Component({
   selector: "app-message-view",
   templateUrl: "message-view.component.html",
-  styleUrls: ["message-view.component.css"],
-  providers: [ChatService]
+  styleUrls: ["message-view.component.css"]
 })
 export class MessageViewComponent {
   //Default empty Chat
@@ -30,23 +28,16 @@ export class MessageViewComponent {
   user: User
   userSub: Subscription
 
-  constructor(private userService: UserService, private chatService: ChatService, private route: ActivatedRoute) {}
+  constructor(private userService: UserService, private chatService: ChatService) {}
 
   //Keeping the user object updated
   ngOnInit() {
-    //Set chatId from router link
-    this.route.params
-      .subscribe(params => {
-        this.chatId = params["id"]
-    })
     //Creates link to UserService user
     this.userSub = this.userService.getUserUpdated()
       .subscribe(user => {
         this.user = user
       })
     this.userService.getUser()
-    //Sets chat service chatID
-    this.chatService.initChatService(this.chatId)
     //Creates link to ChatService chat
     this.chatSub = this.chatService.getChatUpdated()
       .subscribe(chat => {

@@ -34,6 +34,8 @@ import { UserPageComponent } from "./components/user-page/user-page.component"
 import { UserIconComponent } from "./components/user-icon/user-icon.component"
 import { ChatTitleComponent } from  "./components/chat-page/message-view/chat-title/chat-title.component"
 import { ChatSubscribeComponent } from "./components/chat-page/message-view/chat-subscribe/chat-subscribe.component"
+import { SubscribersViewComponent } from "./components/chat-page/subscribers-view/subscribers-view.component"
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +54,8 @@ import { ChatSubscribeComponent } from "./components/chat-page/message-view/chat
     UserPageComponent,
     UserIconComponent,
     ChatTitleComponent,
-    ChatSubscribeComponent
+    ChatSubscribeComponent,
+    SubscribersViewComponent
   ],
   imports: [
     BrowserModule,

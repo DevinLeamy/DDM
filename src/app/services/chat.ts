@@ -7,7 +7,6 @@ import { Subject, Subscriber, fromEventPattern } from 'rxjs'
 import { Chat } from '../models/chat'
 import { Message } from "../models/message"
 import * as io from 'socket.io-client'
-import { Sub } from "../models/sub"
 
 @Injectable({
   providedIn: "root"
@@ -41,9 +40,9 @@ export class ChatService {
     return this.chatId
   }
 
-  //For testing
+  //Updates chat
   getChat() {
-    console.log(this.chatId)
+    //TODO: Allow for the choice of either querying the database of returning existing chat object
     this.http.get(BASE_URL + "data/" + this.chatId)
       .subscribe((res: Chat) => {
         this.chat = res
@@ -92,10 +91,10 @@ export class ChatService {
     return new Promise( (resolve, reject) => {
       if (this.chatId == undefined || this.chatId == null) reject("Bad Data")
       this.http.get(BASE_URL + "subscribe/" + this.chatId)
-      .subscribe((res: Sub) => {
+      .subscribe((res: {_id: string}) => {
         if (res == undefined || res == null) reject("Subscription was unsuccessful")
         console.log("User subscribed to chat")
-        this.chat.subIds.push({ _id: res._id })
+        this.chat.subIds.push(res._id)
         this.updateChat()
         resolve(0)
       })
