@@ -27,7 +27,7 @@ export class ChatSubscribeComponent {
         //Subscribes user to chat if the user is logged in and has not yet subscribed
         subscribe() {
                 this.chatService.subscribeToChat().then(
-                        () => this.userService.getUser()
+                        () => this.userService.getUser(true)
                 ).catch((reject) => console.log(reject))
         }
 

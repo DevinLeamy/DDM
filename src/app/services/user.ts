@@ -18,14 +18,19 @@ export class UserService {
     return this.userUpdated.asObservable()
   }
 
-  getUser() {
-    //Allow user to pull from database or pull user from local user variable
-    this.http.get(BASE_URL + "data")
-    .subscribe((res : RawUser) => {
-      console.log(res)
-      this.user = this.getUserFromRawUser(res)
-      this.updateUser()
-    })
+  getUser(query=false) {
+    if (query || this.user == undefined || this.user == null) {
+      //Query for user
+      this.http.get(BASE_URL + "data")
+      .subscribe((res : RawUser) => {
+        console.log(res)
+        this.user = this.getUserFromRawUser(res)
+        this.updateUser()
+      })
+    } else {
+      //Update subscription with existing user
+      this.updateUser();
+    }
   }
 
   //Creates user object from database raw user data
