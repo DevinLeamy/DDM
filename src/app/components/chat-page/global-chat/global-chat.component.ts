@@ -14,12 +14,12 @@ export class GlobalChatComponent {
   constructor(private chatService: ChatService, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    //Set chatId from router link
+    //Set chatId from router link id
     this.route.params
     .subscribe(params => {
       this.chatId = params["id"]
+      this.chatService.initChatService(this.chatId)
+      this.chatService.getChat()
     })
-    //Sets chat service chatID
-    this.chatService.initChatService(this.chatId)
   }
 }

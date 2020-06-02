@@ -20,6 +20,14 @@ router.get("/data", authenticateToken, function(req, res) {
   ).catch((reject) => console.log(reject))
 })
 
+router.get("/:id", function(req, res) {
+  const id = req.params.id
+  console.log("Getting user with id", id)
+  getUserById(id).then(
+    (resolve) => res.json(resolve)
+  ).catch((reject) => console.log(reject))
+})
+
 //----------------------------Middle ware-------------------------------
 
 //Checks if tokens exists and extracts the user from it if it does
