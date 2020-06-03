@@ -81,14 +81,18 @@ router.get("/subscribe/:id", authenticateToken, function(req, res) {
   chatExistsWithId(chatId).then(
     //Check if user exists
     () => userExistsWithId(userId).then(
-      //Add user id to chat
-      () => addUserToChatSubs(chatId, userId).then(
-        //Add chat to user
-        () => addChatToUserSubs(chatId, userId).then(
-          //Sends chat userId 
-          () => res.json({_id: userId})
+      () => chatContainsUserId(chatId, userId).then(
+        (resolve) => console.log(resolve)
+      ).catch(
+        //Add user id to chat
+        () => addUserToChatSubs(chatId, userId).then(
+          //Add chat to user
+          () => addChatToUserSubs(chatId, userId).then(
+            //Sends chat userId 
+            () => res.json({_id: userId})
+          ).catch((reject) => console.log(reject))
         ).catch((reject) => console.log(reject))
-      ).catch((reject) => console.log(reject))
+      )
     ).catch((reject) => console.log(reject))
   ).catch((reject) => console.log(reject))
 })
@@ -240,6 +244,23 @@ function addUserToChatSubs(chatId, userId) {
     }, (err, data) => {
       if (err) reject("Error posting userId to chat subIds list")
       else resolve(0)
+    })
+  })
+}
+
+function chatContainsUserId(chatId, userId) {
+  return new Promise((resolve, reject) => {
+    getChatById(chatId).then(
+      (chat) => {
+        if (chat.subIds.includes(userId)) {
+          resolve("Chat contains user id");
+        } else {
+          reject("Chat does not contain user id")
+        }
+      }
+    ).catch((err) => {
+      console.log(err)
+      resolve("Error querying chat with given id")
     })
   })
 }
