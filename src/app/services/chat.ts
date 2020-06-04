@@ -51,13 +51,16 @@ export class ChatService {
   }
 
   //Updates chat
-  getChat() {
-    //TODO: Allow for the choice of either querying the database of returning existing chat object
-    this.http.get(CHAT_API + "data/" + this.chatId)
+  getChat(query=false) {
+    if (query || this.chat == undefined || this.chat == null) {
+      this.http.get(CHAT_API + "data/" + this.chatId)
       .subscribe((res: Chat) => {
         this.chat = res
         this.updateChat()
       })
+    } else {
+      this.updateChat()
+    }
   }
 
 
@@ -84,7 +87,6 @@ export class ChatService {
       this.getUser(userId).then(
         (resolve: User) => {
           this.users.push(resolve)
-          console.log(this.users)
       }
       ).catch((reject) => console.log(reject))
     }
@@ -144,7 +146,6 @@ export class ChatService {
       .subscribe((res: {_id: string}) => {
         //Get user and not just user id
         if (res == undefined || res == null) reject("Subscription was unsuccessful")
-        console.log("User subscribed to chat")
         this.chat.subIds.push(res._id)
         this.updateChat()
         resolve(0)

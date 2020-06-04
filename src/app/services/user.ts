@@ -23,7 +23,6 @@ export class UserService {
       //Query for user
       this.http.get(BASE_URL + "data")
       .subscribe((res : RawUser) => {
-        console.log(res)
         this.user = this.getUserFromRawUser(res)
         this.updateUser()
       })

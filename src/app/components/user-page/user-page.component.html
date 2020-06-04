@@ -1,6 +1,11 @@
 <app-navbar>
         <div class="column left">
                 <h1>Left</h1>
+                <div class="subscriptions-view">
+                        <span *ngFor="let sub of this.user.subIds">
+                                {{sub}}
+                        </span>
+                </div>
         </div>
         <div class="column middle">
                 <h1>Middle</h1>
@@ -8,6 +13,7 @@
 
         <div class="column right">
                 <h1>Right</h1>
+                <span *ngIf="this.user != undefined">{{this.user.username}}</span> 
         </div>
-        <span *ngIf="this.user != undefined">{{this.user.username}}</span> 
+       
 </app-navbar>
