@@ -17,11 +17,6 @@ export class AuthenticationService {
   getToken() {
     return sessionStorage.getItem("accessToken")
   }
-
-  // getRefreshToken() {
-  //   return sessionStorage.getItem("refreshToken")
-  // }
-
   //Removes token from session storage
   clearTokens() {
     sessionStorage.clear()
@@ -38,11 +33,13 @@ export class AuthenticationService {
     else return false
   }
 
+  //Changes client url
   go(route: string) {
     this.location.replaceState(route);
     window.location.reload()
   }
 
+  //Register a new user
   register(username: string, email: string, password: string) {
     var headers = new HttpHeaders()
     headers = headers.append('Content-type', 'application/json')
@@ -62,6 +59,7 @@ export class AuthenticationService {
       })
   }
 
+  //Logs in a given user
   login(email: string, password: string) {
     var headers = new HttpHeaders()
     headers = headers.append('Content-type', 'application/json')

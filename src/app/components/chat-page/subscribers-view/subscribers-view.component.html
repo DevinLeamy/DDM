@@ -1,5 +1,5 @@
 <div *ngIf="this.chat != undefined && this.chat != null" class="container">
-        <div class="subscriber" *ngFor="let subscriber of this.chat.subIds">
-                <span class="subscriber-info">{{this.getUserUsername(subscriber)}}</span>
+        <div class="subscriber" *ngFor="let subscriber of this.chat.subs">
+                <span class="subscriber-info">{{subscriber.username}}</span>
         </div>
 </div>

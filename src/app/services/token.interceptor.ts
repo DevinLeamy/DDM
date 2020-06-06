@@ -11,17 +11,18 @@ export class TokenInterceptor implements HttpInterceptor {
 
   intercept(request : HttpRequest<any>, next: HttpHandler) : Observable<HttpEvent<any>> {
     //Injects token into request
-    console.log("Injecting token")
 
-    //TODO create new access token if it is not expired
+    // console.log("Injecting token")
     request = request.clone({
       setHeaders: {
         authorization: "Bearer " + this.authService.getToken(),
-        //Refresh token
-        // refreshAuthorization: "Bearer " + this.authService.getRefreshToken()
       }
     })
     //Sends request to next handler
     return next.handle(request)
   }
 }
+
+//TODO create new access token if it is not expired
+//Refresh token
+// refreshAuthorization: "Bearer " + this.authService.getRefreshToken()

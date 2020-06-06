@@ -4,6 +4,7 @@ import { AuthenticationService } from "../../../../services/authentication"
 import { UserService } from "../../../../services/user"
 import { Subscription } from "rxjs"
 import { User } from "../../../../models/user"
+import { ChatSub } from 'src/app/models/chat-sub'
 
 @Component({
         selector: "app-chat-subscribe",
@@ -38,10 +39,14 @@ export class ChatSubscribeComponent {
 
         //Checks if user is subscribed to the chat
         isSubscribed() {
-                const chatId = this.chatService.getChatId()
-                if (chatId == undefined || chatId == null || this.user == undefined || this.user == null) return false
-                if (this.user.subIds.includes(chatId)) return true
-                else return false
+                const chat: ChatSub = this.chatService.getChatSub()
+                if (chat == undefined || chat == null || this.user == undefined || this.user == null) return false
+                for (var i = 0; i < this.user.chatSubs.length; i++) {
+                        if (this.user.chatSubs[i]._id == chat._id) {
+                                return true
+                        }
+                }
+                return false
         }
 
         //Avoid memory leaks

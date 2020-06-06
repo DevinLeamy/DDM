@@ -20,10 +20,10 @@ router.get("/data", authenticateToken, function(req, res) {
   ).catch((reject) => console.log(reject))
 })
 
-router.get("/:id", function(req, res) {
-  const id = req.params.id
-  console.log("Getting user with id", id)
-  getUserById(id).then(
+router.get("/:_id", function(req, res) {
+  const userId = req.params._id
+  console.log("Getting user with id", userId)
+  getUserById(userId).then(
     (resolve) => res.json(resolve)
   ).catch((reject) => console.log(reject))
 })

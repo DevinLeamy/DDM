@@ -1,12 +1,14 @@
+import { ChatSub } from "./chat-sub"
+import { UserSub } from "./user-sub"
+
 export class RawUser {
+  _id: string
   username: string
   email: string
-  subscription_ids: string[]
-  chat_ids: string[]
-  friend_request_ids: string[]
-  friend_ids: string[]
-  _id: string
+  chatSubs: ChatSub[]
+  friendReqs: UserSub[]
+  friends: UserSub[]
   salt: string
   password_hash: string
-
 }
+

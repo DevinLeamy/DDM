@@ -23,7 +23,6 @@ export class ChatDisplayComponent {
     this.chatsService.getChats()
   }
 
-
   //Avoid memory leaks
   ngOnDestroy() {
     this.chatsSub.unsubscribe()

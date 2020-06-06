@@ -2,8 +2,8 @@
         <div class="column left">
                 <h1>Left</h1>
                 <div class="subscriptions-view">
-                        <span *ngFor="let sub of this.user.subIds">
-                                {{sub}}
+                        <span *ngFor="let sub of this.user.chatSubs">
+                                {{sub.title}}
                         </span>
                 </div>
         </div>

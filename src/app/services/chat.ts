@@ -10,6 +10,8 @@ import { Chat } from '../models/chat'
 import { Message } from "../models/message"
 import * as io from 'socket.io-client'
 import { RawUser } from "../models/raw-user"
+import { UserSub } from '../models/user-sub'
+import { ChatSub } from '../models/chat-sub'
 
 @Injectable({
   providedIn: "root"
@@ -45,9 +47,9 @@ export class ChatService {
     this.chatId = chatId
   }
 
-  //Returns chat id
-  getChatId() {
-    return this.chatId
+  //Returns chat sub
+  getChatSub() : ChatSub {
+    return {_id: this.chat._id, title: this.chat.title }
   }
 
   //Updates chat
@@ -62,7 +64,6 @@ export class ChatService {
       this.updateChat()
     }
   }
-
 
   //Returns promise that returns the user with the given userId's username
   //Must call get users before calling get user username
@@ -82,8 +83,8 @@ export class ChatService {
   getUsers() {
     if (this.chat == undefined || this.chat == null) return
     this.users = []
-    for (var i = 0; i < this.chat.subIds.length; i++) {
-      const userId = this.chat.subIds[i]
+    for (var i = 0; i < this.chat.subs.length; i++) {
+      const userId = this.chat.subs[i]._id
       this.getUser(userId).then(
         (resolve: User) => {
           this.users.push(resolve)
@@ -102,6 +103,7 @@ export class ChatService {
     })
   }
 
+  //Creates link between the socket on the client and the socket on the server
   initServerSocket() {
     this.http.get(CHAT_API + "init")
       .subscribe(res => {
@@ -109,6 +111,7 @@ export class ChatService {
       })
   }
 
+  //Declares function of client socket
   initClientSocket() {
     const _this = this
     this.socket.on("message-posted-to-chat-" + this.chatId, function(message: Message) {
@@ -127,42 +130,38 @@ export class ChatService {
     })
   }
 
-  //Create new chat
-  postChat(title: string) {
-    const body = {
-      title: title
-    }
-    var headers = new HttpHeaders()
-    headers = headers.append('Content-type', 'application/json')
-    this.http.post(CHAT_API + "chat-create/create", body, { headers: headers })
-      .subscribe(res => console.log(res))
-  }
-
   // Requests a subscription to a given chat
   subscribeToChat() {
     return new Promise( (resolve, reject) => {
       if (this.chatId == undefined || this.chatId == null) reject("Bad Data")
-      this.http.get(CHAT_API + "subscribe/" + this.chatId)
-      .subscribe((res: {_id: string}) => {
-        //Get user and not just user id
-        if (res == undefined || res == null) reject("Subscription was unsuccessful")
-        this.chat.subIds.push(res._id)
-        this.updateChat()
-        resolve(0)
-      })
+      const body = {
+        chat: {
+          _id: this.chat._id,
+          title: this.chat.title
+        }
+      }
+      var headers = new HttpHeaders()
+      headers = headers.append('Content-type', 'application/json')
+      this.http.post(CHAT_API + "subscribe/", body, { headers: headers })
+        .subscribe((res: UserSub) => {
+          //Get user and not just user id
+          if (res == undefined || res == null) reject("Subscription was unsuccessful")
+          this.chat.subs.push(res)
+          this.updateChat()
+          resolve(0)
+        })
     })
   }
 
   //Creates user object from database raw user data
   getUserFromRawUser(rawUser: RawUser): User {
     return {
+      _id: rawUser._id,
       username: rawUser.username,
       email: rawUser.email,
-      subIds: rawUser.subscription_ids,
-      chatIds: rawUser.chat_ids,
-      friendReqIds: rawUser.friend_request_ids,
-      friendIds: rawUser.friend_ids,
-      _id: rawUser._id
+      chatSubs: rawUser.chatSubs,
+      friendReqs: rawUser.friendReqs,
+      friends: rawUser.friends
     }
   }
 

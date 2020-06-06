@@ -28,10 +28,9 @@ function getNewUser(username, email, password) {
   const newUser = {
     username: username,
     email: email,
-    subscription_ids: [],
-    chat_ids: [],
-    friend_request_ids: [],
-    friend_ids: [],
+    chatSubs: [],
+    friendReqs: [],
+    friends: [],
     salt: salt,
     password_hash: passwordHash
   }

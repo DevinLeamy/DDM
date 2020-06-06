@@ -11,11 +11,6 @@ import { NgForm } from '@angular/forms'
 export class LoginPageComponent {
   constructor(private authService : AuthenticationService) {}
 
-  // authenticate(inputForm : NgForm) {
-  //   //Place holder
-  //   this.authService.generateToken()
-  // }
-
   login(loginForm: NgForm) {
     if (loginForm.invalid) loginForm.resetForm()
     else {

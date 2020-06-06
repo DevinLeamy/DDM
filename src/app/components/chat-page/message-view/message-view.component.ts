@@ -12,17 +12,7 @@ import { ChatService } from "../../../services/chat"
   styleUrls: ["message-view.component.css"]
 })
 export class MessageViewComponent {
-  //Default empty Chat
-  chat: Chat = {
-    messages: [],
-    title: "",
-    _id: "",
-    categoryId: "",
-    subIds: [],
-    adminId: "",
-    global: true
-  }
-  //Chat Id
+  chat: Chat
   chatId: string
   chatSub: Subscription
   user: User

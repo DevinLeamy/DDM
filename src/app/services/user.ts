@@ -35,13 +35,12 @@ export class UserService {
   //Creates user object from database raw user data
   getUserFromRawUser(rawUser: RawUser): User {
     return {
+      _id: rawUser._id,
       username: rawUser.username,
       email: rawUser.email,
-      subIds: rawUser.subscription_ids,
-      chatIds: rawUser.chat_ids,
-      friendReqIds: rawUser.friend_request_ids,
-      friendIds: rawUser.friend_ids,
-      _id: rawUser._id
+      chatSubs: rawUser.chatSubs,
+      friendReqs: rawUser.friendReqs,
+      friends: rawUser.friends
     }
   }
 

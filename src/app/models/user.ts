@@ -1,9 +1,11 @@
+import { ChatSub } from "./chat-sub"
+import { UserSub } from "./user-sub"
+
 export class User {
+  _id: string
   username: string
   email: string
-  subIds: string[]
-  chatIds: string[]
-  friendReqIds: string[]
-  friendIds: string[]
-  _id: string
+  chatSubs: ChatSub[]
+  friendReqs: UserSub[]
+  friends: UserSub[]
 }

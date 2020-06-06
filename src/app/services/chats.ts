@@ -5,6 +5,8 @@ import { Injectable } from "@angular/core"
 import { HttpHeaders, HttpClient } from '@angular/common/http'
 import { Subject } from 'rxjs'
 import { Chat } from '../models/chat'
+import { Category } from '../models/category'
+import { UserSub } from '../models/user-sub'
 
 @Injectable({
   providedIn: "root"
@@ -33,13 +35,12 @@ export class ChatsService {
   }
 
   //Create new chat
-  postChat(title: string, senderId: string, categoryId: string, global: boolean, senderUsername: string) {
+  postChat(title: string, admin: UserSub, category: Category, global: boolean) {
     const body = {
       title: title,
-      adminId: senderId,
-      categoryId: categoryId,
+      admin: admin,
+      category: category,
       global: global,
-      adminUsername: senderUsername
     }
     var headers = new HttpHeaders()
     headers = headers.append('Content-type', 'application/json')

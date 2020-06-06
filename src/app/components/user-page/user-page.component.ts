@@ -22,6 +22,7 @@ export class UserPageComponent {
                 this.userService.getUser()
         }
 
+        //Avoid memoroy leaks
         ngOnDestroy() {
                 this.userSub.unsubscribe()
         }

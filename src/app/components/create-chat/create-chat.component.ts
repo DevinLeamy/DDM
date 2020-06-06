@@ -5,6 +5,7 @@ import { Category } from "../../models/category"
 import { UserService } from "../../services/user"
 import { User } from "../../models/user"
 import { Subscription } from 'rxjs'
+import { UserSub } from 'src/app/models/user-sub'
 
 @Component({
   selector: "app-create-chat",
@@ -38,8 +39,12 @@ export class CreateChatComponent {
     if (!chatForm.invalid) {
       //TODO: Handle case when the chat category has yet to be set
       const title = chatForm.value.title
-      const categoryId = chatForm.value.category
-      this.chatsService.postChat(title, this.user._id, categoryId, true, this.user.username)
+      const category: Category = {
+        _id: chatForm.value.category,
+        name: this.categories[chatForm.value.category].name
+      }
+      const admin: UserSub = {_id: this.user._id, username: this.user.username}
+      this.chatsService.postChat(title, admin, category, true)
       chatForm.resetForm()
     }
   }
