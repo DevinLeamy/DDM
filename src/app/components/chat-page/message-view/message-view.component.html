@@ -1,11 +1,6 @@
 <div class="view-background">
   <app-chat-title *ngIf="this.chat != undefined && this.chat != null" >{{chat.title}}</app-chat-title>
-  <div *ngIf="this.chat != undefined && this.chat != null" class="messages">
-    <div *ngFor="let message of chat.messages">
-      <app-message-received *ngIf="received(message);" [senderUsername]="message.senderUsername">{{message.text}}</app-message-received>
-      <app-message-sent *ngIf="sent(message);" [senderUsername]="message.senderUsername">{{message.text}}</app-message-sent>
-    </div>
-  </div>
+  <app-messages></app-messages>
   <app-message-create></app-message-create>
 </div>
 

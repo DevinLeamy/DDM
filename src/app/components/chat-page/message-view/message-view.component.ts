@@ -13,7 +13,6 @@ import { ChatService } from "../../../services/chat"
 })
 export class MessageViewComponent {
   chat: Chat
-  chatId: string
   chatSub: Subscription
   user: User
   userSub: Subscription
@@ -34,18 +33,6 @@ export class MessageViewComponent {
         this.chat = chat
       })
     this.chatService.getChat()
-  }
-
-  //Checks if logged in user sent the message
-  sent(message: Message) : boolean {
-    //Checks if user exists
-    if (this.user == undefined || this.user == null) return false
-    return message.senderId == this.user._id
-  }
-
-  //Checks if logged in user received the message
-  received(message: Message) : boolean {
-    return !this.sent(message)
   }
 
   //Avoid memory leak

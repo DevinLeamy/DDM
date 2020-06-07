@@ -1,10 +1,8 @@
 .container {
         display: inline-flex;
-        margin-left: 10px;
-        background-color: #63ace5;
-        border-color: black;
-        margin-top: 10px;
-        border-radius: 5px;
+        background-color: #6db6ee;
+        width: 100%;
+        margin-bottom: 10px;
 }
 
 .icon-container {
@@ -23,7 +21,7 @@
 .title {
         display: table-cell;
         font-family: "Roboto";
-        font-size: 15px;
+        font-size: 20px;
         vertical-align: middle;
         font-weight: bold;
         color: black;
