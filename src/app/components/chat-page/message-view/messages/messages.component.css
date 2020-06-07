@@ -1,4 +1,5 @@
 .messages {
         width: 95%;
         margin: auto;
+        overflow: auto;
 }

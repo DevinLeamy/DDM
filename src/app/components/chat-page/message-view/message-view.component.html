@@ -1,5 +1,7 @@
 <div class="view-background">
   <app-chat-title *ngIf="this.chat != undefined && this.chat != null" >{{chat.title}}</app-chat-title>
+  <!-- Chat title spacer is temporary -->
+  <div class="chat-title-spacer"></div>
   <app-messages></app-messages>
   <app-message-create></app-message-create>
 </div>

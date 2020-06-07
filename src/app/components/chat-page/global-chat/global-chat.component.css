@@ -1,24 +1,30 @@
-/* Placeholder text */
-.column {
-        float: left;
-}
-
 .left {
+        top: 80px;
+        left: 0%;
         height: 100%;
         background-color: red;
         width: 20%;
+        position: fixed;
 }
 
 .right {
+        top: 80px;
+        right: 0%;
         height: 100%;
         background-color: orange;
         width: 20%;
+        position: fixed;
+}
+.spacer {
+        height: 100%;
+        width: 20%;
+        float: left;
 }
 
 .middle {
+        float: left;
         height: 100%;
-        display: inline-block;
         background-color: black;
         width: 60%;
-        overflow: auto;
+        left: -20%;
 }
