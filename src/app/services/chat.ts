@@ -1,7 +1,6 @@
 //Service for the chat API
 //Handles a single chat
 const CHAT_API = "http://localhost:3000/api/chat/"
-const USER_API = "http://localhost:3000/api/user/"
 import { Injectable } from "@angular/core"
 import { HttpHeaders, HttpClient } from '@angular/common/http'
 import { Subject, Subscriber, fromEventPattern } from 'rxjs'
@@ -21,18 +20,11 @@ export class ChatService {
   chat: Chat
   chatUpdated = new Subject<Chat>()
   chatId: string
-  users: User[] = []
-  usersUpdated = new Subject<User[]>()
   constructor(private http: HttpClient) {}
 
   //Get subscription to chat object
   getChatUpdated() {
     return this.chatUpdated.asObservable()
-  }
-
-  //Get subscription to users object
-  getUsersUpdated() {
-    return this.usersUpdated.asObservable()
   }
 
   initChatService(chatId: string) {
@@ -63,44 +55,6 @@ export class ChatService {
     } else {
       this.updateChat()
     }
-  }
-
-  //Returns promise that returns the user with the given userId's username
-  //Must call get users before calling get user username
-  //Also, user must be subscribed to the chat
-  getUserUsername(userId: string) {
-    for (var i = 0; i < this.users.length; i++) {
-      const user = this.users[i]
-      if (user._id == userId) {
-        return user.username
-      }
-    }
-    //User is not subscribed to the chat
-    return null
-  }
-
-  //Retrieves user either from database or from local users variable
-  getUsers() {
-    if (this.chat == undefined || this.chat == null) return
-    this.users = []
-    for (var i = 0; i < this.chat.subs.length; i++) {
-      const userId = this.chat.subs[i]._id
-      this.getUser(userId).then(
-        (resolve: User) => {
-          this.users.push(resolve)
-      }
-      ).catch((reject) => console.log(reject))
-    }
-  }
-
-  getUser(userId: string) {
-    return new Promise((resolve, reject) => {
-      this.http.get(USER_API + userId)
-        .subscribe((user: RawUser) => {
-          if (user == undefined || user == null) reject("Error retrieving user")
-          resolve(this.getUserFromRawUser(user))
-        })
-    })
   }
 
   //Creates link between the socket on the client and the socket on the server
@@ -168,10 +122,5 @@ export class ChatService {
   //Update chat object
   updateChat() {
     this.chatUpdated.next({...this.chat})
-  }
-
-  //Update users object
-  updateUsers() {
-    this.usersUpdated.next([...this.users])
   }
 }
