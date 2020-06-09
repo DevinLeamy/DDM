@@ -1,14 +1,17 @@
 /* Contains the contents of every page */
 .nav-container {
   height: 100%; 
-  position: fixed; 
   width: 100%;
+  padding: 0px;
+  overflow: hidden;
 }
 
 .navbar-main {
   background-color: #2a4d69;
   color: white;
   height: 80px;
+  /* opacity: 0.5; */
+  top: 0px;
 }
 
 .sandwich-icon {

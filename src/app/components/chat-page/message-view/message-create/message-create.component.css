@@ -1,4 +1,14 @@
 .container {
-        bottom: 0;
         position: fixed;
+        height: 105px;
+        width: 60%;
+        bottom: 0px;
+        display: flex;
+        justify-content: center;
+        
 }
+
+.message-form {
+        width: 90%;
+}
+

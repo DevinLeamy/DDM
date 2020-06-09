@@ -1,5 +1,4 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core'
-import { Message } from '../../../models/message'
+import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core'
 import { UserService } from '../../../services/user'
 import { User } from 'src/app/models/user'
 import { Subscription } from 'rxjs'

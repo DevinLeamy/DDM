@@ -1,5 +1,5 @@
 <mat-card *ngIf="isAuthenticated()" class="container">
-  <form #messageForm="ngForm" (submit)="postMessage(messageForm)">
+  <form #messageForm="ngForm" (submit)="postMessage(messageForm)" class="message-form">
     <!-- Message Field -->
     <div class="form-input-container">
       <mat-form-field>

@@ -42,15 +42,3 @@
   color: whitesmoke;
   font-family: Arial, sans-serif;
 }
-
-hr {
-  background: none;
-  border: 0;
-  clear: both;
-  display: block;
-  float: none;
-  font-size: 0;
-  padding-top: 10px;
-  overflow: hidden;
-  visibility: hidden;
-}

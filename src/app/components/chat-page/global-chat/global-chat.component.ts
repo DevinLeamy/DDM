@@ -16,10 +16,10 @@ export class GlobalChatComponent {
   ngOnInit() {
     //Set chatId from router link id
     this.route.params
-    .subscribe(params => {
-      this.chatId = params["id"]
-      this.chatService.initChatService(this.chatId)
-      this.chatService.getChat()
-    })
+      .subscribe(params => {
+        this.chatId = params["id"]
+        this.chatService.initChatService(this.chatId)
+        this.chatService.getChat()
+      })
   }
 }

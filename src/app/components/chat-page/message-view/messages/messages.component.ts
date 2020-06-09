@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from "@angular/core"
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild, AfterViewChecked } from "@angular/core"
 import { ChatService } from "../../../../services/chat"
 import { UserService } from "../../../../services/user"
 import { Message } from "../../../../models/message"
@@ -12,6 +12,7 @@ import { Subscription } from "rxjs"
         styleUrls: ["messages.component.css"]
 })
 export class MessagesComponent {
+        @ViewChild("messages") private messageContainer: ElementRef
         chat: Chat
         chatSub: Subscription
         user: User
@@ -21,6 +22,8 @@ export class MessagesComponent {
 
         //Keeping the user object updated
         ngOnInit() {
+                //Scrolls to most recent messages
+                this.scrollToBottom();
                 //Creates link to UserService user
                 this.userSub = this.userService.getUserUpdated()
                         .subscribe(user => {
@@ -32,8 +35,13 @@ export class MessagesComponent {
                 this.chatSub = this.chatService.getChatUpdated()
                         .subscribe(chat => {
                                 this.chat = chat
+                                this.scrollToBottom()
                         })
                 this.chatService.getChat()
+        }
+
+        ngAfterViewChecked() {
+                this.scrollToBottom()
         }
 
         //Checks if logged in user sent the message
@@ -46,6 +54,18 @@ export class MessagesComponent {
         //Checks if logged in user received the message
         received(message: Message) : boolean {
                 return !this.sent(message)
+        }
+
+        //Scroll to most recent messages
+        scrollToBottom() {
+                console.log("Scrolling to bottom")
+                try {
+                        var currentPos = this.messageContainer.nativeElement.scrollHeight
+                        this.messageContainer.nativeElement.scrollTop = currentPos
+                        console.log(currentPos, this.messageContainer.nativeElement.scrollHeight)
+                } catch(err) {
+                        console.log(err)
+                }
         }
 
         //Avoid memory leak
