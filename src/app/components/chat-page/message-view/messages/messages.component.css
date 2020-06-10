@@ -1,6 +1,5 @@
 .messages {
-        width: 95%;
-        margin: auto;
+        width: 100%;
         overflow: scroll;
         height: 100%;
         /* background-color: olivedrab; */
@@ -20,7 +19,8 @@
 
 hr {
         background: none;
-        /* border: 0; */
+        border-color: rgb(173, 172, 172);
+        height: 1px;
         clear: both;
         display: block;
         float: none;

@@ -4,14 +4,16 @@
   flex-direction: row-reverse;
   /* background-color: #37474F; */
   background-color: rgb(74, 84, 88);
-  /* border-radius: 20px; */
-  min-width: 100%;
+  width: 100%;
+}
+
+.message-container {
+  order: 1;
+  width: calc(100% - 70px);
 }
 
 .message-body-container {
-  order: 1;
   margin-top: 20px;
-  margin-left: 10px;
   margin-bottom: 20px;
 }
 
@@ -40,6 +42,8 @@
 }
 
 .message-text {
+  text-align: right;
+  overflow-wrap: break-word;
   font-size: 15px;
   color: whitesmoke;
   font-family: Arial, sans-serif;
