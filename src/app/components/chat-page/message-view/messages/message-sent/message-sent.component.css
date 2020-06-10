@@ -1,26 +1,30 @@
 .container {
   display: flex;
-  float: right;
-  background-color: #37474F;
-  border-radius: 20px;
-  max-width: 80%;
+  flex-grow: 2;
+  flex-direction: row-reverse;
+  /* background-color: #37474F; */
+  background-color: rgb(74, 84, 88);
+  /* border-radius: 20px; */
+  min-width: 100%;
 }
 
 .message-body-container {
+  order: 1;
   margin-top: 20px;
   margin-left: 10px;
   margin-bottom: 20px;
 }
 
 .user-container {
-  float: right;
+  order: 0;
   min-width: 70px;
   max-width: 70px;
 }
 
 .user-icon-container {
-  width: 70px;
-  height: 70px;
+  width: 50px;
+  height: 50px;
+  margin: auto;
 }
 
 .username-container {

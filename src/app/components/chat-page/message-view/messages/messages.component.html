@@ -1,9 +1,12 @@
 <div #messages *ngIf="this.chat != undefined && this.chat != null" class="messages">
         <div class="chat-title-spacer"></div>
-        <hr>
         <div *ngFor="let message of chat.messages">
-                <app-message-received *ngIf="received(message);" [senderUsername]="message.senderUsername">{{message.text}}</app-message-received>
-                <app-message-sent *ngIf="sent(message);" [senderUsername]="message.senderUsername">{{message.text}}</app-message-sent>
+                <app-message-received *ngIf="received(message);"[senderUsername]="message.senderUsername">
+                        {{message.text}}
+                </app-message-received>
+                <app-message-sent *ngIf="sent(message);" [senderUsername]="message.senderUsername">
+                        {{message.text}}
+                </app-message-sent>  
                 <hr>
         </div>
         <!-- Need to add bottom spacer for when user visiting chat is not logged in -->
