@@ -1,6 +1,6 @@
 <div #messages *ngIf="this.chat != undefined && this.chat != null" class="messages">
         <div class="chat-title-spacer"></div>
-        <div *ngFor="let message of chat.messages">
+        <div *ngFor="let message of compressMessages(chat.messages)">
                 <app-message-received *ngIf="received(message);"[senderUsername]="message.senderUsername">
                         {{message.text}}
                 </app-message-received>

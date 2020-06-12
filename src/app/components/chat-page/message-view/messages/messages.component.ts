@@ -44,6 +44,24 @@ export class MessagesComponent {
                 this.scrollToBottom()
         }
 
+        //Compresses messages
+        compressMessages(messages: Message[]) : Message[] {
+                if (messages.length == 0) {
+                        return []
+                }
+                var compressedMessages: Message[] = [{...messages[0]}]
+                for (var i = 1; i < messages.length; i++) {
+                        var len = compressedMessages.length
+                        if (messages[i].senderId == compressedMessages[len-1].senderId) {
+                                compressedMessages[len-1].text = compressedMessages[len-1].text
+                                        .concat("\n", messages[i].text)
+                        } else {
+                                compressedMessages.push({...messages[i]})
+                        }
+                }
+                return compressedMessages
+        }
+
         //Checks if logged in user sent the message
         sent(message: Message) : boolean {
                 //Checks if user exists

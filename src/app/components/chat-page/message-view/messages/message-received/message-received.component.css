@@ -2,46 +2,69 @@
   display: flex;
   /* background-color: #616161; */
   /* background-color: #536878; */
-  background-color: #37474F;
+  /* background-color: #37474F; */
+  background-color: rgb(85, 100, 109);
   width: 100%;
 }
 .message-container {
+  margin-left: 5px;
+  margin-top: 5px;
   order: 1;
   width: calc(100% - 70px);
+  display: flex;
+  flex-direction: column;
+}
+
+.message-header {
+  order: 0;
+  display: flex;
 }
 .message-body-container {
-  margin-top: 20px;
+  order: 1;
+  margin-top: 5px;
   margin-bottom: 20px;
 }
 
-.user-container {
+.user-icon-container {
   order: 0;
   min-width: 70px;
   max-width: 70px;
 }
 
-.user-icon-container {
+.user-icon {
+  width: 70px;
+  height: 70px;
+  margin-top: 5px;
+}
+/* .user-icon-container {
+  order: 0;
   width: 50px;
   height: 50px;
+  top: 50%;
   margin: auto;
-}
+} */
 
-.username-container {
+/* .username-container {
+  order: 1;
   word-wrap: break-all;
   margin-top: -20px;
   width: 70px;
   height: 30px;
   text-align: center;
-}
+} */
 
 .username {
+  order: 0;
   font-family: Arial, sans-serif;
-  color: #a8dbff;
+  font-weight: 400;
+  color: hotpink;
+  font-size: 20px;
 }
 
 .message-text {
+  white-space: pre-line;
   overflow-wrap: break-word;
   font-size: 15px;
-  color: whitesmoke;
+  color: white;
   font-family: Arial, sans-serif;
 }
