@@ -1,20 +1,30 @@
-.column {
-        float: left;
-        height: 100%;
-        overflow: hidden;
-}
-
 .left {
-        background-color: red;
+        position: fixed;
+        top: 80px;
+        left: 0%;
+        height: 100%;
+        /* background-color: red; */
+        background-color: rgb(38, 49, 54);
         width: 20%;
+
 }
 
 .middle {
-        background-color: orange;
+        position: fixed;
+        top: 80px;
+        height: 100%;
+        left: 21%;
+        /* background-color: orange; */
+        background-color: rgb(38, 49, 54);
         width: 20%;
 }
 
 .right {
-        background-color: blue;
-        width: 60%;
+        position: fixed;
+        top: 80px;
+        right: 0%;
+        height: 100%;
+        /* background-color: blue; */
+        background-color: rgb(50, 64, 71);
+        width: 58%;
 }

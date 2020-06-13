@@ -1,18 +1,18 @@
 <app-navbar>
-        <div class="column left">
-                <h1>Left</h1>
+        <div class="left">
+                <h1>Chats</h1>
                 <div class="subscriptions-view">
                         <span *ngFor="let sub of this.user.chatSubs">
                                 {{sub.title}}
                         </span>
                 </div>
         </div>
-        <div class="column middle">
-                <h1>Middle</h1>
+        <div class="middle">
+                <h1>Friends</h1>
         </div>
 
-        <div class="column right">
-                <h1>Right</h1>
+        <div class="right">
+                <h1>User</h1>
                 <span *ngIf="this.user != undefined">{{this.user.username}}</span> 
         </div>
        

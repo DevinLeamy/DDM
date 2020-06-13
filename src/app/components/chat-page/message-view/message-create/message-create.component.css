@@ -1,7 +1,8 @@
 .container {
         position: fixed;
-        height: 105px;
+        /* height: 105px; */
         width: 58%;
+        border-left: 65px solid rgb(38, 49, 54);
         bottom: 0px;
         display: flex;
         justify-content: center; 
