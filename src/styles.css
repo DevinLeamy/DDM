@@ -6,6 +6,11 @@ body, html {
   overflow: scroll;
 }
 
+body {
+  /* background-color: #37474F; */
+  background-color: rgb(63, 81, 90);
+}
+
 ::-webkit-scrollbar {
   width: 0px;
   background: transparent; /* make scrollbar transparent */

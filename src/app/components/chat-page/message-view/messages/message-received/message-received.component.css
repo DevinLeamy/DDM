@@ -3,63 +3,53 @@
   /* background-color: #616161; */
   /* background-color: #536878; */
   /* background-color: #37474F; */
-  background-color: rgb(85, 100, 109);
+  background-color: rgb(50, 64, 71);
   width: 100%;
 }
 .message-container {
-  margin-left: 5px;
   margin-top: 5px;
   order: 1;
-  width: calc(100% - 70px);
+  width: calc(100% - 75px);
   display: flex;
   flex-direction: column;
+  margin-bottom: 10px;
 }
 
-.message-header {
+.message-header-container {
   order: 0;
   display: flex;
+  margin-left: 5px;
 }
+
 .message-body-container {
   order: 1;
   margin-top: 5px;
-  margin-bottom: 20px;
+  margin-left: 5px;
 }
 
 .user-icon-container {
   order: 0;
-  min-width: 70px;
-  max-width: 70px;
+  min-width: 65px;
+  max-width: 65px;
+  padding-top: 5px;
+  background-color: rgb(38, 49, 54); 
 }
 
 .user-icon {
-  width: 70px;
-  height: 70px;
+  width: 65px;
+  height: 65px;
   margin-top: 5px;
+  margin: center;
 }
-/* .user-icon-container {
-  order: 0;
-  width: 50px;
-  height: 50px;
-  top: 50%;
-  margin: auto;
-} */
-
-/* .username-container {
-  order: 1;
-  word-wrap: break-all;
-  margin-top: -20px;
-  width: 70px;
-  height: 30px;
-  text-align: center;
-} */
 
 .username {
   order: 0;
   font-family: Arial, sans-serif;
   font-weight: 400;
   color: hotpink;
-  font-size: 20px;
+  font-size: 18px;
 }
+
 
 .message-text {
   white-space: pre-line;
@@ -68,3 +58,8 @@
   color: white;
   font-family: Arial, sans-serif;
 }
+
+
+
+
+

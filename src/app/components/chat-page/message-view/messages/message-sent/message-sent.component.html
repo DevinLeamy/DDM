@@ -1,20 +1,18 @@
 <div class="container">
-    <div class="user-container">
-      <!-- User icon -->
-      <div class="user-icon-container">
-        <app-user-icon></app-user-icon>
-      </div>
-      <!-- Username -->
-      <div class="username-container">
-          <p class="username">{{this.senderUsername}}</p>
-      </div>
-    </div>
   <div class="message-container">
+    <div class="message-header-container">
+        <div class="username">{{this.senderUsername}}</div>
+        <!-- Timestamp -->
+    </div>
     <!-- Text -->
     <div class="message-body-container">
-        <span class="message-text"><ng-content></ng-content></span>
+        <p class="message-text"><ng-content></ng-content></p>
     </div>
-
-    <!-- Timestamp -->
+  </div>
+  <div class="user-icon-container">
+    <div class="user-icon">
+        <app-user-icon></app-user-icon>
+    </div>
   </div>
 </div>
+  

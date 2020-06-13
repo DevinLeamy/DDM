@@ -1,11 +1,10 @@
 .container {
         position: fixed;
         height: 105px;
-        width: 60%;
+        width: 58%;
         bottom: 0px;
         display: flex;
-        justify-content: center;
-        
+        justify-content: center; 
 }
 
 .message-form {

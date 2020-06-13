@@ -1,9 +1,9 @@
 .container {
         position: fixed;
-        top: 80;
+        top: 80px;
         display: inline-flex;
         background-color: #6db6ee;
-        width: 100%;
+        width: 58%;
 }
 
 .icon-container {
