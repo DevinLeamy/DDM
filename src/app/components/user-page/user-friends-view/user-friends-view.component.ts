@@ -1,0 +1,46 @@
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from "@angular/core"
+import { Subscription } from "rxjs"
+import { UserService } from "../../../services/user"
+import { User } from "../../../models/user"
+
+@Component({
+        selector: "app-user-friends-view",
+        templateUrl: "user-friends-view.component.html",
+        styleUrls: ["user-friends-view.component.css"]
+})
+export class UserFriendsViewComponent {
+        @ViewChild("friendRequestButton") friendReqBtn: ElementRef
+        btnSelected: Boolean = false
+        friendReqBtnText: String = "+"
+        user: User
+        userSub: Subscription
+        constructor(private userService: UserService) {}
+        
+        ngOnInit() {
+                this.userSub = this.userService.getUserUpdated()
+                        .subscribe(user => {
+                                this.user = user
+                        })
+                this.userService.getUser()
+                console.log(this.friendReqBtn)
+        }
+
+        onFriendReqBtnClick() {
+                this.btnSelected = !this.btnSelected
+                if (this.btnSelected) { this.friendReqBtnText = "-" } 
+                else { this.friendReqBtnText = "+" }
+        }
+
+        friendReqBtnSelected() {
+                return this.btnSelected
+        }
+
+
+
+        //Avoid memory leaks
+        ngOnDestroy() {
+                this.userSub.unsubscribe()
+        }
+
+
+}

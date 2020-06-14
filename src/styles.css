@@ -15,3 +15,8 @@ body {
   width: 0px;
   background: transparent; /* make scrollbar transparent */
 }
+
+/* Removes blue border of selected buttons */
+button:focus {
+  outline: 0;
+}

@@ -1,0 +1,27 @@
+<div class="container">
+        <div class="header-container">
+                <span class="header">
+                        Friends
+                </span>
+        </div>
+        <div class="friend-request-container">
+                <div class="friend-request">
+                        <div class="friend-request-text">
+                                Send Friend Request
+                        </div>
+                        <button #friendRequestButton class="friend-request-button" (click)="onFriendReqBtnClick()">
+                                {{this.friendReqBtnText}}
+                        </button>
+                </div>
+        </div>
+        <!-- Only display friend-request-form if friend-request-button is selected -->
+        <div class="friend-request-form" *ngIf="friendReqBtnSelected()">
+                <!-- user email -->
+                <h1>Form</h1>
+        </div>
+        <div class="friends-list">
+                <span *ngFor="let friend of this.user.friends">
+                        {{friend.username}}
+                </span>
+        </div>
+</div>

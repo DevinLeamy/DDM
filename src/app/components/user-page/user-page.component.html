@@ -1,6 +1,7 @@
 <app-navbar>
         <div class="left">
                 <h1>Chats</h1>
+                <h1>Create new global chat</h1>
                 <div class="subscriptions-view">
                         <span *ngFor="let sub of this.user.chatSubs">
                                 {{sub.title}}
@@ -8,12 +9,18 @@
                 </div>
         </div>
         <div class="middle">
-                <h1>Friends</h1>
+               <app-user-friends-view></app-user-friends-view>
         </div>
 
         <div class="right">
                 <h1>User</h1>
                 <span *ngIf="this.user != undefined">{{this.user.username}}</span> 
+                <h1>Friend requests</h1>
+                <div class="friend-requests-view">
+                        <span *ngFor="let friend of this.user.friendReqs">
+                                {{friend.username}}
+                        </span>
+                </div>
         </div>
        
 </app-navbar>

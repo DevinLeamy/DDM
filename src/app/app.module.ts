@@ -36,6 +36,7 @@ import { ChatTitleComponent } from  "./components/chat-page/message-view/chat-ti
 import { ChatSubscribeComponent } from "./components/chat-page/message-view/chat-subscribe/chat-subscribe.component"
 import { SubscribersViewComponent } from "./components/chat-page/subscribers-view/subscribers-view.component"
 import { MessagesComponent } from "./components/chat-page/message-view/messages/messages.component"
+import { UserFriendsViewComponent } from "./components/user-page/user-friends-view/user-friends-view.component"
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { MessagesComponent } from "./components/chat-page/message-view/messages/
     ChatTitleComponent,
     ChatSubscribeComponent,
     SubscribersViewComponent,
-    MessagesComponent
+    MessagesComponent,
+    UserFriendsViewComponent
   ],
   imports: [
     BrowserModule,
