@@ -14,13 +14,6 @@
 
         <div class="right">
                 <h1>User</h1>
-                <span *ngIf="this.user != undefined">{{this.user.username}}</span> 
-                <h1>Friend requests</h1>
-                <div class="friend-requests-view">
-                        <span *ngFor="let friend of this.user.friendReqs">
-                                {{friend.username}}
-                        </span>
-                </div>
         </div>
        
 </app-navbar>

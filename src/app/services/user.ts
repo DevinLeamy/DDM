@@ -44,13 +44,13 @@ export class UserService {
     }
   }
 
-  sendFriendRequestToEmail(userEmail) {
+  sendFriendRequestToEmail(userEmail: String) {
     const body = {
       email: userEmail
     }
     var headers = new HttpHeaders()
     headers = headers.append('Content-type', 'application/json')
-    this.http.post(BASE_URL + "send-friend-request", body, { headers: headers })
+    this.http.post(BASE_URL + "friend-request", body, { headers: headers })
       .subscribe((res: {status: number}) => {
         if (res.status === 0) {
           //Unsuccessful

@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from "@angular/co
 import { Subscription } from "rxjs"
 import { UserService } from "../../../services/user"
 import { User } from "../../../models/user"
+import { NgForm } from '@angular/forms'
 
 @Component({
         selector: "app-user-friends-view",
@@ -31,8 +32,22 @@ export class UserFriendsViewComponent {
                 else { this.friendReqBtnText = "+" }
         }
 
+        sendFriendReq(requestForm: NgForm) {
+                const email = requestForm.value.email.trim()
+                if (email == "" || email == "null" || email == undefined) { return }
+                this.userService.sendFriendRequestToEmail(email)
+        }
+
         friendReqBtnSelected() {
                 return this.btnSelected
+        }
+
+        acceptRequest(_id) {
+
+        }
+
+        declineRequest(_id) {
+                
         }
 
 

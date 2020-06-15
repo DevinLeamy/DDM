@@ -15,13 +15,39 @@
                 </div>
         </div>
         <!-- Only display friend-request-form if friend-request-button is selected -->
-        <div class="friend-request-form" *ngIf="friendReqBtnSelected()">
+        <div class="friend-request-form-container" *ngIf="friendReqBtnSelected()">
                 <!-- user email -->
-                <h1>Form</h1>
+                <!-- Change to mat-expansion-panel -->
+                <form #friendReqForm="ngForm" (submit)="sendFriendReq(friendReqForm)" class="friend-request-form">
+                        <div class="friend-request-input-container">
+                                <mat-form-field>
+                                        <input
+                                                matInput
+                                                type="text"
+                                                name="email"
+                                                ngModel
+                                                placeholder="user email"
+                                                #email="ngModel"
+                                                class="friend-request-email-field"
+                                        >
+                                </mat-form-field>
+                                <button mat-raised-button type="submit" class="form-submit-button">
+                                        Send Request
+                                </button>
+                        </div>
+                </form>
         </div>
         <div class="friends-list">
                 <span *ngFor="let friend of this.user.friends">
                         {{friend.username}}
                 </span>
+        </div>
+
+        <div class="friend-requests-list-container">
+                <div class="friend-request" *ngFor="let request of this.user.friendReqs">
+                        <span>{{request.username}}</span>
+                        <button mat-raised-button (click)="acceptRequest(request._id)">Accept</button>
+                        <button mat-raised-button (click)="declineRequest(request._id)">Decline</button>
+                </div>
         </div>
 </div>

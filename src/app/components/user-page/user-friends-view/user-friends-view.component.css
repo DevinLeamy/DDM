@@ -63,4 +63,19 @@
         width: 36px;
         text-align: center;
 }
+
+.friend-request-form-container {
+        order: 2;
+}
 /* -------------------------------------------------------- */
+
+/* Friend Request list */
+.friend-requests-list-container {
+        order: 3;
+        width: 100%;
+}
+
+.friend-request {
+        height: 20px;
+        width: 100%;
+}
