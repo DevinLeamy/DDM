@@ -1,48 +1,60 @@
 <div class="container">
-        <div class="header-container">
-                <span class="header">
-                        Friends
-                </span>
+        <div class="header-container friends-header-container">
+                <div class="header-icon-container">
+                        <app-user-icon></app-user-icon>
+                </div>
+                <div class="header-text-container">
+                        <div class="header-text friends-header-text">
+                                Friends
+                        </div>
+                </div>
+        </div>
+       
+        <div class="friends-list-container">
+                <div class="friend-container" *ngFor="let friend of this.user.friends">
+                        <div class="friend-icon-container">
+                                <app-user-icon></app-user-icon>
+                        </div>
+                        <div class="friend-username-container">
+                                <span class="friend-username">
+                                          {{friend.username}}
+                                </span>
+                        </div>
+                </div>
         </div>
         <div class="friend-request-container">
                 <div class="friend-request">
                         <div class="friend-request-text">
-                                Send Friend Request
+                                Friends
                         </div>
                         <button #friendRequestButton class="friend-request-button" (click)="onFriendReqBtnClick()">
                                 {{this.friendReqBtnText}}
                         </button>
                 </div>
+                <!-- Only display friend-request-form if friend-request-button is selected -->
+                <div class="friend-request-form-container" *ngIf="friendReqBtnSelected()">
+                        <!-- user email -->
+                        <!-- Change to mat-expansion-panel -->
+                        <form #friendReqForm="ngForm" (submit)="sendFriendReq(friendReqForm)" class="friend-request-form">
+                                <div class="friend-request-input-container">
+                                        <mat-form-field>
+                                                <input
+                                                        matInput
+                                                        type="text"
+                                                        name="email"
+                                                        ngModel
+                                                        placeholder="user email"
+                                                        #email="ngModel"
+                                                        class="friend-request-email-field"
+                                                >
+                                        </mat-form-field>
+                                        <button mat-raised-button type="submit" class="form-submit-button">
+                                                Send Request
+                                        </button>
+                                </div>
+                        </form>
+                </div>
         </div>
-        <!-- Only display friend-request-form if friend-request-button is selected -->
-        <div class="friend-request-form-container" *ngIf="friendReqBtnSelected()">
-                <!-- user email -->
-                <!-- Change to mat-expansion-panel -->
-                <form #friendReqForm="ngForm" (submit)="sendFriendReq(friendReqForm)" class="friend-request-form">
-                        <div class="friend-request-input-container">
-                                <mat-form-field>
-                                        <input
-                                                matInput
-                                                type="text"
-                                                name="email"
-                                                ngModel
-                                                placeholder="user email"
-                                                #email="ngModel"
-                                                class="friend-request-email-field"
-                                        >
-                                </mat-form-field>
-                                <button mat-raised-button type="submit" class="form-submit-button">
-                                        Send Request
-                                </button>
-                        </div>
-                </form>
-        </div>
-        <div class="friends-list">
-                <span *ngFor="let friend of this.user.friends">
-                        {{friend.username}}
-                </span>
-        </div>
-
         <div class="friend-requests-list-container">
                 <div class="friend-request" *ngFor="let request of this.user.friendReqs">
                         <span>{{request.username}}</span>

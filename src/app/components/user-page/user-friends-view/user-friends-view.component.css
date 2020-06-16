@@ -11,35 +11,57 @@
 
 /* Container header */
 .header-container {
-        order: 0;
         display: flex;
         width: 100%;
-        height: 30px;
-        justify-content: center;
-        align-items: center;
-        background-color: rgb(38, 49, 54);
-        overflow-x: hidden;
-        top: 10px;
+        height: 40px;
+        background-color: rgb(28, 171, 238);
+        border-radius: 10px;
 }
 
-.header {
-        color: white;
-        font-family: Arial, sans-serif;
-        font-weight: 300;
-        font-size: 25px;
+.header-icon-container {
+        order: 1;
+        height: 100%;
+        width: 40px;
+} 
+
+.header-text-container {
+        order: 0;
+        height: 100%;
+        width: calc(100% - 55px);
+        display: flex;
+        align-items: center;
 }
+
+.header-text {
+        text-align: center;
+        font-size: 25px;
+        font-weight: 400;
+        width: 100%;
+}
+
+.friends-header-container {
+        order: 0;
+}
+
+.friends-header-text {
+        color: rgb(51, 51, 51);
+}
+
 /* -------------------------------------------------------- */
 
 /* Friend Request Button */
 .friend-request-container {
-        order: 1;
+        order: 2;
         margin-top: 5px;
-        height: 36px;
         width: 100%;
         background-color: rgb(38, 49, 54);
+        overflow: auto;
+        display: flex;
+        flex-direction: column;
 }
 
 .friend-request {
+        order: 0;
         display: flex;
         height: 100%;
         width: 100%;
@@ -51,12 +73,12 @@
         color: white;
         font-family: Arial, sans-serif;
         width: calc(100% - 10px);
-
+        height: 100%;
 }
 
 .friend-request-button {
         order: 1;
-        font-size: 30px;
+        font-size: 20px;
         background-color: rgb(38, 49, 54);
         color: white;
         font-family: Arial, sans-serif;
@@ -65,7 +87,7 @@
 }
 
 .friend-request-form-container {
-        order: 2;
+        order: 1;
 }
 /* -------------------------------------------------------- */
 
@@ -78,4 +100,41 @@
 .friend-request {
         height: 20px;
         width: 100%;
+}
+/* -------------------------------------------------------- */
+
+/* Friends list */
+.friends-list-container {
+        background-color: rgb(38, 49, 54);
+        order: 1;
+        width: 100%;
+        margin-top: 5px;
+        border-radius: 10px;
+}
+
+.friend-container {
+        width: 100%;
+        display: flex;
+        height: 50px;
+        margin-bottom: 5px;
+}
+
+.friend-icon-container {
+        order: 0;
+        height: 100%;
+        width: 50px;
+}
+
+.friend-username-container {
+        order: 1;
+        width: calc(100% - 50px);
+        height: 50px;
+        display: flex;
+        align-items: center;
+}
+.friend-username {
+        text-align: center;
+        width: 100%;
+        font-size: 19px;
+        color: hotpink;
 }
