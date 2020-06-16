@@ -79,7 +79,25 @@ export class UserService {
           // Unsuccessful
         }
       })
+  }
 
+  declineFriendRequest(requestId: string, requestUsername: string) {
+    const body = {
+      request: {
+        _id: requestId,
+        username: requestUsername
+      }
+    }
+    var headers = new HttpHeaders()
+    headers = headers.append('Content-type', 'application/json')
+    this.http.post(BASE_URL + "decline-request", body, { headers: headers }) 
+      .subscribe((res: {status: number}) => {
+        if (res.status === 1) {
+          //Success
+        } else {
+          // Unsuccessful
+        }
+      })
   }
 
   updateUser() {

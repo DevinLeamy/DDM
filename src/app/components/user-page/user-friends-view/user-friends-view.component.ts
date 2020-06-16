@@ -47,10 +47,8 @@ export class UserFriendsViewComponent {
         }
 
         declineRequest(requestId, requestUsername) {
-                
+                this.userService.declineFriendRequest(requestId, requestUsername)
         }
-
-
 
         //Avoid memory leaks
         ngOnDestroy() {

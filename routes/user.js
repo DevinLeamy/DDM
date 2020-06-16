@@ -56,7 +56,7 @@ router.post("/friend-request", authenticateToken, function(req, res) {
 //Status 1: Success | Status 0: Unsuccessful
 router.post("/accept-request", authenticateToken, function(req, res) {
   //Both users become friends of one another
-  const user = req.user;
+  const user = req.user
   const request = req.body.request
   removeRequest(request._id, request.username, user._id).then(
     () => addFriend(request._id, request.username, user._id).then(
@@ -67,6 +67,13 @@ router.post("/accept-request", authenticateToken, function(req, res) {
   ).catch((reject) => {console.log(reject); res.json({status: 0})})
 })
 
+router.post("/decline-request", authenticateToken, function(req, res) {
+  const user = req.user
+  const request = req.body.request
+  removeRequest(request._id, request.username, user._id).then(
+    () => res.json({status: 1})
+  ).catch((reject) => {console.log(reject); res.json({status: 0})})
+})
 //----------------------------Middle ware-------------------------------
 
 //Checks if tokens exists and extracts the user from it if it does
