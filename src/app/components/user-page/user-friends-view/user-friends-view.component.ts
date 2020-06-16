@@ -23,7 +23,6 @@ export class UserFriendsViewComponent {
                                 this.user = user
                         })
                 this.userService.getUser()
-                console.log(this.friendReqBtn)
         }
 
         onFriendReqBtnClick() {
@@ -46,7 +45,7 @@ export class UserFriendsViewComponent {
                 this.userService.acceptFriendRequest(requestId, requestUsername)
         }
 
-        declineRequest(requestId, requestUsername) {
+        declineRequest(requestId: string, requestUsername: string) {
                 this.userService.declineFriendRequest(requestId, requestUsername)
         }
 

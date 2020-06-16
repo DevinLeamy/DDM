@@ -74,10 +74,11 @@ export class UserService {
       .subscribe((res: {status: number}) => {
         if (res.status === 1) {
           // Success
-          //Update friend list and push changes
-        } else {
-          // Unsuccessful
-        }
+          this.user.friendReqs = this.user.friendReqs
+            .filter(request => (!(request._id === requestId && request.username === request.username)))
+          this.user.friends.push({_id: requestId, username: requestUsername})
+          this.updateUser()
+        } 
       })
   }
 
@@ -94,8 +95,9 @@ export class UserService {
       .subscribe((res: {status: number}) => {
         if (res.status === 1) {
           //Success
-        } else {
-          // Unsuccessful
+          this.user.friendReqs = this.user.friendReqs
+            .filter(request => (!(request._id === requestId && request.username === request.username)))
+          this.updateUser()
         }
       })
   }

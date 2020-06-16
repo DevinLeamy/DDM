@@ -1,5 +1,5 @@
 <app-navbar>
-        <div class="left">
+        <div class="left" *ngIf="this.user != null && this.user != undefined">
                 <h1>Chats</h1>
                 <h1>Create new global chat</h1>
                 <div class="subscriptions-view">
@@ -8,11 +8,11 @@
                         </span>
                 </div>
         </div>
-        <div class="middle">
+        <div class="middle" *ngIf="this.user != null && this.user != undefined">
                <app-user-friends-view></app-user-friends-view>
         </div>
 
-        <div class="right">
+        <div class="right" *ngIf="this.user != null && this.user != undefined">
                 <h1>User</h1>
         </div>
        
