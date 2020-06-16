@@ -14,6 +14,6 @@
                 <!-- <hr class="invisible"> -->
         </div>
         <!-- Need to add bottom spacer for when user visiting chat is not logged in -->
-        <div *ngIf="this.user == undefined || this.user == null" class="chat-title-spacer"></div>
+        <div *ngIf="this.user === undefined || this.user === null" class="no-user-spacer"></div>
         <div *ngIf="this.user != undefined && this.user != null" class="chat-message-create-spacer"></div>
 </div>
