@@ -6,7 +6,6 @@
         /* background-color: red; */
         background-color: rgb(38, 49, 54);
         width: 20%;
-        border-radius: 10px;
 }
 
 .middle {
@@ -25,5 +24,4 @@
         /* background-color: blue; */
         background-color: rgb(50, 64, 71);
         width: 58%;
-        border-radius: 10px;
 }
