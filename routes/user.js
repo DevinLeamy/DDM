@@ -53,6 +53,20 @@ router.post("/friend-request", authenticateToken, function(req, res) {
   ).catch(() => res.json({status: 0}))
 })
 
+//Status 1: Success | Status 0: Unsuccessful
+router.post("/accept-request", authenticateToken, function(req, res) {
+  //Both users become friends of one another
+  const user = req.user;
+  const request = req.body.request
+  removeRequest(request._id, request.username, user._id).then(
+    () => addFriend(request._id, request.username, user._id).then(
+      () => addFriend(user._id, user.username, request._id).then(
+        () => res.json({status: 1})
+      ).catch((reject) => {console.log(reject); res.json({status: 0})})
+    ).catch((reject) => {console.log(reject); res.json({status: 0})})
+  ).catch((reject) => {console.log(reject); res.json({status: 0})})
+})
+
 //----------------------------Middle ware-------------------------------
 
 //Checks if tokens exists and extracts the user from it if it does
@@ -156,6 +170,38 @@ function sendFriendRequest(senderId, senderUsername, receiverId) {
         }
         resolve(user)
       })
+  })
+}
+
+///Request { _id: requestId, username: requestUsername } will be removed from friendReqs of user with userId
+function removeRequest(requestId, requestUsername, userId) {
+  return new Promise((resolve, reject) => {
+    if (requestId === null || requestId === undefined || requestUsername === null || requestUsername === undefined || userId === null || userId === undefined) {
+      reject("Bad data")
+    }
+    database.users.update(
+      {_id: mongojs.ObjectId(userId)},
+      {$pull: { friendReqs: {_id: requestId, username: requestUsername}}}, function(err, user) {
+        if (err || user === null || user === undefined) { reject("Error pulling request from database") }
+        resolve(user)
+      }
+    )
+  })
+}
+
+//Friend { _id: friendId, username: friendUsername } will be added to friend list of user with userId
+function addFriend(friendId, friendUsername, userId) {
+  return new Promise((resolve, reject) => {
+    if (friendId === null || friendId === undefined || friendUsername === null || friendUsername === undefined || userId === null || userId === undefined) {
+      reject("Bad data")
+    }
+    database.users.update(
+      {_id: mongojs.ObjectId(userId)},
+      {$push: { friends: {_id: friendId, username: friendUsername}}}, function(err, user) {
+        if (err || user === undefined || user === null) { reject("Error adding friend to user database")}
+        resolve(user)
+      }
+    )
   })
 }
 

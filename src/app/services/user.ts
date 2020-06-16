@@ -61,6 +61,27 @@ export class UserService {
       })
   }
 
+  acceptFriendRequest(requestId: string, requestUsername: string) {
+    const body = {
+      request: {
+        _id: requestId,
+        username: requestUsername
+      }
+    }
+    var headers = new HttpHeaders()
+    headers = headers.append('Content-type', 'application/json')
+    this.http.post(BASE_URL + "accept-request", body, { headers: headers })
+      .subscribe((res: {status: number}) => {
+        if (res.status === 1) {
+          // Success
+          //Update friend list and push changes
+        } else {
+          // Unsuccessful
+        }
+      })
+
+  }
+
   updateUser() {
     this.userUpdated.next({...this.user})
   }

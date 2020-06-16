@@ -42,11 +42,11 @@ export class UserFriendsViewComponent {
                 return this.btnSelected
         }
 
-        acceptRequest(_id) {
-
+        acceptRequest(requestId: string, requestUsername: string) {
+                this.userService.acceptFriendRequest(requestId, requestUsername)
         }
 
-        declineRequest(_id) {
+        declineRequest(requestId, requestUsername) {
                 
         }
 

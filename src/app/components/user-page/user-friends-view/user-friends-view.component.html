@@ -46,8 +46,8 @@
         <div class="friend-requests-list-container">
                 <div class="friend-request" *ngFor="let request of this.user.friendReqs">
                         <span>{{request.username}}</span>
-                        <button mat-raised-button (click)="acceptRequest(request._id)">Accept</button>
-                        <button mat-raised-button (click)="declineRequest(request._id)">Decline</button>
+                        <button mat-raised-button (click)="acceptRequest(request._id, request.username)">Accept</button>
+                        <button mat-raised-button (click)="declineRequest(request._id, request.username)">Decline</button>
                 </div>
         </div>
 </div>
