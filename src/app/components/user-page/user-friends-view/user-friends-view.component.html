@@ -10,7 +10,7 @@
                 </div>
         </div>
        
-        <div class="friends-list-container">
+        <div *ngIf="this.user.friends.length > 0" class="friends-list-container">
                 <div class="friend-container" *ngFor="let friend of this.user.friends">
                         <div class="friend-icon-container">
                                 <app-user-icon></app-user-icon>
@@ -24,9 +24,6 @@
         </div>
         <div class="friend-request-container">
                 <div class="friend-request">
-                        <div class="friend-request-text">
-                                Friends
-                        </div>
                         <button #friendRequestButton class="friend-request-button" (click)="onFriendReqBtnClick()">
                                 {{this.friendReqBtnText}}
                         </button>
@@ -53,6 +50,16 @@
                                         </button>
                                 </div>
                         </form>
+                </div>
+        </div>
+        <div *ngIf="this.user.friendReqs.length > 0" class="header-container request-header-container">
+                <div class="header-icon-container">
+                        <app-user-icon></app-user-icon>
+                </div>
+                <div class="header-text-container">
+                        <div class="header-text request-header-text">
+                                Requests
+                        </div>
                 </div>
         </div>
         <div class="friend-requests-list-container">
