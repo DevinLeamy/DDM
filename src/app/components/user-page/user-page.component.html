@@ -1,12 +1,6 @@
 <app-navbar>
         <div class="left" *ngIf="this.user != null && this.user != undefined">
-                <h1>Chats</h1>
-                <h1>Create new global chat</h1>
-                <div class="subscriptions-view">
-                        <span *ngFor="let sub of this.user.chatSubs">
-                                {{sub.title}}
-                        </span>
-                </div>
+                <app-user-chats-view></app-user-chats-view>
         </div>
         <div class="middle" *ngIf="this.user != null && this.user != undefined">
                <app-user-friends-view></app-user-friends-view>
