@@ -6,6 +6,7 @@
         /* background-color: red; */
         /* background-color: rgb(38, 49, 54); */
         width: 20%;
+        min-width: 180px;
 }
 
 .middle {
@@ -14,6 +15,7 @@
         height: calc(100% - 80px);
         left: 21%;
         width: 20%;
+        min-width: 180px;
 }
 
 .right {

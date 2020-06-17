@@ -25,3 +25,7 @@ button:focus {
 div:focus {
   outline: 0;
 }
+
+span:focus {
+  outline: 0;
+}
