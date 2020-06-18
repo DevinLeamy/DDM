@@ -3,7 +3,6 @@
         top: 80px;
         left: 0%;
         height: calc(100% - 80px);
-        /* background-color: red; */
         /* background-color: rgb(38, 49, 54); */
         width: 20%;
         min-width: 180px;
@@ -23,7 +22,6 @@
         top: 80px;
         height: calc(100% - 80px);
         right: 0%;
-        /* background-color: blue; */
         background-color: rgb(50, 64, 71);
         width: 58%;
 }

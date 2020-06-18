@@ -28,6 +28,11 @@
   font-size: 18px;
 }
 
+.home-link {
+  font-size: 25px;
+  font-weight: 400;
+}
+
 .button-register {
   color: #2a4d69;
   background-color: white;

@@ -1,5 +1,24 @@
-<div *ngIf="this.chat != undefined && this.chat != null" class="container">
-        <div class="subscriber" *ngFor="let subscriber of this.chat.subs">
-                <span class="subscriber-info">{{subscriber.username}}</span>
+<div class="header-container">
+        <div class="header-icon-container">
+                <app-user-icon></app-user-icon>
+        </div>
+        <div class="header-text-container">
+                <div class="header-text subscribers-header-text">
+                        Subscribers
+                </div>
+        </div>
+</div>
+
+
+<div *ngIf="this.chat != undefined && this.chat != null" class="subscribers-view-container">
+        <div class="subscriber-container" *ngFor="let sub of this.chat.subs">
+                <div class="subscriber-icon-container">
+                        <app-user-icon></app-user-icon>
+                </div>
+                <div class="subscriber-username-container">
+                        <div class="subscriber-username">
+                                {{sub.username}}
+                        </div>
+                </div>
         </div>
 </div>
