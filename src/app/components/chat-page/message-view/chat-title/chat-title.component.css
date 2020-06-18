@@ -3,7 +3,7 @@
         top: 80px;
         display: inline-flex;
         background-color: #6db6ee;
-        width: 58%;
+        width: calc(60% - 20px);
 }
 
 .icon-container {

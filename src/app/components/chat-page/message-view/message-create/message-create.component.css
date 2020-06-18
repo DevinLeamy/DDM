@@ -1,7 +1,6 @@
 .container {
         position: fixed;
-        /* height: 105px; */
-        width: 58%;
+        width: calc(60% - 20px);
         border-left: 65px solid rgb(38, 49, 54);
         bottom: 0px;
         display: flex;
@@ -9,6 +8,6 @@
 }
 
 .message-form {
-        width: 90%;
+        background-color: orange;
 }
 

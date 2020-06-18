@@ -17,7 +17,7 @@
 }
 .spacer {
         height: 100%;
-        width: 21%;
+        width: calc(20% + 10px);
         float: left;
 }
 
@@ -25,8 +25,8 @@
         /* float: left; */
         height: 100%; 
         background-color: rgb(63, 81, 90);
-        width: 58%;
-        left: 21%;
+        width: calc(60% - 20px);
+        left: calc(20% + 10px);
         position: fixed;
         /* overflow: hidden; */
 }
