@@ -5,6 +5,7 @@ const mongojs = require("mongojs")
 const jwt = require("jsonwebtoken")
 const path = require("path")
 const { tokenParser, encodeAsBase64} = require("./functions/userFunc")
+const formidable = require("express-formidable")
 
 //-----------------------------------Initialize Database----------------------------------------
 const databaseUsername = "test"
@@ -75,11 +76,15 @@ router.post("/decline-request", authenticateToken, function(req, res) {
   ).catch((reject) => {console.log(reject); res.json({status: 0})})
 })
 
-router.post("/setProfileImage", authenticateToken, function(req, res) {
-  const user = req.user
+//Formidable middleware parses form data allowing me to send image files
+router.post("/setProfileImage", formidable(), authenticateToken, function(req, res) {
+  const userId = req.user._id
   const imageFile = req.files.image
-  const imageEncoded = encodeAsBase64(imageFile.path)
-  res.json({image: imageEncoded})
+  const imageEncoded = 'data:image/*;base64, ' + encodeAsBase64(imageFile.path).split(" ")[0]
+  console.log("Setting profile image")
+  setProfileImage(imageEncoded, userId).then(
+    () => res.json({status: 1, data: imageEncoded})
+  ).catch((reject) => {console.log(reject); res.json({status: 0, data: null})})
 })
 //----------------------------Middle ware-------------------------------
 
@@ -216,6 +221,17 @@ function addFriend(friendId, friendUsername, userId) {
         resolve(user)
       }
     )
+  })
+}
+
+//Updates user profile image
+function setProfileImage(image, userId) {
+  return new Promise((resolve, reject) => {
+    if (image === undefined || image === null || userId === undefined || userId === null) reject("Bad data")
+    database.users.update({_id: mongojs.ObjectId(userId)}, { $set: {image: image} }, function(err, user) {
+      if (err || user === null || user === undefined) reject("Error updating user image")
+      resolve(user)
+    }) 
   })
 }
 

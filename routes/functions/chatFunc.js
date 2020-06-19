@@ -9,7 +9,8 @@ function createChat(title, admin, category, global, subs) {
                 admin: admin,
                 category: category,
                 global: global,
-                subs: subs
+                subs: subs,
+                image: "$$$Default$$$"
         }
 }
 

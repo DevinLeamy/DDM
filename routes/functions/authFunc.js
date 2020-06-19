@@ -32,7 +32,8 @@ function getNewUser(username, email, password) {
     friendReqs: [],
     friends: [],
     salt: salt,
-    password_hash: passwordHash
+    password_hash: passwordHash,
+    image: "$$$Default$$$"
   }
   return newUser;
 }

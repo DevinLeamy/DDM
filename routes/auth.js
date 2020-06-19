@@ -62,14 +62,12 @@ router.post("/register/createUser", function(req, res) {
   const newUser = getNewUser(username, email, password)
   takenEmail(email).then(
     () => postUser(newUser).then(
-      () => getUserByEmail(email).then(
-        (user) => {
+      (user) => {
           res.json(
             { accessToken: getAccessToken(user) }
           )
         }
       ).catch((reject) => console.log(reject))
-    ).catch((reject) => console.log(reject))
   ).catch((reject) => console.log(reject))
 })
 //-----------------------------------Middle ware----------------------------------------
@@ -83,7 +81,7 @@ function postUser(newUser) {
     database.users.save(newUser, function(err, user) {
       if (err) reject("Error posting user")
       else {
-        resolve(0)
+        resolve(user)
       }
     })
   })

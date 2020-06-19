@@ -3,4 +3,5 @@ export class Message {
   senderUsername: string
   text: string
   _id: string
+  image: string
 }

@@ -1,7 +1,8 @@
 <div class="container">
         <div class="user-container">
                 <div class="user-icon-container">
-                        <app-user-icon></app-user-icon>
+                        <app-image-fab *ngIf="this.user.image != '$$$Default$$$'" [imageUrl]="this.user.image"></app-image-fab>
+                        <app-user-icon *ngIf="this.user.image === '$$$Default$$$'"></app-user-icon>
                 </div>
                 <div class="user-username-container">
                         <div class="user-username">
@@ -18,7 +19,7 @@
                         <button *ngIf="this.selectedImage != null && this.selectedImage != undefined" (click)="uploadImage()">
                                 Upload image
                         </button>
-                        <img *ngIf="this.image != null && this.image != undefined" [src]="DomSanitationService.bypassSecurityTrustUrl(image)" class="image-preview">
+                        <img *ngIf="this.selectedImageUrl != null && this.selectedImageUrl != undefined" [src]="DomSanitationService.bypassSecurityTrustUrl(selectedImageUrl)" class="image-preview">
                 </div>
         </div>
 </div>

@@ -19,7 +19,6 @@ export class SubscribersViewComponent {
                         .subscribe(chat => {
                                 this.chat = chat
                                 console.log("List of subs updated \n Sub count: " + this.chat.subs.length)
-
                         })
                 this.chatService.getChat()
         }

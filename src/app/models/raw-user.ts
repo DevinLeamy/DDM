@@ -10,5 +10,6 @@ export class RawUser {
   friends: UserSub[]
   salt: string
   password_hash: string
+  image: string
 }
 

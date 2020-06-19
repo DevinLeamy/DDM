@@ -10,24 +10,14 @@ import { Subject } from 'rxjs'
 export class UserService {
   user : User;
   userUpdated = new Subject<User>()
-  image: string
-  imageUpdated = new Subject<string>()
+  // image: string
+  // imageUpdated = new Subject<string>()
   constructor(private http: HttpClient) {
     console.log("User Service Initialized")
   }
 
   getUserUpdated() {
     return this.userUpdated.asObservable()
-  }
-
-  //Temp
-  getImageUpdated() {
-    return this.imageUpdated.asObservable()
-  }
-
-  //Temp
-  getImage() {
-    this.updateImage()
   }
 
   getUser(query=false) {
@@ -46,13 +36,15 @@ export class UserService {
 
   //Creates user object from database raw user data
   getUserFromRawUser(rawUser: RawUser): User {
+    //Set image to default image if image has not been set
     return {
       _id: rawUser._id,
       username: rawUser.username,
       email: rawUser.email,
       chatSubs: rawUser.chatSubs,
       friendReqs: rawUser.friendReqs,
-      friends: rawUser.friends
+      friends: rawUser.friends,
+      image: rawUser.image
     }
   }
 
@@ -88,7 +80,7 @@ export class UserService {
           // Success
           this.user.friendReqs = this.user.friendReqs
             .filter(request => (!(request._id === requestId && request.username === request.username)))
-          this.user.friends.push({_id: requestId, username: requestUsername})
+          this.user.friends.push({_id: requestId, username: requestUsername, image: "$$$Default$$$" })
           this.updateUser()
         } 
       })
@@ -119,16 +111,12 @@ export class UserService {
     const formData = new FormData()
     formData.append("image", image, image.name)
     this.http.post(BASE_URL + "setProfileImage", formData) 
-      .subscribe((res: {image: string}) => {
-        this.image = res.image.split(" ")[0]
-        this.updateImage()
+      .subscribe((res: {status: number, data: string}) => {
+        if (res.status == 1) {
+          this.user.image = res.data
+          this.updateUser()
+        }
       })
-  }
-
-
-  //Temp
-  updateImage() {
-    this.imageUpdated.next(this.image)
   }
 
   updateUser() {

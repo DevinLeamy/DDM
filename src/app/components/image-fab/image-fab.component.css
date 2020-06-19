@@ -1,0 +1,10 @@
+.icon-button {
+        display: block;
+        background-size: contain;                   
+        background-repeat: no-repeat;
+        background-position: center center; 
+        width: 80%;
+        height: 80%;
+        border-radius: 40%;
+        margin: 10%;
+}

@@ -9,7 +9,7 @@ function tokenParser(bearerToken) {
 //Encodes file as base 64 string
 function encodeAsBase64(filePath) {
   const bitmap = fs.readFileSync(filePath)
-  return new Buffer(bitmap).toString("base64")
+  return new Buffer.from(bitmap).toString("base64")
 }
 
 module.exports = { tokenParser, encodeAsBase64 }

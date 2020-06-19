@@ -7,16 +7,12 @@ const chatAPI = require("./routes/chat")
 const userAPI = require("./routes/user")
 const socket = require("socket.io")
 const http = require("http")
-const formidable = require("express-formidable")
 const PORT = 3000
 
 //--------------------------------Configure express app-----------------------------
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded( { extended: false } ))
 app.use(express.static(path.join(__dirname, "dist")))
-
-//For file parsing
-app.use(formidable())
 
 //Set routes to api services
 app.use("/api/authentication", authAPI)

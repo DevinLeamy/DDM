@@ -14,7 +14,6 @@ export class UserViewComponent {
         userSub: Subscription
         selectedImageUrl
         selectedImage
-        image: string
         imageSub: Subscription
 
         constructor(private userService: UserService, public DomSanitationService: DomSanitizer) {}
@@ -25,10 +24,6 @@ export class UserViewComponent {
                                 this.user = user
                         })
                 this.userService.getUser()
-                this.imageSub = this.userService.getImageUpdated()
-                        .subscribe(image => {
-                                this.image = 'data:image/*;base64, ' + image
-                        })
         }
 
         //Sets the selected image to the image selected by the user

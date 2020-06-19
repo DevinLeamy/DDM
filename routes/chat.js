@@ -77,7 +77,8 @@ router.get("/chats", function(req, res) {
 //Add user to chat subscribers list and add chat to user subscriptions list
 router.post("/subscribe", authenticateToken, function(req, res) {
   const chat = req.body.chat
-  const user = { _id: req.user._id, username: req.user.username }
+  console.log(req.user)
+  const user = { _id: req.user._id, username: req.user.username, image: req.user.image }
   //Check if chat exists
   chatExistsWithId(chat._id).then(
     //Check if user exists
@@ -152,7 +153,8 @@ function postMessage(rawMessage) {
       senderId: rawMessage.senderId,
       senderUsername: rawMessage.senderUsername,
       text: rawMessage.text,
-      _id: new mongojs.ObjectId()
+      _id: new mongojs.ObjectId(),
+      image: rawMessage.image
     }
     database.chats.update({ _id: mongojs.ObjectId(chatId) }, {
       $push: {

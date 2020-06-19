@@ -43,7 +43,7 @@ export class CreateChatComponent {
         _id: chatForm.value.category,
         name: this.categories[chatForm.value.category].name
       }
-      const admin: UserSub = {_id: this.user._id, username: this.user.username}
+      const admin: UserSub = {_id: this.user._id, username: this.user.username, image: this.user.image}
       this.chatsService.postChat(title, admin, category, true)
       chatForm.resetForm()
     }

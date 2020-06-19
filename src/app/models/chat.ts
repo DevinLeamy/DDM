@@ -12,4 +12,5 @@ export class Chat {
   //If global than the given chat is a global chat
   //Otherwise, the given chat is a private chat
   global: boolean
+  image: string
 }

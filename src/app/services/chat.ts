@@ -8,7 +8,6 @@ import { User } from "../models/user"
 import { Chat } from '../models/chat'
 import { Message } from "../models/message"
 import * as io from 'socket.io-client'
-import { RawUser } from "../models/raw-user"
 import { UserSub } from '../models/user-sub'
 import { ChatSub } from '../models/chat-sub'
 
@@ -41,7 +40,7 @@ export class ChatService {
 
   //Returns chat sub
   getChatSub() : ChatSub {
-    return {_id: this.chat._id, title: this.chat.title }
+    return {_id: this.chat._id, title: this.chat.title, image: this.chat.image}
   }
 
   //Updates chat
@@ -105,18 +104,6 @@ export class ChatService {
           resolve(0)
         })
     })
-  }
-
-  //Creates user object from database raw user data
-  getUserFromRawUser(rawUser: RawUser): User {
-    return {
-      _id: rawUser._id,
-      username: rawUser.username,
-      email: rawUser.email,
-      chatSubs: rawUser.chatSubs,
-      friendReqs: rawUser.friendReqs,
-      friends: rawUser.friends
-    }
   }
 
   //Update chat object

@@ -39,6 +39,7 @@ import { MessagesComponent } from "./components/chat-page/message-view/messages/
 import { UserFriendsViewComponent } from "./components/user-page/user-friends-view/user-friends-view.component"
 import { UserViewComponent } from "./components/user-page/user-view/user-view.component"
 import { UserChatsViewComponent } from "./components/user-page/user-chats-view/user-chats-view.component"
+import { ImageFabComponent } from "./components/image-fab/image-fab.component"
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { UserChatsViewComponent } from "./components/user-page/user-chats-view/u
     MessagesComponent,
     UserFriendsViewComponent,
     UserViewComponent,
-    UserChatsViewComponent
+    UserChatsViewComponent,
+    ImageFabComponent
   ],
   imports: [
     BrowserModule,
