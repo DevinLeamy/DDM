@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from "@angular/core"
 import { UserService } from "../../../services/user"
 import { User } from 'src/app/models/user'
 import { Subscription } from 'rxjs'
+import { DomSanitizer } from "@angular/platform-browser"
 
 @Component({
         selector: "app-user-view",
@@ -11,8 +12,12 @@ import { Subscription } from 'rxjs'
 export class UserViewComponent {
         user: User
         userSub: Subscription
-        selectedImage: File
-        constructor(private userService: UserService) {}
+        selectedImageUrl
+        selectedImage
+        image: string
+        imageSub: Subscription
+
+        constructor(private userService: UserService, public DomSanitationService: DomSanitizer) {}
         
         ngOnInit() {
                 this.userSub = this.userService.getUserUpdated()
@@ -20,18 +25,26 @@ export class UserViewComponent {
                                 this.user = user
                         })
                 this.userService.getUser()
+                this.imageSub = this.userService.getImageUpdated()
+                        .subscribe(image => {
+                                this.image = 'data:image/*;base64, ' + image
+                        })
         }
 
         //Sets the selected image to the image selected by the user
         onImageSelected(event) {
                 this.selectedImage = event.target.files[0]
+                const reader = new FileReader()
+                reader.onload = () => {
+                        this.selectedImageUrl = reader.result
+                }
+                reader.readAsDataURL(this.selectedImage)
         }
 
         //Uploads image
         uploadImage() {
-                //If no image has been selected
                 if (this.selectedImage === undefined || this.selectedImage === null) { return }
-                console.log(this.selectedImage)
+                this.userService.setProfileImage(this.selectedImage)
         }
 
         ngOnDestroy() {

@@ -18,6 +18,7 @@
                         <button *ngIf="this.selectedImage != null && this.selectedImage != undefined" (click)="uploadImage()">
                                 Upload image
                         </button>
+                        <img *ngIf="this.image != null && this.image != undefined" [src]="DomSanitationService.bypassSecurityTrustUrl(image)" class="image-preview">
                 </div>
         </div>
 </div>

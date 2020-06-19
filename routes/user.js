@@ -77,7 +77,9 @@ router.post("/decline-request", authenticateToken, function(req, res) {
 
 router.post("/setProfileImage", authenticateToken, function(req, res) {
   const user = req.user
-  // const imageFile = req.body.
+  const imageFile = req.files.image
+  const imageEncoded = encodeAsBase64(imageFile.path)
+  res.json({image: imageEncoded})
 })
 //----------------------------Middle ware-------------------------------
 

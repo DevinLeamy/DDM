@@ -38,3 +38,11 @@
         height: 40px;
         margin-top: 10px;
 }
+
+.image-preview {
+        width: 100px;
+        height: 100px;
+        border-radius: 50px;
+        background-repeat: no-repeat;
+        background-size: contain;
+}
