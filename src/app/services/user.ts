@@ -102,6 +102,14 @@ export class UserService {
       })
   }
 
+  //Sets profile image
+  setProfileImage(image: File) {
+    const formData = new FormData()
+    formData.append("image", image, image.name)
+    this.http.post(BASE_URL + "setProfileImage", formData) 
+      .subscribe(res => console.log(res))
+  }
+
   updateUser() {
     this.userUpdated.next({...this.user})
   }

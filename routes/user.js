@@ -4,7 +4,7 @@ const router = express.Router()
 const mongojs = require("mongojs")
 const jwt = require("jsonwebtoken")
 const path = require("path")
-const { tokenParser } = require("./functions/userFunc")
+const { tokenParser, encodeAsBase64} = require("./functions/userFunc")
 
 //-----------------------------------Initialize Database----------------------------------------
 const databaseUsername = "test"
@@ -73,6 +73,11 @@ router.post("/decline-request", authenticateToken, function(req, res) {
   removeRequest(request._id, request.username, user._id).then(
     () => res.json({status: 1})
   ).catch((reject) => {console.log(reject); res.json({status: 0})})
+})
+
+router.post("/setProfileImage", authenticateToken, function(req, res) {
+  const user = req.user
+  // const imageFile = req.body.
 })
 //----------------------------Middle ware-------------------------------
 

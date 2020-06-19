@@ -11,6 +11,13 @@
                 <div class="user-options-container">
                         <h1>User options</h1>
                         <h1>Upload image</h1>
+                        <input  type="file"
+                                accept="image/*"
+                                (change)="onImageSelected($event)"
+                        >
+                        <button *ngIf="this.selectedImage != null && this.selectedImage != undefined" (click)="uploadImage()">
+                                Upload image
+                        </button>
                 </div>
         </div>
 </div>
