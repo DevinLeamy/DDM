@@ -1,8 +1,9 @@
 .view-background {
-  background-color: #37474F;
   height: 100%;
   width: 100%;
   overflow: hidden;
+  /* border-left: 65px solid rgb(38, 49, 54); */
+  background-color: rgb(50, 64, 71);
 }
 
 

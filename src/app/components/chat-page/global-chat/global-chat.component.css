@@ -24,7 +24,7 @@
 .middle {
         /* float: left; */
         height: 100%; 
-        background-color: rgb(63, 81, 90);
+        background-color: rgb(50, 64, 71);
         width: calc(60% - 20px);
         left: calc(20% + 10px);
         position: fixed;

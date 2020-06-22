@@ -35,10 +35,10 @@ export class ChatsService {
   }
 
   //Create new chat
-  postChat(title: string, admin: UserSub, category: Category, global: boolean) {
+  postChat(title: string, adminId: string, category: Category, global: boolean) {
     const body = {
       title: title,
-      admin: admin,
+      adminId: adminId,
       category: category,
       global: global,
     }

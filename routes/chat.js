@@ -63,20 +63,32 @@ router.get("/init", function(req, res) {
 router.post("/chat-create/create", function(req, res) {
   const chat = req.body
   const title = chat.title
-  const admin = chat.admin
+  const adminId = chat.adminId
   const category = chat.category
   const global = chat.global
-  const subs = [
-    { _id: admin._id, username: admin.username }
-  ]
-  const newChat = createChat(title, admin, category, global, subs)
-  chatExistsWithTitle(title).then(
-    //Chat already exists
-    (resolve) => console.log(resolve) 
-  ).catch(() => postChat(newChat).then(
-      (resolve) => res.json(resolve)
-    ).catch((reject) => console.log(reject))
-  )
+  const subs = []
+  getUserById(adminId).then(
+    (user) =>  {
+      const newChat = createChat(title, {_id: user._id, username: user.username}, category, global, subs)
+      chatExistsWithTitle(title).then(
+        //Chat already exists
+        (resolve) => console.log(resolve)
+      ).catch(() => postChat(newChat).then(
+        //Chat does not exist
+        (resolve) => {
+          //Resolve holds newChat
+          addUserToChatSubs(resolve._id, user).then(
+            //Add chat to user
+            () => addChatToUserSubs(resolve, user._id).then(
+              //Sends chat userId 
+              () => res.json(resolve)
+            ).catch((reject) => console.log(reject))
+          ).catch((reject) => console.log(reject))
+        }
+      ).catch((reject) => console.log(reject))
+    )
+    }
+  ).catch((reject) => console.log(reject))
 })
 
 //Gets all chats

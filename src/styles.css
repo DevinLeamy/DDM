@@ -29,3 +29,7 @@ div:focus {
 span:focus {
   outline: 0;
 }
+
+img:focus {
+  outline: 0;
+}
