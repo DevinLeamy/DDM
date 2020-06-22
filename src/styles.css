@@ -33,3 +33,7 @@ span:focus {
 img:focus {
   outline: 0;
 }
+
+textarea:focus {
+  outline: 0;
+}

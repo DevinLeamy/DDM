@@ -2,7 +2,7 @@
         position: fixed;
         width: calc(60% - 20px);
         background: linear-gradient(to right, rgb(38, 49, 54) 0px, rgb(38, 49, 54) 65px, rgb(50, 64, 71) 65px, rgb(50, 64, 71) 100%);
-        bottom: 0px;
+        bottom: 3px;
         display: flex;
         justify-content: center; 
         max-height: 150px;
@@ -20,10 +20,10 @@
 }
 
 .container-three {
-        width: 95%;
+        width: 97%;
         margin: auto;
         max-height: 140px;
-        height: calc(100% - 10px);
+        height: calc(100% - 65px);
         margin-top: 5px;
 }
 
@@ -45,11 +45,27 @@
         width: calc(100% - 70px);
         background-color: red;
         max-height: 140px;
+        margin-right: 5px;
 }
 
 .message-field {
         height: 50px;
-        max-height: 140px;
+        max-height: 100px;
+        background-color: rgb(81, 85, 87);
+        width: 100%;
+        font-size: 15px;
+        color: white;
+        border-radius: 5px;
+        border-width: 2px;
+        font-family: Arial, sans-serif;
+        word-wrap: break-word;
+        word-break: break-all;
+        overflow-wrap: break-word;
+        margin: none;
+}
+
+.message-field:focus {
+        outline: 0;
 }
 .form-submit-container {
         order: 1;
@@ -59,5 +75,6 @@
 }
 
 .form-submit {
-        
+        height: 100%;
+        width: 100%;
 } 
