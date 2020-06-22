@@ -10,8 +10,9 @@
     <span class="spacer"></span>
 
     <!-- Div there so the app-user-icon is the right size -->
-    <div style="width: 80px; height: 80px;">
-      <app-user-icon *ngIf="this.user != undefined"></app-user-icon>
+    <div style="width: 80px; height: 80px;" *ngIf="this.user != undefined && this.user != null">
+      <app-user-icon *ngIf="this.user.image === '$$$Default$$$'"></app-user-icon>
+      <app-image-fab *ngIf="this.user.image != '$$$Default$$$'" [imageUrl]="this.user.image"></app-image-fab>
     </div>
     <span class="flexExpand"></span>
     <span [routerLink]="''" class="home-link">DDM</span> 

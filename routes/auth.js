@@ -45,7 +45,7 @@ router.post("/login/authenticate", function(req, res) {
             const salt = user.salt
             if (passwordIsValid(password, passwordHash, salt)) {
               res.json(
-                { accessToken: getAccessToken(user) }
+                { accessToken: getAccessToken({_id: user._id, username: user.username}) }
               )
             } else console.log("Password was invalid")
           }
@@ -64,7 +64,7 @@ router.post("/register/createUser", function(req, res) {
     () => postUser(newUser).then(
       (user) => {
           res.json(
-            { accessToken: getAccessToken(user) }
+            { accessToken: getAccessToken({_id: user._id, username: user.username}) }
           )
         }
       ).catch((reject) => console.log(reject))
