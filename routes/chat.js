@@ -34,13 +34,25 @@ router.get("/init", function(req, res) {
     io.on("connect", function(socket) {
     console.log("Socket connected to client")
     socket.on("message-posted-to-server", function(rawMessage) {
-      postMessage(rawMessage).then(
-        (message) => {
-          //Only posts to sockets connected to chat from which the message was sent
-          console.log("message-posted-to-chat-" + rawMessage.chatId)
-          io.sockets.emit("message-posted-to-chat-" + rawMessage.chatId, message)
+      const userId = rawMessage.senderId
+      getUserById(userId).then(
+        (user) => {
+          const message = {
+            senderId: user._id, 
+            senderUsername: user.username,
+            text: rawMessage.text,
+            chatId: rawMessage.chatId,
+            image: user.image
+          }
+          postMessage(message).then(
+            (message) => {
+              //Only posts to sockets connected to chat from which the message was sent
+              console.log("message-posted-to-chat-" + rawMessage.chatId)
+              io.sockets.emit("message-posted-to-chat-" + rawMessage.chatId, message)
+            }
+          ).catch((reject) => console.log(reject))
         }
-      ).catch((reject) => console.log(reject))
+      )
       })
     })
     res.json("Socket connected to client")
@@ -77,13 +89,12 @@ router.get("/chats", function(req, res) {
 //Add user to chat subscribers list and add chat to user subscriptions list
 router.post("/subscribe", authenticateToken, function(req, res) {
   const chat = req.body.chat
-  console.log(req.user)
-  const user = { _id: req.user._id, username: req.user.username, image: req.user.image }
+  const userId = req.user._id
   //Check if chat exists
   chatExistsWithId(chat._id).then(
     //Check if user exists
-    () => userExistsWithId(user._id).then(
-      () => chatContainsUser(chat._id, user).then(
+    () => getUserById(userId).then(
+      (user) => chatContainsUser(chat._id, user).then(
         (resolve) => console.log(resolve)
       ).catch(
         //Add user id to chat
@@ -268,5 +279,16 @@ function addChatToUserSubs(chat, userId) {
     })
   })
 }
+
+function getUserById(userId) {
+  return new Promise((resolve, reject) => {
+    if (userId == null || userId == undefined) reject("Bad Data")
+    database.users.findOne({_id: mongojs.ObjectId(userId)}, (err, user) => {
+      if (err || user == null || user == undefined) reject("Error retrieving user data from database")
+      resolve(user)
+    })
+  })
+}
+
 
 module.exports = router

@@ -7,7 +7,7 @@
                 <app-message-sent *ngIf="sent(message);" [senderUsername]="message.senderUsername">
                         {{message.text}}
                 </app-message-sent>   -->
-                <app-message-received [senderUsername]="message.senderUsername">
+                <app-message-received [senderUsername]="message.senderUsername" [senderImage]="message.image">
                         {{message.text}}
                 </app-message-received>
                 <div class="spacer invisible"></div>

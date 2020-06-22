@@ -7,4 +7,5 @@ import { Component, Input } from '@angular/core'
 })
 export class MessageReceivedComponent {
   @Input() senderUsername: string
+  @Input() senderImage: string
 }
