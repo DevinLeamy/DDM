@@ -30,6 +30,7 @@ export class MessageCreateComponent {
     const message = messageForm.value.message.trim()
     if (message == "" || message == null || message == undefined) {return}
     this.chatService.postMessage(message, this.user._id, this.user.username)
+    messageForm.resetForm()
   }
 
   //Check if user is authenticated
