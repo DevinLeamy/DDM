@@ -28,8 +28,8 @@ import { MessageCreateComponent } from './components/chat-page/message-view/mess
 import { MessageReceivedComponent } from './components/chat-page/message-view/messages/message-received/message-received.component'
 import { MessageSentComponent } from "./components/chat-page/message-view/messages/message-sent/message-sent.component"
 import { CreateChatComponent } from "./components/create-chat/create-chat.component"
-import { ChatDisplayComponent } from "./components/chat-display/chat-display.component"
-import { ChatIconComponent } from "./components/chat-display/chat-icon/chat-icon.component"
+import { ChatDisplayComponent } from "./components/home-page/chat-display/chat-display.component"
+import { ChatIconComponent } from "./components/home-page/chat-display/chat-icon/chat-icon.component"
 import { UserPageComponent } from "./components/user-page/user-page.component"
 import { UserIconComponent } from "./components/user-icon/user-icon.component"
 import { ChatTitleComponent } from  "./components/chat-page/message-view/chat-title/chat-title.component"
@@ -40,7 +40,7 @@ import { UserFriendsViewComponent } from "./components/user-page/user-friends-vi
 import { UserViewComponent } from "./components/user-page/user-view/user-view.component"
 import { UserChatsViewComponent } from "./components/user-page/user-chats-view/user-chats-view.component"
 import { ImageFabComponent } from "./components/image-fab/image-fab.component"
-
+import { ChatListComponent } from "./components/home-page/chat-display/chat-list/chat-list.component"
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,7 +65,8 @@ import { ImageFabComponent } from "./components/image-fab/image-fab.component"
     UserFriendsViewComponent,
     UserViewComponent,
     UserChatsViewComponent,
-    ImageFabComponent
+    ImageFabComponent,
+    ChatListComponent
   ],
   imports: [
     BrowserModule,

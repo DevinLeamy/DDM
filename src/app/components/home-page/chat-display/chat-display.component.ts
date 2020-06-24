@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core"
-import { ChatsService } from "../../services/chats"
+import { ChatsService } from "../../../services/chats"
 import { Subscription } from "rxjs"
-import { Chat } from "../../models/chat"
+import { Chat } from "../../../models/chat"
 
 
 @Component({
