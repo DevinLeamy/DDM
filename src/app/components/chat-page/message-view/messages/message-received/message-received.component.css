@@ -36,10 +36,9 @@
 }
 
 .user-icon {
-  width: 65px;
-  height: 65px;
-  margin-top: 5px;
-  margin: center;
+  width: 55px;
+  height: 55px;
+  margin: auto;
 }
 
 .username {

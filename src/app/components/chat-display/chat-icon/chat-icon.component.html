@@ -1,4 +1,5 @@
-<button mat-raised-button [routerLink]="['/api/chat/view', chatId]" class="icon">
-        <span class="chat-title">{{chatTitle}}</span>
-</button>
-
+<div class="main-container" [routerLink]="['/api/chat/view', chatId]">
+        <div class="chat-container">
+                <app-messages></app-messages>
+        </div>
+</div>

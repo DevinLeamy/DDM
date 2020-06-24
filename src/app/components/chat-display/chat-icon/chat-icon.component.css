@@ -1,28 +1,18 @@
-.icon {
-        background-image: url("../../../../assets/images/ChatIconImage.png");
-        background-size: contain;
-        border-radius: 10px;
-        width: 125px;
-        height: 125px;
-        opacity: 0.8;
-        transition: 0.5s;
-        padding: 10px;
+.main-container {
+        width: calc(100% - 30px);
+        margin-left: 15px;
+        margin-top: 15px;
+        height: calc(100% - 110px);
+        border-radius: 5px;
+        background-color: rgb(38, 49, 54); 
 }
 
-.icon:hover {
-        opacity: 1;
+.main-container:hover {
+        opacity: 0.5;
 }
 
-.chat-title {
-        font-size: 18px;
-        color: white;
-        background-color: black;
-        padding: 10px;
-        text-align: center;
-        opacity: 0;
-        transition: 0.5s;
-}
-
-.icon:hover .chat-title {
-        opacity: 1;
+.chat-container {
+        width: calc(100% - 20px);
+        margin-left: 10px;
+        height: 100%;
 }

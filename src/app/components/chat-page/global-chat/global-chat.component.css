@@ -2,7 +2,6 @@
         top: 80px;
         left: 0%;
         height: 100%;
-        /* background-color: red; */
         background-color: rgb(50, 64, 71);
         width: 20%;
         position: fixed;
@@ -15,18 +14,11 @@
         width: 20%;
         position: fixed;
 }
-.spacer {
-        height: 100%;
-        width: calc(20% + 10px);
-        float: left;
-}
 
 .middle {
-        /* float: left; */
         height: 100%; 
         background-color: rgb(50, 64, 71);
         width: calc(60% - 20px);
         left: calc(20% + 10px);
         position: fixed;
-        /* overflow: hidden; */
 }

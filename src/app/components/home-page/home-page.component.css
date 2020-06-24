@@ -1,28 +1,29 @@
-.home-container {
-  background-image: url("../../../assets/images/Moon.jpg");
-  background-repeat: no-repeat;
-  background-size: contain;
-  height: 100%;
-}
-
-.column {
-  float: left;
-  height: 100%;
-}
-
 .left {
   width: 25%;
-  background-color: whitesmoke;
-  color: black;
+  height: 100%;
+  position: fixed;
+  left: 0%;
+  top: 80px;
+  background-color: rgb(50, 64, 71);
+  color: white;
 }
 
 .right {
+  height: 100%;
+  position: fixed;
+  right: 0%;
   width: 25%;
-  background-color: whitesmoke;
-  color: black;
+  top: 80px;
+  background-color: rgb(50, 64, 71);
+  color: white;
 }
 
 .middle {
-  width: 50%;
-  background-color: black;
+  position: fixed;
+  left: calc(25% + 10px);
+  height: 100%;
+  width: calc(50% - 10px);
+  top: 80px;
+  /* background-color: rgb(38, 49, 54); */
+  background-color: white;
 }
