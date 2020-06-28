@@ -17,7 +17,7 @@
 
 .message-header-container {
   order: 0;
-  display: flex;
+  /* display: flex; */
   margin-left: 5px;
 }
 
@@ -42,7 +42,8 @@
 }
 
 .username {
-  order: 0;
+  /* order: 0; */
+  float: left;
   font-family: Arial, sans-serif;
   font-weight: 400;
   color: hotpink;
@@ -56,6 +57,12 @@
   font-size: 15px;
   color: white;
   font-family: Arial, sans-serif;
+}
+
+.timestamp {
+  float: right;
+  color: rgb(163, 163, 163);
+  font-size: 12px;
 }
 
 

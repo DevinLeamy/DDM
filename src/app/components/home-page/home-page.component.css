@@ -19,5 +19,7 @@
   width: calc(50% - 10px);
   margin-left: 10px;
   background-color: white;
+  /* background-color: #0e1822; */
+  /* background-color: rgb(48, 48, 48); */
   float: left;
 }
