@@ -1,7 +1,8 @@
 .messages {
         width: 100%;
         overflow: scroll;
-        height: 100%;
+        height: calc(100% - 185px);
+        max-height: calc(100% - 185px);
         background: linear-gradient(to right, rgb(38, 49, 54) 0px, rgb(38, 49, 54) 65px, rgb(50, 64, 71) 65px, rgb(50, 64, 71) 100%);
 }
 

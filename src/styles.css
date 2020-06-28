@@ -8,8 +8,11 @@ body, html {
 
 body {
   /* background-color: #37474F; */
-  background-color: rgb(63, 81, 90);
+  /* background-color: rgb(63, 81, 90); */
+  background-color: white;
   font-family: Arial, sans-serif;
+  max-width: 1500px;
+  margin: auto;
 }
 
 ::-webkit-scrollbar {

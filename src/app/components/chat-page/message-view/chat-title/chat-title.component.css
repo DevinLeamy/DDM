@@ -1,9 +1,7 @@
 .container {
-        position: fixed;
-        top: 80px;
-        display: inline-flex;
+        display: flex;
         background-color: #6db6ee;
-        width: calc(60% - 20px);
+        width: 100%;
         border-radius: 5px;
 }
 

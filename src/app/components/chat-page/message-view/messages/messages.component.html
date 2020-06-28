@@ -1,5 +1,5 @@
 <div #messages *ngIf="this.chat != undefined && this.chat != null" class="messages">
-        <div class="chat-title-spacer"></div>
+        <!-- <div class="chat-title-spacer"></div> -->
         <div *ngFor="let message of compressMessages(chat.messages)">
                 <!-- <app-message-received *ngIf="received(message);"[senderUsername]="message.senderUsername">
                         {{message.text}}
@@ -14,6 +14,6 @@
                 <!-- <hr class="invisible"> -->
         </div>
         <!-- Need to add bottom spacer for when user visiting chat is not logged in -->
-        <div *ngIf="this.user === undefined || this.user === null" class="no-user-spacer"></div>
-        <div *ngIf="this.user != undefined && this.user != null" class="chat-message-create-spacer"></div>
+        <!-- <div *ngIf="this.user === undefined || this.user === null" class="no-user-spacer"></div> -->
+        <!-- <div *ngIf="this.user != undefined && this.user != null" class="chat-message-create-spacer"></div> -->
 </div>

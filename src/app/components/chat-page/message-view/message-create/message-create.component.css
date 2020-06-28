@@ -1,8 +1,6 @@
 .container-one {
-        position: fixed;
-        width: calc(60% - 20px);
+        width: 100%;
         background: linear-gradient(to right, rgb(38, 49, 54) 0px, rgb(38, 49, 54) 65px, rgb(50, 64, 71) 65px, rgb(50, 64, 71) 100%);
-        bottom: 3px;
         display: flex;
         justify-content: center; 
         max-height: 150px;
@@ -23,7 +21,6 @@
         width: 97%;
         margin: auto;
         max-height: 140px;
-        height: calc(100% - 65px);
         margin-top: 5px;
 }
 
