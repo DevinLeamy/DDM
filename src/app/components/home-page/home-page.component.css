@@ -1,9 +1,6 @@
 .left {
   width: 25%;
   height: 100%;
-  /* position: fixed; */
-  /* left: 0%; */
-  /* top: 80px; */
   background-color: rgb(50, 64, 71);
   color: white;
   float: left;
@@ -11,23 +8,16 @@
 
 .right {
   height: 100%;
-  /* position: fixed; */
-  /* right: 0%; */
   width: 25%;
-  /* top: 80px; */
   background-color: rgb(50, 64, 71);
   color: white;
   float: left;
 }
 
 .middle {
-  /* position: fixed; */
-  /* left: calc(25% + 10px); */
   height: 100%;
   width: calc(50% - 10px);
   margin-left: 10px;
-  /* top: 80px; */
-  /* background-color: rgb(38, 49, 54); */
   background-color: white;
   float: left;
 }
