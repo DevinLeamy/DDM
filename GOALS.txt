@@ -1,7 +1,0 @@
-Goal #1
-Set up a simple home page.
-Features:
-1) A good looking responsive interface
-2) A login page that utilizes passport for authentication
-3) A register page
-4) Tied together with refreshing JSON Web Tokens

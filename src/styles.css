@@ -12,7 +12,7 @@ body {
   /* background-color: white; */
   background-color: #0e1822;
   font-family: Arial, sans-serif;
-  max-width: 1500px;
+  max-width: 1366px;
   margin: auto;
 }
 
@@ -39,5 +39,9 @@ img:focus {
 }
 
 textarea:focus {
+  outline: 0;
+}
+
+p:focus {
   outline: 0;
 }

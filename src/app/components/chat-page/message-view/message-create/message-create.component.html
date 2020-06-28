@@ -28,5 +28,9 @@
   </div>
 </div>
 <div *ngIf="!isAuthenticated()" class="placeholder">
-  <p>login to send messages</p>
+  <p [routerLink]="'/api/authentication/login'" class="placeholder-text login">login</p>
+  <p class="placeholder-text">or</p>
+  <p [routerLink]="'/api/authentication/register'" class="placeholder-text register">register</p>
+  <p class="placeholder-text">to send messages</p>
+
 </div>

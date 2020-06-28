@@ -80,3 +80,34 @@
         justify-content: center; 
         height: 120px;
 }
+
+.placeholder-text {
+        color: rgb(180, 180, 180);
+}
+
+.login {
+        margin-right: 9px;
+        -webkit-transition: font-size 0.2s;
+        -moz-transition: font-size 0.2s;
+        -o-transition: font-size 0.2s;
+        transition: font-size 0.2s;
+}
+
+.register {
+        margin-left: 9px;
+        margin-right: 7px;
+        -webkit-transition: font-size 0.2s;
+        -moz-transition: font-size 0.2s;
+        -o-transition: font-size 0.2s;
+        transition: font-size 0.2s;
+}
+
+.register:hover {
+        color: rgb(0, 183, 255);
+        font-size: 17px;
+}
+
+.login:hover {
+        color: rgb(0, 183, 255);
+        font-size: 17px;
+}
