@@ -1,27 +1,20 @@
 .left {
-        position: fixed;
-        top: 80px;
-        left: 0%;
-        height: calc(100% - 80px);
-        /* background-color: rgb(38, 49, 54); */
         width: 20%;
-        min-width: 180px;
+        height: 100%;
+        float: left;
 }
 
 .middle {
-        position: fixed;
-        top: 80px;
-        height: calc(100% - 80px);
-        left: 21%;
         width: 20%;
-        min-width: 180px;
+        height: 100%;
+        margin-left: 10px;
+        float: left;
 }
 
 .right {
-        position: fixed;
-        top: 80px;
-        height: calc(100% - 80px);
-        right: 0%;
         background-color: rgb(50, 64, 71);
-        width: 58%;
+        margin-left: 10px;
+        width: calc(58% - 20px);
+        height: 100%;
+        float: left;
 }
