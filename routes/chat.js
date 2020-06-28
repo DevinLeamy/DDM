@@ -41,10 +41,11 @@ router.get("/init", function(req, res) {
             senderId: user._id, 
             senderUsername: user.username,
             text: rawMessage.text,
-            chatId: rawMessage.chatId,
-            image: user.image
+            _id: new mongojs.ObjectId(),
+            image: user.image,
+            timestamp: rawMessage.timestamp
           }
-          postMessage(message).then(
+          postMessage(message, rawMessage.chatId).then(
             (message) => {
               //Only posts to sockets connected to chat from which the message was sent
               console.log("message-posted-to-chat-" + rawMessage.chatId)
@@ -168,17 +169,9 @@ function getChatById(chatId) {
 }
 
 //Post new message to database
-function postMessage(rawMessage) {
+function postMessage(message, chatId) {
   return new Promise((resolve, reject) => {
-    if (rawMessage == null || rawMessage == undefined) reject("Bad Data")
-    const chatId = rawMessage.chatId
-    const message = {
-      senderId: rawMessage.senderId,
-      senderUsername: rawMessage.senderUsername,
-      text: rawMessage.text,
-      _id: new mongojs.ObjectId(),
-      image: rawMessage.image
-    }
+    if (message == null || message == undefined) reject("Bad Data")
     database.chats.update({ _id: mongojs.ObjectId(chatId) }, {
       $push: {
         messages: message

@@ -4,4 +4,5 @@ export class Message {
   text: string
   _id: string
   image: string
+  timestamp: number
 }

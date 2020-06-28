@@ -74,12 +74,13 @@ export class ChatService {
   }
 
   //Request message post to database
-  postMessage(message: string, senderId: string, senderUsername: string) {
+  postMessage(message: string, senderId: string, senderUsername: string, timestamp: number) {
     this.socket.emit("message-posted-to-server", {
       text: message,
       senderId: senderId,
       senderUsername: senderUsername,
-      chatId: this.chatId
+      chatId: this.chatId,
+      timestamp: timestamp
     })
   }
 

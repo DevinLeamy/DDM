@@ -9,8 +9,6 @@ export class Chat {
   category: Category
   admin: UserSub
   subs: UserSub[]
-  //If global than the given chat is a global chat
-  //Otherwise, the given chat is a private chat
   global: boolean
   image: string
 }

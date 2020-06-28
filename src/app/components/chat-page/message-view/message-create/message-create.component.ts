@@ -29,7 +29,8 @@ export class MessageCreateComponent {
   postMessage(messageForm: NgForm) {
     const message = messageForm.value.message.trim()
     if (message == "" || message == null || message == undefined) {return}
-    this.chatService.postMessage(message, this.user._id, this.user.username)
+    let timestamp = new Date().getTime()
+    this.chatService.postMessage(message, this.user._id, this.user.username, timestamp)
     messageForm.resetForm()
   }
 

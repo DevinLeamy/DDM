@@ -76,14 +76,10 @@ export class MessagesComponent {
 
         //Scroll to most recent messages
         scrollToBottom() {
-                console.log("Scrolling to bottom")
                 try {
                         var currentPos = this.messageContainer.nativeElement.scrollHeight
                         this.messageContainer.nativeElement.scrollTop = currentPos
-                        console.log(currentPos, this.messageContainer.nativeElement.scrollHeight)
-                } catch(err) {
-                        console.log(err)
-                }
+                } catch(err) {}
         }
 
         //Avoid memory leak
