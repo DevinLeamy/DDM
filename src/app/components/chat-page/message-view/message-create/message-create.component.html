@@ -1,30 +1,26 @@
 <div *ngIf="isAuthenticated()"  class="container-one">
   <div class="container-two">
-    <div class="container-three">
-        <form #messageForm="ngForm" (submit)="postMessage(messageForm)" class="message-form">
-          <!-- Message Field -->
-          <div class="form-input-container">
-            <div class="message-field-container">
-              <input
-                matInput
-                type="text"
-                name="message"
-                ngModel
-                placeholder="message"
-                #message="ngModel"
-                class="message-field"
-                contenteditable='true'
-              >
-              <!-- ?mat-form-field? -->
-            </div>
-            <div class="form-submit-container">
-                <button mat-raised-button type="submit" class="form-submit">
-                  Send
-                </button>
-            </div>
-          </div>
-        </form>
-    </div>
+      <form #messageForm="ngForm" (submit)="postMessage(messageForm)" class="message-form">
+        <!-- Message Field -->
+        <div class="message-field-container">
+          <input
+            matInput
+            type="text"
+            name="message"
+            ngModel
+            placeholder="message"
+            #message="ngModel"
+            class="message-field"
+            contenteditable='true'
+          >
+          <!-- ?mat-form-field? -->
+        </div>
+        <div class="form-submit-container">
+            <button mat-raised-button type="submit" class="form-submit">
+              Send
+            </button>
+        </div>
+      </form>
   </div>
 </div>
 <div *ngIf="!isAuthenticated()" class="placeholder">
