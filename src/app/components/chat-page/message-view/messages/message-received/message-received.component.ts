@@ -33,7 +33,18 @@ export class MessageReceivedComponent {
   parseRawDate(rawDate: string) {
     if (rawDate === new Date().toDateString()) return "Today"
     const dateSplit = rawDate.split(" ")
-    const date = dateSplit[1] + " " + dateSplit[2]
+    var date = dateSplit[1] + " " + dateSplit[2]
+    if (dateSplit[2].length === 2) {
+      if (dateSplit[2][1] === '1') date += "st"
+      if (dateSplit[2][1] === '2') date += "nd"
+      if (dateSplit[2][1] === '3') date += "rd"
+      else date += "th"
+    } else {
+      if (dateSplit[2] === "1") date += "st"
+      if (dateSplit[2] === "2") date += "nd"
+      if (dateSplit[2] === "3") date += "rd"
+      else date += "th"
+    }
     return date
   }
 }
