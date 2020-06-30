@@ -13,7 +13,7 @@ const databaseUsername = "test"
 const databasePassword = "test"
 const databaseName = "messenger-database"
 const databaseUrl = "mongodb+srv://" + databaseUsername + ":" + databasePassword + "@messenger-db-jzhdw.mongodb.net/" + databaseName + "?retryWrites=true&w=majority"
-const database = mongojs(databaseUrl, ["chats", "users"])
+const database = mongojs(databaseUrl, ["chats", "users", "categories", "tags"])
 //-----------------------------------Requests----------------------------------------
 //Gets chat by ID
 router.get("/data/:id", function(req, res) {
@@ -120,6 +120,22 @@ router.post("/subscribe", authenticateToken, function(req, res) {
         ).catch((reject) => console.log(reject))
       )
     ).catch((reject) => console.log(reject))
+  ).catch((reject) => console.log(reject))
+})
+
+//Returns a list of tags whose first letters match those requested by the query
+router.post("/query-tags", function(req, res) {
+  const queryString = req.body.queryString
+  queryTags(queryString).then(
+    (resolve) => res.json({status: '0', data: resolve})
+  ).catch((reject) => console.log(reject))
+})
+
+//Returns a list of categories whose first letters match those quested by the query
+router.post("/query-categories", function(req, res) {
+  const queryString = req.body.queryString
+  queryCategories(queryString).then(
+    (resolve) => res.json({status: '0', data: resolve})
   ).catch((reject) => console.log(reject))
 })
 
@@ -295,5 +311,48 @@ function getUserById(userId) {
   })
 }
 
+//Adds a tag to the list of tags in the tags collection
+function addTag(tag) {
+  return new Promise((resolve, reject) => {
+    if (tag === null || tag === undefined) reject("Bad data")
+    database.tags.save({ tag }, function(err, tag) {
+      if (err || tags === undefined || tags == null) reject("Error posting tag")
+      resolve(0)
+    })
+  })
+}
+
+//Adds a category to the list of categories in the categories collection
+function addCategory(category) {
+  return new Promise((resolve, reject) => {
+    if (category === null || category === undefined) reject("Bad data")
+    database.categories.save({ category }, function(err, category) {
+      if (err || category === undefined || category === null) reject("Error posting category")
+      resolve(0)
+    })
+  })
+}
+
+//Queries tags for tags that contain the queryString as a substring
+function queryTags(queryString) {
+  return new Promise((resolve, reject) => {
+    if (queryString === undefined || queryString === null) reject("Bad data")
+    database.tags.find({tag: new RegExp(queryString, 'i')}, function(err, tags) {
+      if (err || tags === undefined || tags === null) reject("Error querying tags")
+      resolve(tags)
+    })
+  })
+}
+
+//Queries categories for categories that contain the queryString as a substring
+function queryCategories(queryString) {
+  return new Promise((resolve, reject) => {
+    if (queryString === undefined || queryString === null) reject("Bad data")
+    database.categories.find({category: new RegExp(queryString, 'i')}, function(err, categories) {
+      if (err || categories === undefined || categories === null) reject("Error querying categories")
+      resolve(categories)
+    })
+  })
+}
 
 module.exports = router

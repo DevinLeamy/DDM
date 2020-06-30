@@ -41,6 +41,9 @@ import { UserViewComponent } from "./components/user-page/user-view/user-view.co
 import { UserChatsViewComponent } from "./components/user-page/user-chats-view/user-chats-view.component"
 import { ImageFabComponent } from "./components/image-fab/image-fab.component"
 import { ChatListComponent } from "./components/home-page/chat-display/chat-list/chat-list.component"
+import { ChatTagsComponent } from "./components/create-chat/chat-tags/chat-tags.component"
+import { TagComponent } from "./components/create-chat/chat-tags/tag/tag.component"
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,7 +69,9 @@ import { ChatListComponent } from "./components/home-page/chat-display/chat-list
     UserViewComponent,
     UserChatsViewComponent,
     ImageFabComponent,
-    ChatListComponent
+    ChatListComponent,
+    ChatTagsComponent,
+    TagComponent
   ],
   imports: [
     BrowserModule,

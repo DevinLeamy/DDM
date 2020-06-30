@@ -14,7 +14,7 @@
 .right {
         background-color: rgb(50, 64, 71);
         margin-left: 10px;
-        width: calc(59% - 20px);
+        width: calc(60% - 20px);
         height: 100%;
         float: left;
 }
