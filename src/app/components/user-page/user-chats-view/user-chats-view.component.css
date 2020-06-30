@@ -93,3 +93,10 @@
 .global-chat-title {
         color: #29a8ab;
 }
+
+.transform-opacity {
+        -webkit-transition: opacity 0.2s;
+        -moz-transition: opacity 0.2s;
+        -o-transition: opacity 0.2s;
+        transition: opacity 0.2s;
+}

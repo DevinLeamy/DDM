@@ -11,7 +11,7 @@
         </div>
        
         <div *ngIf="this.user.friends.length > 0" class="friends-list-container">
-                <div class="friend-container" *ngFor="let friend of this.user.friends">
+                <div class="friend-container transform-opacity" *ngFor="let friend of this.user.friends">
                         <div class="friend-icon-container">
                                 <app-user-icon></app-user-icon>
                         </div>
@@ -24,7 +24,7 @@
         </div>
         <div class="friend-request-container">
                 <div class="friend-request">
-                        <button #friendRequestButton class="friend-request-button" (click)="onFriendReqBtnClick()">
+                        <button #friendRequestButton class="friend-request-button transform-opacity" (click)="onFriendReqBtnClick()">
                                 {{this.friendReqBtnText}}
                         </button>
                 </div>
@@ -63,7 +63,7 @@
                 </div>
         </div>
         <div class="friend-requests-list-container">
-                <div class="friend-request" *ngFor="let request of this.user.friendReqs">
+                <div class="friend-request transform-opacity" *ngFor="let request of this.user.friendReqs">
                         <span>{{request.username}}</span>
                         <button mat-raised-button (click)="acceptRequest(request._id, request.username)">Accept</button>
                         <button mat-raised-button (click)="declineRequest(request._id, request.username)">Decline</button>
