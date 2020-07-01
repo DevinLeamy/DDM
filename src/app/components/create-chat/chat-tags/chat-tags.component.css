@@ -7,12 +7,12 @@
         display: flex;
         flex-wrap: wrap;
         max-width: 100%;
-        border: solid black;
+        border: solid white;
         border-width: 2px;
         margin-top: 5px;
         margin-bottom: 5px;
         border-radius: 5px;
-        background-color: #6db6ee;
+        /* background-color: #6db6ee; */
 }
 
 .tag-container {
@@ -22,32 +22,56 @@
         margin-bottom: 3px;
 }
 
-.add-tag-container {
-        margin-left: 3px;
-        margin-right: 3px;
-        margin-top: 3px;
-        margin-bottom: 3px;
-        background-color: rgb(38, 49, 54);
+
+/* Add tag component */
+.add-tag-button {
+        line-height: 30px;
         height: 30px;
-        border-radius: 5px;
-        display: block;
+        border-radius: 15px;
+        background-color: rgb(38, 49, 54);
+        font-size: 25px;
+        -webkit-transition: color 0.2s;
+        -moz-transition: color 0.2s;
+        -o-transition: color 0.2s;
+        transition: color 0.2s;
+        color: rgb(177, 177, 177);
+        border: none;
+        padding: none;
 }
 
-.add-tag-button {
-        float: left;
-        line-height: 30px;
-        margin-left: 5px;
-        font-size: 15px;
-        display: block;
+.add-tag-button:hover {
+        color: white;
 }
 
 .add-tag-input-container {
-        float: left;
-        margin-left: 10px;
+        height: 30px;
+        border-radius: 5px;
+        background-color: rgb(38, 49, 54);
+        -webkit-transition: height 0.2s;
+        -moz-transition: height 0.2s;
+        -o-transition: height 0.2s;
+        transition: height 0.2s;
+        padding-right: 5px;
 }
 
 .add-tag-input {
+        color: #7abffc;
         line-height: 30px;
-        caret-color: black;
-        display: inline;
+        margin-left: 5px;
+        caret-color: white;
+        border: none;
+}
+
+.add-tag-input-container:hover {
+        height: 35px;
+}
+
+/* Prevents users from selecting text */
+.no-select {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none; 
+        -khtml-user-select: none; 
+        -moz-user-select: none; 
+        -ms-user-select: none; 
+        user-select: none;
 }

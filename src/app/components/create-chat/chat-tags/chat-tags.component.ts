@@ -15,12 +15,11 @@ export class ChatTagsComponent {
 
         //Adds a new tag to the list of tags
         addTag(tagForm: NgForm) {
-                const newTag = tagForm.value.tag
-                if (newTag === null || newTag === undefined || newTag === "") tagForm.resetForm()
-                else {
+                const newTag = tagForm.value.tag.trim().toLowerCase()
+                if (!(newTag === null || newTag === undefined || newTag === "" || newTag === "new tag")) {
                         this.chatTags.push(newTag)
-                        tagForm.resetForm()
                 }
+                tagForm.resetForm()
         }
 
         //Removes existing tag from this of tags

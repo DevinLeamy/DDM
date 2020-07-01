@@ -10,7 +10,8 @@ import { UserSub } from 'src/app/models/user-sub'
 @Component({
   selector: "app-create-chat",
   templateUrl: "create-chat.component.html",
-  styleUrls: ["create-chat.component.css"]
+  styleUrls: ["create-chat.component.css"],
+  providers: [ChatsService] //I do not know if the chats service has been made a provider for a different component
 })
 export class CreateChatComponent {
   /*

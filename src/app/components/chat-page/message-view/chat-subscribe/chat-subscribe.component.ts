@@ -39,11 +39,11 @@ export class ChatSubscribeComponent {
 
         //Checks if user is subscribed to the chat
         isSubscribed() {
-                if (this.chatService.chatId === undefined || this.chatService.chatId === null) return false
+                if (this.chatService.chatId === undefined || this.chatService.chatId === null || this.user === null || this.user === undefined) return false
                 const chat: ChatSub = this.chatService.getChatSub()
                 // if (chat == undefined || chat == null || this.user == undefined || this.user == null) return false
                 for (var i = 0; i < this.user.chatSubs.length; i++) {
-                        if (this.user.chatSubs[i]._id == chat._id) {
+                        if (this.user.chatSubs[i]._id === chat._id) {
                                 return true
                         }
                 }
