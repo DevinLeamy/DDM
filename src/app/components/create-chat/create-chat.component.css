@@ -1,12 +1,20 @@
-.main-container {
+.one-container {
         width: 100%;
         height: 100%;
         display: flex;
         justify-content: center;
+        background-color: rgb(50, 64, 71);
 }
 
-.container {
+.two-container {
         width: 40%;
         height: 60%;
-        background-color: orange;
+        border: solid white;
+        border-width: 2px;
+}
+
+.three-container {
+        width: calc(100% - 30px);
+        height: calc(100% - 30px);
+        margin: auto;
 }

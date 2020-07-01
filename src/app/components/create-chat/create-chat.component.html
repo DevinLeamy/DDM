@@ -1,7 +1,8 @@
 <app-navbar>
-    <div class="main-container">
-      <div class="container">
-          <mat-card>
+    <div class="one-container">
+      <div class="two-container">
+        <div class="three-container">
+            <mat-card>
               <form #chatForm="ngForm" (submit)="createChat(chatForm)">
                 <div>
                   <mat-form-field>
@@ -30,6 +31,8 @@
                 </div>
               </form>
             </mat-card>
+            <app-chat-tags></app-chat-tags>
+        </div>
       </div>
     </div>
 </app-navbar>

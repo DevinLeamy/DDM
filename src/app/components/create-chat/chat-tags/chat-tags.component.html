@@ -1,5 +1,25 @@
 <div class="main-container">
-        <div class="container">
-                <app-tag *ngFor="let tag of chatTags" [tagText]="tag"></app-tag>
+        <div class="tags-container">
+                <div class="tag-container" *ngFor="let tag of chatTags">
+                        <app-tag [tagText]="tag"></app-tag>
+                </div>
+                <form class="add-tag-container" #tagForm="ngForm" (submit)="addTag(tagForm)">
+                        <button mat-raised-button class="add-tag-button" type="submit">
+                                Add
+                        </button>
+                        <div class="add-tag-input-container">
+                                <input
+                                        matInput
+                                        type="text"
+                                        name="tag"
+                                        ngModel
+                                        #tag="ngModel"
+                                        class="add-tag-input"
+                                        placeholder="tag"
+                                >
+                        </div>
+                       
+                        <!-- This is were tags will be searched for and added -->
+                </form>
         </div>
 </div>
