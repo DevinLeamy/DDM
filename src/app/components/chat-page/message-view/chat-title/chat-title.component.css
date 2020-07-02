@@ -1,6 +1,7 @@
 .container {
         display: flex;
-        background-color: #6db6ee;
+        /* background-color: #6db6ee; */
+        background-color: rgb(32, 32, 32);
         width: 100%;
         border-radius: 5px;
 }
@@ -12,21 +13,28 @@
 }       
 
 .title-container {
-        display: table;
+        width: calc(100% - 200px);
         height: 45px;
         float: left;
         padding-right: 10px;
 }
 
 .title {
-        display: table-cell;
-        font-family: "Roboto";
-        font-size: 20px;
-        vertical-align: middle;
+        height: 20px;
         font-weight: bold;
-        color: black;
+        font-size: 17px;
+        color: white;
 }
 
-.flexExpand {
+.chat-subscribe-container {
+        display: table;
+        margin-right: 5px;
+}
+
+.chat-subscribe {
+        display: table-cell;
+        vertical-align: middle;
+}
+.flex-expand {
         flex: 1 1 auto; 
 }

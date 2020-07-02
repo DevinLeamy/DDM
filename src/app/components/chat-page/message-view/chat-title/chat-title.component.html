@@ -4,9 +4,12 @@
         </div>
         <div class="title-container">
                 <span class="title">
-                        <ng-content></ng-content>
+                        {{this.chat.title}}
                 </span>
         </div>
+        
         <span class="flex-expand"></span>
-        <app-chat-subscribe></app-chat-subscribe>
+        <div class="chat-subscribe-container">
+                <app-chat-subscribe class="chat-subscribe"></app-chat-subscribe>
+        </div>
 </div>

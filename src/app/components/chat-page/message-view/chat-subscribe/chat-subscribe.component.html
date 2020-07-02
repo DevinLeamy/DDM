@@ -1,7 +1,13 @@
-<!-- Only shows if user if logged in -->
-<div class="container" *ngIf="this.isAuthenticated()">
-        <!-- Subscribe Button -->
-        <button mat-raised-button class="subscribe-button" *ngIf="!this.isSubscribed()" (click)="this.subscribe()">Subscribe</button>
-        <!-- Subscribed Label -->
-        <span *ngIf="this.isSubscribed()" class="subscribed-label">Subscribed</span>
+<div class="container transform-height" *ngIf="this.isAuthenticated()">
+        <div class="subscribe-button-container transform-background-color" *ngIf="!this.isSubscribed()" >
+                <div class="subscribe-button transform-color" (click)="this.subscribe()">
+                        Subscribe
+                </div>
+        </div>
+        <div class="subscribed-button-container" *ngIf="this.isSubscribed()">
+                <div  class="subscribed-button">
+                        Subscribed
+                </div>
+        </div>
+        
 </div>
