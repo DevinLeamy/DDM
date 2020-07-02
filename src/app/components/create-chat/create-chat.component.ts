@@ -14,10 +14,6 @@ import { UserSub } from 'src/app/models/user-sub'
   providers: [ChatsService] //I do not know if the chats service has been made a provider for a different component
 })
 export class CreateChatComponent {
-  /*
-  Temp 
-  -categories will be stored in a database
-  */
   categories: Category[] = [
     { _id: "0", name: "Science and Tech" },
     { _id: "1", name: "Food" },
@@ -28,6 +24,7 @@ export class CreateChatComponent {
   constructor(private chatsService: ChatsService, private userService: UserService) {}
 
   ngOnInit() {
+    this.chatsService.initNewChat()
     this.userSub = this.userService.getUserUpdated()
       .subscribe(user => {
         this.user = user
@@ -42,7 +39,8 @@ export class CreateChatComponent {
       const title = chatForm.value.title
       const category: Category = {
         _id: chatForm.value.category,
-        name: this.categories[chatForm.value.category].name
+        name: "test" 
+        //this.categories[chatForm.value.category].name
       }
       this.chatsService.postChat(title, this.user._id, category, true)
       chatForm.resetForm()

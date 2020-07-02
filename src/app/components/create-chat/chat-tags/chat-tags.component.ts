@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from "@angular/core"
 import { ChatsService } from "../../../services/chats"
 import { NgForm } from '@angular/forms'
+import { Chat } from 'src/app/models/chat'
+import { Subscription } from 'rxjs'
 
 @Component({
         selector: "app-chat-tags",
@@ -8,29 +10,33 @@ import { NgForm } from '@angular/forms'
         styleUrls: ["chat-tags.component.css"]
 })
 export class ChatTagsComponent {
-        chatTags: string[] = ["cats", "dogs", "fish", "salamander", "computer-programming", "physics", "clash-royale", "dota", "abc's"]
-        options: string[]
+        newChat: Chat
+        newChatSub: Subscription
 
         constructor(private chatsService: ChatsService) {}
 
-        //Adds a new tag to the list of tags
-        addTag(tagForm: NgForm) {
-                const newTag = tagForm.value.tag.trim().toLowerCase()
-                if (!(newTag === null || newTag === undefined || newTag === "" || newTag === "new tag")) {
-                        this.chatTags.push(newTag)
-                }
-                tagForm.resetForm()
+        ngOnInit() {
+                this.newChatSub = this.chatsService.getNewChatUpdated()
+                        .subscribe(chat => { 
+                                this.newChat = chat
+                        })
+                this.chatsService.updateNewChat()
         }
 
-        //Removes existing tag from this of tags
-        removeTag(tagToRemove: string) {
-                this.chatTags = this.chatTags.filter(tag => {tag !== tagToRemove})
+        //Adds a new tag to the list of tags
+        addTag(tagForm: NgForm) {
+                const newTag = tagForm.value.tag.trim().toLowerCase().replace(" ", "-")
+                if (!(newTag === null || newTag === undefined || newTag === "" || newTag === "new tag")) {
+                        this.chatsService.addTag(newTag)
+                }
+                tagForm.resetForm()
         }
 
         updateOptions(queryText: string) {
                 // this.chatsService.getTags(queryText) 
         }
 
-
-
+        ngOnDestroy() {
+                this.newChatSub.unsubscribe()
+        }
 }

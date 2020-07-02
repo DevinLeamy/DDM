@@ -67,10 +67,11 @@ router.post("/chat-create/create", function(req, res) {
   const adminId = chat.adminId
   const category = chat.category
   const global = chat.global
+  const tags = chat.tags
   const subs = []
   getUserById(adminId).then(
     (user) =>  {
-      const newChat = createChat(title, {_id: user._id, username: user.username}, category, global, subs)
+      const newChat = createChat(title, {_id: user._id, username: user.username}, category, global, subs, tags)
       chatExistsWithTitle(title).then(
         //Chat already exists
         (resolve) => console.log(resolve)

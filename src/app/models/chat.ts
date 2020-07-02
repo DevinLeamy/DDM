@@ -10,5 +10,6 @@ export class Chat {
   admin: UserSub
   subs: UserSub[]
   global: boolean
+  tags: string[]
   image: string
 }
