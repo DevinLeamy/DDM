@@ -71,6 +71,11 @@ router.post("/chat-create/create", function(req, res) {
   const subs = []
   getUserById(adminId).then(
     (user) =>  {
+      const userSub = {
+        _id: user._id,
+        username: user.username,
+        image: user.image
+      }
       const newChat = createChat(title, {_id: user._id, username: user.username}, category, global, subs, tags)
       chatExistsWithTitle(title).then(
         //Chat already exists
@@ -79,7 +84,7 @@ router.post("/chat-create/create", function(req, res) {
         //Chat does not exist
         (resolve) => {
           //Resolve holds newChat
-          addUserToChatSubs(resolve._id, user).then(
+          addUserToChatSubs(resolve._id, userSub).then(
             //Add chat to user
             () => addChatToUserSubs(resolve, user._id).then(
               //Sends chat userId 
@@ -104,22 +109,67 @@ router.get("/chats", function(req, res) {
 router.post("/subscribe", authenticateToken, function(req, res) {
   const chat = req.body.chat
   const userId = req.user._id
+  const chatSub = {
+    _id: chat._id,
+    title: chat.title,
+    image: chat.image
+  }
   //Check if chat exists
   chatExistsWithId(chat._id).then(
     //Check if user exists
     () => getUserById(userId).then(
-      (user) => chatContainsUser(chat._id, user).then(
+      (user) => chatContainsUser(chat._id, {
+        _id: user._id,
+        username: user.username,
+        image: user.image
+      }).then(
         (resolve) => console.log(resolve)
       ).catch(
         //Add user id to chat
-        () => addUserToChatSubs(chat._id, user).then(
-          //Add chat to user
-          () => addChatToUserSubs(chat, user._id).then(
-            //Sends chat userId 
-            () => res.json(user)
+        () => {
+          const userSub = {
+            _id: user._id,
+            username: user.username,
+            image: user.image
+          }
+          addUserToChatSubs(chat._id, userSub).then(
+            //Add chat to user
+            () => addChatToUserSubs(chatSub, user._id).then(
+              //Sends chat userId 
+              () => res.json(userSub)
+            ).catch((reject) => console.log(reject))
+          ).catch((reject) => console.log(reject))
+        }
+      )
+    ).catch((reject) => console.log(reject))
+  ).catch((reject) => console.log(reject))
+})
+
+//Remove user from chat subscribers list and remove chat from user subscriptions list
+router.post("/unsubscribe", authenticateToken, function(req, res) {
+  const chat = req.body.chat
+  const userId = req.user._id
+  const chatSub = {
+      _id: chat._id,
+      title: chat.title,
+      image: chat.image
+    }
+  //Check if chat exists
+  chatExistsWithId(chat._id).then(
+    //Check if user exists
+    () => getUserById(userId).then(
+      (user) => {
+        const userSub = {
+          _id: user._id,
+          username: user.username,
+          image: user.image
+        }
+        removeChatSubFromUserSubs(userId, chatSub).then(
+          () => removeUserFromChatSubs(userSub, chat._id).then(
+            () => res.json({status: '0', data: userSub})
           ).catch((reject) => console.log(reject))
         ).catch((reject) => console.log(reject))
-      )
+      }
     ).catch((reject) => console.log(reject))
   ).catch((reject) => console.log(reject))
 })
@@ -257,25 +307,25 @@ function userExistsWithId(userId) {
   })
 } 
 
-function addUserToChatSubs(chatId, userId) {
+function addUserToChatSubs(chatId, userSub) {
   return new Promise((resolve, reject) => {
-    if (userId == undefined || userId == null || chatId == undefined || chatId == null) reject("Bad data")
+    if (userSub == undefined || userSub == null || chatId == undefined || chatId == null) reject("Bad data")
     database.chats.update({ _id: mongojs.ObjectId(chatId) }, {
       $push: {
-        subs: userId
+        subs: userSub
       }
     }, (err, data) => {
-      if (err) reject("Error posting userId to chat subIds list")
+      if (err) reject("Error posting userSub to chat subIds list")
       else resolve(0)
     })
   })
 }
 
-function chatContainsUser(chatId, user) {
+function chatContainsUser(chatId, userSub) {
   return new Promise((resolve, reject) => {
     getChatById(chatId).then(
       (chat) => {
-        if (chat.subs.includes(user)) {
+        if (chat.subs.includes(userSub)) {
           resolve("Chat contains user");
         } else {
           reject("Chat does not contain user")
@@ -288,12 +338,12 @@ function chatContainsUser(chatId, user) {
   })
 }
 
-function addChatToUserSubs(chat, userId) {
+function addChatToUserSubs(chatSub, userId) {
   return new Promise((resolve, reject) => {
-    if (userId == undefined || userId == null || chat == undefined || chat == null) reject("Bad data")
+    if (userId == undefined || userId == null || chatSub == undefined || chatSub == null) reject("Bad data")
     database.users.update({ _id: mongojs.ObjectId(userId) }, {
       $push: {
-        chatSubs: chat
+        chatSubs: chatSub
       }
     }, (err, data) => {
       if (err) reject("Error posting chat to user subscriptions list")
@@ -312,6 +362,35 @@ function getUserById(userId) {
   })
 }
 
+//Removes userSub from ChatSubs 
+function removeUserFromChatSubs(userSub, chatId) {
+  return new Promise((resolve, reject) => {
+    if (userSub === undefined || userSub === null || chatId === undefined || chatId === null) reject("Bad Data")
+    database.chats.update({ _id: mongojs.ObjectId(chatId) }, {
+      $pull: {
+        subs: userSub
+      }
+    }, (err, data) => {
+      if (err) reject("Error removing userSub from chat subIds list")
+      else resolve(0)
+    })
+  })
+}
+
+//Removes chatSub from userSubs
+function removeChatSubFromUserSubs(userId, chatSub) {
+  return new Promise((resolve, reject) => {
+    if (userId == undefined || userId == null || chatSub == undefined || chatSub == null) reject("Bad data")
+    database.users.update({ _id: mongojs.ObjectId(userId) }, {
+      $pull: {
+        chatSubs: chatSub
+      }
+    }, (err, data) => {
+      if (err) reject("Error removing chatSub from user subscriptions list")
+      resolve(0)
+    })
+  })
+}
 //Adds a tag to the list of tags in the tags collection
 function addTag(tag) {
   return new Promise((resolve, reject) => {

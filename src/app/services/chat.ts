@@ -107,6 +107,33 @@ export class ChatService {
     })
   }
 
+  // Requests a unsubscription to a given chat
+  unsubscribeFromChat() {
+    return new Promise( (resolve, reject) => {
+      if (this.chatId == undefined || this.chatId == null) reject("Bad Data")
+      const body = {
+        chat: {
+          _id: this.chat._id,
+          title: this.chat.title
+        }
+      }
+      var headers = new HttpHeaders()
+      headers = headers.append('Content-type', 'application/json')
+      this.http.post(CHAT_API + "unsubscribe/", body, { headers: headers })
+        .subscribe((res: {status: string, data: UserSub}) => {
+          //Get user and not just user id
+          if (res == undefined || res == null) reject("Subscription was unsuccessful")
+          const index = this.chat.subs.indexOf(res.data)
+          console.log(res.data, index, this.chat.subs)
+          if (index === -1) {
+            this.chat.subs = this.chat.subs.splice(index, 1)
+          }
+          this.updateChat()
+          resolve(0)
+        })
+    })
+  }
+
   //Update chat object
   updateChat() {
     this.chatUpdated.next({...this.chat})

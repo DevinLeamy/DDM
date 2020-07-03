@@ -3,8 +3,11 @@
                 <app-user-icon></app-user-icon>
         </div>
         <div class="title-container">
-                <div class="title">
+                <div class="title" *ngIf="this.chat !== undefined">
                         {{this.chat.title}}
+                </div>
+                <div class="title" *ngIf="this.chat === undefined">
+                        Loading...
                 </div>
                 <div class="tags-container">
                         <div class="tag-container" *ngFor="let tag of this.chat.tags">

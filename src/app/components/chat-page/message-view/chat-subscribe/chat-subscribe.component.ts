@@ -32,6 +32,13 @@ export class ChatSubscribeComponent {
                 ).catch((reject) => console.log(reject))
         }
 
+        //Unsubscribes user from chat if the user is logged in and is already subscribed
+        unsubscribe() {
+                this.chatService.unsubscribeFromChat().then(
+                        () => this.userService.getUser(true)
+                ).catch((reject) => console.log(reject))
+        }
+
         //Checks if user has logged in 
         isAuthenticated() {
                 return this.authService.isAuthenticated()
