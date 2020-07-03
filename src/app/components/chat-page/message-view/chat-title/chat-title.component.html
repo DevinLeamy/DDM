@@ -3,13 +3,18 @@
                 <app-user-icon></app-user-icon>
         </div>
         <div class="title-container">
-                <span class="title">
+                <div class="title">
                         {{this.chat.title}}
-                </span>
+                </div>
+                <div class="tags-container">
+                        <div class="tag-container" *ngFor="let tag of this.chat.tags">
+                                {{tag}}
+                        </div>
+                </div>
         </div>
         
         <span class="flex-expand"></span>
         <div class="chat-subscribe-container">
-                <app-chat-subscribe class="chat-subscribe"></app-chat-subscribe>
+                <app-chat-subscribe></app-chat-subscribe>
         </div>
 </div>

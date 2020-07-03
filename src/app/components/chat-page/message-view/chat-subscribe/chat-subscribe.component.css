@@ -1,10 +1,10 @@
 .container {
         width: 100px;
-        height: 30px;
+        height: 35px;
 }
 
 .container:hover {
-        height: 35px;
+        height: 40px;
 }
 
 /* Subscribe */

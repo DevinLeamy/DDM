@@ -22,6 +22,14 @@ export class ChatTitleComponent {
                 this.chatService.getChat()
         }
 
+        getTags() {
+                var output = ""
+                for (var i = 0; i < this.chat.tags.length; i++) {
+                        output += this.chat.tags[i] + " "
+                }
+                return output
+        }
+
         ngOnDestroy() {
                 this.chatSub.unsubscribe()
         }

@@ -13,7 +13,7 @@
 }       
 
 .title-container {
-        width: calc(100% - 200px);
+        width: calc(100% - 150px);
         height: 45px;
         float: left;
         padding-right: 10px;
@@ -27,14 +27,32 @@
 }
 
 .chat-subscribe-container {
-        display: table;
         margin-right: 5px;
-}
-
-.chat-subscribe {
-        display: table-cell;
-        vertical-align: middle;
 }
 .flex-expand {
         flex: 1 1 auto; 
+}
+/* Tags container */
+.tags-container {
+        overflow-x: scroll;
+        overflow-y: hidden;
+        height: 25px;
+        display: flex;
+        flex-shrink: 0;
+}
+
+/* Makes horizontal scroll bar invisible */
+.tags-container::-webkit-scrollbar {
+        height: 0px;
+}
+
+.tag-container {
+        line-height: 25px;
+        height: 25px;
+        background-color: rgb(38, 49, 54);
+        border-radius: 3px;
+        color: #7abffc;
+        padding-left: 3px;
+        padding-right: 3px;
+        margin-right: 3px;
 }
