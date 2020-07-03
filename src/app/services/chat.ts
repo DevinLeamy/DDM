@@ -122,17 +122,34 @@ export class ChatService {
       this.http.post(CHAT_API + "unsubscribe/", body, { headers: headers })
         .subscribe((res: {status: string, data: UserSub}) => {
           //Get user and not just user id
-          if (res == undefined || res == null) reject("Subscription was unsuccessful")
-          const index = this.chat.subs.indexOf(res.data)
-          console.log(res.data, index, this.chat.subs)
-          if (index === -1) {
-            this.chat.subs = this.chat.subs.splice(index, 1)
+          if (res === undefined || res === null) reject("Subscription was unsuccessful")
+          const index = this.getIndexOfUserSub(res.data)
+          if (index !== -1) {
+            this.chat.subs.splice(index, 1)
           }
           this.updateChat()
           resolve(0)
         })
     })
   }
+
+  //Get index of userSub in Chat subs list
+  getIndexOfUserSub(userSub: UserSub) {
+    for (var i = 0; i < this.chat.subs.length; i++) {
+      const cur = this.chat.subs[i]
+      if (cur._id === userSub._id && cur.username === userSub.username && cur.image === userSub.image) {
+        return i
+      }
+    }
+    return -1
+  }
+
+   //Checks if user on chat is the chat's admin
+    isAdmin(userId: string) {
+            if (this.chat === undefined || userId === undefined) return false
+            if (this.chat.admin._id === userId) return true
+            return false
+    }  
 
   //Update chat object
   updateChat() {

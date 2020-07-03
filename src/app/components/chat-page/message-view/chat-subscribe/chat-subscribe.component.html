@@ -1,10 +1,15 @@
 <div class="container transform-height" *ngIf="this.isAuthenticated()">
+        <div class="admin-container" *ngIf="this.isAdmin()">
+                <div class="admin-text">
+                        Admin
+                </div>
+        </div>
         <div class="subscribe-button-container transform-background-color" *ngIf="!this.isSubscribed()" (click)="this.subscribe()">
                 <div class="subscribe-button transform-color">
                         Subscribe
                 </div>
         </div>
-        <div class="subscribed-button-container" *ngIf="this.isSubscribed()" (click)="this.unsubscribe()">
+        <div class="subscribed-button-container" *ngIf="this.isSubscribed() && !this.isAdmin()" (click)="this.unsubscribe()">
                 <div class="subscribed-button">
                         Subscribed
                 </div>

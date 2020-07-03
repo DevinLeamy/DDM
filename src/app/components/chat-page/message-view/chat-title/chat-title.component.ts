@@ -9,7 +9,6 @@ import { ChatService } from "../../../../services/chat"
         styleUrls: ["chat-title.component.css"]
 })
 export class ChatTitleComponent {
-
         chatSub: Subscription
         chat: Chat
         constructor(private chatService: ChatService) {}
@@ -20,15 +19,7 @@ export class ChatTitleComponent {
                                 this.chat = chat
                         })
                 this.chatService.getChat()
-        }
-
-        getTags() {
-                var output = ""
-                for (var i = 0; i < this.chat.tags.length; i++) {
-                        output += this.chat.tags[i] + " "
-                }
-                return output
-        }
+        }      
 
         ngOnDestroy() {
                 this.chatSub.unsubscribe()

@@ -25,6 +25,11 @@ export class ChatSubscribeComponent {
                 this.userService.getUser()
         }
 
+        isAdmin() {
+                if (this.user === undefined || this.user === null) return false
+                return this.chatService.isAdmin(this.user._id)
+        }
+
         //Subscribes user to chat if the user is logged in and has not yet subscribed
         subscribe() {
                 this.chatService.subscribeToChat().then(

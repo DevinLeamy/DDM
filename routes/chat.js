@@ -76,7 +76,7 @@ router.post("/chat-create/create", function(req, res) {
         username: user.username,
         image: user.image
       }
-      const newChat = createChat(title, {_id: user._id, username: user.username}, category, global, subs, tags)
+      const newChat = createChat(title, {_id: user._id, username: user.username, image: user.image}, category, global, subs, tags)
       chatExistsWithTitle(title).then(
         //Chat already exists
         (resolve) => console.log(resolve)
@@ -84,9 +84,14 @@ router.post("/chat-create/create", function(req, res) {
         //Chat does not exist
         (resolve) => {
           //Resolve holds newChat
-          addUserToChatSubs(resolve._id, userSub).then(
+          const chatSub = {
+            _id: resolve._id,
+            title: resolve.title,
+            image: resolve.image
+          }
+          addUserToChatSubs(chatSub._id, userSub).then(
             //Add chat to user
-            () => addChatToUserSubs(resolve, user._id).then(
+            () => addChatToUserSubs(chatSub, user._id).then(
               //Sends chat userId 
               () => res.json(resolve)
             ).catch((reject) => console.log(reject))
