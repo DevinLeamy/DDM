@@ -43,6 +43,7 @@ import { ImageFabComponent } from "./components/image-fab/image-fab.component"
 import { ChatListComponent } from "./components/home-page/chat-display/chat-list/chat-list.component"
 import { ChatTagsComponent } from "./components/create-chat/chat-tags/chat-tags.component"
 import { TagComponent } from "./components/create-chat/chat-tags/tag/tag.component"
+import { HeaderComponent } from "./components/header/header.component"
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { TagComponent } from "./components/create-chat/chat-tags/tag/tag.compone
     ImageFabComponent,
     ChatListComponent,
     ChatTagsComponent,
-    TagComponent
+    TagComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
