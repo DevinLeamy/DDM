@@ -98,18 +98,33 @@ export class ChatsService {
         console.log(res)
         //Chat was created
         this.postTags(this.newChat.tags, res)
+        this.postCategory(category.name, res)
       })
   }
 
   //Add newly created tags and update existing tags with chat sub
   postTags(tags: string[], chatSub: ChatSub) {
+    for (var i = 0; i < tags.length; i++) {
+      const body = {
+        tag: tags[i],
+        chatSub: chatSub
+      }
+      var headers = new HttpHeaders()
+      headers = headers.append('Content-type', 'application/json')
+      this.http.post(BASE_URL + "chat-create/addTag", body, { headers: headers })
+        .subscribe( res => console.log(res) )
+    }
+  }
+
+  //Post category from newly created chat
+  postCategory(category: string, chatSub: ChatSub) {
     const body = {
-      tags: tags,
+      category: category,
       chatSub: chatSub
     }
     var headers = new HttpHeaders()
     headers = headers.append('Content-type', 'application/json')
-    this.http.post(BASE_URL + "chat-create/addTags", body, { headers: headers })
+    this.http.post(BASE_URL + "chat-create/addCategory", body, { headers: headers })
       .subscribe( res => console.log(res) )
   }
 

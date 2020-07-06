@@ -23,4 +23,13 @@ function createTag(tag) {
                 chatSubs: []
         }
 }
-module.exports = { createChat, createTag }
+
+//Creates a new category object
+function createCategory(category) {
+        return {
+                _id: new mongojs.ObjectId(),
+                category: category,
+                chatSubs: []
+        }
+}
+module.exports = { createChat, createTag, createCategory }

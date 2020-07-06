@@ -4,7 +4,7 @@ const router = express.Router()
 const mongojs = require("mongojs")
 const jwt = require("jsonwebtoken")
 const { tokenParser } = require("./functions/userFunc")
-const { createChat, createTag } = require("./functions/chatFunc")
+const { createChat, createTag, createCategory } = require("./functions/chatFunc")
 var io;
 //-----------------------------------Constants----------------------------------------
 
@@ -102,26 +102,53 @@ router.post("/chat-create/create", function(req, res) {
   ).catch((reject) => console.log(reject))
 })
 
-//Add tags from newly created chat
-router.post("/chat-create/addTags", function(req, res) {
-  const tags = req.body.tags
+//Add or update tags from newly created chat
+router.post("/chat-create/addTag", function(req, res) {
+  const tag = req.body.tag
   const chatSub = req.body.chatSub
-  for (var i = 0; i < tags.length; i++) {
-    const tag = tags[i]
-    tagExists(tag)
+  tagExists(tag)
+    .then( () => addChatSubToTag(tag, chatSub)
+      .then( () => {
+        console.log("Tag " + tag + " was updated") 
+        res.json({status: '0', data: "Updated and posted tags"})
+      })
+      .catch( (reject) => console.log(reject))
+  ).catch(() => {
+    //Tag does not exist
+    addNewTag(tag)
       .then( () => addChatSubToTag(tag, chatSub)
-        .then( () => console.log("Tag " + tag + " was updated") )
+        .then( () => {
+          console.log("Tag " + tag + " was updated") 
+          res.json({status: '0', data: "Updated and posted tags"})
+        })
         .catch( (reject) => console.log(reject))
-    ).catch(() => {
-      //Tag does not exist
-      addNewTag(tag)
-        .then( () => addChatSubToTag(tag, chatSub)
-          .then( () => console.log("Tag " + tag + " was updated") )
-          .catch( (reject) => console.log(reject))
-      ).catch( (reject) => console.log(reject) )
-    })
-  }
-  res.json({status: '0', data: "Updated and posted tags"})
+    ).catch( (reject) => console.log(reject) )
+  })
+})
+
+//Add or update category from newly created chat
+router.post("/chat-create/addCategory", function(req, res) {
+  const category = req.body.category
+  const chatSub = req.body.chatSub
+  categoryExists(category)
+    .then( () => addChatSubToCategory(category, chatSub)
+      .then( () => {
+        console.log("Category " + category + " was updated") 
+        res.json({status: "0", data: "Updated and/or posted a category"})
+      })
+      .catch( (reject) => console.log(reject))
+  ).catch(() => {
+    //Tag does not exist
+    addNewCategory(category)
+      .then( () => addChatSubToTag(category, chatSub)
+        .then( () => {
+          console.log("Category " + category + " was updated") 
+          res.json({status: "0", data: "Updated and/or posted a category"})
+        })
+        .catch( (reject) => console.log(reject))
+    ).catch( (reject) => console.log(reject) )
+  })
+  
 })
 
 //Gets all chats
@@ -496,6 +523,45 @@ function addNewTag(tag) {
     database.tags.save(newTag, function(err, data) {
       if (err || data === undefined || data === null) reject("Error posting new tag")
       //Successfully posted the new tag
+      resolve(0)
+    })
+  })
+}
+
+//Check if a given category has already been recorded
+function categoryExists(category) {
+  return new Promise((resolve, reject) => {
+    if (category === undefined || category === null) reject("Bad Data")
+    database.categories.findOne({category: category}, function(err, data) {
+      if (err || data === null || data === undefined) reject("Category does not exist")
+      //Success: Category exists
+      resolve(0)
+    })
+  })
+}
+
+function addChatSubToCategory(category, chatSub) {
+  return new Promise((resolve, reject) => {
+    if (category === undefined || category === null || chatSub === undefined || chatSub === null) reject("Bad data")
+    database.categories.update({category: category}, 
+      {$push: {
+        chatSubs: chatSub
+      }}, function(err, data) {
+        if (err || data === undefined || data === null) reject("Error posting chat sub to category chat subs")
+        //Successfully added the chatSub to the category array
+        resolve(0)
+      })
+  })
+}
+
+//Add new category to categories collection
+function addNewCategory(category) {
+  return new Promise((resolve, reject) => {
+    if (category === undefined || category === null) reject("Bad data")
+    const newCategory = createCategory(category)
+    database.categories.save(newCategory, function(err, data) {
+      if (err || data === undefined || data === null) reject("Error posting new category")
+      //Success: New category has been posted
       resolve(0)
     })
   })
