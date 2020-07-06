@@ -4,7 +4,7 @@ const router = express.Router()
 const mongojs = require("mongojs")
 const jwt = require("jsonwebtoken")
 const { tokenParser } = require("./functions/userFunc")
-const { createChat } = require("./functions/chatFunc")
+const { createChat, createTag } = require("./functions/chatFunc")
 var io;
 //-----------------------------------Constants----------------------------------------
 
@@ -69,8 +69,7 @@ router.post("/chat-create/create", function(req, res) {
   const global = chat.global
   const tags = chat.tags
   const subs = []
-  getUserById(adminId).then(
-    (user) =>  {
+  getUserById(adminId).then( (user) =>  {
       const userSub = {
         _id: user._id,
         username: user.username,
@@ -93,7 +92,7 @@ router.post("/chat-create/create", function(req, res) {
             //Add chat to user
             () => addChatToUserSubs(chatSub, user._id).then(
               //Sends chat userId 
-              () => res.json(resolve)
+              () => res.json(chatSub)
             ).catch((reject) => console.log(reject))
           ).catch((reject) => console.log(reject))
         }
@@ -101,6 +100,28 @@ router.post("/chat-create/create", function(req, res) {
     )
     }
   ).catch((reject) => console.log(reject))
+})
+
+//Add tags from newly created chat
+router.post("/chat-create/addTags", function(req, res) {
+  const tags = req.body.tags
+  const chatSub = req.body.chatSub
+  for (var i = 0; i < tags.length; i++) {
+    const tag = tags[i]
+    tagExists(tag)
+      .then( () => addChatSubToTag(tag, chatSub)
+        .then( () => console.log("Tag " + tag + " was updated") )
+        .catch( (reject) => console.log(reject))
+    ).catch(() => {
+      //Tag does not exist
+      addNewTag(tag)
+        .then( () => addChatSubToTag(tag, chatSub)
+          .then( () => console.log("Tag " + tag + " was updated") )
+          .catch( (reject) => console.log(reject))
+      ).catch( (reject) => console.log(reject) )
+    })
+  }
+  res.json({status: '0', data: "Updated and posted tags"})
 })
 
 //Gets all chats
@@ -397,26 +418,26 @@ function removeChatSubFromUserSubs(userId, chatSub) {
   })
 }
 //Adds a tag to the list of tags in the tags collection
-function addTag(tag) {
-  return new Promise((resolve, reject) => {
-    if (tag === null || tag === undefined) reject("Bad data")
-    database.tags.save({ tag }, function(err, tag) {
-      if (err || tags === undefined || tags == null) reject("Error posting tag")
-      resolve(0)
-    })
-  })
-}
+// function addTag(tag) {
+//   return new Promise((resolve, reject) => {
+//     if (tag === null || tag === undefined) reject("Bad data")
+//     database.tags.save({ tag }, function(err, tag) {
+//       if (err || tags === undefined || tags == null) reject("Error posting tag")
+//       resolve(0)
+//     })
+//   })
+// }
 
-//Adds a category to the list of categories in the categories collection
-function addCategory(category) {
-  return new Promise((resolve, reject) => {
-    if (category === null || category === undefined) reject("Bad data")
-    database.categories.save({ category }, function(err, category) {
-      if (err || category === undefined || category === null) reject("Error posting category")
-      resolve(0)
-    })
-  })
-}
+// //Adds a category to the list of categories in the categories collection
+// function addCategory(category) {
+//   return new Promise((resolve, reject) => {
+//     if (category === null || category === undefined) reject("Bad data")
+//     database.categories.save({ category }, function(err, category) {
+//       if (err || category === undefined || category === null) reject("Error posting category")
+//       resolve(0)
+//     })
+//   })
+// }
 
 //Queries tags for tags that contain the queryString as a substring
 function queryTags(queryString) {
@@ -436,6 +457,46 @@ function queryCategories(queryString) {
     database.categories.find({category: new RegExp(queryString, 'i')}, function(err, categories) {
       if (err || categories === undefined || categories === null) reject("Error querying categories")
       resolve(categories)
+    })
+  })
+}
+
+//Check if a given tag has already been recorded
+function tagExists(tag) {
+  return new Promise((resolve, reject) => {
+    if (tag === undefined || tag === null) reject("Bad data")
+    database.tags.findOne({tag: tag}, function(err, data) {
+      if (err || data === undefined || data === null) reject("Tag does not exist")
+      //Tag exists
+      resolve(0)
+    })
+  })
+}
+
+//Add a new chat sub to a tag 
+function addChatSubToTag(tag, chatSub) {
+  return new Promise((resolve, reject) => {
+    if (tag === undefined || tag === null || chatSub === undefined || chatSub === null) reject("Bad data")
+    database.tags.update({tag: tag}, 
+      {$push: {
+        chatSubs: chatSub
+      }}, function(err, data) {
+        if (err || data === undefined || data === null) reject("Error posting chat sub to tag chat subs")
+        //Successfully added the chatSub to the tag array
+        resolve(0)
+      })
+  })
+}
+
+//Add new tag to tags collection
+function addNewTag(tag) {
+  return new Promise((resolve, reject) => {
+    if (tag === undefined || tag === null) reject("Bad data")
+    const newTag = createTag(tag)
+    database.tags.save(newTag, function(err, data) {
+      if (err || data === undefined || data === null) reject("Error posting new tag")
+      //Successfully posted the new tag
+      resolve(0)
     })
   })
 }

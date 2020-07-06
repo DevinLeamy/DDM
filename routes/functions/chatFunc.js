@@ -15,4 +15,12 @@ function createChat(title, admin, category, global, subs, tags) {
         }
 }
 
-module.exports = { createChat }
+//Creates a new tag object
+function createTag(tag) {
+        return {
+                _id: new mongojs.ObjectId(),
+                tag: tag,
+                chatSubs: []
+        }
+}
+module.exports = { createChat, createTag }

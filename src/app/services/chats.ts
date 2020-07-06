@@ -7,7 +7,7 @@ import { Subject } from 'rxjs'
 import { Chat } from '../models/chat'
 import { Category } from '../models/category'
 import { UserSub } from '../models/user-sub'
-import { thistle } from 'color-name'
+import { ChatSub } from '../models/chat-sub'
 
 @Injectable({
   providedIn: "root"
@@ -94,7 +94,23 @@ export class ChatsService {
     var headers = new HttpHeaders()
     headers = headers.append('Content-type', 'application/json')
     this.http.post(BASE_URL + "chat-create/create", body, { headers: headers })
-      .subscribe(res => console.log(res))
+      .subscribe( (res: ChatSub ) => {
+        console.log(res)
+        //Chat was created
+        this.postTags(this.newChat.tags, res)
+      })
+  }
+
+  //Add newly created tags and update existing tags with chat sub
+  postTags(tags: string[], chatSub: ChatSub) {
+    const body = {
+      tags: tags,
+      chatSub: chatSub
+    }
+    var headers = new HttpHeaders()
+    headers = headers.append('Content-type', 'application/json')
+    this.http.post(BASE_URL + "chat-create/addTags", body, { headers: headers })
+      .subscribe( res => console.log(res) )
   }
 
   //Update chat ids
