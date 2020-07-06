@@ -2,6 +2,7 @@
 //Handles multiple chats
 const BASE_URL = "http://localhost:3000/api/chat/"
 import { Injectable } from "@angular/core"
+import { Location } from "@angular/common"
 import { HttpHeaders, HttpClient } from '@angular/common/http'
 import { Subject } from 'rxjs'
 import { Chat } from '../models/chat'
@@ -17,7 +18,7 @@ export class ChatsService {
   chatsUpdated = new Subject<Chat[]>()
   newChat: Chat
   newChatUpdated = new Subject<Chat>()
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private location: Location) {}
 
   //Gets subscription to all chat Ids
   getChatsUpdated() {
@@ -82,6 +83,12 @@ export class ChatsService {
     this.updateNewChat()
   }
 
+  //Changes client url
+  go(route: string) {
+    this.location.replaceState(route);
+    window.location.reload()
+  }
+
   //Create new chat
   postChat(title: string, adminId: string, category: Category, global: boolean) {
     const body = {
@@ -98,34 +105,45 @@ export class ChatsService {
         console.log(res)
         //Chat was created
         this.postTags(this.newChat.tags, res)
-        this.postCategory(category.name, res)
+          .then( () => this.postCategory(category.name, res)
+          .then( () => {
+              //Visit then chat once it's been created
+              this.go("api/chat/view/" + res._id)
+            })
+          )
       })
   }
 
   //Add newly created tags and update existing tags with chat sub
   postTags(tags: string[], chatSub: ChatSub) {
-    for (var i = 0; i < tags.length; i++) {
-      const body = {
-        tag: tags[i],
-        chatSub: chatSub
+    return new Promise((resolve, reject) => {
+      for (var i = 0; i < tags.length; i++) {
+        const body = {
+          tag: tags[i],
+          chatSub: chatSub
+        }
+        var headers = new HttpHeaders()
+        headers = headers.append('Content-type', 'application/json')
+        this.http.post(BASE_URL + "chat-create/addTag", body, { headers: headers })
+          .subscribe( res => console.log(res) )
       }
-      var headers = new HttpHeaders()
-      headers = headers.append('Content-type', 'application/json')
-      this.http.post(BASE_URL + "chat-create/addTag", body, { headers: headers })
-        .subscribe( res => console.log(res) )
-    }
+      resolve(0)
+    })
   }
 
   //Post category from newly created chat
   postCategory(category: string, chatSub: ChatSub) {
-    const body = {
-      category: category,
-      chatSub: chatSub
-    }
-    var headers = new HttpHeaders()
-    headers = headers.append('Content-type', 'application/json')
-    this.http.post(BASE_URL + "chat-create/addCategory", body, { headers: headers })
-      .subscribe( res => console.log(res) )
+    return new Promise((resolve, reject) => {
+      const body = {
+        category: category,
+        chatSub: chatSub
+      }
+      var headers = new HttpHeaders()
+      headers = headers.append('Content-type', 'application/json')
+      this.http.post(BASE_URL + "chat-create/addCategory", body, { headers: headers })
+        .subscribe( res => console.log(res) )
+      resolve(0)
+    })
   }
 
   //Update chat ids
