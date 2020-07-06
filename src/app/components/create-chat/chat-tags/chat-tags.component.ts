@@ -25,7 +25,7 @@ export class ChatTagsComponent {
 
         //Adds a new tag to the list of tags
         addTag(tagForm: NgForm) {
-                const newTag = tagForm.value.tag.trim().toLowerCase().replace(" ", "-")
+                const newTag = tagForm.value.tag.trim().toLowerCase().split(/\s+/g).join('-')
                 if (!(newTag === null || newTag === undefined || newTag === "" || newTag === "new tag")) {
                         this.chatsService.addTag(newTag)
                 }
