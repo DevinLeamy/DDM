@@ -21,11 +21,17 @@ router.get("/data", authenticateToken, function(req, res) {
   ).catch((reject) => console.log(reject))
 })
 
+//Gets user sub
 router.get("/data/:_id", function(req, res) {
   const userId = req.params._id
   console.log("Getting user with id", userId)
   getUserById(userId).then(
-    (resolve) => res.json(resolve)
+    (resolve) => res.json({
+      _id: resolve._id,
+      username: resolve.username,
+      image: resolve.image,
+      online: resolve.online
+    })
   ).catch((reject) => console.log(reject))
 })
 

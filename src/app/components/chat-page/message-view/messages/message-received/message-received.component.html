@@ -1,13 +1,13 @@
 <div class="container">
   <div class="user-icon-container">
     <div class="user-icon">
-      <app-image-fab *ngIf="this.senderImage != '$$$Default$$$'" [imageUrl]="this.senderImage"></app-image-fab>
-      <app-user-icon *ngIf="this.senderImage === '$$$Default$$$'" [showStatus]="false"></app-user-icon>
+      <app-image-fab *ngIf="this.userSub.image != '$$$Default$$$'" [imageUrl]="this.userSub.image"></app-image-fab>
+      <app-user-icon *ngIf="this.userSub.image === '$$$Default$$$'" [showStatus]="false"></app-user-icon>
     </div>
   </div>
   <div class="message-container">
     <div class="message-header-container">
-      <div class="username">{{this.senderUsername}}</div>
+      <div class="username">{{this.userSub.username}}</div>
       <!-- Timestamp -->
       <div class="timestamp">{{this.getTime(this.timestamp)}}</div>
     </div>

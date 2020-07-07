@@ -1,12 +1,6 @@
 <div #messages *ngIf="this.chat != undefined && this.chat != null" class="messages">
         <div *ngFor="let message of compressMessages(chat.messages)">
-                <!-- <app-message-received *ngIf="received(message);"[senderUsername]="message.senderUsername">
-                        {{message.text}}
-                </app-message-received>
-                <app-message-sent *ngIf="sent(message);" [senderUsername]="message.senderUsername">
-                        {{message.text}}
-                </app-message-sent>   -->
-                <app-message-received [senderUsername]="message.senderUsername" [senderImage]="message.image" [timestamp]="message.timestamp"> 
+                <app-message-received [senderId]="message.senderId" [timestamp]="message.timestamp"> 
                         {{message.text}}
                 </app-message-received>
                 <div class="spacer invisible"></div>

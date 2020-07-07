@@ -33,15 +33,13 @@ router.get("/init", function(req, res) {
     io.on("connect", function(socket) {
     console.log("Socket connected to client")
     socket.on("message-posted-to-server", function(rawMessage) {
-      const userId = rawMessage.senderId
+      const userId = { _id: rawMessage.senderId }
       getUserById(userId).then(
         (user) => {
           const message = {
             senderId: user._id, 
-            senderUsername: user.username,
             text: rawMessage.text,
             _id: new mongojs.ObjectId(),
-            image: user.image,
             timestamp: rawMessage.timestamp
           }
           postMessage(message, rawMessage.chatId).then(
@@ -68,12 +66,10 @@ router.post("/chat-create/create", function(req, res) {
   const global = chat.global
   const tags = chat.tags
   const subs = []
-  getUserById(adminId).then( (user) =>  {
-      const userSub = {
-        _id: user._id,
-        username: user.username,
-        image: user.image
-      }
+  const userId = {
+    _id: adminId,
+  }
+  getUserById(userId).then( (user) =>  {
       const newChat = createChat(title, {_id: user._id, username: user.username, image: user.image}, category, global, subs, tags)
       chatExistsWithTitle(title).then(
         //Chat already exists
@@ -87,9 +83,9 @@ router.post("/chat-create/create", function(req, res) {
             title: resolve.title,
             image: resolve.image
           }
-          addUserToChatSubs(chatSub._id, userSub).then(
+          addUserToChatSubs(chatSub._id, userId).then(
             //Add chat to user
-            () => addChatToUserSubs(chatSub, user._id).then(
+            () => addChatToUserSubs(chatSub, userId).then(
               //Sends chat userId 
               () => res.json(chatSub)
             ).catch((reject) => console.log(reject))
@@ -160,7 +156,7 @@ router.get("/chats", function(req, res) {
 //Add user to chat subscribers list and add chat to user subscriptions list
 router.post("/subscribe", authenticateToken, function(req, res) {
   const chat = req.body.chat
-  const userId = req.user._id
+  const userId = { _id: req.user._id }
   const chatSub = {
     _id: chat._id,
     title: chat.title,
@@ -170,30 +166,17 @@ router.post("/subscribe", authenticateToken, function(req, res) {
   chatExistsWithId(chat._id).then(
     //Check if user exists
     () => getUserById(userId).then(
-      (user) => chatContainsUser(chat._id, {
-        _id: user._id,
-        username: user.username,
-        image: user.image,
-        online: user.online
-      }).then(
+      (user) => chatContainsUser(chat._id, userId).then(
         (resolve) => console.log(resolve)
       ).catch(
         //Add user id to chat
-        () => {
-          const userSub = {
-            _id: user._id,
-            username: user.username,
-            image: user.image,
-            online: user.online
-          }
-          addUserToChatSubs(chat._id, userSub).then(
+        () => addUserToChatSubs(chat._id, userId).then(
             //Add chat to user
-            () => addChatToUserSubs(chatSub, user._id).then(
+            () => addChatToUserSubs(chatSub, userId).then(
               //Sends chat userId 
-              () => res.json(userSub)
+              () => res.json(userId)
             ).catch((reject) => console.log(reject))
           ).catch((reject) => console.log(reject))
-        }
       )
     ).catch((reject) => console.log(reject))
   ).catch((reject) => console.log(reject))
@@ -202,7 +185,7 @@ router.post("/subscribe", authenticateToken, function(req, res) {
 //Remove user from chat subscribers list and remove chat from user subscriptions list
 router.post("/unsubscribe", authenticateToken, function(req, res) {
   const chat = req.body.chat
-  const userId = req.user._id
+  const userId = { _id: req.user._id }
   const chatSub = {
       _id: chat._id,
       title: chat.title,
@@ -212,16 +195,10 @@ router.post("/unsubscribe", authenticateToken, function(req, res) {
   chatExistsWithId(chat._id).then(
     //Check if user exists
     () => getUserById(userId).then(
-      (user) => {
-        const userSub = {
-          _id: user._id,
-          username: user.username,
-          image: user.image,
-          online: user.online
-        }
+      () => {
         removeChatSubFromUserSubs(userId, chatSub).then(
-          () => removeUserFromChatSubs(userSub, chat._id).then(
-            () => res.json({status: '0', data: userSub})
+          () => removeUserFromChatSubs(userId, chat._id).then(
+            () => res.json({status: '0', data: userId})
           ).catch((reject) => console.log(reject))
         ).catch((reject) => console.log(reject))
       }
@@ -354,7 +331,7 @@ function getChatIds(rawChats) {
 function userExistsWithId(userId) {
   return new Promise((resolve, reject) => {
     if (userId == undefined || userId == null) reject("Bad Data")
-    database.users.count({ _id: mongojs.ObjectId(userId) }, function(err, count) {
+    database.users.count({ _id: mongojs.ObjectId(userId._id) }, function(err, count) {
       if (err) reject("Error quering database for userId")
       if (count == 0) reject("User with given id does not exist")
       else resolve(0)
@@ -362,12 +339,12 @@ function userExistsWithId(userId) {
   })
 } 
 
-function addUserToChatSubs(chatId, userSub) {
+function addUserToChatSubs(chatId, userId) {
   return new Promise((resolve, reject) => {
-    if (userSub == undefined || userSub == null || chatId == undefined || chatId == null) reject("Bad data")
+    if (userId == undefined || userId == null || chatId == undefined || chatId == null) reject("Bad data")
     database.chats.update({ _id: mongojs.ObjectId(chatId) }, {
       $push: {
-        subs: userSub
+        subs: userId
       }
     }, (err, data) => {
       if (err) reject("Error posting userSub to chat subIds list")
@@ -376,11 +353,11 @@ function addUserToChatSubs(chatId, userSub) {
   })
 }
 
-function chatContainsUser(chatId, userSub) {
+function chatContainsUser(chatId, userId) {
   return new Promise((resolve, reject) => {
     getChatById(chatId).then(
       (chat) => {
-        if (chat.subs.includes(userSub)) {
+        if (chat.subs.includes(userId)) {
           resolve("Chat contains user");
         } else {
           reject("Chat does not contain user")
@@ -396,7 +373,7 @@ function chatContainsUser(chatId, userSub) {
 function addChatToUserSubs(chatSub, userId) {
   return new Promise((resolve, reject) => {
     if (userId == undefined || userId == null || chatSub == undefined || chatSub == null) reject("Bad data")
-    database.users.update({ _id: mongojs.ObjectId(userId) }, {
+    database.users.update({ _id: mongojs.ObjectId(userId._id) }, {
       $push: {
         chatSubs: chatSub
       }
@@ -410,7 +387,7 @@ function addChatToUserSubs(chatSub, userId) {
 function getUserById(userId) {
   return new Promise((resolve, reject) => {
     if (userId == null || userId == undefined) reject("Bad Data")
-    database.users.findOne({_id: mongojs.ObjectId(userId)}, (err, user) => {
+    database.users.findOne({_id: mongojs.ObjectId(userId._id)}, (err, user) => {
       if (err || user == null || user == undefined) reject("Error retrieving user data from database")
       resolve(user)
     })
@@ -418,12 +395,12 @@ function getUserById(userId) {
 }
 
 //Removes userSub from ChatSubs 
-function removeUserFromChatSubs(userSub, chatId) {
+function removeUserFromChatSubs(userId, chatId) {
   return new Promise((resolve, reject) => {
-    if (userSub === undefined || userSub === null || chatId === undefined || chatId === null) reject("Bad Data")
+    if (userId === undefined || userId === null || chatId === undefined || chatId === null) reject("Bad Data")
     database.chats.update({ _id: mongojs.ObjectId(chatId) }, {
       $pull: {
-        subs: userSub
+        subs: userId
       }
     }, (err, data) => {
       if (err) reject("Error removing userSub from chat subIds list")
@@ -436,7 +413,7 @@ function removeUserFromChatSubs(userSub, chatId) {
 function removeChatSubFromUserSubs(userId, chatSub) {
   return new Promise((resolve, reject) => {
     if (userId == undefined || userId == null || chatSub == undefined || chatSub == null) reject("Bad data")
-    database.users.update({ _id: mongojs.ObjectId(userId) }, {
+    database.users.update({ _id: mongojs.ObjectId(userId._id) }, {
       $pull: {
         chatSubs: chatSub
       }
@@ -446,27 +423,6 @@ function removeChatSubFromUserSubs(userId, chatSub) {
     })
   })
 }
-//Adds a tag to the list of tags in the tags collection
-// function addTag(tag) {
-//   return new Promise((resolve, reject) => {
-//     if (tag === null || tag === undefined) reject("Bad data")
-//     database.tags.save({ tag }, function(err, tag) {
-//       if (err || tags === undefined || tags == null) reject("Error posting tag")
-//       resolve(0)
-//     })
-//   })
-// }
-
-// //Adds a category to the list of categories in the categories collection
-// function addCategory(category) {
-//   return new Promise((resolve, reject) => {
-//     if (category === null || category === undefined) reject("Bad data")
-//     database.categories.save({ category }, function(err, category) {
-//       if (err || category === undefined || category === null) reject("Error posting category")
-//       resolve(0)
-//     })
-//   })
-// }
 
 //Queries tags for tags that contain the queryString as a substring
 function queryTags(queryString) {

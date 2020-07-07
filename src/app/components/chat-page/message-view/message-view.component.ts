@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core'
+import { Component, OnInit, OnDestroy } from '@angular/core'
 import { UserService } from '../../../services/user'
 import { User } from 'src/app/models/user'
 import { Subscription } from 'rxjs'
@@ -28,11 +28,11 @@ export class MessageViewComponent {
     this.userService.getUser()
     //Creates link to ChatService chat
     this.chatSub = this.chatService.getChatUpdated()
-      .subscribe(chat => {
-        this.chat = chat
-      })
+      .subscribe(chat => this.chat = chat)
     this.chatService.getChat()
   }
+
+  
 
   //Avoid memory leak
   ngOnDestroy() {

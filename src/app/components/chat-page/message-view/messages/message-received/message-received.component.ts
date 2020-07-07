@@ -1,14 +1,33 @@
-import { Component, Input } from '@angular/core'
+import { Component, Input, OnInit } from '@angular/core'
+import { UsersService } from "../../../../../services/users"
+import { UserSub } from 'src/app/models/user-sub'
 
 @Component({
   selector: "app-message-received",
   templateUrl: "message-received.component.html",
   styleUrls: ["message-received.component.css"]
 })
-export class MessageReceivedComponent {
-  @Input() senderUsername: string
-  @Input() senderImage: string
+export class MessageReceivedComponent implements OnInit {
+  @Input() senderId: string
   @Input() timestamp: number
+  userSub: UserSub = {
+    _id: "----",
+    username: "loading...",
+    image: "$$$Default$$$",
+    online: false
+  }
+
+  constructor(private usersService: UsersService) {}
+
+  ngOnInit() {
+    this.getUser()
+  }
+
+  getUser() {
+    if (this.usersService.getUserSub(this.senderId)) {
+      this.userSub = this.usersService.getUserSub(this.senderId)
+    }
+  }
 
   getTime(timestampMil: number) {
     const timestamp = new Date()

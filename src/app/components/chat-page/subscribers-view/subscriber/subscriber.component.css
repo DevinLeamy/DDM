@@ -1,0 +1,28 @@
+.subscriber-container {
+        width: 100%;
+        display: flex;
+        height: 50px;
+        /* margin-bottom: 5px; */
+        background-color: rgb(38, 49, 54);
+}
+
+.subscriber-icon-container {
+        order: 0;
+        height: 100%;
+        width: 50px;
+}
+
+.subscriber-username-container {
+        order: 1;
+        width: calc(100% - 50px);
+        height: 50px;
+        display: flex;
+        align-items: center;
+}
+.subscriber-username {
+        text-align: center;
+        width: 100%;
+        font-size: 19px;
+        /* color: hotpink; */
+        color: #84c1ff;
+}

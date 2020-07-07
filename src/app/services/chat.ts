@@ -10,6 +10,7 @@ import { Message } from "../models/message"
 import * as io from 'socket.io-client'
 import { UserSub } from '../models/user-sub'
 import { ChatSub } from '../models/chat-sub'
+import { UserId } from "../models/user-Id"
 
 @Injectable({
   providedIn: "root"
@@ -74,11 +75,10 @@ export class ChatService {
   }
 
   //Request message post to database
-  postMessage(message: string, senderId: string, senderUsername: string, timestamp: number) {
+  postMessage(message: string, senderId: string, timestamp: number) {
     this.socket.emit("message-posted-to-server", {
       text: message,
       senderId: senderId,
-      senderUsername: senderUsername,
       chatId: this.chatId,
       timestamp: timestamp
     })
@@ -97,7 +97,7 @@ export class ChatService {
       var headers = new HttpHeaders()
       headers = headers.append('Content-type', 'application/json')
       this.http.post(CHAT_API + "subscribe/", body, { headers: headers })
-        .subscribe((res: UserSub) => {
+        .subscribe((res: UserId) => {
           //Get user and not just user id
           if (res == undefined || res == null) reject("Subscription was unsuccessful")
           this.chat.subs.push(res)
@@ -120,7 +120,7 @@ export class ChatService {
       var headers = new HttpHeaders()
       headers = headers.append('Content-type', 'application/json')
       this.http.post(CHAT_API + "unsubscribe/", body, { headers: headers })
-        .subscribe((res: {status: string, data: UserSub}) => {
+        .subscribe((res: {status: string, data: UserId}) => {
           //Get user and not just user id
           if (res === undefined || res === null) reject("Subscription was unsuccessful")
           const index = this.getIndexOfUserSub(res.data)
@@ -134,10 +134,10 @@ export class ChatService {
   }
 
   //Get index of userSub in Chat subs list
-  getIndexOfUserSub(userSub: UserSub) {
+  getIndexOfUserSub(userSub: UserId) {
     for (var i = 0; i < this.chat.subs.length; i++) {
       const cur = this.chat.subs[i]
-      if (cur._id === userSub._id && cur.username === userSub.username && cur.image === userSub.image) {
+      if (cur._id === userSub._id) {
         return i
       }
     }

@@ -44,6 +44,7 @@ import { ChatListComponent } from "./components/home-page/chat-display/chat-list
 import { ChatTagsComponent } from "./components/create-chat/chat-tags/chat-tags.component"
 import { TagComponent } from "./components/create-chat/chat-tags/tag/tag.component"
 import { HeaderComponent } from "./components/header/header.component"
+import { SubscriberComponent } from "./components/chat-page/subscribers-view/subscriber/subscriber.component"
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { HeaderComponent } from "./components/header/header.component"
     ChatListComponent,
     ChatTagsComponent,
     TagComponent,
-    HeaderComponent
+    HeaderComponent,
+    SubscriberComponent
   ],
   imports: [
     BrowserModule,

@@ -134,3 +134,7 @@ export class UserService {
     this.userUpdated.next({...this.user})
   }
 }
+
+/*
+Make a users service that will given ids of users, return users subs
+*/

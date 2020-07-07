@@ -9,16 +9,6 @@
         </div>
 </div>
 
-<div *ngIf="this.chat != undefined && this.chat != null" class="subscribers-view-container">
-        <div class="subscriber-container" *ngFor="let sub of this.chat.subs">
-                <div class="subscriber-icon-container">
-                        <app-image-fab *ngIf="this.sub.image != '$$$Default$$$'" [imageUrl]="this.sub.image"></app-image-fab>
-                        <app-user-icon *ngIf="this.sub.image === '$$$Default$$$'" [showStatus]="true" [online]="sub.online"></app-user-icon>
-                </div>
-                <div class="subscriber-username-container">
-                        <div class="subscriber-username">
-                                {{sub.username}}
-                        </div>
-                </div>
-        </div>
+<div *ngIf="this.chat" class="subscribers-view-container">
+        <app-subscriber *ngFor="let sub of this.chat.subs" [username]="this.getUserSub(sub._id).username" [image]="this.getUserSub(sub._id).image" [online]="this.getUserSub(sub._id).online"></app-subscriber>
 </div>

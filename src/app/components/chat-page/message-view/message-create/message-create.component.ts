@@ -30,7 +30,7 @@ export class MessageCreateComponent {
     const message = messageForm.value.message.trim()
     if (message == "" || message == null || message == undefined) {return}
     let timestamp = new Date().getTime()
-    this.chatService.postMessage(message, this.user._id, this.user.username, timestamp)
+    this.chatService.postMessage(message, this.user._id, timestamp)
     messageForm.resetForm()
   }
 
