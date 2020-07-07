@@ -1,1 +1,9 @@
-<img [src]="DomSanitationService.bypassSecurityTrustUrl(imageUrl)" class="icon-button" object-fit="contain">
+<div class="container">
+        <img 
+                [src]="DomSanitationService.bypassSecurityTrustUrl(imageUrl)" 
+                class="icon-button" 
+                object-fit="contain"
+        >
+        <div class="online-marker" *ngIf="this.online && this.showStatus"></div>
+        <div class="offline-marker" *ngIf="!this.online && this.showStatus"></div>
+</div>

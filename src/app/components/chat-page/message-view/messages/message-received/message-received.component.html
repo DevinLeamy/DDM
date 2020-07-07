@@ -1,7 +1,7 @@
 <div class="container">
   <div class="user-icon-container">
     <div class="user-icon">
-      <app-image-fab *ngIf="this.userSub.image != '$$$Default$$$'" [imageUrl]="this.userSub.image"></app-image-fab>
+      <app-image-fab *ngIf="this.userSub.image != '$$$Default$$$'" [imageUrl]="this.userSub.image" [showStatus]="false"></app-image-fab>
       <app-user-icon *ngIf="this.userSub.image === '$$$Default$$$'" [showStatus]="false"></app-user-icon>
     </div>
   </div>

@@ -1,6 +1,6 @@
 <div class="subscriber-container">
         <div class="subscriber-icon-container">
-                <app-image-fab *ngIf="this.image != '$$$Default$$$'" [imageUrl]="this.image"></app-image-fab>
+                <app-image-fab *ngIf="this.image != '$$$Default$$$'" [imageUrl]="this.image" [showStatus]="true" [online]="this.online"></app-image-fab>
                 <app-user-icon *ngIf="this.image === '$$$Default$$$'" [showStatus]="true" [online]="this.online"></app-user-icon>
         </div>
         <div class="subscriber-username-container">

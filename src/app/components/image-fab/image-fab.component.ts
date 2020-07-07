@@ -7,6 +7,8 @@ import { DomSanitizer } from "@angular/platform-browser"
         styleUrls: ["image-fab.component.css"]
 })
 export class ImageFabComponent {
-        @Input("imageUrl") imageUrl: string
+        @Input() imageUrl: string
+        @Input() showStatus: boolean
+        @Input() online: boolean
         constructor(public DomSanitationService: DomSanitizer) {}
 }
