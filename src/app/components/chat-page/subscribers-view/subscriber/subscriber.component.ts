@@ -9,5 +9,7 @@ export class SubscriberComponent {
         @Input() username: string
         @Input()  online: boolean
         @Input() image: string
+        @Input() adminId: string
+        @Input() subId: string
         
 }

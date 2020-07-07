@@ -1,4 +1,4 @@
-<div class="header-container">
+<!-- <div class="header-container">
         <div class="header-icon-container">
                 <app-user-icon [showStatus]="false"></app-user-icon>
         </div>
@@ -7,8 +7,30 @@
                         Subscribers
                 </div>
         </div>
-</div>
+</div> -->
+<app-header 
+        [headerText]="'Admin'" 
+        [imageUrl]="'../../../assets/images/DefaultIconImage.png'"
+></app-header>
+<app-subscriber 
+        [username]="this.getUserSub(this.chat.admin._id).username" 
+        [image]="this.getUserSub(this.chat.admin._id).image" 
+        [online]="this.getUserSub(this.chat.admin._id).online" 
+        [subId]="'------'"
+></app-subscriber>
 
+<app-header 
+        [headerText]="'Subscribers'" 
+        *ngIf="this.chat !== undefined && this.chat !== null && this.chat.subs.length > 0" 
+        [imageUrl]="'../../../assets/images/DefaultIconImage.png'"
+></app-header>
 <div *ngIf="this.chat" class="subscribers-view-container">
-        <app-subscriber *ngFor="let sub of this.chat.subs" [username]="this.getUserSub(sub._id).username" [image]="this.getUserSub(sub._id).image" [online]="this.getUserSub(sub._id).online"></app-subscriber>
+        <app-subscriber 
+                *ngFor="let sub of this.chat.subs" 
+                [adminId]="this.chat.admin._id" 
+                [username]="this.getUserSub(sub._id).username" 
+                [image]="this.getUserSub(sub._id).image" 
+                [online]="this.getUserSub(sub._id).online" 
+                [subId]="sub._id"
+        ></app-subscriber>
 </div>
