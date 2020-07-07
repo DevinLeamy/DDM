@@ -1,16 +1,27 @@
 <app-navbar>
     <div class="left">
-        <h1>Left column</h1>
-        <h4>Search chats by tags</h4>
+        <app-header 
+            [headerText]="'Search Chats'" 
+            [imageUrl]="'../../../assets/images/DefaultIconImage.png'"
+        ></app-header>
     </div>
     <div class="middle">
         <!-- <h4>Slide show of subscribed chats or random chats</h4> -->
         <app-chat-display></app-chat-display>
     </div>
     <div class="right">
-      <h4>Popular chats</h4>
-      <h4>New chats</h4>
-      <h4>Recommended chats</h4>
+        <app-header 
+            [headerText]="'Popular Chats'" 
+            [imageUrl]="'../../../assets/images/DefaultIconImage.png'"
+        ></app-header>
+        <app-header 
+            [headerText]="'New Chats'" 
+            [imageUrl]="'../../../assets/images/DefaultIconImage.png'"
+        ></app-header>
+        <app-header 
+            [headerText]="'Recommended Chats'" 
+            [imageUrl]="'../../../assets/images/DefaultIconImage.png'"
+        ></app-header>
     </div>
 </app-navbar>
 
