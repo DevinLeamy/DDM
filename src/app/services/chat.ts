@@ -123,7 +123,7 @@ export class ChatService {
         .subscribe((res: {status: string, data: UserId}) => {
           //Get user and not just user id
           if (res === undefined || res === null) reject("Subscription was unsuccessful")
-          const index = this.getIndexOfUserSub(res.data)
+          const index = this.getIndexOfUserId(res.data)
           if (index !== -1) {
             this.chat.subs.splice(index, 1)
           }
@@ -134,10 +134,10 @@ export class ChatService {
   }
 
   //Get index of userSub in Chat subs list
-  getIndexOfUserSub(userSub: UserId) {
+  getIndexOfUserId(userId: UserId) {
     for (var i = 0; i < this.chat.subs.length; i++) {
       const cur = this.chat.subs[i]
-      if (cur._id === userSub._id) {
+      if (cur._id === userId._id) {
         return i
       }
     }

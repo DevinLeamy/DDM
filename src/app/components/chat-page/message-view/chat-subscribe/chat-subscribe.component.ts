@@ -5,6 +5,8 @@ import { UserService } from "../../../../services/user"
 import { Subscription } from "rxjs"
 import { User } from "../../../../models/user"
 import { ChatSub } from 'src/app/models/chat-sub'
+import { UsersService } from 'src/app/services/users'
+import { UserSub } from "../../../../models/user-sub"
 
 @Component({
         selector: "app-chat-subscribe",
@@ -14,7 +16,7 @@ import { ChatSub } from 'src/app/models/chat-sub'
 export class ChatSubscribeComponent {
         user: User
         userSub: Subscription
-        constructor(private chatService: ChatService, private authService: AuthenticationService, private userService: UserService) {}
+        constructor(private chatService: ChatService, private authService: AuthenticationService, private userService: UserService, private usersService: UsersService) {}
 
         //Initializes user object and user subscription
         ngOnInit() {
@@ -33,7 +35,16 @@ export class ChatSubscribeComponent {
         //Subscribes user to chat if the user is logged in and has not yet subscribed
         subscribe() {
                 this.chatService.subscribeToChat().then(
-                        () => this.userService.getUser(true)
+                        () =>  {
+                                if (this.usersService.getUserSub(this.user._id) === null || this.usersService.getUserSub(this.user._id) === undefined) {
+                                this.usersService.getUser(this.user._id)
+                                        .then( (userSub: UserSub ) => {
+                                                this.usersService.users.push(userSub)
+                                                this.usersService.updateUsers()
+                                        })
+                                }
+                                this.userService.getUser(true)
+                        }
                 ).catch((reject) => console.log(reject))
         }
 

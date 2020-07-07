@@ -50,8 +50,7 @@ export class UsersService {
                                 .subscribe( (userSub: UserSub) => {
                                         resolve(userSub)
                                 })
-                })
-                
+                })   
         }
 
         //Updates the users subject

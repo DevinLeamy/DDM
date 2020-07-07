@@ -5,6 +5,8 @@ import { UserService } from '../../../../services/user'
 import { User } from '../../../../models/user'
 import { Subscription } from 'rxjs'
 import { NgForm } from '@angular/forms'
+import { UsersService } from 'src/app/services/users'
+import { UserSub } from 'src/app/models/user-sub'
 
 @Component({
   selector: "app-message-create",
@@ -14,7 +16,7 @@ import { NgForm } from '@angular/forms'
 export class MessageCreateComponent {
   user: User
   userSub: Subscription
-  constructor(private userService: UserService, private chatService: ChatService, private authService: AuthenticationService) {}
+  constructor(private userService: UserService, private chatService: ChatService, private authService: AuthenticationService, private usersService: UsersService) {}
 
   //Initializes link to UserService user
   ngOnInit() {
@@ -31,6 +33,13 @@ export class MessageCreateComponent {
     if (message == "" || message == null || message == undefined) {return}
     let timestamp = new Date().getTime()
     this.chatService.postMessage(message, this.user._id, timestamp)
+    if (this.usersService.getUserSub(this.user._id) === null || this.usersService.getUserSub(this.user._id) === undefined) {
+      this.usersService.getUser(this.user._id)
+        .then( (userSub: UserSub ) => {
+          this.usersService.users.push(userSub)
+          this.usersService.updateUsers()
+        })
+    }
     messageForm.resetForm()
   }
 
