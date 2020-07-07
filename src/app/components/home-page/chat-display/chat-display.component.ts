@@ -24,15 +24,16 @@ export class ChatDisplayComponent implements OnInit {
         for (var i = 0; i < this.chats.length; i++) {
           
           const chat = this.chats[i]
-          //Temp
           for (var i = 0; i < chat.subs.length; i++) {
-            if (userIds.indexOf(chat.subs[i]) === -1) {
-              userIds.push(chat.subs[i])
+            const userId = chat.subs[i]._id
+            if (userIds.indexOf(userId) === -1) {
+              userIds.push(userId)
             }
           }
           for (var i = 0; i < chat.messages.length; i++) {
-            if (userIds.indexOf(chat.messages[i].senderId) === -1) {
-              userIds.push(chat.messages[i].senderId)
+            const userId = chat.messages[i].senderId
+            if (userIds.indexOf(userId) === -1) {
+              userIds.push(userId)
             }
           }
         }

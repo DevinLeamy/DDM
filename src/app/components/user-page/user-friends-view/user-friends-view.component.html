@@ -1,5 +1,5 @@
 <div class="container">
-        <div class="header-container friends-header-container">
+        <!-- <div class="header-container friends-header-container">
                 <div class="header-icon-container">
                         <app-user-icon></app-user-icon>
                 </div>
@@ -8,8 +8,8 @@
                                 Friends
                         </div>
                 </div>
-        </div>
-       
+        </div> -->
+        <app-header [headerText]="'Friends'" [imageUrl]="'../../../assets/images/DefaultIconImage.png'"></app-header>
         <div *ngIf="this.user.friends.length > 0" class="friends-list-container">
                 <div class="friend-container transform-opacity" *ngFor="let friend of this.user.friends">
                         <div class="friend-icon-container">
@@ -52,7 +52,7 @@
                         </form>
                 </div>
         </div>
-        <div *ngIf="this.user.friendReqs.length > 0" class="header-container request-header-container">
+        <!-- <div *ngIf="this.user.friendReqs.length > 0" class="header-container request-header-container">
                 <div class="header-icon-container">
                         <app-user-icon></app-user-icon>
                 </div>
@@ -61,7 +61,8 @@
                                 Requests
                         </div>
                 </div>
-        </div>
+        </div> -->
+        <app-header *ngIf="this.user.friendReqs.length > 0" [headerText]="'Friend Requests'" [imageUrl]="'../../../assets/images/DefaultIconImage.png'"></app-header>
         <div class="friend-requests-list-container">
                 <div class="friend-request transform-opacity" *ngFor="let request of this.user.friendReqs">
                         <span>{{request.username}}</span>

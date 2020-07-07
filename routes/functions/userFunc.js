@@ -12,4 +12,8 @@ function encodeAsBase64(filePath) {
   return new Buffer.from(bitmap).toString("base64")
 }
 
-module.exports = { tokenParser, encodeAsBase64 }
+//Check is a given value is of type string
+function isString(value) {
+  return Object.prototype.toString.call(value) === "[object String]"
+}
+module.exports = { tokenParser, encodeAsBase64, isString }

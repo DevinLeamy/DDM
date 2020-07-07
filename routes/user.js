@@ -4,7 +4,7 @@ const router = express.Router()
 const mongojs = require("mongojs")
 const jwt = require("jsonwebtoken")
 const path = require("path")
-const { tokenParser, encodeAsBase64} = require("./functions/userFunc")
+const { tokenParser, encodeAsBase64, isString} = require("./functions/userFunc")
 const formidable = require("express-formidable")
 
 //-----------------------------------Initialize Database----------------------------------------
@@ -146,9 +146,9 @@ function userExistsWithId(userId) {
 
 function getUserById(userId) {
   return new Promise((resolve, reject) => {
-    if (userId == null || userId == undefined) reject("Bad Data")
+    if (userId === null || userId === undefined || !isString(userId)) reject("Bad Data")
     database.users.findOne({_id: mongojs.ObjectId(userId)}, (err, user) => {
-      if (err || user == null || user == undefined) reject("Error retrieving user data from database")
+      if (err || user === null || user === undefined) reject("Error retrieving user data from database")
       resolve(user)
     })
   })
