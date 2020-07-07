@@ -33,7 +33,8 @@ function getNewUser(username, email, password) {
     friends: [],
     salt: salt,
     password_hash: passwordHash,
-    image: "$$$Default$$$"
+    image: "$$$Default$$$",
+    online: true
   }
   return newUser;
 }

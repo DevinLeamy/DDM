@@ -9,14 +9,14 @@
 .navbar-main {
   background-color: #203a50;
   color: white;
-  height: 70px;
+  height: 60px;
   top: 0px;
 }
 
 .sandwich-icon {
-  width: 60px;
-  height: 60px;
-  padding: 10px;
+  width: 55px;
+  height: 55px;
+  padding: 5px;
   font-size: 30px;
 }
 

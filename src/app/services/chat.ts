@@ -144,12 +144,12 @@ export class ChatService {
     return -1
   }
 
-   //Checks if user on chat is the chat's admin
-    isAdmin(userId: string) {
-            if (this.chat === undefined || userId === undefined) return false
-            if (this.chat.admin._id === userId) return true
-            return false
-    }  
+  //Checks if user on chat is the chat's admin
+  isAdmin(userId: string) {
+          if (this.chat === undefined || userId === undefined) return false
+          if (this.chat.admin._id === userId) return true
+          return false
+  }  
 
   //Update chat object
   updateChat() {

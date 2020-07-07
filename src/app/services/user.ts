@@ -10,8 +10,6 @@ import { Subject } from 'rxjs'
 export class UserService {
   user : User;
   userUpdated = new Subject<User>()
-  // image: string
-  // imageUpdated = new Subject<string>()
   constructor(private http: HttpClient) {
     console.log("User Service Initialized")
   }
@@ -35,6 +33,7 @@ export class UserService {
   }
 
   //Creates user object from database raw user data
+  //Move this function into the server [I do not want to be sending the password hash out from the server]
   getUserFromRawUser(rawUser: RawUser): User {
     //Set image to default image if image has not been set
     return {
@@ -44,7 +43,8 @@ export class UserService {
       chatSubs: rawUser.chatSubs,
       friendReqs: rawUser.friendReqs,
       friends: rawUser.friends,
-      image: rawUser.image
+      image: rawUser.image,
+      online: rawUser.online
     }
   }
 
@@ -80,7 +80,7 @@ export class UserService {
           // Success
           this.user.friendReqs = this.user.friendReqs
             .filter(request => (!(request._id === requestId && request.username === request.username)))
-          this.user.friends.push({_id: requestId, username: requestUsername, image: "$$$Default$$$" })
+          this.user.friends.push({_id: requestId, username: requestUsername, image: "$$$Default$$$", online: false})
           this.updateUser()
         } 
       })
@@ -117,6 +117,17 @@ export class UserService {
           this.updateUser()
         }
       })
+  }
+
+  //Set user status as offline
+  setUserStatusOffline() {
+    return new Promise((resolve, reject) => {
+      this.http.get(BASE_URL + "userOffline")
+        .subscribe((res: {status: string, data: string} ) => {
+          console.log(res)
+          resolve(0)
+        })
+    })
   }
 
   updateUser() {

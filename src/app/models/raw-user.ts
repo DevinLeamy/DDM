@@ -11,5 +11,6 @@ export class RawUser {
   salt: string
   password_hash: string
   image: string
+  online: boolean
 }
 

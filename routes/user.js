@@ -21,7 +21,7 @@ router.get("/data", authenticateToken, function(req, res) {
   ).catch((reject) => console.log(reject))
 })
 
-router.get("/:_id", function(req, res) {
+router.get("/data/:_id", function(req, res) {
   const userId = req.params._id
   console.log("Getting user with id", userId)
   getUserById(userId).then(
@@ -85,6 +85,23 @@ router.post("/setProfileImage", formidable(), authenticateToken, function(req, r
   setProfileImage(imageEncoded, userId).then(
     () => res.json({status: 1, data: imageEncoded})
   ).catch((reject) => {console.log(reject); res.json({status: 0, data: null})})
+})
+
+//Set user.online = true a.k.a set user status as online
+router.get("/userOnline", authenticateToken, function(req, res) {
+  const userId = req.user._id
+  setUserStatus(userId, true)
+    .then( () => res.json({status: "0", data: "Successfully updated user status"}) )
+    .catch( (reject) => console.log(reject) )
+})
+
+//Set user.online = false a.k.a set user status as offline
+router.post("/userOffline", authenticateToken, function(req, res) {
+  const userId = req.user._id
+  console.log("Trying to set the user offline")
+  setUserStatus(userId, false)
+    .then( () => res.json({status: "0", data: "Successfully updated user status"}) )
+    .catch( (reject) => console.log(reject) )
 })
 //----------------------------Middle ware-------------------------------
 
@@ -235,4 +252,15 @@ function setProfileImage(image, userId) {
   })
 }
 
+//Set user.online equal to the provided value
+function setUserStatus(userId, online) {
+  return new Promise((resolve, reject) => {
+    if (online === undefined || online === null || userId === undefined || userId === null) reject("Bad data")
+    database.users.update({_id: mongojs.ObjectID(userId)}, {$set: {online: online}}, function(err, data) {
+      if (err || data === undefined || data === null) reject("Error updating user status")
+      //Success: User status was updated
+      resolve(0)
+    })
+  })
+}
 module.exports = router

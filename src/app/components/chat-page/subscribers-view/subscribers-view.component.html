@@ -1,6 +1,6 @@
 <div class="header-container">
         <div class="header-icon-container">
-                <app-user-icon></app-user-icon>
+                <app-user-icon [showStatus]="false"></app-user-icon>
         </div>
         <div class="header-text-container">
                 <div class="header-text subscribers-header-text">
@@ -13,7 +13,7 @@
         <div class="subscriber-container" *ngFor="let sub of this.chat.subs">
                 <div class="subscriber-icon-container">
                         <app-image-fab *ngIf="this.sub.image != '$$$Default$$$'" [imageUrl]="this.sub.image"></app-image-fab>
-                        <app-user-icon *ngIf="this.sub.image === '$$$Default$$$'"></app-user-icon>
+                        <app-user-icon *ngIf="this.sub.image === '$$$Default$$$'" [showStatus]="true" [online]="sub.online"></app-user-icon>
                 </div>
                 <div class="subscriber-username-container">
                         <div class="subscriber-username">

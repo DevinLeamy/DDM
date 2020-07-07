@@ -2,7 +2,7 @@
   <div class="user-icon-container">
     <div class="user-icon">
       <app-image-fab *ngIf="this.senderImage != '$$$Default$$$'" [imageUrl]="this.senderImage"></app-image-fab>
-      <app-user-icon *ngIf="this.senderImage === '$$$Default$$$'"></app-user-icon>
+      <app-user-icon *ngIf="this.senderImage === '$$$Default$$$'" [showStatus]="false"></app-user-icon>
     </div>
   </div>
   <div class="message-container">

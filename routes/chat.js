@@ -18,7 +18,6 @@ const database = mongojs(databaseUrl, ["chats", "users", "categories", "tags"])
 //Gets chat by ID
 router.get("/data/:id", function(req, res) {
   const chatId = req.params.id
-  // if (chatId == null || chatId == "" || chatId == undefined) return
   chatExistsWithId(chatId).then(
     () => getChatById(chatId).then(
       (chat) => res.json(chat)
@@ -174,7 +173,8 @@ router.post("/subscribe", authenticateToken, function(req, res) {
       (user) => chatContainsUser(chat._id, {
         _id: user._id,
         username: user.username,
-        image: user.image
+        image: user.image,
+        online: user.online
       }).then(
         (resolve) => console.log(resolve)
       ).catch(
@@ -183,7 +183,8 @@ router.post("/subscribe", authenticateToken, function(req, res) {
           const userSub = {
             _id: user._id,
             username: user.username,
-            image: user.image
+            image: user.image,
+            online: user.online
           }
           addUserToChatSubs(chat._id, userSub).then(
             //Add chat to user
@@ -215,7 +216,8 @@ router.post("/unsubscribe", authenticateToken, function(req, res) {
         const userSub = {
           _id: user._id,
           username: user.username,
-          image: user.image
+          image: user.image,
+          online: user.online
         }
         removeChatSubFromUserSubs(userId, chatSub).then(
           () => removeUserFromChatSubs(userSub, chat._id).then(

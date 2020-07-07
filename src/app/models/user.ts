@@ -9,4 +9,5 @@ export class User {
   friendReqs: UserSub[]
   friends: UserSub[]
   image: string
+  online: boolean
 }

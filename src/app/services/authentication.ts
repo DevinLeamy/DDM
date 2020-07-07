@@ -4,6 +4,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http'
 import { Tokens } from "../models/token"
 import { Location } from '@angular/common';
 const BASE_URL = "http://localhost:3000/api/authentication/"
+const BASE_USER_URL = "http://localhost:3000/api/user/"
 
 @Injectable({
   providedIn: "root"
@@ -17,6 +18,7 @@ export class AuthenticationService {
   getToken() {
     return sessionStorage.getItem("accessToken")
   }
+  
   //Removes token from session storage
   clearTokens() {
     sessionStorage.clear()
@@ -73,8 +75,20 @@ export class AuthenticationService {
         if (accessToken) {
           //User was authenticated
           this.setAccessToken(accessToken)
-          this.go("")
+          this.setUserStatusOnline()
+            .then( () => this.go("") )
         }
       })
+  }
+
+  //Set user status as online
+  setUserStatusOnline() {
+    return new Promise((resolve, reject) => {
+      this.http.get(BASE_USER_URL + "userOnline")
+       .subscribe((res: {status: string, data: string} ) => {
+        console.log(res)
+        resolve("User status was set")
+       })
+    })
   }
 }

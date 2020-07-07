@@ -1,1 +1,4 @@
-<div mat-raised-button class="icon-button"></div>
+<div class="icon-button">
+        <div class="online-marker" *ngIf="this.showStatus && this.online"></div>
+        <div class="offline-marker" *ngIf="this.showStatus && !this.online"></div>
+</div>

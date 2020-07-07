@@ -1,9 +1,5 @@
 .icon-button {
         display: block;
-        background-size: contain;                   
-        background-repeat: no-repeat;
-        background-position: center center; 
-        width: 88%;
         height: 88%;
         border-radius: 50%;
         margin: 6%;

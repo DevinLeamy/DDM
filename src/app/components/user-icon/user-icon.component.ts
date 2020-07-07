@@ -1,7 +1,4 @@
-import { Component, OnInit, OnDestroy } from "@angular/core"
-import { UserService } from "../../services/user"
-import { User } from 'src/app/models/user'
-import { Subscription } from 'rxjs'
+import { Component, Input } from "@angular/core"
 
 @Component({
         selector: "app-user-icon",
@@ -9,21 +6,20 @@ import { Subscription } from 'rxjs'
         styleUrls: ["user-icon.component.css"]
 })
 export class UserIconComponent {
-        user: User
-        userSub: Subscription
-        constructor(private userService: UserService) {}
-
-        ngOnInit() {
-                this.userSub = this.userService.getUserUpdated()
-                        .subscribe(user => {
-                                this.user = user
-                        })
-                this.userService.getUser()
-        }
-
-
-        //Avoid memory leaks
-        ngOnDestroy() {
-                this.userSub.unsubscribe()
-        }
+        @Input("showStatus") showStatus: boolean
+        @Input("online") online: boolean
 }
+
+/*
+Next step:
+Plan bundel image fab and user-icon into one icon
+use the user api to get user data and then display data accordingly
+treat component as user service
+
+What this will allow for:
+User sub will not have to include any information apart from the user id for quering
+
+The result:
+Less data on the client => more scalable and faster
+
+*/

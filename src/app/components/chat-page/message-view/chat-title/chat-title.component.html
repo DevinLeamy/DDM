@@ -1,6 +1,6 @@
 <div class="container">
         <div class="icon-container">
-                <app-user-icon></app-user-icon>
+                <app-user-icon [showStatus]="false"></app-user-icon>
         </div>
         <div class="title-container">
                 <div class="title" *ngIf="this.chat !== undefined">
@@ -9,7 +9,7 @@
                 <div class="title" *ngIf="this.chat === undefined">
                         Loading...
                 </div>
-                <div class="tags-container">
+                <div class="tags-container" *ngIf="this.chat !== undefined && this.chat !== null">
                         <div class="tag-container" *ngFor="let tag of this.chat.tags">
                                 {{tag}}
                         </div>
