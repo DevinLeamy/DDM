@@ -16,6 +16,7 @@ import { UserSub } from "../../../../models/user-sub"
 export class ChatSubscribeComponent {
         user: User
         userSub: Subscription
+        subscribing: boolean = false
         constructor(private chatService: ChatService, private authService: AuthenticationService, private userService: UserService, private usersService: UsersService) {}
 
         //Initializes user object and user subscription
@@ -34,6 +35,8 @@ export class ChatSubscribeComponent {
 
         //Subscribes user to chat if the user is logged in and has not yet subscribed
         subscribe() {
+                if (this.subscribing) return
+                this.subscribing = true
                 this.chatService.subscribeToChat().then(
                         () =>  {
                                 if (this.usersService.getUserSub(this.user._id) === null || this.usersService.getUserSub(this.user._id) === undefined) {
@@ -44,6 +47,7 @@ export class ChatSubscribeComponent {
                                         })
                                 }
                                 this.userService.getUser(true)
+                                this.subscribing = false
                         }
                 ).catch((reject) => console.log(reject))
         }
