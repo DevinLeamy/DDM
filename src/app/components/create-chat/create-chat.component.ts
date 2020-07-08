@@ -6,6 +6,7 @@ import { UserService } from "../../services/user"
 import { User } from "../../models/user"
 import { Subscription } from 'rxjs'
 import { UserSub } from 'src/app/models/user-sub'
+import { AuthenticationService } from 'src/app/services/authentication'
 
 @Component({
   selector: "app-create-chat",
@@ -21,7 +22,7 @@ export class CreateChatComponent {
   ]
   user: User;
   userSub: Subscription
-  constructor(private chatsService: ChatsService, private userService: UserService) {}
+  constructor(private chatsService: ChatsService, private userService: UserService, private authService: AuthenticationService) {}
 
   ngOnInit() {
     this.chatsService.initNewChat()
@@ -30,6 +31,10 @@ export class CreateChatComponent {
         this.user = user
       })
     this.userService.getUser()
+  }
+
+  isAuthenticated() {
+    return this.authService.isAuthenticated()
   }
 
 

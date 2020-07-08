@@ -2,38 +2,45 @@
     <div class="one-container">
       <div class="two-container">
         <div class="three-container">
-            <form #chatForm="ngForm" (submit)="createChat(chatForm)">
-              <div class="chat-title-input-container">
-                <input
-                  type="text"
-                  matInput
-                  name="title"
-                  ngModel
-                  required
-                  #title="ngModel"
-                  placeholder="title"
-                  maxlength="40"
-                  class="chat-title-input"
-                >
-              </div>
+          <div *ngIf="this.isAuthenticated()">
+              <form #chatForm="ngForm" (submit)="createChat(chatForm)">
+                <div class="chat-title-input-container">
+                  <input
+                    type="text"
+                    matInput
+                    name="title"
+                    ngModel
+                    required
+                    #title="ngModel"
+                    placeholder="title"
+                    maxlength="40"
+                    class="chat-title-input"
+                  >
+                </div>
+                  
+                <!-- Mat select for categories -->
+                <div class="category-select-container">
+                  <!-- This will replace the current select https://mdbootstrap.com/snippets/jquery/mdbootstrap/921549 -->
+                    <select placeholder="Select a Category" ngModel #category="ngModel" name="category" class="category-select">
+                      <option  *ngFor="let category of categories" class="category" [value]="category">
+                        {{category.name}}
+                      </option>
+                      <!-- </mat-option> -->
+                    </select>
+                </div>
                 
-              <!-- Mat select for categories -->
-              <div class="category-select-container">
-                <!-- This will replace the current select https://mdbootstrap.com/snippets/jquery/mdbootstrap/921549 -->
-                  <select placeholder="Select a Category" ngModel #category="ngModel" name="category" class="category-select">
-                    <option  *ngFor="let category of categories" class="category" [value]="category">
-                      {{category.name}}
-                    </option>
-                    <!-- </mat-option> -->
-                  </select>
-              </div>
-              
-              
-              <app-chat-tags style="order: 2;"></app-chat-tags>
-              <div class="form-submit-container">
-                <button mat-raised-button type="submit" class="form-submit-button">Create</button>
-              </div>
-            </form>
+                
+                <app-chat-tags style="order: 2;"></app-chat-tags>
+                <div class="form-submit-container">
+                  <button mat-raised-button type="submit" class="form-submit-button">Create</button>
+                </div>
+              </form>
+          </div>
+          <div *ngIf="!this.isAuthenticated()">
+            <div>
+              Login or register to create chats
+            </div>
+          </div>
         </div>
       </div>
     </div>
