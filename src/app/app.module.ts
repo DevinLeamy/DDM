@@ -45,6 +45,8 @@ import { ChatTagsComponent } from "./components/create-chat/chat-tags/chat-tags.
 import { TagComponent } from "./components/create-chat/chat-tags/tag/tag.component"
 import { HeaderComponent } from "./components/header/header.component"
 import { SubscriberComponent } from "./components/chat-page/subscribers-view/subscriber/subscriber.component"
+import { ChatSelectionComponent } from './components/home-page/chat-selection/chat-selection'
+import { ChatOptionComponent } from './components/home-page/chat-selection/chat-option/chat-option'
 
 @NgModule({
   declarations: [
@@ -75,7 +77,9 @@ import { SubscriberComponent } from "./components/chat-page/subscribers-view/sub
     ChatTagsComponent,
     TagComponent,
     HeaderComponent,
-    SubscriberComponent
+    SubscriberComponent,
+    ChatSelectionComponent,
+    ChatOptionComponent
   ],
   imports: [
     BrowserModule,

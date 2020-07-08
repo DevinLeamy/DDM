@@ -29,7 +29,7 @@ export class ChatsService {
     return this.newChatUpdated.asObservable()
   }
 
-  //Gets all chat ids
+  //Gets all chats
   getChats() {
     this.http.get(BASE_URL + "chats")
       .subscribe((res : Chat[]) => {
@@ -40,6 +40,11 @@ export class ChatsService {
         }
         this.updatechats()
       })
+  }
+
+  //Get the last ten chats that have been created
+  getMostRecentChats() {
+    
   }
 
   //Initializes new chat

@@ -9,3 +9,7 @@
 -Move chat-create to user page
 -Set default images for headers [Done]
 -Make everything responsive
+-Improve log in interface
+-Improve log in security
+-Improve register in interface
+-Improve register in security
