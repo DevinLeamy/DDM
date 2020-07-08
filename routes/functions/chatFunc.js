@@ -15,12 +15,23 @@ function createChat(title, admin, category, global, subs, tags) {
         }
 }
 
+//Creates a chat sub from a chat
+function createChatSub(chat) {
+        return {
+                _id: chat._id,
+                title: chat.title,
+                image: chat.image,
+                tags: chat.tags,
+                subCount: chat.subs.length
+        }
+}
+
 //Creates a new tag object
 function createTag(tag) {
         return {
                 _id: new mongojs.ObjectId(),
                 tag: tag,
-                chatSubs: []
+                chatIds: []
         }
 }
 
@@ -29,7 +40,7 @@ function createCategory(category) {
         return {
                 _id: new mongojs.ObjectId(),
                 category: category,
-                chatSubs: []
+                chatIds: []
         }
 }
-module.exports = { createChat, createTag, createCategory }
+module.exports = { createChat, createTag, createCategory, createChatSub }

@@ -4,7 +4,7 @@ const router = express.Router()
 const mongojs = require("mongojs")
 const jwt = require("jsonwebtoken")
 const path = require("path")
-const { tokenParser, encodeAsBase64, isString} = require("./functions/userFunc")
+const { tokenParser, encodeAsBase64, isString, createUserSub, createUser} = require("./functions/userFunc")
 const formidable = require("express-formidable")
 
 //-----------------------------------Initialize Database----------------------------------------
@@ -17,7 +17,7 @@ const database = mongojs(databaseUrl, ["users"])
 //-----------------------------------Requests----------------------------------------
 router.get("/data", authenticateToken, function(req, res) {
   getUserById(req.user._id).then(
-    (resolve) => res.json(resolve)
+    (user) => res.json(createUser(user))
   ).catch((reject) => console.log(reject))
 })
 

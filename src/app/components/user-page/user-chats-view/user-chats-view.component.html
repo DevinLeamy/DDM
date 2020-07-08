@@ -1,26 +1,10 @@
 <div class="container">
-        <!-- <div class="header-container global-chats-header-container">
-               <div class="header-icon-container">
-                       <app-user-icon></app-user-icon>
-               </div>
-               <div class="header-text-container">
-                       <span class="header-text">
-                                Global Chats
-                       </span>
-               </div> 
-        </div> -->
         <app-header [headerText]="'Subscriptions'" [imageUrl]="'../../../assets/images/SubsTwo.png'"></app-header>
         <div class="chats-container">
-                <div *ngFor="let sub of this.user.chatSubs" class="chat-container transform-opacity" [routerLink]="['/api/chat/view', sub._id]">
-                        <div class="chat-icon-container">
-                                <app-user-icon></app-user-icon>
-                        </div>
-                        <div class="chat-title-container">
-                                <span class="chat-title global-chat-title">
-                                        {{sub.title}}
-                                </span>
-                        </div>
-                </div>
+                <app-chat-selection 
+                        [chatIds]="this.getChatIds()"
+                >
+                </app-chat-selection>
         </div>
         <h1>Create chat</h1>
 </div>

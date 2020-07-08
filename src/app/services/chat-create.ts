@@ -74,26 +74,26 @@ export class ChatCreateService {
         var headers = new HttpHeaders()
         headers = headers.append('Content-type', 'application/json')
         this.http.post(BASE_URL + "chat-create/create", body, { headers: headers })
-                .subscribe( (res: ChatSub ) => {
+                .subscribe( (res: string ) => {
                         console.log(res)
                         //Chat was created
                         this.postTags(this.newChat.tags, res)
                         .then( () => this.postCategory(category.name, res)
                         .then( () => {
                                 //Visit then chat once it's been created
-                                this.go("api/chat/view/" + res._id)
+                                this.go("api/chat/view/" + res)
                         })
                 )
           })
       }
     
       //Add newly created tags and update existing tags with chat sub
-      postTags(tags: string[], chatSub: ChatSub) {
+      postTags(tags: string[], chatId: string) {
                 return new Promise((resolve, reject) => {
                         for (var i = 0; i < tags.length; i++) {
                                 const body = {
                                         tag: tags[i],
-                                        chatSub: chatSub
+                                        chatId: chatId
                                 }
                                 var headers = new HttpHeaders()
                                 headers = headers.append('Content-type', 'application/json')
@@ -105,11 +105,11 @@ export class ChatCreateService {
         }
     
         //Post category from newly created chat
-        postCategory(category: string, chatSub: ChatSub) {
+        postCategory(category: string, chatId: string) {
                 return new Promise((resolve, reject) => {
                         const body = {
                                 category: category,
-                                chatSub: chatSub
+                                chatId: chatId
                         }
                         var headers = new HttpHeaders()
                         headers = headers.append('Content-type', 'application/json')

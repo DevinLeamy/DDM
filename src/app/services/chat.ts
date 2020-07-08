@@ -3,14 +3,11 @@
 const CHAT_API = "http://localhost:3000/api/chat/"
 import { Injectable } from "@angular/core"
 import { HttpHeaders, HttpClient } from '@angular/common/http'
-import { Subject, Subscriber, fromEventPattern } from 'rxjs'
-import { User } from "../models/user" 
+import { Subject } from 'rxjs'
 import { Chat } from '../models/chat'
 import { Message } from "../models/message"
 import * as io from 'socket.io-client'
-import { UserSub } from '../models/user-sub'
 import { ChatSub } from '../models/chat-sub'
-import { UserId } from "../models/user-Id"
 
 @Injectable({
   providedIn: "root"
@@ -41,7 +38,13 @@ export class ChatService {
 
   //Returns chat sub
   getChatSub() : ChatSub {
-    return {_id: this.chat._id, title: this.chat.title, image: this.chat.image}
+    return {
+      _id: this.chat._id, 
+      title: this.chat.title, 
+      image: this.chat.image,
+      tags: this.chat.tags,
+      subCount: this.chat.subs.length
+    }
   }
 
   //Updates chat
@@ -89,15 +92,12 @@ export class ChatService {
     return new Promise( (resolve, reject) => {
       if (this.chatId == undefined || this.chatId == null) reject("Bad Data")
       const body = {
-        chat: {
-          _id: this.chat._id,
-          title: this.chat.title
-        }
+        chatId: this.chatId
       }
       var headers = new HttpHeaders()
       headers = headers.append('Content-type', 'application/json')
       this.http.post(CHAT_API + "subscribe/", body, { headers: headers })
-        .subscribe((res: UserId) => {
+        .subscribe( (res: string) => {
           //Get user and not just user id
           if (res == undefined || res == null) reject("Subscription was unsuccessful")
           this.chat.subs.push(res)
@@ -112,15 +112,12 @@ export class ChatService {
     return new Promise( (resolve, reject) => {
       if (this.chatId == undefined || this.chatId == null) reject("Bad Data")
       const body = {
-        chat: {
-          _id: this.chat._id,
-          title: this.chat.title
-        }
+        chatId: this.chatId
       }
       var headers = new HttpHeaders()
       headers = headers.append('Content-type', 'application/json')
       this.http.post(CHAT_API + "unsubscribe/", body, { headers: headers })
-        .subscribe((res: {status: string, data: UserId}) => {
+        .subscribe((res: {status: string, data: string}) => {
           //Get user and not just user id
           if (res === undefined || res === null) reject("Subscription was unsuccessful")
           const index = this.getIndexOfUserId(res.data)
@@ -134,10 +131,10 @@ export class ChatService {
   }
 
   //Get index of userSub in Chat subs list
-  getIndexOfUserId(userId: UserId) {
+  getIndexOfUserId(userId: string) {
     for (var i = 0; i < this.chat.subs.length; i++) {
       const cur = this.chat.subs[i]
-      if (cur._id === userId._id) {
+      if (cur === userId) {
         return i
       }
     }

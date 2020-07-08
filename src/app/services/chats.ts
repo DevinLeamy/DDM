@@ -2,39 +2,68 @@
 //Handles multiple chats
 const BASE_URL = "http://localhost:3000/api/chat/"
 import { Injectable } from "@angular/core"
-import { Location } from "@angular/common"
 import { HttpHeaders, HttpClient } from '@angular/common/http'
 import { Subject } from 'rxjs'
-import { Chat } from '../models/chat'
+import { ChatSub } from '../models/chat-sub'
 
 @Injectable({
   providedIn: "root"
 })
 export class ChatsService {
-  chats: Chat[]
-  chatsUpdated = new Subject<Chat[]>()
-  constructor(private http: HttpClient, private location: Location) {}
+  chats: ChatSub[]
+  chatsUpdated = new Subject<ChatSub[]>()
 
-  //Gets subscription to all chat Ids
+  constructor(private http: HttpClient) {}
+
+  //Gets subscription to all chat subs
   getChatsUpdated() {
     return this.chatsUpdated.asObservable()
   }
 
-  //Gets all chats
-  getChats() {
-    this.http.get(BASE_URL + "chats")
-      .subscribe((res : Chat[]) => {
-        //This can be improved
-        this.chats = [];
-        for (var i = 0; i < res.length; i++) {
-          this.chats.push(res[i])
-        }
-        this.updatechats()
-      })
+  //Gets chatsub from list of chatsubs that have already been gotten
+  getChatSub(chatId: string) {
+    if (this.chats === undefined || this.chats === null) return
+    for (var i = 0; i < this.chats.length; i++) {
+      if (this.chats[i]._id === chatId) {
+        return this.chats[i]
+      }
+    }
   }
 
-  //Update chat ids
-  updatechats() {
+  //Creates list of chat subs from a list of chatIds
+  getChats(chatIds: string[]) {
+    console.log("Getting chats", chatIds)
+    this.chats = []
+    for (var i = 0; i < chatIds.length; i++) {
+      const chatId = chatIds[i]
+      //Get chat
+      this.getChat(chatId) 
+        .then( (chatSub: ChatSub) => {
+          this.chats.push(chatSub)
+          this.updateChats()
+        })
+    }
+  }
+
+  //Promise that resolves a chatSub
+  getChat(chatId: string) {
+    return new Promise((resolve, reject) => {
+      if (chatId === undefined || chatId === null) reject("Bad data")
+      //Send get request for chat sub
+      const body = {
+        _id: chatId
+      }
+      var headers = new HttpHeaders()
+      headers = headers.append('Content-type', 'application/json')
+      this.http.post(BASE_URL + "chatSub", body, { headers: headers })
+        .subscribe( (chatSub: ChatSub) => {
+          resolve(chatSub)
+        })
+    })
+  }
+
+  //Update chat 
+  updateChats() {
     this.chatsUpdated.next([...this.chats])
   }
 }

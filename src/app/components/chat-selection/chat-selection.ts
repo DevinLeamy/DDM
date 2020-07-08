@@ -1,5 +1,4 @@
-import { Component } from "@angular/core"
-import { ChatsService } from "../../../services/chats"
+import { Component, Input } from "@angular/core"
 
 @Component({
         selector: "app-chat-selection",
@@ -7,6 +6,5 @@ import { ChatsService } from "../../../services/chats"
         styleUrls: ["chat-selection.css"]
 })
 export class ChatSelectionComponent {
-        
-        constructor(private chatsService: ChatsService) {}
+        @Input() chatIds: string[]
 }

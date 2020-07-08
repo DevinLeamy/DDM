@@ -1,14 +1,4 @@
 <div class="container">
-        <!-- <div class="header-container friends-header-container">
-                <div class="header-icon-container">
-                        <app-user-icon></app-user-icon>
-                </div>
-                <div class="header-text-container">
-                        <div class="header-text friends-header-text">
-                                Friends
-                        </div>
-                </div>
-        </div> -->
         <app-header [headerText]="'Friends'" [imageUrl]="'../../../assets/images/FriendsThree.png'"></app-header>
         <div *ngIf="this.user.friends.length > 0" class="friends-list-container">
                 <div class="friend-container transform-opacity" *ngFor="let friend of this.user.friends">

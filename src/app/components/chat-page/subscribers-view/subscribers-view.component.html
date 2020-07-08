@@ -1,13 +1,3 @@
-<!-- <div class="header-container">
-        <div class="header-icon-container">
-                <app-user-icon [showStatus]="false"></app-user-icon>
-        </div>
-        <div class="header-text-container">
-                <div class="header-text subscribers-header-text">
-                        Subscribers
-                </div>
-        </div>
-</div> -->
 <app-header 
         [headerText]="'Admin'" 
         [imageUrl]="'../../../assets/images/Admin.png'"
@@ -27,11 +17,11 @@
 ></app-header>
 <div *ngIf="this.chat" class="subscribers-view-container">
         <app-subscriber 
-                *ngFor="let sub of this.chat.subs" 
+                *ngFor="let subId of this.chat.subs" 
                 [adminId]="this.chat.admin._id" 
-                [username]="this.getUserSub(sub._id).username" 
-                [image]="this.getUserSub(sub._id).image" 
-                [online]="this.getUserSub(sub._id).online" 
-                [subId]="sub._id"
+                [username]="this.getUserSub(subId).username" 
+                [image]="this.getUserSub(subId).image" 
+                [online]="this.getUserSub(subId).online" 
+                [subId]="subId"
         ></app-subscriber>
 </div>

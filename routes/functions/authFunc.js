@@ -28,7 +28,7 @@ function getNewUser(username, email, password) {
   const newUser = {
     username: username,
     email: email,
-    chatSubs: [],
+    chatIds: [],
     friendReqs: [],
     friends: [],
     salt: salt,

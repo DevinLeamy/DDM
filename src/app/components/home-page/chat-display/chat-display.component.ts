@@ -17,29 +17,29 @@ export class ChatDisplayComponent implements OnInit {
 
   //Gets chat ids
   ngOnInit() {
-    this.chatsSub = this.chatsService.getChatsUpdated()
-      .subscribe(chats => {
-        this.chats = chats
-        var userIds = []
-        for (var i = 0; i < this.chats.length; i++) {
+    // this.chatsSub = this.chatsService.getChatsUpdated()
+    //   .subscribe(chats => {
+    //     this.chats = chats
+    //     var userIds = []
+    //     for (var i = 0; i < this.chats.length; i++) {
           
-          const chat = this.chats[i]
-          for (var i = 0; i < chat.subs.length; i++) {
-            const userId = chat.subs[i]._id
-            if (userIds.indexOf(userId) === -1) {
-              userIds.push(userId)
-            }
-          }
-          for (var i = 0; i < chat.messages.length; i++) {
-            const userId = chat.messages[i].senderId
-            if (userIds.indexOf(userId) === -1) {
-              userIds.push(userId)
-            }
-          }
-        }
-        this.usersService.getUsers(userIds)
-      })
-    this.chatsService.getChats()
+    //       const chat = this.chats[i]
+    //       for (var i = 0; i < chat.subs.length; i++) {
+    //         const userId = chat.subs[i]._id
+    //         if (userIds.indexOf(userId) === -1) {
+    //           userIds.push(userId)
+    //         }
+    //       }
+    //       for (var i = 0; i < chat.messages.length; i++) {
+    //         const userId = chat.messages[i].senderId
+    //         if (userIds.indexOf(userId) === -1) {
+    //           userIds.push(userId)
+    //         }
+    //       }
+    //     }
+    //     this.usersService.getUsers(userIds)
+    //   })
+    // this.chatsService.getChats()
   }
 
   //Avoid memory leaks

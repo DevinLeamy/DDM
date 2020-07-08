@@ -12,7 +12,6 @@ import { MatSidenavModule } from '@angular/material/sidenav'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { MatSelectModule } from '@angular/material/select'
-
 import { HomePageComponent } from './components/home-page/home-page.component'
 import { RegisterPageComponent } from "./components/register-page/register-page.component"
 import { LoginPageComponent } from './components/login-page/login-page.component'
@@ -40,13 +39,12 @@ import { UserFriendsViewComponent } from "./components/user-page/user-friends-vi
 import { UserViewComponent } from "./components/user-page/user-view/user-view.component"
 import { UserChatsViewComponent } from "./components/user-page/user-chats-view/user-chats-view.component"
 import { ImageFabComponent } from "./components/image-fab/image-fab.component"
-import { ChatListComponent } from "./components/home-page/chat-display/chat-list/chat-list.component"
 import { ChatTagsComponent } from "./components/create-chat/chat-tags/chat-tags.component"
 import { TagComponent } from "./components/create-chat/chat-tags/tag/tag.component"
 import { HeaderComponent } from "./components/header/header.component"
 import { SubscriberComponent } from "./components/chat-page/subscribers-view/subscriber/subscriber.component"
-import { ChatSelectionComponent } from './components/home-page/chat-selection/chat-selection'
-import { ChatOptionComponent } from './components/home-page/chat-selection/chat-option/chat-option'
+import { ChatSelectionComponent } from './components/chat-selection/chat-selection'
+import { ChatOptionComponent } from './components/chat-selection/chat-option/chat-option'
 
 @NgModule({
   declarations: [
@@ -73,7 +71,6 @@ import { ChatOptionComponent } from './components/home-page/chat-selection/chat-
     UserViewComponent,
     UserChatsViewComponent,
     ImageFabComponent,
-    ChatListComponent,
     ChatTagsComponent,
     TagComponent,
     HeaderComponent,

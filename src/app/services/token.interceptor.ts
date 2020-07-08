@@ -22,7 +22,3 @@ export class TokenInterceptor implements HttpInterceptor {
     return next.handle(request)
   }
 }
-
-//TODO create new access token if it is not expired
-//Refresh token
-// refreshAuthorization: "Bearer " + this.authService.getRefreshToken()

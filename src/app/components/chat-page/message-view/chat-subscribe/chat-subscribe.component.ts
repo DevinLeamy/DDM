@@ -69,8 +69,8 @@ export class ChatSubscribeComponent {
                 if (this.chatService.chatId === undefined || this.chatService.chatId === null || this.user === null || this.user === undefined) return false
                 const chat: ChatSub = this.chatService.getChatSub()
                 // if (chat == undefined || chat == null || this.user == undefined || this.user == null) return false
-                for (var i = 0; i < this.user.chatSubs.length; i++) {
-                        if (this.user.chatSubs[i]._id === chat._id) {
+                for (var i = 0; i < this.user.chatIds.length; i++) {
+                        if (this.user.chatIds[i] === chat._id) {
                                 return true
                         }
                 }

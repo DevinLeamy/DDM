@@ -30,7 +30,7 @@ export class GlobalChatComponent {
             if (this.usersService.users === null || this.usersService.users === undefined) {
               var userIds = []
               for (var i = 0; i < chat.subs.length; i++) {
-                const userId = chat.subs[i]._id
+                const userId = chat.subs[i]
                 if (userIds.indexOf(userId) === -1 && !this.usersService.getUserSub(userId)) {
                   userIds.push(userId)
                 }

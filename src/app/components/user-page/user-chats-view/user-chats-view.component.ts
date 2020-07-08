@@ -22,6 +22,16 @@ export class UserChatsViewComponent {
                 this.userService.getUser()
         }
 
+        //Get chat Ids from user chatIds list
+        getChatIds() {
+                if (this.user === undefined || this.user === null) return []
+                var chatIds = []
+                for (var i = 0; i < this.user.chatIds.length; i++) {
+                        chatIds.push(this.user.chatIds[i])
+                }
+                return chatIds
+        }
+
 
         ngOnDestroy() {
                 this.userSub.unsubscribe()

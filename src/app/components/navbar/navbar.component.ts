@@ -9,7 +9,7 @@ import { User } from 'src/app/models/user'
   templateUrl: "navbar.component.html",
   styleUrls: ["navbar.component.css"]
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit, OnDestroy {
   userSub : Subscription
   user : User
   constructor(private authService : AuthenticationService, private userService : UserService) {}

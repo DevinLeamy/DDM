@@ -3,7 +3,6 @@ const BASE_URL = "http://localhost:3000/api/user/"
 import { Injectable } from "@angular/core"
 import { HttpHeaders, HttpClient } from '@angular/common/http'
 import { User } from '../models/user'
-import { RawUser } from '../models/raw-user'
 import { Subject } from 'rxjs'
 
 @Injectable({ providedIn: "root"} )
@@ -22,29 +21,13 @@ export class UserService {
     if (query || this.user == undefined || this.user == null) {
       //Query for user
       this.http.get(BASE_URL + "data")
-      .subscribe((res : RawUser) => {
-        this.user = this.getUserFromRawUser(res)
+      .subscribe((user : User) => {
+        this.user = user
         this.updateUser()
       })
     } else {
       //Update subscription with existing user
       this.updateUser();
-    }
-  }
-
-  //Creates user object from database raw user data
-  //Move this function into the server [I do not want to be sending the password hash out from the server]
-  getUserFromRawUser(rawUser: RawUser): User {
-    //Set image to default image if image has not been set
-    return {
-      _id: rawUser._id,
-      username: rawUser.username,
-      email: rawUser.email,
-      chatSubs: rawUser.chatSubs,
-      friendReqs: rawUser.friendReqs,
-      friends: rawUser.friends,
-      image: rawUser.image,
-      online: rawUser.online
     }
   }
 
