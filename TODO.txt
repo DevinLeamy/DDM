@@ -1,4 +1,11 @@
-Add: Time Stamp (time:day:month:year) [Central Time Zone],
-     List of chats the a user created
-To: User scheme and models
-Compress user profile image
+-Compress user profile image
+-Write chat display for home page
+-Implement refresh tokens
+-Implement log-out
+-Allow user admin to set chat image
+-Change chat subs to chat ids [like what was done with user subs]
+-Allow admin to delete chats
+-Improve CSS for all three user page columns
+-Move chat-create to user page
+-Set default images for headers [Done]
+-Make everything responsive

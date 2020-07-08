@@ -10,7 +10,7 @@
 </div> -->
 <app-header 
         [headerText]="'Admin'" 
-        [imageUrl]="'../../../assets/images/DefaultIconImage.png'"
+        [imageUrl]="'../../../assets/images/Admin.png'"
 ></app-header>
 <app-subscriber 
         [username]="this.getUserSub(this.chat.admin._id).username" 
@@ -22,7 +22,7 @@
 <app-header 
         [headerText]="'Subscribers'" 
         *ngIf="this.chat !== undefined && this.chat !== null && this.chat.subs.length > 0" 
-        [imageUrl]="'../../../assets/images/DefaultIconImage.png'"
+        [imageUrl]="'../../../assets/images/SubTwo.jpg'"
 ></app-header>
 <div *ngIf="this.chat" class="subscribers-view-container">
         <app-subscriber 

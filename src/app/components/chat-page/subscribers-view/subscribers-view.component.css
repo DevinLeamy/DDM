@@ -38,8 +38,7 @@
 /* Subscribers display */
 .subscribers-view-container {
         width: 100%;
-        height: calc(100% - 30px);
+        height: calc(100% - 120px);
         background-color: rgb(50, 64, 71);
 }
-
 /* -------------------------------------------------------- */
