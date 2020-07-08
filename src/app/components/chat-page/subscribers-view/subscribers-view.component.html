@@ -13,6 +13,7 @@
         [imageUrl]="'../../../assets/images/Admin.png'"
 ></app-header>
 <app-subscriber 
+        *ngIf="this.chat !== undefined && this.chat !== null"
         [username]="this.getUserSub(this.chat.admin._id).username" 
         [image]="this.getUserSub(this.chat.admin._id).image" 
         [online]="this.getUserSub(this.chat.admin._id).online" 

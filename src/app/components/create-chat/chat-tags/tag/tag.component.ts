@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core"
-import { ChatsService } from 'src/app/services/chats'
+import { ChatCreateService } from 'src/app/services/chat-create'
 
 @Component({
         selector: "app-tag",
@@ -9,11 +9,11 @@ import { ChatsService } from 'src/app/services/chats'
 export class TagComponent {
         @Input() tagText: string
 
-        constructor(private chatsService: ChatsService) {}
+        constructor(private chatCreateService: ChatCreateService) {}
 
         //Removes existing tag from this of tags
         removeTag() {
-                this.chatsService.removeTag(this.tagText)
+                this.chatCreateService.removeTag(this.tagText)
         }
 
 }

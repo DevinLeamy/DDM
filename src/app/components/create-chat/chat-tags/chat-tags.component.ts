@@ -1,33 +1,33 @@
 import { Component, OnInit, OnDestroy } from "@angular/core"
-import { ChatsService } from "../../../services/chats"
 import { NgForm } from '@angular/forms'
 import { Chat } from 'src/app/models/chat'
 import { Subscription } from 'rxjs'
+import { ChatCreateService } from 'src/app/services/chat-create'
 
 @Component({
         selector: "app-chat-tags",
         templateUrl: "chat-tags.component.html",
         styleUrls: ["chat-tags.component.css"]
 })
-export class ChatTagsComponent {
+export class ChatTagsComponent implements OnInit, OnDestroy{
         newChat: Chat
         newChatSub: Subscription
 
-        constructor(private chatsService: ChatsService) {}
+        constructor(private chatCreateService: ChatCreateService) {}
 
         ngOnInit() {
-                this.newChatSub = this.chatsService.getNewChatUpdated()
+                this.newChatSub = this.chatCreateService.getNewChatUpdated()
                         .subscribe(chat => { 
                                 this.newChat = chat
                         })
-                this.chatsService.updateNewChat()
+                this.chatCreateService.updateNewChat()
         }
 
         //Adds a new tag to the list of tags
         addTag(tagForm: NgForm) {
                 const newTag = tagForm.value.tag.trim().toLowerCase().split(/\s+/g).join('‑')
                 if (!(newTag === null || newTag === undefined || newTag === "" || newTag === "new tag")) {
-                        this.chatsService.addTag(newTag)
+                        this.chatCreateService.addTag(newTag)
                 }
                 tagForm.resetForm()
         }

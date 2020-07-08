@@ -1,20 +1,19 @@
-import { Component, Input, OnInit, OnDestroy } from "@angular/core"
-import { ChatsService } from "../../services/chats"
+import { Component, OnInit, OnDestroy } from "@angular/core"
 import { NgForm } from '@angular/forms'
 import { Category } from "../../models/category"
 import { UserService } from "../../services/user"
 import { User } from "../../models/user"
 import { Subscription } from 'rxjs'
-import { UserSub } from 'src/app/models/user-sub'
 import { AuthenticationService } from 'src/app/services/authentication'
+import { ChatCreateService } from 'src/app/services/chat-create'
 
 @Component({
   selector: "app-create-chat",
   templateUrl: "create-chat.component.html",
   styleUrls: ["create-chat.component.css"],
-  providers: [ChatsService] //I do not know if the chats service has been made a provider for a different component
+  providers: [ChatCreateService] 
 })
-export class CreateChatComponent {
+export class CreateChatComponent implements OnInit, OnDestroy{
   categories: Category[] = [
     { _id: "0", name: "Science and Tech" },
     { _id: "1", name: "Food" },
@@ -22,10 +21,10 @@ export class CreateChatComponent {
   ]
   user: User;
   userSub: Subscription
-  constructor(private chatsService: ChatsService, private userService: UserService, private authService: AuthenticationService) {}
+  constructor(private chatCreateService: ChatCreateService, private userService: UserService, private authService: AuthenticationService) {}
 
   ngOnInit() {
-    this.chatsService.initNewChat()
+    this.chatCreateService.initNewChat()
     this.userSub = this.userService.getUserUpdated()
       .subscribe(user => {
         this.user = user
@@ -47,7 +46,7 @@ export class CreateChatComponent {
         name: "test" 
         //this.categories[chatForm.value.category].name
       }
-      this.chatsService.postChat(title, this.user._id, category, true)
+      this.chatCreateService.postChat(title, this.user._id, category, true)
       chatForm.resetForm()
     }
   }
