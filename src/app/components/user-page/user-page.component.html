@@ -1,19 +1,12 @@
 <app-navbar>
-        <div *ngIf="this.isAuthenticated()">
-                <div class="left" *ngIf="this.user != null && this.user != undefined">
-                        <app-user-chats-view></app-user-chats-view>
-                </div>
-                <div class="middle" *ngIf="this.user != null && this.user != undefined">
-                        <app-user-friends-view></app-user-friends-view>
-                </div>
-        
-                <div class="right" *ngIf="this.user != null && this.user != undefined">
-                        <app-user-view></app-user-view>
-                </div>
+        <div class="left" *ngIf="this.user != null && this.user != undefined">
+                <app-user-chats-view></app-user-chats-view>
         </div>
-        <div *ngIf="!this.isAuthenticated()">
-                <div>Login to view your user profile</div>
+        <div class="middle" *ngIf="this.user != null && this.user != undefined">
+                <app-user-friends-view></app-user-friends-view>
         </div>
-        
-       
+
+        <div class="right" *ngIf="this.user != null && this.user != undefined">
+                <app-user-view></app-user-view>
+        </div>
 </app-navbar>

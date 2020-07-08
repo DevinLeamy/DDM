@@ -57,6 +57,14 @@ router.get("/init", function(req, res) {
   }
 })
 
+//Protects chat-create route from not-login-in users
+router.get("/chat-create", function(req, res) {
+  if (!req.headers["authorization"]) res.redirect("http://localhost:3000")
+  else { 
+    res.next()
+  }
+})
+
 //Post new chat
 router.post("/chat-create/create", function(req, res) {
   const chat = req.body

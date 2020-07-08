@@ -35,6 +35,14 @@ router.get("/data/:_id", function(req, res) {
   ).catch((reject) => console.log(reject))
 })
 
+//Protects user route from not-login-in users
+router.get("", function(req, res) {
+  if (!req.headers["authorization"]) res.redirect("http://localhost:3000")
+  else { 
+    res.next()
+  }
+})
+
 //Status 1: Success | Status 0: Unsuccessful
 router.post("/friend-request", authenticateToken, function(req, res) {
   const receiverEmail = req.body.email
