@@ -1,5 +1,5 @@
 <div class="container">
-        <div class="chat-container" *ngFor="let chatId of this.chatIds" [routerLink]="['/api/chat/view', chatId]">
+        <div class="chat-container" *ngFor="let chatId of this.chatIds">
                 <app-chat-option [chatId]="this.chatId"></app-chat-option>
         </div>
 </div>

@@ -1,1 +1,149 @@
-/* Placeholder text */
+.container {
+        background-color: rgb(38, 49, 54);
+}
+
+.container:hover {
+        background-color: rgb(30, 40, 50);
+}
+
+.container:hover .top-container .title-container .title {
+        font-size: 19px;
+}
+
+/* Top container  (Icon and title) */
+.top-container {
+        width: 100%;
+        display: flex;
+        height: 40px;
+}
+
+.icon-container {
+        order: 0;
+        height: 100%;
+        width: 50px;
+}
+
+.title-container {
+        order: 1;
+        width: calc(100% - 50px);
+        height: 40px;
+        display: flex;
+        align-items: center;
+}
+.title {
+        text-align: center;
+        width: 100%;
+        font-size: 17px;
+        color: hotpink;
+}
+
+/* Bottom container (tags, GO and sub count */
+.bottom-container {
+        height: 50px;
+}
+
+.tags-container {
+        width: calc(100% - 6px);
+        overflow-x: scroll;
+        overflow-y: hidden;
+        height: 25px;
+        display: flex;
+        flex-shrink: 0;
+        margin-right: 3px;
+        margin-left: 3px;
+}
+
+/* Makes horizontal scroll bar invisible */
+.tags-container::-webkit-scrollbar {
+        height: 0px;
+}
+
+.tag-container {
+        line-height: 25px;
+        height: 25px;
+        background-color: rgb(38, 49, 54);
+        border-radius: 3px;
+        color: white;
+        padding-left: 3px;
+        padding-right: 3px;
+        margin-right: 3px;
+}
+
+.tag-container:hover {
+        color: #7abffc;
+}
+
+.bottom-bottom-container {
+        display: flex;
+        flex-direction: ltr;
+        width: calc(100% - 6px);
+        margin-right: 3px;
+        margin-left: 3px;
+        height: 25px;
+}
+
+.sub-count-container {
+        float: left;
+        line-height: 25px;
+        height: 25px;
+        color: rgb(163, 163, 163);
+        font-size: 15px;
+}
+
+.flex-expand {
+        flex: 1 1 auto; 
+}
+
+.go-button {
+        float: right;
+        height: 20px;
+        text-align: center;
+        line-height: 20px;
+        width: 70px;
+        border-radius: 5px;
+        font-size: 17px;
+        color: whitesmoke;
+        border: solid transparent;
+}
+
+.go-button:hover {
+        border: solid white;
+}
+
+.transform-color {
+        -webkit-transition: color 0.2s;
+        -moz-transition: color 0.2s;
+        -o-transition: color 0.2s;
+        transition: color 0.2s;
+}
+
+.transform-background-color {
+        -webkit-transition: background-color 0.2s;
+        -moz-transition: background-color 0.2s;
+        -o-transition: background-color 0.2s;
+        transition: background-color 0.2s;  
+}
+
+.transform-font-size {
+        -webkit-transition: font-size 0.2s;
+        -moz-transition: font-size 0.2s;
+        -o-transition: font-size 0.2s;
+        transition: font-size 0.2s;  
+}
+
+.transform-border {
+        -webkit-transition: border 0.2s;
+        -moz-transition: border 0.2s;
+        -o-transition: border 0.2s;
+        transition: border 0.2s;
+}
+
+/* Prevents users from selecting text */
+.no-select {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none; 
+        -khtml-user-select: none; 
+        -moz-user-select: none; 
+        -ms-user-select: none; 
+        user-select: none;
+}

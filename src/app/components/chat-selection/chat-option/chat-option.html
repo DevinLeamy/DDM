@@ -1,20 +1,39 @@
 <!-- Placeholder text -->
-<div class="container">
+<div [@expansionBox]="expanded ? 'open' : 'closed'" (click)="this.toggle()" class="container transform-background-color">
         <div class="top-container">
                 <div class="icon-container">
-
+                        <app-image-fab 
+                                *ngIf="this.getChatSub().image != '$$$Default$$$'" 
+                                [imageUrl]="this.getChatSub().title" 
+                                [showStatus]="false"
+                        ></app-image-fab>
+                        <app-user-icon 
+                                *ngIf="this.getChatSub().image === '$$$Default$$$'" 
+                                [showStatus]="false"
+                        ></app-user-icon>
                 </div>
                 <div class="title-container">
-                        {{this.getChatSub().title}}
+                        <div class="title no-select transform-font-size">
+                                {{this.getChatSub().title}}
+                        </div>
                 </div>
         </div>
-        <div class="bottom-container">
+        <div class="bottom-container" *ngIf="this.expanded">
                 <div class="tags-container">
-
+                        <div class="tag-container no-select transform-color" *ngFor="let tag of this.getChatSub().tags">
+                                {{tag}}
+                        </div>
                 </div>
-                <div class="sub-count-container">
-
+                <div class="bottom-bottom-container">
+                        <div class="sub-count-container no-select">
+                                {{'Sub Count: ' + this.getChatSub().subCount}}
+                        </div>
+                        <span class="flex-expand"></span>
+                        <div class="go-button transform-border no-select" [routerLink]="['/api/chat/view', this.chatId]">
+                                Chat
+                        </div>
                 </div>
+                
         </div>
 
 </div>
