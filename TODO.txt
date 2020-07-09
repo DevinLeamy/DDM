@@ -3,7 +3,7 @@
 -Implement refresh tokens
 -Implement log-out
 -Allow user admin to set chat image
--Change chat subs to chat ids [like what was done with user subs]
+-Change chat subs to chat ids [like what was done with user subs] [Done]
 -Allow admin to delete chats
 -Improve CSS for all three user page columns
 -Move chat-create to user page
