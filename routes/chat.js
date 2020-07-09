@@ -542,10 +542,13 @@ function getRecentChatIds() {
     database.chats.find({}, {limit: 10}, function(err, chats) {
       if (err || chats === undefined || chats == null) reject("Error querying chats")
       chatIds = []
-      for (var i = 0; i < chats.length; i++) {
+      for (var i = chats.length - 1; i >= 0; i--) {
         const chatId = chats[i]._id
         if (chatIds.indexOf(chatId) === -1) {
           chatIds.push(chatId)
+        }
+        if (chatIds.length === 10) {
+          break;
         }
         resolve(chatIds)
       }
