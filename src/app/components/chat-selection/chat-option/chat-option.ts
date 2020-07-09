@@ -10,7 +10,9 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
                                 backgroundColor: "rgb(30, 40, 50)",
                                 height: "90px",
                                 borderRadius: "5px",
-                                width: "100%"
+                                width: "100%",
+                                marginBottom: "5px",
+                                marginTop: "5px"
                         })),
                         state('closed', style({
                                 // backgroundColor: "rgb(38, 49, 54)",
@@ -19,12 +21,12 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
                                 width: "100%"
                         })),
                                 transition('open => closed', [
-                                        animate('0.2s')
+                                        animate('0.1s')
                         ]),
                                 transition('closed => open', [
                                         animate('0.2s')
                         ]),
-                ]),
+                ])
         ],
         templateUrl: "chat-option.html",
         styleUrls: ["chat-option.css"]

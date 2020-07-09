@@ -1,0 +1,12 @@
+.container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+}
+
+.chat-selection-container {
+        width: 100%;
+        overflow-y: scroll;
+        max-height: calc(100% - 35px);
+}

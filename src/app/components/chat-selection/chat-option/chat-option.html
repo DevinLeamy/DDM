@@ -13,17 +13,15 @@
                         ></app-user-icon>
                 </div>
                 <div class="title-container">
-                        <div class="title no-select transform-font-size">
+                        <div class="title no-select transform-font-size transform-color" *ngIf="!this.expanded">
+                                {{this.getChatSub().title}}
+                        </div>
+                        <div class="title-expanded no-select" *ngIf="this.expanded">
                                 {{this.getChatSub().title}}
                         </div>
                 </div>
         </div>
         <div class="bottom-container" *ngIf="this.expanded">
-                <div class="tags-container">
-                        <div class="tag-container no-select transform-color" *ngFor="let tag of this.getChatSub().tags">
-                                {{tag}}
-                        </div>
-                </div>
                 <div class="bottom-bottom-container">
                         <div class="sub-count-container no-select">
                                 {{'Sub Count: ' + this.getChatSub().subCount}}
@@ -31,6 +29,11 @@
                         <span class="flex-expand"></span>
                         <div class="go-button transform-border no-select" [routerLink]="['/api/chat/view', this.chatId]">
                                 Chat
+                        </div>
+                </div>
+                <div class="tags-container">
+                        <div class="tag-container no-select transform-color" *ngFor="let tag of this.getChatSub().tags">
+                                {{tag}}
                         </div>
                 </div>
                 

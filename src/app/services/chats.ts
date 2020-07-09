@@ -62,6 +62,17 @@ export class ChatsService {
     })
   }
 
+  //Get most recent 10 chats ids
+  getRecentChatIds() {
+    return new Promise(resolve => {
+      this.http.get(BASE_URL + "chatIds/recent")
+        .subscribe((res: {status: string, data: string[]}) => {
+          const chatIds: string[] = res.data
+          resolve(chatIds)
+        })
+    })
+  }
+
   //Update chat 
   updateChats() {
     this.chatsUpdated.next([...this.chats])

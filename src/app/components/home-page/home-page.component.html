@@ -10,19 +10,15 @@
         <!-- <app-chat-display></app-chat-display> -->
     </div>
     <div class="right">
-        <app-header 
-            [headerText]="'Popular Chats'" 
-            [imageUrl]="'../../../assets/images/PopularTwo.png'"
-        ></app-header>
-        <app-header 
-            [headerText]="'New Chats'" 
-            [imageUrl]="'../../../assets/images/NewChatOne.png'"
-        ></app-header>
-        
-        <app-header 
-            [headerText]="'Recommended Chats'" 
-            [imageUrl]="'../../../assets/images/RecommendedThree.jpg'"
-        ></app-header>
+        <div class="chat-list-container">
+                <app-popular-chats></app-popular-chats>
+        </div>
+        <div class="chat-list-container">
+                <app-recent-chats></app-recent-chats>
+        </div>
+        <div class="chat-list-container">
+                <app-recommended-chats></app-recommended-chats>
+        </div>
     </div>
 </app-navbar>
 

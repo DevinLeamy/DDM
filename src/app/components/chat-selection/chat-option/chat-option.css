@@ -1,5 +1,6 @@
 .container {
         background-color: rgb(38, 49, 54);
+        padding-bottom: 5px;
 }
 
 .container:hover {
@@ -8,6 +9,7 @@
 
 .container:hover .top-container .title-container .title {
         font-size: 19px;
+        color: #7abffc;
 }
 
 /* Top container  (Icon and title) */
@@ -34,8 +36,15 @@
         text-align: center;
         width: 100%;
         font-size: 17px;
-        color: hotpink;
+        /* color: hotpink; */
 }
+.title-expanded {
+        text-align: center;
+        width: 100%;
+        font-size: 19px;
+        color: #7abffc;
+}
+
 
 /* Bottom container (tags, GO and sub count */
 .bottom-container {
@@ -43,14 +52,14 @@
 }
 
 .tags-container {
-        width: calc(100% - 6px);
+        width: calc(100% - 10px);
         overflow-x: scroll;
         overflow-y: hidden;
         height: 25px;
         display: flex;
         flex-shrink: 0;
-        margin-right: 3px;
-        margin-left: 3px;
+        margin-right: 5px;
+        margin-left: 5px;
 }
 
 /* Makes horizontal scroll bar invisible */
@@ -63,10 +72,10 @@
         height: 25px;
         background-color: rgb(38, 49, 54);
         border-radius: 3px;
-        color: white;
         padding-left: 3px;
         padding-right: 3px;
         margin-right: 3px;
+        color: white;
 }
 
 .tag-container:hover {
@@ -102,7 +111,9 @@
         width: 70px;
         border-radius: 5px;
         font-size: 17px;
-        color: whitesmoke;
+        /* color: whitesmoke; */
+        /* color: #7abffc; */
+        color: rgb(105, 255, 185);
         border: solid transparent;
 }
 

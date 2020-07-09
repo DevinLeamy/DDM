@@ -15,6 +15,7 @@ const databaseName = "messenger-database"
 const databaseUrl = "mongodb+srv://" + databaseUsername + ":" + databasePassword + "@messenger-db-jzhdw.mongodb.net/" + databaseName + "?retryWrites=true&w=majority"
 const database = mongojs(databaseUrl, ["chats", "users", "categories", "tags"])
 //-----------------------------------Requests----------------------------------------
+
 //Gets chat by ID
 router.get("/data/:id", function(req, res) {
   const chatId = req.params.id
@@ -25,6 +26,15 @@ router.get("/data/:id", function(req, res) {
   ).catch((reject) => console.log(reject))
 })
 
+//Get chat ids of most recent 10 chats
+router.get("/chatIds/recent", function(req, res) {
+  getRecentChatIds()
+    .then( (chatIds) => res.json({
+      status: "0",
+      data: chatIds
+    }))
+    .catch((reject) => console.log(reject))
+})
 //Gets chat sub from chat will given id
 router.post("/chatSub", function(req, res) {
   const chatId = req.body._id
@@ -522,6 +532,23 @@ function addNewCategory(category) {
       if (err || data === undefined || data === null) reject("Error posting new category")
       //Success: New category has been posted
       resolve(0)
+    })
+  })
+}
+
+//Get most recent chat Ids
+function getRecentChatIds() {
+  return new Promise( (resolve, reject) => {
+    database.chats.find({}, {limit: 10}, function(err, chats) {
+      if (err || chats === undefined || chats == null) reject("Error querying chats")
+      chatIds = []
+      for (var i = 0; i < chats.length; i++) {
+        const chatId = chats[i]._id
+        if (chatIds.indexOf(chatId) === -1) {
+          chatIds.push(chatId)
+        }
+        resolve(chatIds)
+      }
     })
   })
 }

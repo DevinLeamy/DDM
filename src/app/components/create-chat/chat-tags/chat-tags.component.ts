@@ -25,12 +25,35 @@ export class ChatTagsComponent implements OnInit, OnDestroy{
 
         //Adds a new tag to the list of tags
         addTag(tagForm: NgForm) {
-                const newTag = tagForm.value.tag.trim().toLowerCase().split(/\s+/g).join('‑')
+                const newTag = this.fixTag(tagForm
+                                .value
+                                .tag
+                                .trim()
+                                .toLowerCase()
+                        )
+                        .split(/\s+/g)
+                        .join('‑')
                 if (!(newTag === null || newTag === undefined || newTag === "" || newTag === "new tag")) {
                         this.chatCreateService.addTag(newTag)
                 }
                 tagForm.resetForm()
         }
+
+        //Replace underscores and hyphens with no breakable hyphen
+        fixTag(tag: string) {
+                for (var i = 0; i < tag.length; i++) {
+                        if (tag[i] === '_' || tag[i] === '-') {
+                                tag = this.replaceAt(tag, i, '‑')
+                        }
+                }
+                return tag
+        }
+
+        //Replace character at index
+        replaceAt(current: string, index: number, replacement: string) {
+                return current.substr(0, index) + replacement + current.substr(index + replacement.length);
+        }
+
 
         updateOptions(queryText: string) {
                 // this.chatsService.getTags(queryText) 

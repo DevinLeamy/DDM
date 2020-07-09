@@ -1,5 +1,5 @@
 -Compress user profile image
--Write chat display for home page
+-Write chat display for home page [1/2]
 -Implement refresh tokens
 -Implement log-out
 -Allow user admin to set chat image

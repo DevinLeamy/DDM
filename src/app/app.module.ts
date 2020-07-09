@@ -45,6 +45,9 @@ import { HeaderComponent } from "./components/header/header.component"
 import { SubscriberComponent } from "./components/chat-page/subscribers-view/subscriber/subscriber.component"
 import { ChatSelectionComponent } from './components/chat-selection/chat-selection'
 import { ChatOptionComponent } from './components/chat-selection/chat-option/chat-option'
+import { RecentChatsComponent } from './components/home-page/recent-chats/recent-chats.component'
+import { PopularChatsComponent } from './components/home-page/popular-chats/popular-chats.component'
+import { RecommendedChatsComponent } from './components/home-page/recommended-chats/recommended-chats.component'
 
 @NgModule({
   declarations: [
@@ -76,7 +79,10 @@ import { ChatOptionComponent } from './components/chat-selection/chat-option/cha
     HeaderComponent,
     SubscriberComponent,
     ChatSelectionComponent,
-    ChatOptionComponent
+    ChatOptionComponent,
+    RecentChatsComponent,
+    PopularChatsComponent,
+    RecommendedChatsComponent
   ],
   imports: [
     BrowserModule,
