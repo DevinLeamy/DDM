@@ -24,6 +24,15 @@
   float: left;
 }
 
+.temp {
+  height: 100%;
+  width: 100%;
+  background-image: url(../../../assets/images/Moon.jpg);
+  background-size: contain;
+  background-color: black;
+  background-repeat: no-repeat;
+}
+
 .chat-list-container {
   height: 31%;
 }
