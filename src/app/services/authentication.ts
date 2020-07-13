@@ -43,42 +43,54 @@ export class AuthenticationService {
 
   //Register a new user
   register(username: string, email: string, password: string) {
-    var headers = new HttpHeaders()
-    headers = headers.append('Content-type', 'application/json')
-    const body = {
-      username: username,
-      email: email,
-      password: password
-    }
-    this.http.post(BASE_URL + "register/createUser", body, { headers: headers })
-      .subscribe((res: Tokens) => {
-        const accessToken = res.accessToken
-        if (accessToken) {
-          //User was created
-          this.setAccessToken(accessToken)
-          this.go("")
-        }
-      })
+    return new Promise(resolve => {
+      var headers = new HttpHeaders()
+      headers = headers.append('Content-type', 'application/json')
+      const body = {
+        username: username,
+        email: email,
+        password: password
+      }
+      this.http.post(BASE_URL + "register/createUser", body, { headers: headers })
+        .subscribe((res: {status: string, data: any}) => {
+          if (res.status === '0') {
+            const accessToken = res.data
+            if (accessToken) {
+              //User was created
+              this.setAccessToken(accessToken)
+              this.go("")
+            }
+          } else {
+            resolve(res.data)
+          }
+        })
+    })
   }
 
   //Logs in a given user
   login(email: string, password: string) {
-    var headers = new HttpHeaders()
-    headers = headers.append('Content-type', 'application/json')
-    const body = {
-      email: email,
-      password: password
-    }
-    this.http.post(BASE_URL + "login/authenticate", body, { headers: headers })
-      .subscribe((res: Tokens) => {
-        const accessToken = res.accessToken
-        if (accessToken) {
-          //User was authenticated
-          this.setAccessToken(accessToken)
-          this.setUserStatusOnline()
-            .then( () => this.go("") )
-        }
-      })
+    return new Promise(resolve => {
+      var headers = new HttpHeaders()
+      headers = headers.append('Content-type', 'application/json')
+      const body = {
+        email: email,
+        password: password
+      }
+      this.http.post(BASE_URL + "login/authenticate", body, { headers: headers })
+        .subscribe((res: {status: string, data: any}) => {
+          if (res.status === '0') {
+            const accessToken = res.data
+            if (accessToken) {
+              //User was authenticated
+              this.setAccessToken(accessToken)
+              this.setUserStatusOnline()
+                .then( () => this.go("") )
+            }
+          } else {
+            resolve(res.data)
+          }
+        })
+    })
   }
 
   //Set user status as online

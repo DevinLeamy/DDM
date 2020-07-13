@@ -6,17 +6,21 @@
 }
 
 .register-form-card {
-  height: 400px;
+  height: 500px;
   width: 300px;
   margin: auto;
   top: 35%;
-  background-color: #2a4d69;
+  background-color: rgb(32, 32, 32);
+}
+
+.register-form-container {
+  width: 200px;
+  height: 500px;
+  margin: auto;
 }
 
 .form-input-container {
-  margin: auto;
-  display: block;
-  width: 200px;
+  width: 100%;
   margin-top: 20px;
 }
 
@@ -28,10 +32,17 @@
   display: flex;
   justify-content: center;
 }
+
 .form-submit-button {
   width: 200px;
-  top: 25px;
+  margin-top: 25px;
   background-color: white;
   color: black;
+}
+
+.error-message {
+  margin-top: 10px;
+  color: red;
+  width: 100%;
 }
 

@@ -35,6 +35,27 @@ router.get("/chatIds/recent", function(req, res) {
     }))
     .catch((reject) => console.log(reject))
 })
+
+//Get chat ids of most popular 10 chats
+router.get("/chatIds/popular", function(req, res) {
+  getPopularChatIds()
+    .then( (chatIds) => res.json({
+      status: "0",
+      data: chatIds
+    }))
+    .catch( (reject) => console.log(reject))
+})
+
+//Get chat ids of "recommended" chats
+router.get("/chatIds/recommended", function(req, res) {
+  getRecommendedChatIds()
+    .then( (chatIds) => res.json({
+      status: "0",
+      data: chatIds
+    }))
+    .catch( (reject) => console.log(reject))
+})
+
 //Gets chat sub from chat will given id
 router.post("/chatSub", function(req, res) {
   const chatId = req.body._id
@@ -550,8 +571,53 @@ function getRecentChatIds() {
         if (chatIds.length === 10) {
           break;
         }
-        resolve(chatIds)
       }
+      resolve(chatIds)
+    })
+  })
+}
+
+//Get most popular chats Ids
+function getPopularChatIds() {
+  return new Promise((resolve, reject) => {
+    //I should add a limit to the number of results returned
+    database.chats.find(function(err, chats) {
+        if (err || chats === undefined || chats === null) reject("Error quering chats")
+        chats.sort(function(chatA, chatB) {
+          if (chatA.subs.length > chatB.subs.length) {
+            return 1
+          } else {
+            return -1
+          }
+        })
+        chatIds = []
+        for (var i = chats.length - 1; i >= 0; i--) {
+          const chatId = chats[i]._id
+          if (chatIds.indexOf(chatId) === -1) {
+            chatIds.push(chatId)
+          }
+          if (chatIds.length === 10) {
+            break;
+          }
+        }
+        resolve(chatIds)
+      })
+  })
+}
+
+//Get recommended chats (random chats)
+function getRecommendedChatIds() {
+  return new Promise( (resolve, reject) => {
+    database.chats.aggregate([{ $sample: { size: 10 } }], function(err, chats) {
+      chatIds = []
+      for (var i = 0; i < chats.length; i++) {
+        chatId = chats[i]._id
+        chatIds.push(chatId)
+        if (chatIds.length === 10) {
+          break;
+        }
+      }
+      resolve(chatIds)
     })
   })
 }

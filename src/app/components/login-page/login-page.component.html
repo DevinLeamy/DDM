@@ -1,47 +1,49 @@
 <div class="login-background">
   <mat-card class="login-form-card">
-    <!-- Inside Container (start) -->
-    <form #loginForm="ngForm" (submit)="login(loginForm)">
-      <!-- Email Field -->
-      <div class="form-input-container">
-        <mat-form-field>
-          <input
-            matInput
-            type="text"
-            name="email"
-            ngModel
-            required
-            placeholder="email"
-            #email="ngModel"
-            class="input-field"
-          >
-          <mat-error *ngIf="email.invalid">Enter your email</mat-error>
-        </mat-form-field>
-      </div>
+    <div class="login-form-container">
+      <!-- Inside Container (start) -->
+      <form #loginForm="ngForm" (submit)="login(loginForm)">
+          <!-- Email Field -->
+          <div class="form-input-container">
+            <mat-form-field>
+              <input
+                matInput
+                type="text"
+                name="email"
+                ngModel
+                required
+                placeholder="email"
+                #email="ngModel"
+                class="input-field"
+              >
+              <mat-error *ngIf="email.invalid">Enter your email</mat-error>
+            </mat-form-field>
+          </div>
+          <!-- Password Field -->
+          <div class="form-input-container">
+            <mat-form-field>
+              <input
+                matInput
+                name="password"
+                ngModel
+                required
+                placeholder="Password"
+                #password="ngModel"
+                type="password"
+                class="input-field"
+              >
+              <mat-error *ngIf="password.invalid">Enter your password</mat-error>
+            </mat-form-field>
+          </div>
 
-      <!-- Password Field -->
-      <div class="form-input-container">
-        <mat-form-field>
-          <input
-            matInput
-            name="password"
-            ngModel
-            required
-            placeholder="Password"
-            #password="ngModel"
-            type="password"
-            class="input-field"
-          >
-          <mat-error *ngIf="password.invalid">Enter your password</mat-error>
-        </mat-form-field>
-      </div>
-
-      <!-- Submit Button -->
-      <div class="form-button-container">
-        <button mat-raised-button type="submit" class="form-submit-button">Login</button>
-      </div>
-
-    </form>
-    <!-- Inside Container (end) -->
+          <!-- Submit Button -->
+          <div class="form-button-container">
+            <button mat-raised-button type="submit" class="form-submit-button">Login</button>
+          </div>
+          <div *ngIf="this.errorMessage !== undefined" class="error-message">
+            {{this.errorMessage}}
+          </div>
+        </form>
+    </div>
   </mat-card>
 </div>

@@ -1,10 +1,18 @@
 <div class="container">
-        <app-header [headerText]="'Subscriptions'" [imageUrl]="'../../../assets/images/SubsTwo.png'"></app-header>
+        <div class="header-container">
+                <app-header 
+                        [headerText]="'Subscriptions'" 
+                        [imageUrl]="'../../../assets/images/SubsTwo.png'"
+                ></app-header>     
+        </div>
         <div class="chats-container">
                 <app-chat-selection 
                         [chatIds]="this.getChatIds()"
                 >
                 </app-chat-selection>
         </div>
-        <h1>Create chat</h1>
+        <div class="chat-create-container">
+                <h3 style="padding: 0px; height: 65px; margin: 0px">Create chat</h3>
+
+        </div>
 </div>

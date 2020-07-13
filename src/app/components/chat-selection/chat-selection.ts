@@ -7,4 +7,5 @@ import { Component, Input } from "@angular/core"
 })
 export class ChatSelectionComponent {
         @Input() chatIds: string[]
+        @Input("color") color: string = "white"
 }

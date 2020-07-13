@@ -36,7 +36,10 @@ router.post("/login/authenticate", function(req, res) {
     const email = credentials.email
     const password = credentials.password
     takenEmail(email).then(
-        () => console.log("User does not exist")
+        () => res.json({
+          status: "1",
+          data: "Incorrect username or password"
+        })
       ).catch(
         //User exists
         () => getUserByEmail(email).then(
@@ -45,11 +48,22 @@ router.post("/login/authenticate", function(req, res) {
             const salt = user.salt
             if (passwordIsValid(password, passwordHash, salt)) {
               res.json(
-                { accessToken: getAccessToken({_id: user._id, username: user.username}) }
+                { 
+                  status: "0",
+                  data: getAccessToken({_id: user._id, username: user.username})
+                }
               )
-            } else console.log("Password was invalid")
+            } else {
+              res.json({
+                status: "1",
+                data: "Incorrect username or password"
+              })
+            }
           }
-        ).catch((reject) => console.log(reject))
+        ).catch(() => res.json({
+          status: "1",
+          data: "Incorrect username or password"
+        }))
       )
   }
 })
@@ -64,11 +78,20 @@ router.post("/register/createUser", function(req, res) {
     () => postUser(newUser).then(
       (user) => {
           res.json(
-            { accessToken: getAccessToken({_id: user._id, username: user.username}) }
+            { 
+              status: "0",
+              data: getAccessToken({_id: user._id, username: user.username}) 
+            }
           )
         }
-      ).catch((reject) => console.log(reject))
-  ).catch((reject) => console.log(reject))
+      ).catch(() => res.json({
+        status: "1",
+        data: "An error occured while creating your account"
+      }))
+  ).catch(() => res.json({
+    status: "1",
+    data: "A user already exists under the provided email"
+  }))
 })
 //-----------------------------------Middle ware----------------------------------------
 

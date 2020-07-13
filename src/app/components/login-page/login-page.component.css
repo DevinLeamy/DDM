@@ -5,17 +5,27 @@
 }
 
 .login-form-card {
-  height: 300px;
-  width: 300px;
+  height: 400px;
+  width: 400px;
   margin: auto;
   top: 35%;
-  background-color: #2a4d69;
+  background-color: rgb(32, 32, 32);
+}
+
+.login-form-container {
+  width: 200px;
+  margin: auto;
+  height: 400px;
+}
+
+.error-message {
+  margin-top: 10px;
+  color: red;
+  width: 100%;
 }
 
 .form-input-container {
-  margin: auto;
-  display: block;
-  width: 200px;
+  width: 100%;
   margin-top: 30px;
 }
 
@@ -28,8 +38,8 @@
   justify-content: center;
 }
 .form-submit-button {
-  width: 200px;
-  top: 75px;
+  width: 100%;
+  margin-top: 75px;
   background-color: white;
   color: black;
 }

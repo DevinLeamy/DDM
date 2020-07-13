@@ -18,7 +18,4 @@ export class RecentChatsComponent implements OnInit {
                                 this.chatsService.getChats(this.chatIds)
                         })
         }
-
-
-
 }

@@ -32,7 +32,6 @@ export class UserChatsViewComponent {
                 return chatIds
         }
 
-
         ngOnDestroy() {
                 this.userSub.unsubscribe()
         }

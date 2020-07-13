@@ -7,6 +7,6 @@
 
 .chat-selection-container {
         width: 100%;
-        max-height: calc(100% - 35px);
+        height: calc(100% - 35px);
         overflow-y: scroll;
 }

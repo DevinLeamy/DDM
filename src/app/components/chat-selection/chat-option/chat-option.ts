@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core"
+import { Component, Input, AfterContentInit, ElementRef, ViewChild, AfterViewInit } from "@angular/core"
 import { ChatsService } from 'src/app/services/chats'
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
@@ -17,7 +17,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
                         state('closed', style({
                                 // backgroundColor: "rgb(38, 49, 54)",
                                 height: "40px",
-                                borderRadius: "5px",
+                                borderRadius: "0px",
                                 width: "100%"
                         })),
                                 transition('open => closed', [
@@ -33,11 +33,21 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 })
 export class ChatOptionComponent {
         @Input() chatId: string
-        expanded = false;
+        @Input("color") color: string
+        @ViewChild("chatTitle") chatTitle: ElementRef
 
+        expanded = false;
         toggle() {
           this.expanded = !this.expanded;
         }
+
+        // ngAfterViewInit() {
+        //         this.chatTitle.nativeElement.style.color = this.color
+        // }
+
+        // ngAfterContentInit() {
+        //         this.chatTitle.nativeElement.style.color = this.color
+        // }
 
         constructor(private chatsService: ChatsService) {}
 

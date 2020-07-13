@@ -73,6 +73,27 @@ export class ChatsService {
     })
   }
 
+  //Get 10 most popular chats
+  getPopularChatIds() {
+    return new Promise(resolve => {
+      this.http.get(BASE_URL + "chatIds/popular")
+        .subscribe((res: {status: string, data: string[]}) => {
+          const chatIds: string[] = res.data
+          resolve(chatIds)
+        })
+    })
+  }
+
+  //Get 10 recommeded chats
+  getRecommendedChatIds() {
+    return new Promise(resolve => {
+      this.http.get(BASE_URL + "chatIds/recommended")
+        .subscribe((res: {status: string, data: string[]}) => {
+          const chatIds: string[] = res.data
+          resolve(chatIds)
+        })
+    })
+  }
   //Update chat 
   updateChats() {
     this.chatsUpdated.next([...this.chats])

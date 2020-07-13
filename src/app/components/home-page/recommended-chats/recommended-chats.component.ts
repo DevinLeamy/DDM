@@ -12,7 +12,7 @@ export class RecommendedChatsComponent implements OnInit {
         constructor(private chatsService: ChatsService) {}
 
         ngOnInit() {
-                this.chatsService.getRecentChatIds()
+                this.chatsService.getRecommendedChatIds()
                         .then( (chatIds: string[]) => {
                                 this.chatIds = chatIds
                                 this.chatsService.getChats(this.chatIds)

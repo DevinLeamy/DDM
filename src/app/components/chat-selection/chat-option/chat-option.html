@@ -13,7 +13,7 @@
                         ></app-user-icon>
                 </div>
                 <div class="title-container">
-                        <div class="title no-select transform-font-size transform-color" *ngIf="!this.expanded">
+                        <div class="title no-select transform-font-size transform-color" *ngIf="!this.expanded" #chatTitle>
                                 {{this.getChatSub().title}}
                         </div>
                         <div class="title-expanded no-select" *ngIf="this.expanded">
