@@ -3,9 +3,10 @@ const express = require("express")
 const router = express.Router()
 const mongojs = require("mongojs")
 const jwt = require("jsonwebtoken")
-const { tokenParser, createUserSub } = require("./functions/userFunc")
+const { tokenParser, createUserSub, encodeAsBase64 } = require("./functions/userFunc")
 const { createChat, createTag, createCategory, createChatSub } = require("./functions/chatFunc")
 var io;
+const formidable = require("express-formidable")
 //-----------------------------------Constants----------------------------------------
 
 //-----------------------------------Initialize Database----------------------------------------
@@ -252,6 +253,17 @@ router.post("/query-categories", function(req, res) {
   queryCategories(queryString).then(
     (resolve) => res.json({status: '0', data: resolve})
   ).catch((reject) => console.log(reject))
+})
+
+//Formidable middleware parses form data allowing me to send image files
+router.post("/setChatImage/:id", formidable(), authenticateToken, function(req, res) {
+  const chatId = req.params.id
+  const imageFile = req.files.image
+  const imageEncoded = 'data:image/*;base64, ' + encodeAsBase64(imageFile.path).split(" ")[0]
+  console.log("Setting chat image")
+  setChatImage(imageEncoded, chatId).then(
+    () => res.json({status: "0", data: imageEncoded})
+  ).catch((reject) => {console.log(reject); res.json({status: "1", data: null})})
 })
 
 //-----------------------------------Middleware----------------------------------------
@@ -619,6 +631,17 @@ function getRecommendedChatIds() {
       }
       resolve(chatIds)
     })
+  })
+}
+
+//Updates user profile image
+function setChatImage(image, chatId) {
+  return new Promise((resolve, reject) => {
+    if (image === undefined || image === null || chatId === undefined || chatId === null) reject("Bad data")
+    database.users.update({_id: mongojs.ObjectId(chatId)}, { $set: {image: image} }, function(err, chat) {
+      if (err || chat === null || chat === undefined) reject("Error updating user image")
+      resolve(chat)
+    }) 
   })
 }
 

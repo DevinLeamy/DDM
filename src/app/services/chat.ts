@@ -141,6 +141,19 @@ export class ChatService {
     return -1
   }
 
+  //Sets chat image
+  setChatImage(image: File) {
+    const formData = new FormData()
+    formData.append("image", image, image.name)
+    this.http.post(CHAT_API + "setChatImage/" + this.chatId, formData) 
+      .subscribe((res: {status: string, data: string}) => {
+        if (res.status === "0") {
+          this.chat.image = res.data
+          this.updateChat()
+        }
+      })
+  }
+
   //Checks if user on chat is the chat's admin
   isAdmin(userId: string) {
           if (this.chat === undefined || userId === undefined) return false

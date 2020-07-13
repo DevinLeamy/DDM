@@ -19,10 +19,9 @@ export class ChatTitleComponent {
                                 this.chat = chat
                         })
                 this.chatService.getChat()
-        }      
+        }    
 
         ngOnDestroy() {
                 this.chatSub.unsubscribe()
-        }
-        
+        }    
 }

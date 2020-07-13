@@ -12,10 +12,12 @@
         float: left;
         width: 45px;
         height: 45px;
+        min-width: 45px;
+        min-height: 45px;
 }       
 
 .title-container {
-        width: calc(100% - 150px);
+        width: calc(100% - 130px);
         height: 45px;
         float: left;
         padding-right: 10px;
@@ -34,6 +36,7 @@
 .flex-expand {
         flex: 1 1 auto; 
 }
+
 /* Tags container */
 .tags-container {
         overflow-x: scroll;
@@ -57,4 +60,11 @@
         padding-left: 3px;
         padding-right: 3px;
         margin-right: 3px;
+}
+
+.transform-color {
+        -webkit-transition: color 0.2s;
+        -moz-transition: color 0.2s;
+        -o-transition: color 0.2s;
+        transition: color 0.2s;  
 }

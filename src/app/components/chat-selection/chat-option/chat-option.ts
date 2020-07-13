@@ -1,4 +1,4 @@
-import { Component, Input, AfterContentInit, ElementRef, ViewChild, AfterViewInit } from "@angular/core"
+import { Component, Input, AfterContentInit, ElementRef, ViewChild, AfterViewInit, OnInit, OnDestroy } from "@angular/core"
 import { ChatsService } from 'src/app/services/chats'
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
@@ -35,11 +35,8 @@ export class ChatOptionComponent {
         @Input() chatId: string
         @Input("color") color: string
         @ViewChild("chatTitle") chatTitle: ElementRef
-
         expanded = false;
-        toggle() {
-          this.expanded = !this.expanded;
-        }
+        constructor(private chatsService: ChatsService) {}
 
         // ngAfterViewInit() {
         //         this.chatTitle.nativeElement.style.color = this.color
@@ -48,9 +45,6 @@ export class ChatOptionComponent {
         // ngAfterContentInit() {
         //         this.chatTitle.nativeElement.style.color = this.color
         // }
-
-        constructor(private chatsService: ChatsService) {}
-
         //Get chat sub
         getChatSub() {
                 if (this.chatsService.getChatSub(this.chatId)) {
@@ -66,4 +60,7 @@ export class ChatOptionComponent {
         }
 
         //Change expand
+        toggle() {
+                this.expanded = !this.expanded;
+        }
 }

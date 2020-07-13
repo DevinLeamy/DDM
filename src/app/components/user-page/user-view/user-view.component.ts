@@ -14,7 +14,6 @@ export class UserViewComponent {
         userSub: Subscription
         selectedImageUrl
         selectedImage
-        imageSub: Subscription
 
         constructor(private userService: UserService, public DomSanitationService: DomSanitizer) {}
         

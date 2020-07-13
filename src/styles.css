@@ -9,7 +9,8 @@ body, html {
 body {
   /* background-color: #0e1822; */
   background-color: rgb(63, 81, 90);
-  font-family: Arial, sans-serif;
+  /* font-family: Arial, sans-serif; */
+  font-family: Roboto, Arial, sans-serif;
   max-width: 1366px;
   margin: auto;
 }
