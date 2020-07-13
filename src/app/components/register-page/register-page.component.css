@@ -1,16 +1,19 @@
 .register-background {
   height: 100%;
   width: 100%;
-  background-image: url("../../../assets/images/Register-Background.jpg");
+  background-image: url("../../../assets/images/login8.png");
+  background-size: contain;
   background-color: black;
+  opacity: 0.8;
 }
 
 .register-form-card {
   height: 500px;
   width: 400px;
   margin: auto;
-  top: 100px;
+  top: 200px;
   background-color: rgb(32, 32, 32);
+  outline: solid #84c1ff;
 }
 
 .register-form-container {
@@ -38,6 +41,7 @@
   margin-top: 25px;
   background-color: white;
   color: black;
+  font-size: 17px;
 }
 
 .error-message {
