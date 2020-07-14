@@ -5,13 +5,14 @@
   opacity: 0.8;
   background-size: contain;
   background-color: black;
+  display: flex;
+  align-content: center;
 }
 
 .login-form-card {
   height: 400px;
   width: 400px;
   margin: auto;
-  top: 200px;
   background-color: rgb(32, 32, 32);
   outline: solid #84c1ff;
 }

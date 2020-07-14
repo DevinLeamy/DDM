@@ -4,8 +4,7 @@ import { ChatsService } from 'src/app/services/chats';
 @Component({
         selector: "app-popular-chats",
         templateUrl: "popular-chats.component.html",
-        styleUrls: ["popular-chats.component.css"],
-        providers: [ChatsService]
+        styleUrls: ["popular-chats.component.css"]
 })
 export class PopularChatsComponent implements OnInit {
         chatIds: string[] = []
@@ -15,7 +14,6 @@ export class PopularChatsComponent implements OnInit {
                 this.chatsService.getPopularChatIds()
                         .then( (chatIds: string[]) => {
                                 this.chatIds = chatIds
-                                this.chatsService.getChats(this.chatIds)
                         })
         }
 }

@@ -10,16 +10,50 @@
                         </div>
                 </div>
                 <div class="user-options-container">
-                        <h1>User options</h1>
-                        <h1>Upload image</h1>
-                        <input type="file"
-                                accept="image/*"
-                                (change)="onImageSelected($event)"
-                        >
-                        <button *ngIf="this.selectedImage != null && this.selectedImage != undefined" (click)="uploadImage()">
-                                Upload image
-                        </button>
-                        <img *ngIf="this.selectedImageUrl != null && this.selectedImageUrl != undefined" [src]="DomSanitationService.bypassSecurityTrustUrl(selectedImageUrl)" class="image-preview">
+                        <h1 class="user-options-header">
+                                Options
+                        </h1>
+                        <div class="user-option-container">
+                                <div class="user-option-header">
+                                        Set Your Icon
+                                </div>
+                                <div class="user-option">
+                                        <input type="file"
+                                                accept="image/*"
+                                                (change)="onImageSelected($event)"
+                                                class="image-input"
+                                        >
+                                        <div 
+                                                *ngIf="this.selectedImage != null && this.selectedImage != undefined" 
+                                                (click)="uploadImage()" 
+                                                class="image-upload-button"
+                                        >
+                                                Set Icon
+                                        </div>
+                                </div>
+                        </div>
+                        <div class="user-option-container margin-top">
+                                <div class="user-option-header">
+                                        Send Friend Request
+                                </div>
+                                <div class="user-option">
+                                        <div 
+                                                class="friend-request-button"
+                                        >Send
+                                        </div>
+                                </div>
+                        </div>
+                        <div class="user-option-container margin-top">
+                                <div class="user-option-header">
+                                        Create A New Chat
+                                </div>
+                                <div class="user-option">
+                                        <div 
+                                                class="create-chat-button"
+                                        >Create
+                                        </div>
+                                </div>
+                        </div>
                 </div>
         </div>
 </div>
