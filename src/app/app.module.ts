@@ -32,7 +32,7 @@ import { ChatDisplayComponent } from "./components/home-page/chat-display/chat-d
 import { UserPageComponent } from "./components/user-page/user-page.component"
 import { UserIconComponent } from "./components/user-icon/user-icon.component"
 import { ChatTitleComponent } from  "./components/chat-page/message-view/chat-title/chat-title.component"
-import { ChatSubscribeComponent } from "./components/chat-page/message-view/chat-subscribe/chat-subscribe.component"
+import { ChatSubscribeComponent } from "./components/chat-page/message-view/chat-title/chat-subscribe/chat-subscribe.component"
 import { SubscribersViewComponent } from "./components/chat-page/subscribers-view/subscribers-view.component"
 import { MessagesComponent } from "./components/chat-page/message-view/messages/messages.component"
 import { UserFriendsViewComponent } from "./components/user-page/user-friends-view/user-friends-view.component"
@@ -48,7 +48,7 @@ import { ChatOptionComponent } from './components/chat-selection/chat-option/cha
 import { RecentChatsComponent } from './components/home-page/recent-chats/recent-chats.component'
 import { PopularChatsComponent } from './components/home-page/popular-chats/popular-chats.component'
 import { RecommendedChatsComponent } from './components/home-page/recommended-chats/recommended-chats.component'
-import { ChatSubscribeAdminDialogComponent } from "./components/chat-page/message-view/chat-subscribe/chat-subscribe-admin-dialog/chat-subscribe-admin-dialog.component"
+import { ChatSubscribeAdminDialogComponent } from "./components/chat-page/message-view/chat-title/chat-subscribe/chat-subscribe-admin-dialog/chat-subscribe-admin-dialog.component"
 import { ChatIconComponent } from "./components/chat-icon/chat-icon.component"
 import { FriendRequestComponent } from "./components/user-page/user-friends-view/friend-request/friend-request.component"
 

@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy } from "@angular/core"
-import { ChatService } from "../../../../services/chat"
-import { AuthenticationService } from "../../../../services/authentication"
-import { UserService } from "../../../../services/user"
+import { ChatService } from "../../../../../services/chat"
+import { AuthenticationService } from "../../../../../services/authentication"
+import { UserService } from "../../../../../services/user"
 import { Subscription } from "rxjs"
-import { User } from "../../../../models/user"
+import { User } from "../../../../../models/user"
 import { ChatSub } from 'src/app/models/chat-sub'
 import { UsersService } from 'src/app/services/users'
-import { UserSub } from "../../../../models/user-sub"
+import { UserSub } from "../../../../../models/user-sub"
 import { ChatSubscribeAdminDialogComponent } from "../chat-subscribe/chat-subscribe-admin-dialog/chat-subscribe-admin-dialog.component"
 import { MatDialog } from "@angular/material/dialog"
 
