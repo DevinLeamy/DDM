@@ -8,10 +8,7 @@ const { tokenParser, encodeAsBase64, isString, createUserSub, createUser} = requ
 const formidable = require("express-formidable")
 
 //-----------------------------------Initialize Database----------------------------------------
-const databaseUsername = "test"
-const databasePassword = "test"
-const databaseName = "messenger-database"
-const databaseUrl = "mongodb+srv://" + databaseUsername + ":" + databasePassword + "@messenger-db-jzhdw.mongodb.net/" + databaseName + "?retryWrites=true&w=majority"
+const databaseUrl = "mongodb+srv://" + process.env.DATABASE_USERNAME + ":" + process.env.DATABASE_PASSWORD + "@messenger-db-jzhdw.mongodb.net/" +  process.env.DATABASE_NAME + "?retryWrites=true&w=majority"
 const database = mongojs(databaseUrl, ["users"])
 
 //-----------------------------------Requests----------------------------------------
