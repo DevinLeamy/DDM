@@ -8,8 +8,3 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent {
   title = 'messenger-app';
 }
-
-//If user logs off
-// or refresh token is expired set user status to offline (user.online = false)
-
-//Change the min size of messages / the size of the message icon
