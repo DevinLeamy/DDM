@@ -41,14 +41,6 @@ export class UserFriendsViewComponent {
                 return this.btnSelected
         }
 
-        acceptRequest(requestId: string, requestUsername: string) {
-                this.userService.acceptFriendRequest(requestId, requestUsername)
-        }
-
-        declineRequest(requestId: string, requestUsername: string) {
-                this.userService.declineFriendRequest(requestId, requestUsername)
-        }
-
         //Avoid memory leaks
         ngOnDestroy() {
                 this.userSub.unsubscribe()

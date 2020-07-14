@@ -6,10 +6,9 @@ import { Component, Input } from "@angular/core"
         styleUrls: ["subscriber.component.css"]
 })
 export class SubscriberComponent {
-        @Input() username: string
-        @Input()  online: boolean
-        @Input() image: string
-        @Input() adminId: string
-        @Input() subId: string
-        
+        @Input() username: string = "loading..."
+        @Input() online: boolean = false
+        @Input() image: string = "$$$Default$$$"
+        @Input() adminId: string = "--admin--"
+        @Input() subId: string = "--user--"
 }

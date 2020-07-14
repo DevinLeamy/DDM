@@ -1,0 +1,38 @@
+<div class="request-container">
+        <div class="request-icon-container">
+                <app-image-fab 
+                        *ngIf="this.image !== '$$$Default$$$'" 
+                        [imageUrl]="this.image" 
+                        [showStatus]="false" 
+                        [online]="false"
+                ></app-image-fab>
+                <app-user-icon 
+                        *ngIf="this.image === '$$$Default$$$'" 
+                        [showStatus]="false" 
+                        [online]="false"
+                ></app-user-icon>
+        </div>
+        <div class="request-username-container">
+                <div class="request-username">
+                        {{this.username}}
+                </div>
+        </div>
+        <div class="request-actions-container">
+                <div 
+                        class="request-accept 
+                        transform-background-color 
+                        transform-font-size 
+                        transform-color" 
+                        (click)="acceptRequest()"
+                >   ✓
+                </div>
+                <div 
+                        class="request-decline 
+                        transform-background-color 
+                        transform-font-size 
+                        transform-color" 
+                        (click)="declineRequest()"
+                >   x
+                </div>
+        </div>
+</div>

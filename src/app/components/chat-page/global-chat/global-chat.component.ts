@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router'
 import { UsersService } from 'src/app/services/users';
 import { Subscription } from 'rxjs';
 import { Chat } from "../../../models/chat"
-import { UserService } from 'src/app/services/user';
 
 
 @Component({
