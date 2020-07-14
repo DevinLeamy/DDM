@@ -5,8 +5,8 @@ export class User {
   username: string
   email: string
   chatIds: string[]
-  friendReqs: UserSub[]
-  friends: UserSub[]
+  friendReqIds: string[]
+  friendIds: string[]
   image: string
   online: boolean
 }

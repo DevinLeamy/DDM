@@ -37,10 +37,27 @@
                                         Send Friend Request
                                 </div>
                                 <div class="user-option">
-                                        <div 
-                                                class="friend-request-button"
-                                        >Send
+                                        <div class="friend-request-form-container">
+                                                <form #friendReqForm="ngForm" (submit)="sendFriendReq(friendReqForm)" class="friend-request-form">
+                                                        <div class="friend-request-input-container">
+                                                                <mat-form-field>
+                                                                        <input
+                                                                                matInput
+                                                                                type="text"
+                                                                                name="email"
+                                                                                ngModel
+                                                                                placeholder="user email"
+                                                                                #email="ngModel"
+                                                                                class="friend-request-email-field"
+                                                                        >
+                                                                </mat-form-field>
+                                                                <button mat-raised-button type="submit" class="form-submit-button">
+                                                                        Send Request
+                                                                </button>
+                                                        </div>
+                                                </form>
                                         </div>
+                                        <div class="friend-request-button">Send</div>
                                 </div>
                         </div>
                         <div class="user-option-container margin-top">

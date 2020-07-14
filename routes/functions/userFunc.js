@@ -34,8 +34,8 @@ function createUser(rawUser) {
     username: rawUser.username,
     email: rawUser.email,
     chatIds: rawUser.chatIds,
-    friendReqs: rawUser.friendReqs,
-    friends: rawUser.friends,
+    friendReqIds: rawUser.friendReqIds,
+    friendIds: rawUser.friendIds,
     image: rawUser.image,
     online: rawUser.online
   }

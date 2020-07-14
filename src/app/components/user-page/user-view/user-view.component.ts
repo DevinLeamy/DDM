@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from "@angular/core"
+import { NgForm } from "@angular/forms"
 import { UserService } from "../../../services/user"
 import { User } from 'src/app/models/user'
 import { Subscription } from 'rxjs'
@@ -39,6 +40,13 @@ export class UserViewComponent {
         uploadImage() {
                 if (this.selectedImage === undefined || this.selectedImage === null) { return }
                 this.userService.setProfileImage(this.selectedImage)
+        }
+
+        //Sends a friend request
+        sendFriendReq(requestForm: NgForm) {
+                const email = requestForm.value.email.trim()
+                if (email == "" || email == "null" || email == undefined) { return }
+                this.userService.sendFriendRequestToEmail(email)
         }
 
         ngOnDestroy() {

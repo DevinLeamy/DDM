@@ -31,6 +31,7 @@ export class UserService {
     }
   }
 
+  //Send friend request
   sendFriendRequestToEmail(userEmail: String) {
     const body = {
       email: userEmail
@@ -38,53 +39,45 @@ export class UserService {
     var headers = new HttpHeaders()
     headers = headers.append('Content-type', 'application/json')
     this.http.post(BASE_URL + "friend-request", body, { headers: headers })
-      .subscribe((res: {status: number}) => {
-        if (res.status === 0) {
-          //Unsuccessful
-          return 0;
-        } else {
-          return 1;
-        }
+      .subscribe((res: {status: string, data: any}) => {
+        console.log(res)
       })
   }
 
-  acceptFriendRequest(requestId: string, requestUsername: string) {
+  acceptFriendRequest(requestId: string) {
     const body = {
-      request: {
-        _id: requestId,
-        username: requestUsername
-      }
+        requestId: requestId,
     }
     var headers = new HttpHeaders()
     headers = headers.append('Content-type', 'application/json')
     this.http.post(BASE_URL + "accept-request", body, { headers: headers })
-      .subscribe((res: {status: number}) => {
-        if (res.status === 1) {
-          // Success
-          this.user.friendReqs = this.user.friendReqs
-            .filter(request => (!(request._id === requestId && request.username === request.username)))
-          this.user.friends.push({_id: requestId, username: requestUsername, image: "$$$Default$$$", online: false})
+      .subscribe((res: {status: string, data: any}) => {
+        if (res.status === '0') {
+          const index = this.user.friendReqIds.indexOf(requestId)
+          if (index !== -1) {
+            this.user.friendReqIds.splice(index, 1)
+            this.updateUser()
+          }
+          this.user.friendIds.push(requestId)
           this.updateUser()
-        } 
+        }
       })
   }
 
-  declineFriendRequest(requestId: string, requestUsername: string) {
+  declineFriendRequest(requestId: string) {
     const body = {
-      request: {
-        _id: requestId,
-        username: requestUsername
-      }
+      requestId: requestId
     }
     var headers = new HttpHeaders()
     headers = headers.append('Content-type', 'application/json')
     this.http.post(BASE_URL + "decline-request", body, { headers: headers }) 
-      .subscribe((res: {status: number}) => {
-        if (res.status === 1) {
-          //Success
-          this.user.friendReqs = this.user.friendReqs
-            .filter(request => (!(request._id === requestId && request.username === request.username)))
-          this.updateUser()
+      .subscribe((res: {status: string, data: any}) => {
+        if (res.status === "0") {
+          const index = this.user.friendReqIds.indexOf(requestId)
+          if (index !== -1) {
+            this.user.friendReqIds.splice(index, 1)
+            this.updateUser()
+          }
         }
       })
   }
@@ -117,7 +110,3 @@ export class UserService {
     this.userUpdated.next({...this.user})
   }
 }
-
-/*
-Make a users service that will given ids of users, return users subs
-*/

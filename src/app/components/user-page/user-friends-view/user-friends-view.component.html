@@ -1,57 +1,16 @@
 <div class="container">
         <app-header [headerText]="'Friends'" [imageUrl]="'../../../assets/images/FriendsThree.png'"></app-header>
         <app-subscriber
-                *ngFor="let friend of this.user.friends" 
-                [username]="friend.username" 
-                [online]="false"
+                *ngFor="let friendId of this.user.friendIds" 
+                [username]="this.getUserSub(friendId).username" 
+                [online]="this.getUserSub(friendId).online"
+                [image]="this.getUserSub(friendId).image"
         ></app-subscriber>
-        <!-- <div *ngIf="this.user.friends.length > 0" class="friends-list-container">
-                <div class="friend-container transform-opacity" *ngFor="let friend of this.user.friends">
-                        <div class="friend-icon-container">
-                                <app-user-icon></app-user-icon>
-                        </div>
-                        <div class="friend-username-container">
-                                <span class="friend-username">
-                                          {{friend.username}}
-                                </span>
-                        </div>
-                </div>
-        </div> -->
-        <!-- <div class="friend-request-container">
-                <div class="friend-request">
-                        <button #friendRequestButton class="friend-request-button transform-opacity" (click)="onFriendReqBtnClick()">
-                                {{this.friendReqBtnText}}
-                        </button>
-                </div>
-                < Only display friend-request-form if friend-request-button is selected >
-                <div class="friend-request-form-container" *ngIf="friendReqBtnSelected()">
-                        <form #friendReqForm="ngForm" (submit)="sendFriendReq(friendReqForm)" class="friend-request-form">
-                                <div class="friend-request-input-container">
-                                        <mat-form-field>
-                                                <input
-                                                        matInput
-                                                        type="text"
-                                                        name="email"
-                                                        ngModel
-                                                        placeholder="user email"
-                                                        #email="ngModel"
-                                                        class="friend-request-email-field"
-                                                >
-                                        </mat-form-field>
-                                        <button mat-raised-button type="submit" class="form-submit-button">
-                                                Send Request
-                                        </button>
-                                </div>
-                        </form>
-                </div>
-        </div> -->
-        <app-header *ngIf="this.user.friendReqs.length > 0" [headerText]="'Friend Requests'" [imageUrl]="'../../../assets/images/SubsOne.png'"></app-header>
-        <div class="friend-requests-list-container">
-                <div class="friend-request transform-opacity" *ngFor="let request of this.user.friendReqs">
-                       <app-friend-request 
-                                [username]="request.username" 
-                                [userId]="request._id"
-                       ></app-friend-request>
-                </div>
-        </div>
+        <app-header *ngIf="this.user.friendReqIds.length > 0" [headerText]="'Friend Requests'" [imageUrl]="'../../../assets/images/SubsOne.png'"></app-header>
+        <app-friend-request 
+                *ngFor="let requestId of this.user.friendReqIds"
+                [username]="this.getUserSub(requestId).username" 
+                [image]="this.getUserSub(requestId).image"
+                [userId]="requestId"
+        ></app-friend-request>
 </div>

@@ -1,21 +1,18 @@
-import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from "@angular/core"
+import { Component, OnInit, OnDestroy} from "@angular/core"
 import { Subscription } from "rxjs"
 import { UserService } from "../../../services/user"
 import { User } from "../../../models/user"
-import { NgForm } from '@angular/forms'
+import { UsersService } from 'src/app/services/users'
 
 @Component({
         selector: "app-user-friends-view",
         templateUrl: "user-friends-view.component.html",
         styleUrls: ["user-friends-view.component.css"]
 })
-export class UserFriendsViewComponent {
-        @ViewChild("friendRequestButton") friendReqBtn: ElementRef
-        btnSelected: Boolean = false
-        friendReqBtnText: String = "+"
+export class UserFriendsViewComponent implements OnInit, OnDestroy {
         user: User
         userSub: Subscription
-        constructor(private userService: UserService) {}
+        constructor(private userService: UserService, private usersService: UsersService) {}
         
         ngOnInit() {
                 this.userSub = this.userService.getUserUpdated()
@@ -25,20 +22,16 @@ export class UserFriendsViewComponent {
                 this.userService.getUser()
         }
 
-        onFriendReqBtnClick() {
-                this.btnSelected = !this.btnSelected
-                if (this.btnSelected) { this.friendReqBtnText = "-" } 
-                else { this.friendReqBtnText = "+" }
-        }
-
-        sendFriendReq(requestForm: NgForm) {
-                const email = requestForm.value.email.trim()
-                if (email == "" || email == "null" || email == undefined) { return }
-                this.userService.sendFriendRequestToEmail(email)
-        }
-
-        friendReqBtnSelected() {
-                return this.btnSelected
+        getUserSub(subId: string) {
+                if (this.usersService.getUserSub(subId)) {
+                        return this.usersService.getUserSub(subId)
+                }
+                return {
+                        _id: "-----",
+                        username: "loading...",
+                        image: "$$$Default$$$",
+                        online: false
+                }
         }
 
         //Avoid memory leaks

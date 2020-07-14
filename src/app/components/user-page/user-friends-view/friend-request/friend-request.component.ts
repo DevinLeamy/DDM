@@ -15,11 +15,11 @@ export class FriendRequestComponent {
 
         //Accept user's friend request
         acceptRequest() {
-                this.userService.acceptFriendRequest(this.userId, this.username)
+                this.userService.acceptFriendRequest(this.userId)
         }
 
         //Decline user's friend request
         declineRequest() {
-                this.userService.declineFriendRequest(this.userId, this.username)
+                this.userService.declineFriendRequest(this.userId)
         }
 }

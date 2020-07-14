@@ -47,47 +47,41 @@ router.get("", function(req, res) {
 router.post("/friend-request", authenticateToken, function(req, res) {
   const receiverEmail = req.body.email
   const senderId = req.user._id
-  const senderUsername = req.user.username
   console.log("Sending friend request to " + receiverEmail)
-  getUserByEmail(receiverEmail).then(
-    (resolve) => {
-      const receiver = resolve
-      alreadyFriends(receiver, senderId, senderUsername).then(
-        //Not already friends
-        () => alreadySentRequest(receiver, senderId, senderUsername).then(
-          //Request has not yet been sent
-          () => sendFriendRequest(senderId, senderUsername, receiver._id).then(
-            () => {
-              console.log("Success")
-              res.json({status: 1})
-            }
-          ).catch(() => res.json({status: 0}))
-        ).catch(() => res.json({status: 0}))
-      ).catch(() => res.json({status: 0}))
-    }
-  ).catch(() => res.json({status: 0}))
+  alreadyFriends(receiverEmail, senderId).then(
+    //Not already friends
+    () => alreadySentRequest(receiverEmail, senderId).then(
+      //Request has not yet been sent
+      () => sendFriendRequest(receiverEmail, senderId).then(
+        () => res.json({status: '0', data: "Friend request was sent"})
+      ).catch((reject) => res.json({status: "1", data: reject}))
+    ).catch((reject) => res.json({status: "1", data: reject}))
+  ).catch((reject) => res.json({status: "1", data: reject}))
 })
 
 //Status 1: Success | Status 0: Unsuccessful
 router.post("/accept-request", authenticateToken, function(req, res) {
-  //Both users become friends of one another
-  const user = req.user
-  const request = req.body.request
-  removeRequest(request._id, request.username, user._id).then(
-    () => addFriend(request._id, request.username, user._id).then(
-      () => addFriend(user._id, user.username, request._id).then(
-        () => res.json({status: 1})
-      ).catch((reject) => {console.log(reject); res.json({status: 0})})
-    ).catch((reject) => {console.log(reject); res.json({status: 0})})
-  ).catch((reject) => {console.log(reject); res.json({status: 0})})
+  //Id of user that received the request
+  const userId = req.user._id 
+  //Id of user that send the request
+  const requestId = req.body.requestId
+  removeRequest(userId, requestId).then(
+    () => addFriend(userId, requestId).then(
+      () => addFriend(requestId, userId).then(
+        () => res.json({status: "0", data: "Users became friends"})
+      ).catch((reject) => res.json({status: "1", data: reject}))
+    ).catch((reject) => res.json({status: "1", data: reject}))
+  ).catch((reject) => res.json({status: "1", data: reject}))
 })
 
 router.post("/decline-request", authenticateToken, function(req, res) {
-  const user = req.user
-  const request = req.body.request
-  removeRequest(request._id, request.username, user._id).then(
-    () => res.json({status: 1})
-  ).catch((reject) => {console.log(reject); res.json({status: 0})})
+  //Id of user that received the request
+  const userId = req.user._id
+  //Id of user that sent the request
+  const requestId = req.body.requestId
+  removeRequest(userId, requestId).then(
+    () => res.json({status: "0", data: "Request was revoked"})
+  ).catch((reject) => res.json({status: "1", data: reject}))
 })
 
 //Formidable middleware parses form data allowing me to send image files
@@ -174,82 +168,79 @@ function getUserByEmail(userEmail) {
 
 //Checks whether one user has already sent a request to another
 //Rejects if true || Bad data
-function alreadySentRequest(receiver, senderId, senderUsername) {
+function alreadySentRequest(receiverEmail, senderId) {
   return new Promise((resolve, reject) => {
-    if (senderId === null || senderId === undefined || receiver === null || receiver === undefined || senderUsername === null || senderUsername === undefined) {
-      reject("Bad Data")
-    }
-    for (var friendReq in receiver.friendReqs) {
-      if (friendReq.username === senderUsername && friendReq._id === senderId) {
-        reject("Already sent request")
+    if (senderId === null || senderId === undefined || receiverEmail === null || receiverEmail === undefined) reject("Bad Data")
+    database.users.findOne({email: receiverEmail}, function(err, user) {
+      if (err || user === undefined || user === null) reject("Error retrieving user from database")
+      for (var i = 0; i < user.friendReqIds.length; i++) {
+        const friendReqId = user.friendReqIds[i]
+        if (friendReqId === senderId) {
+          reject("Already sent request")
+        }
       }
-    }
-    resolve("Not yet friends")
+      resolve("Request has not been sent")
+    })
   })
 }
 
 //Checks whether two users are friends
-//Rejects if true || Bad data
-function alreadyFriends(receiver, senderId, senderUsername) {
+//Rejects if true or if parameters are undefined or null
+function alreadyFriends(receiverEmail, senderId) {
   return new Promise((resolve, reject) => {
-    if (senderId === null || senderId === undefined || receiver === null || receiver === undefined || senderUsername === null || senderUsername === undefined) {
-      reject("Bad Data")
-    }
-    //Queries user database for senders user-sub in receivers friendReqs array
-    for (var friend in receiver.friends) {
-      if (friend.username === senderUsername && friend._id === senderId) {
-        reject("Already friends")
+    if (senderId === null || senderId === undefined || receiverEmail === null || receiverEmail === undefined) reject("Bad Data")
+    database.users.findOne({email: receiverEmail}, function(err, user) {
+      if (err || user === undefined || user === null) reject("Error retrieving user from database")
+      for (var i = 0; i < user.friendIds.length; i++) {
+        const friendId = user.friendIds[i]
+        if (friendId === senderId) {
+          reject("Already Friends")
+        }
       }
-    }
-    resolve("Not friends")
+      resolve("Not friends")
+    })
   })
 }
 
 //Sends friend request from one user to another 
 //Resolves if sent successfully
-function sendFriendRequest(senderId, senderUsername, receiverId) {
+function sendFriendRequest(receiverEmail, senderId) {
   return new Promise((resolve, reject) => {
-    if (senderId === null || senderId === undefined || receiverId === null || receiverId === undefined || senderUsername === null || senderUsername === undefined) {
-      reject("Bad Data")
-    }
+    if (senderId === null || senderId === undefined || receiverEmail === null || receiverEmail === undefined) reject("Bad Data")
     database.users.update(
-      {_id: mongojs.ObjectId(receiverId)}, 
-      {$push: { friendReqs: {_id: senderId, username: senderUsername}}}, function(err, user) {
+      {email: receiverEmail}, 
+      {$push: { friendReqIds: senderId }}, function(err, user) {
         if (err || user === null || user === undefined) {
           reject("Error updating user")
         }
-        resolve(user)
+        resolve("Send friend request")
       })
   })
 }
 
-///Request { _id: requestId, username: requestUsername } will be removed from friendReqs of user with userId
-function removeRequest(requestId, requestUsername, userId) {
+///Request will be removed from friendReqIds of user with userId
+function removeRequest(userId, requestId) {
   return new Promise((resolve, reject) => {
-    if (requestId === null || requestId === undefined || requestUsername === null || requestUsername === undefined || userId === null || userId === undefined) {
-      reject("Bad data")
-    }
+    if (requestId === null || requestId === undefined || userId === null || userId === undefined) reject("Bad data")
     database.users.update(
       {_id: mongojs.ObjectId(userId)},
-      {$pull: { friendReqs: {_id: requestId, username: requestUsername}}}, function(err, user) {
-        if (err || user === null || user === undefined) { reject("Error pulling request from database") }
-        resolve(user)
+      {$pull: { friendReqIds: requestId }}, function(err, user) {
+        if (err || user === null || user === undefined) reject("Error pulling request from database")
+        resolve("Request was pulled from user profile")
       }
     )
   })
 }
 
-//Friend { _id: friendId, username: friendUsername } will be added to friend list of user with userId
-function addFriend(friendId, friendUsername, userId) {
+//Friend will be added to friendIds  of user with userId
+function addFriend(userId, friendId) {
   return new Promise((resolve, reject) => {
-    if (friendId === null || friendId === undefined || friendUsername === null || friendUsername === undefined || userId === null || userId === undefined) {
-      reject("Bad data")
-    }
+    if (friendId === null || friendId === undefined || userId === null || userId === undefined) reject("Bad data")
     database.users.update(
       {_id: mongojs.ObjectId(userId)},
-      {$push: { friends: {_id: friendId, username: friendUsername}}}, function(err, user) {
-        if (err || user === undefined || user === null) { reject("Error adding friend to user database")}
-        resolve(user)
+      {$push: { friendIds: friendId }}, function(err, user) {
+        if (err || user === undefined || user === null) reject("Error adding friend to user database")
+        resolve("Users became friends")
       }
     )
   })
