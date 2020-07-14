@@ -5,10 +5,9 @@
                         [imageUrl]="this.chat.image" 
                         [showStatus]="false"
                 ></app-image-fab>
-                <app-user-icon 
+                <app-chat-icon 
                         *ngIf="this.chat.image === '$$$Default$$$'" 
-                        [showStatus]="false"
-                ></app-user-icon>
+                ></app-chat-icon>
         </div>
         <div class="title-container">
                 <div class="title" *ngIf="this.chat !== undefined">

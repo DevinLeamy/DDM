@@ -1,0 +1,10 @@
+.icon-button {
+        background-image: url("../../../assets/images/chat-image.png");
+        background-size: cover;                   
+        background-repeat: no-repeat;
+        background-position: center center; 
+        width: 88%;
+        height: 88%;
+        border-radius: 50%;
+        margin: 6%;
+}

@@ -7,13 +7,12 @@
                                 [imageUrl]="this.getChatSub().image" 
                                 [showStatus]="false"
                         ></app-image-fab>
-                        <app-user-icon 
+                        <app-chat-icon 
                                 *ngIf="this.getChatSub().image === '$$$Default$$$'" 
-                                [showStatus]="false"
-                        ></app-user-icon>
+                        ></app-chat-icon>
                 </div>
                 <div class="title-container">
-                        <div class="title no-select transform-font-size transform-color" *ngIf="!this.expanded" #chatTitle>
+                <div class="title no-select transform-font-size transform-color" [style]="'color:' + this.color + ';'" *ngIf="!this.expanded" #chatTitle>
                                 {{this.getChatSub().title}}
                         </div>
                         <div class="title-expanded no-select" *ngIf="this.expanded">
@@ -27,7 +26,7 @@
                                 {{'Sub Count: ' + this.getChatSub().subCount}}
                         </div>
                         <span class="flex-expand"></span>
-                        <div class="go-button transform-border no-select" [routerLink]="['/api/chat/view', this.chatId]">
+                        <div class="go-button transform-opacity no-select" [routerLink]="['/api/chat/view', this.chatId]">
                                 Chat
                         </div>
                 </div>

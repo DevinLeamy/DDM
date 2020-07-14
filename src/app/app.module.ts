@@ -29,7 +29,6 @@ import { MessageReceivedComponent } from './components/chat-page/message-view/me
 import { MessageSentComponent } from "./components/chat-page/message-view/messages/message-sent/message-sent.component"
 import { CreateChatComponent } from "./components/create-chat/create-chat.component"
 import { ChatDisplayComponent } from "./components/home-page/chat-display/chat-display.component"
-import { ChatIconComponent } from "./components/home-page/chat-display/chat-icon/chat-icon.component"
 import { UserPageComponent } from "./components/user-page/user-page.component"
 import { UserIconComponent } from "./components/user-icon/user-icon.component"
 import { ChatTitleComponent } from  "./components/chat-page/message-view/chat-title/chat-title.component"
@@ -50,7 +49,7 @@ import { RecentChatsComponent } from './components/home-page/recent-chats/recent
 import { PopularChatsComponent } from './components/home-page/popular-chats/popular-chats.component'
 import { RecommendedChatsComponent } from './components/home-page/recommended-chats/recommended-chats.component'
 import { ChatSubscribeAdminDialogComponent } from "./components/chat-page/message-view/chat-subscribe/chat-subscribe-admin-dialog/chat-subscribe-admin-dialog.component"
-
+import { ChatIconComponent } from "./components/chat-icon/chat-icon.component"
 
 @NgModule({
   declarations: [
@@ -66,7 +65,6 @@ import { ChatSubscribeAdminDialogComponent } from "./components/chat-page/messag
     GlobalChatComponent,
     CreateChatComponent,
     ChatDisplayComponent,
-    ChatIconComponent,
     UserPageComponent,
     UserIconComponent,
     ChatTitleComponent,
@@ -86,7 +84,8 @@ import { ChatSubscribeAdminDialogComponent } from "./components/chat-page/messag
     RecentChatsComponent,
     PopularChatsComponent,
     RecommendedChatsComponent,
-    ChatSubscribeAdminDialogComponent
+    ChatSubscribeAdminDialogComponent,
+    ChatIconComponent
   ],
   imports: [
     BrowserModule,
