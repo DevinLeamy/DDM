@@ -1,5 +1,5 @@
 <div class="container transform-height" *ngIf="this.isAuthenticated()">
-        <div class="admin-container transform-background-color" *ngIf="this.isAdmin()">
+        <div class="admin-container transform-background-color" *ngIf="this.isAdmin()" (click)="openDialog()">
                 <div class="admin-text transform-color">
                         Admin
                 </div>

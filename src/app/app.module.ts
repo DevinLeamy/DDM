@@ -12,6 +12,7 @@ import { MatSidenavModule } from '@angular/material/sidenav'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { MatSelectModule } from '@angular/material/select'
+import { MatDialogModule } from "@angular/material/dialog"
 import { HomePageComponent } from './components/home-page/home-page.component'
 import { RegisterPageComponent } from "./components/register-page/register-page.component"
 import { LoginPageComponent } from './components/login-page/login-page.component'
@@ -48,6 +49,8 @@ import { ChatOptionComponent } from './components/chat-selection/chat-option/cha
 import { RecentChatsComponent } from './components/home-page/recent-chats/recent-chats.component'
 import { PopularChatsComponent } from './components/home-page/popular-chats/popular-chats.component'
 import { RecommendedChatsComponent } from './components/home-page/recommended-chats/recommended-chats.component'
+import { ChatSubscribeAdminDialogComponent } from "./components/chat-page/message-view/chat-subscribe/chat-subscribe-admin-dialog/chat-subscribe-admin-dialog.component"
+
 
 @NgModule({
   declarations: [
@@ -82,7 +85,8 @@ import { RecommendedChatsComponent } from './components/home-page/recommended-ch
     ChatOptionComponent,
     RecentChatsComponent,
     PopularChatsComponent,
-    RecommendedChatsComponent
+    RecommendedChatsComponent,
+    ChatSubscribeAdminDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -97,7 +101,8 @@ import { RecommendedChatsComponent } from './components/home-page/recommended-ch
     MatSidenavModule,
     MatButtonModule,
     MatIconModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule
   ],
   providers: [
     {

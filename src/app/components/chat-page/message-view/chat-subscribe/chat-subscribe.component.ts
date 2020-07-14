@@ -7,6 +7,8 @@ import { User } from "../../../../models/user"
 import { ChatSub } from 'src/app/models/chat-sub'
 import { UsersService } from 'src/app/services/users'
 import { UserSub } from "../../../../models/user-sub"
+import { ChatSubscribeAdminDialogComponent } from "../chat-subscribe/chat-subscribe-admin-dialog/chat-subscribe-admin-dialog.component"
+import { MatDialog } from "@angular/material/dialog"
 
 @Component({
         selector: "app-chat-subscribe",
@@ -19,7 +21,13 @@ export class ChatSubscribeComponent {
         subscribing: boolean = false
         selectedImage
         selectedImageUrl
-        constructor(private chatService: ChatService, private authService: AuthenticationService, private userService: UserService, private usersService: UsersService) {}
+        constructor(
+                private chatService: ChatService, 
+                private authService: AuthenticationService, 
+                private userService: UserService, 
+                private usersService: UsersService,
+                private dialog: MatDialog
+        ) {}
 
         //Initializes user object and user subscription
         ngOnInit() {
@@ -93,6 +101,12 @@ export class ChatSubscribeComponent {
         uploadImage() {
                 if (this.selectedImage === undefined || this.selectedImage === null) { return }
                 this.chatService.setChatImage(this.selectedImage)
+        }
+
+        openDialog() {
+                this.dialog.open(ChatSubscribeAdminDialogComponent, {
+                  width: '250px'
+                })
         }
 
         //Avoid memory leaks
