@@ -260,10 +260,13 @@ router.post("/setChatImage/:id", formidable(), authenticateToken, function(req, 
   const chatId = req.params.id
   const imageFile = req.files.image
   const imageEncoded = 'data:image/*;base64, ' + encodeAsBase64(imageFile.path).split(" ")[0]
-  console.log("Setting chat image")
+  console.log("Setting chat image", chatId)
   setChatImage(imageEncoded, chatId).then(
     () => res.json({status: "0", data: imageEncoded})
-  ).catch((reject) => {console.log(reject); res.json({status: "1", data: null})})
+  ).catch((reject) => {
+    console.log(reject)
+    res.json({status: "1", data: null})
+  })
 })
 
 //-----------------------------------Middleware----------------------------------------
@@ -638,8 +641,8 @@ function getRecommendedChatIds() {
 function setChatImage(image, chatId) {
   return new Promise((resolve, reject) => {
     if (image === undefined || image === null || chatId === undefined || chatId === null) reject("Bad data")
-    database.users.update({_id: mongojs.ObjectId(chatId)}, { $set: {image: image} }, function(err, chat) {
-      if (err || chat === null || chat === undefined) reject("Error updating user image")
+    database.chats.update({_id: mongojs.ObjectId(chatId)}, { $set: {image: image} }, function(err, chat) {
+      if (err || chat === null || chat === undefined) reject("Error updating chat image")
       resolve(chat)
     }) 
   })

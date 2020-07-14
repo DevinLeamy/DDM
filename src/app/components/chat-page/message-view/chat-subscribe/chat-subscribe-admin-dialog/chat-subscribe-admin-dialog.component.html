@@ -1,3 +1,14 @@
-<!-- Placeholder -->
-
-<h1>Dialog</h1>
+<h1 mat-dialog-title>Upload chat image</h1>
+<div mat-dialog-content>
+        <p>Select image</p>
+        <input type="file"
+                accept="image/*"
+                (change)="onImageSelected($event)"
+        >
+</div>
+<div mat-dialog-actions>
+        <button mat-button (click)="onExit()" class="dialog-button">Exit</button>
+        <button mat-button *ngIf="this.selectedImage != null && this.selectedImage != undefined" (click)="uploadImage()">
+                Upload
+        </button>
+</div>

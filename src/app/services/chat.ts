@@ -147,10 +147,7 @@ export class ChatService {
     formData.append("image", image, image.name)
     this.http.post(CHAT_API + "setChatImage/" + this.chatId, formData) 
       .subscribe((res: {status: string, data: string}) => {
-        if (res.status === "0") {
-          this.chat.image = res.data
-          this.updateChat()
-        }
+        console.log(res)
       })
   }
 

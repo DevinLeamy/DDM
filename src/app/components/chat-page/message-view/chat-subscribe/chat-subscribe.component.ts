@@ -19,8 +19,6 @@ export class ChatSubscribeComponent {
         user: User
         userSub: Subscription
         subscribing: boolean = false
-        selectedImage
-        selectedImageUrl
         constructor(
                 private chatService: ChatService, 
                 private authService: AuthenticationService, 
@@ -78,7 +76,6 @@ export class ChatSubscribeComponent {
         isSubscribed() {
                 if (this.chatService.chatId === undefined || this.chatService.chatId === null || this.user === null || this.user === undefined) return false
                 const chat: ChatSub = this.chatService.getChatSub()
-                // if (chat == undefined || chat == null || this.user == undefined || this.user == null) return false
                 for (var i = 0; i < this.user.chatIds.length; i++) {
                         if (this.user.chatIds[i] === chat._id) {
                                 return true
@@ -87,26 +84,15 @@ export class ChatSubscribeComponent {
                 return false
         }
 
-        //Triggers when admin selects image for chat
-        onImageSelected(event) {
-                this.selectedImage = event.target.files[0]
-                const reader = new FileReader()
-                reader.onload = () => {
-                        this.selectedImageUrl = reader.result
-                }
-                reader.readAsDataURL(this.selectedImage)
-        }
-
-        //Uploads image
-        uploadImage() {
-                if (this.selectedImage === undefined || this.selectedImage === null) { return }
-                this.chatService.setChatImage(this.selectedImage)
-        }
-
         openDialog() {
-                this.dialog.open(ChatSubscribeAdminDialogComponent, {
-                  width: '250px'
+                const dialogRef = this.dialog.open(ChatSubscribeAdminDialogComponent, {
+                  width: '250px',
+                  data: { chatId: this.chatService.chatId }
                 })
+                dialogRef.afterClosed()
+                        .subscribe(() => {
+                                this.chatService.getChat(true)
+                        })
         }
 
         //Avoid memory leaks
@@ -114,25 +100,3 @@ export class ChatSubscribeComponent {
                 this.userSub.unsubscribe()
         }
 }
-/*
-<input type="file"
-        accept="image/*"
-        (change)="onImageSelected($event)"
->
-<button *ngIf="this.selectedImage != null && this.selectedImage != undefined" (click)="uploadImage()">
-        Upload image
-</button>
-
-openDialog(): void {
-    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-      width: '250px',
-      data: {name: this.name, animal: this.animal}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.animal = result;
-    });
-  }
-
-*/

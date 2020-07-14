@@ -21,8 +21,9 @@
 
 .icon-container {
         order: 0;
-        height: 100%;
-        width: 50px;
+        /* height: 100%; */
+        width: 40px;
+        height: 40px;
 }
 
 .title-container {
