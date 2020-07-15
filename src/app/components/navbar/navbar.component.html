@@ -42,7 +42,6 @@
     <div fxShow="true" fxHide.lt-md="true">
       <button mat-raised-button class="button-login" [routerLink]="'/api/authentication/login'" style="margin-right: 10px;" *ngIf="!isAuthenticated()">Login</button>
       <button mat-raised-button class="button-register" [routerLink]="'/api/authentication/register'" *ngIf="!isAuthenticated()">Register</button>
-      <button mat-raised-button [routerLink]="'/api/chat/chat-create'" *ngIf="isAuthenticated()">Create a chat</button>
     </div>
     <!-- Shows on large displays (end) -->
   </mat-toolbar>
@@ -53,7 +52,6 @@
       <div fxLayout="column">
         <button mat-raised-button [routerLink]="'/api/authentication/login'" class="button-login" *ngIf="!isAuthenticated()">Login</button>
         <button mat-raised-button [routerLink]="'/api/authentication/register'" class="button-register" *ngIf="!isAuthenticated()">Register</button>
-        <button mat-raised-button [routerLink]="'/api/chat/chat-create'" *ngIf="isAuthenticated()">Create a chat</button>
         <button (click)="sidenav.toggle()" mat-raised-button>Close</button>
       </div>
     </mat-sidenav>

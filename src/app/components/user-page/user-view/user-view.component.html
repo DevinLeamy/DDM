@@ -26,11 +26,11 @@
                                 >
                                 <div 
                                         *ngIf="this.selectedImage != null && this.selectedImage != undefined" 
+                                        class="image-upload-button
+                                        transform-color
+                                        no-select" 
                                         (click)="uploadImage()" 
-                                        class="image-upload-button"
-                                >
-                                        Set Icon
-                                </div>
+                                >Set Icon</div>
                         </div>
                 </div>
                 <div class="user-option-container margin-top">
@@ -47,18 +47,22 @@
                                                                         type="text"
                                                                         name="email"
                                                                         ngModel
-                                                                        placeholder="user email"
+                                                                        placeholder="email"
                                                                         #email="ngModel"
                                                                         class="friend-request-email-field"
                                                                 >
                                                         </mat-form-field>
-                                                        <button mat-raised-button type="submit" class="form-submit-button">
-                                                                Send Request
-                                                        </button>
+                                                        <div 
+                                                                *ngIf="friendReqForm.value.email !== ''"
+                                                                class="friend-request-button
+                                                                transform-color
+                                                                no-select" 
+                                                                (click)="sendFriendReq(friendReqForm)"
+                                                        >Send</div>
                                                 </div>
                                         </form>
                                 </div>
-                                <div class="friend-request-button">Send</div>
+                                
                         </div>
                 </div>
                 <div class="user-option-container margin-top">
@@ -67,9 +71,11 @@
                         </div>
                         <div class="user-option">
                                 <div 
-                                        class="create-chat-button"
-                                >Create
-                                </div>
+                                        [routerLink]="'/api/chat/chat-create'"
+                                        class="create-chat-button
+                                        transform-color
+                                        no-select" 
+                                >Create</div>
                         </div>
                 </div>
         </div>

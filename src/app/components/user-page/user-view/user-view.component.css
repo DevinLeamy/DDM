@@ -52,7 +52,18 @@
         background-color: rgb(50, 62, 68);
         padding: 10px;
         border-radius: 5px;
+}
 
+.friend-request-button {
+        background-color: rgb(44, 51, 54);
+        padding: 5px;
+        width: 40px;
+        border-radius: 3px;
+        text-align: center;
+}
+
+.friend-request-button:hover {
+        color: #7abffc;
 }
 
 .user-option-header {
@@ -68,12 +79,53 @@
 
 .image-input {
         font-size: 15px;
+        margin-top: 10px;
 }
 
 .image-upload-button {
-        font-size: 15px;
+
+        background-color: rgb(44, 51, 54);
+        padding: 5px;
+        width: 70px;
+        margin-top: 20px;
+        border-radius: 3px;
+        text-align: center;
+}
+
+.image-upload-button:hover {
+        color: #7abffc;
+}
+
+.create-chat-button {
+        background-color: rgb(44, 51, 54);
+        padding: 5px;
+        width: 50px;
+        margin-top: 10px;
+        border-radius: 3px;
+        text-align: center;
+}
+
+.create-chat-button:hover {
+        color: #7abffc; 
 }
 
 .margin-top {
         margin-top: 30px;
+}
+
+
+.transform-color {
+        -webkit-transition: color 0.2s;
+        -moz-transition: color 0.2s;
+        -o-transition: color 0.2s;
+        transition: color 0.2s;
+}
+
+.no-select {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none; 
+        -khtml-user-select: none; 
+        -moz-user-select: none; 
+        -ms-user-select: none; 
+        user-select: none;
 }
