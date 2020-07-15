@@ -4,9 +4,9 @@
 ></app-header>
 <app-subscriber 
         *ngIf="this.chat !== undefined && this.chat !== null"
-        [username]="this.getUserSub(this.chat.admin._id).username" 
-        [image]="this.getUserSub(this.chat.admin._id).image" 
-        [online]="this.getUserSub(this.chat.admin._id).online" 
+        [username]="this.getUserSub(this.chat.adminId).username" 
+        [image]="this.getUserSub(this.chat.adminId).image" 
+        [online]="this.getUserSub(this.chat.adminId).online" 
         [subId]="'------'"
 ></app-subscriber>
 
@@ -18,7 +18,7 @@
 <div *ngIf="this.chat" class="subscribers-view-container">
         <app-subscriber 
                 *ngFor="let subId of this.chat.subs" 
-                [adminId]="this.chat.admin._id" 
+                [adminId]="this.chat.adminId" 
                 [username]="this.getUserSub(subId).username" 
                 [image]="this.getUserSub(subId).image" 
                 [online]="this.getUserSub(subId).online" 

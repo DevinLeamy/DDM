@@ -20,8 +20,8 @@
             <div class="category-select-container">
               <!-- This will replace the current select https://mdbootstrap.com/snippets/jquery/mdbootstrap/921549 -->
                 <select placeholder="Select a Category" ngModel #category="ngModel" name="category" class="category-select">
-                  <option  *ngFor="let category of categories" class="category" [value]="category">
-                    {{category.name}}
+                  <option *ngFor="let category of categories" class="category" [value]="category">
+                    {{category}}
                   </option>
                   <!-- </mat-option> -->
                 </select>

@@ -6,8 +6,6 @@ import { Location } from "@angular/common"
 import { HttpHeaders, HttpClient } from '@angular/common/http'
 import { Subject } from 'rxjs'
 import { Chat } from '../models/chat'
-import { Category } from '../models/category'
-import { ChatSub } from '../models/chat-sub'
 
 @Injectable({
   providedIn: "root"
@@ -30,7 +28,7 @@ export class ChatCreateService {
                         title: undefined,
                         messages: [],
                         category: undefined,
-                        admin: undefined,
+                        adminId: undefined,
                         subs: [],
                         global: undefined,
                         image: "$$$Default$$$"
@@ -63,7 +61,7 @@ export class ChatCreateService {
         }
     
         //Create new chat
-        postChat(title: string, adminId: string, category: Category, global: boolean) {
+        postChat(title: string, adminId: string, category: string, global: boolean) {
                 const body = {
                         title: title,
                         adminId: adminId,
@@ -78,7 +76,7 @@ export class ChatCreateService {
                         console.log(res)
                         //Chat was created
                         this.postTags(this.newChat.tags, res)
-                        .then( () => this.postCategory(category.name, res)
+                        .then( () => this.postCategory(category, res)
                         .then( () => {
                                 //Visit then chat once it's been created
                                 this.go("api/chat/view/" + res)

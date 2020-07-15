@@ -55,6 +55,38 @@ router.get("/chatIds/recommended", function(req, res) {
     .catch( (reject) => console.log(reject))
 })
 
+//Get chat ids of related chats
+router.post("/chatIds/related", function(req, res) {
+  const tags = req.body.tags
+  const category = req.body.category
+  const originalChatId = req.body.chatId
+  var chatIds = []
+  getChatIdsInCategory(category).then(
+    (categoryIds) => getChatIdsInTags(tags).then(
+      (tagIds) => {
+          for (var i = 0; i < categoryIds.length; i++) {
+            const chatId = categoryIds[i]
+            if (chatIds.indexOf(chatId) === -1 && chatId !== originalChatId) {
+              chatIds.push(chatId)
+              if (chatIds.length === 10) {
+                res.json({status: "0", data: chatIds})
+              }
+            }
+          }
+          for (var i = 0; i < tagIds.length; i++) {
+            const chatId = tagIds[i]
+            if (chatIds.indexOf(chatId) === -1 && chatId !== originalChatId) {
+              chatIds.push(chatId)
+              if (chatIds.length === 10) {
+                res.json({status: "0", data: chatIds})
+              }
+            }
+          }
+          res.json({status: "0", data: chatIds})
+        }).catch(reject => {console.log(reject); res.json({status: "1", data: reject})})
+    ).catch(reject => res.json({status: "1", data: reject}))
+})
+
 //Gets chat sub from chat will given id
 router.post("/chatSub", function(req, res) {
   const chatId = req.body._id
@@ -115,27 +147,22 @@ router.post("/chat-create/create", function(req, res) {
   const global = chat.global
   const tags = chat.tags
   const subs = []
-  const userId = adminId
-  getUserById(userId).then( (user) =>  {
-      const newChat = createChat(title, {_id: user._id, username: user.username, image: user.image}, category, global, subs, tags)
-      chatExistsWithTitle(title).then(
-        //Chat already exists
-        (resolve) => console.log(resolve)
-      ).catch(() => postChat(newChat).then(
-        //Chat does not exist
-        //Resolves a new chat
-        (resolve) => { addUserToChatSubs(resolve._id, userId).then(
-            //Add chat to user
-            () => addChatToUserSubs(resolve._id, userId).then(
-              //Sends chatId 
-              () => res.json(resolve._id)
-            ).catch((reject) => console.log(reject))
-          ).catch((reject) => console.log(reject))
-        }
+  const newChat = createChat(title, adminId, category, global, subs, tags)
+  chatExistsWithTitle(title).then(
+    //Chat already exists
+    (resolve) => console.log(resolve)
+  ).catch(() => postChat(newChat).then(
+    //Chat does not exist
+    //Resolves a new chat
+    (resolve) => { addUserToChatSubs(resolve._id, adminId).then(
+        //Add chat to user
+        () => addChatToUserSubs(resolve._id, adminId).then(
+          //Sends chatId 
+          () => res.json(resolve._id)
+        ).catch((reject) => console.log(reject))
       ).catch((reject) => console.log(reject))
-    )
     }
-  ).catch((reject) => console.log(reject))
+  ).catch((reject) => console.log(reject)))
 })
 
 //Add or update tags from newly created chat
@@ -176,7 +203,7 @@ router.post("/chat-create/addCategory", function(req, res) {
   ).catch(() => {
     //Tag does not exist
     addNewCategory(category)
-      .then( () => addChatIdToTag(category, chatId)
+      .then( () => addChatIdToCategory(category, chatId)
         .then( () => {
           console.log("Category " + category + " was updated") 
           res.json({status: "0", data: "Updated and/or posted a category"})
@@ -503,16 +530,15 @@ function tagExists(tag) {
   })
 }
 
-//Add a new chat sub to a tag 
-function addChatIdToTag(tag, chatSub) {
+//Add a new chatId to a tag 
+function addChatIdToTag(tag, chatId) {
   return new Promise((resolve, reject) => {
-    if (tag === undefined || tag === null || chatSub === undefined || chatSub === null) reject("Bad data")
+    if (tag === undefined || tag === null || chatId === undefined || chatId === null) reject("Bad data")
     database.tags.update({tag: tag}, 
       {$push: {
-        chatSubs: chatSub
+        chatIds: chatId
       }}, function(err, data) {
         if (err || data === undefined || data === null) reject("Error posting chat sub to tag chat subs")
-        //Successfully added the chatSub to the tag array
         resolve(0)
       })
   })
@@ -543,15 +569,14 @@ function categoryExists(category) {
   })
 }
 
-function addChatIdToCategory(category, chatSub) {
+function addChatIdToCategory(category, chatId) {
   return new Promise((resolve, reject) => {
-    if (category === undefined || category === null || chatSub === undefined || chatSub === null) reject("Bad data")
+    if (category === undefined || category === null || chatId === undefined || chatId === null) reject("Bad data")
     database.categories.update({category: category}, 
       {$push: {
-        chatSubs: chatSub
+        chatIds: chatId
       }}, function(err, data) {
         if (err || data === undefined || data === null) reject("Error posting chat sub to category chat subs")
-        //Successfully added the chatSub to the category array
         resolve(0)
       })
   })
@@ -564,7 +589,6 @@ function addNewCategory(category) {
     const newCategory = createCategory(category)
     database.categories.save(newCategory, function(err, data) {
       if (err || data === undefined || data === null) reject("Error posting new category")
-      //Success: New category has been posted
       resolve(0)
     })
   })
@@ -634,6 +658,41 @@ function getRecommendedChatIds() {
     })
   })
 }
+
+//Get chatIds of chats that feature a given category
+function getChatIdsInCategory(category) {
+  return new Promise((resolve, reject) => {
+    if (category === undefined || category === null) reject("Bad data")
+    database.categories.findOne({category: category}, function(err, data) {
+      if (err || data === undefined || data === null) reject("Error querying categories")
+      resolve(data.chatIds)
+    })
+  })
+}
+
+//Get chatIds of chats that feature a given tag
+function getChatIdsInTags(tags) {
+  return new Promise((resolve, reject) => {
+    if (tags === undefined || tags === null) reject("Bad data")
+    database.tags.find(function(err, data) {
+      if (err || data === undefined || data === null) reject("Errory querying tags")
+      var chatIds = []
+      for (var i = 0; i < data.length; i++) {
+        if (tags.indexOf(data[i].tag) !== -1) {
+          if (data[i].chatIds === null || data[i].chatIds === undefined) continue
+          for (var j = 0; j < data[i].chatIds.length; j++) {
+            const chatId = data[i].chatIds[j]
+            if (chatIds.indexOf(chatId) === -1) {
+              chatIds.push(chatId)
+            }
+          }
+        }
+      }
+      resolve(chatIds)
+    })
+  })
+}
+
 
 //Updates user profile image
 function setChatImage(image, chatId) {

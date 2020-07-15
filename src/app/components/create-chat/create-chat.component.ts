@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from "@angular/core"
 import { NgForm } from '@angular/forms'
-import { Category } from "../../models/category"
 import { UserService } from "../../services/user"
 import { User } from "../../models/user"
 import { Subscription } from 'rxjs'
@@ -13,11 +12,11 @@ import { ChatCreateService } from 'src/app/services/chat-create'
   styleUrls: ["create-chat.component.css"],
   providers: [ChatCreateService] 
 })
-export class CreateChatComponent implements OnInit, OnDestroy{
-  categories: Category[] = [
-    { _id: "0", name: "Science and Tech" },
-    { _id: "1", name: "Food" },
-    { _id: "2", name: "Esports" }
+export class CreateChatComponent implements OnInit, OnDestroy {
+  categories: String[] = [
+    "Science and Tech",
+    "Food",
+    "Esports"
   ]
   user: User;
   userSub: Subscription
@@ -41,11 +40,7 @@ export class CreateChatComponent implements OnInit, OnDestroy{
     if (!chatForm.invalid) {
       //TODO: Handle case when the chat category has yet to be set
       const title = chatForm.value.title
-      const category: Category = {
-        _id: chatForm.value.category,
-        name: "test" 
-        //this.categories[chatForm.value.category].name
-      }
+      const category = chatForm.value.category
       this.chatCreateService.postChat(title, this.user._id, category, true)
       chatForm.resetForm()
     }

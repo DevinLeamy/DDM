@@ -1,12 +1,11 @@
 <app-navbar style="margin: auto; max-width: 2000px;">
         <div class="left">
-                <app-header [headerText]="'Related Chats'" [imageUrl]="'../../../assets/images/Related.png'"></app-header>
+                <app-related-chats></app-related-chats>
         </div>
         <div class="middle">
                 <app-message-view></app-message-view>
         </div>
         <div class="right">
-                <!-- Display subscribed users and indicate whether they are on or off line -->
                 <app-subscribers-view></app-subscribers-view>
         </div>
 </app-navbar>

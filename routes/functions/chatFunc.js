@@ -1,12 +1,12 @@
 const mongojs = require("mongojs")
 
 //Create chat with given title
-function createChat(title, admin, category, global, subs, tags) {
+function createChat(title, adminId, category, global, subs, tags) {
         return {
                 _id: new mongojs.ObjectId(),
                 title: title,
                 messages: [],
-                admin: admin,
+                adminId: adminId,
                 category: category,
                 global: global,
                 subs: subs,

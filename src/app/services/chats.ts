@@ -72,7 +72,7 @@ export class ChatsService {
         })
     })
   }
-
+  
   //Get 10 most popular chats
   getPopularChatIds() {
     return new Promise(resolve => {
@@ -93,6 +93,25 @@ export class ChatsService {
           resolve(chatIds)
         })
     })
+  }
+
+  //Get up to 10 related chats
+  getRelatedChatIds(chatTags: string[], chatCategory: string, chatId: string) {
+    return new Promise(resolve => {
+      const body = {
+        tags: chatTags,
+        category: chatCategory,
+        chatId: chatId
+      }
+      var headers = new HttpHeaders()
+      headers = headers.append('Content-type', 'application/json')
+      this.http.post(BASE_URL + "chatIds/related", body, { headers: headers })
+        .subscribe((res: {status: string, data: any}) => {
+          if (res.status === '0') {
+            resolve(res.data)
+          }
+        })
+    }) 
   }
   //Update chat 
   updateChats() {

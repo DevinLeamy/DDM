@@ -51,6 +51,8 @@ import { RecommendedChatsComponent } from './components/home-page/recommended-ch
 import { ChatSubscribeAdminDialogComponent } from "./components/chat-page/message-view/chat-title/chat-subscribe/chat-subscribe-admin-dialog/chat-subscribe-admin-dialog.component"
 import { ChatIconComponent } from "./components/chat-icon/chat-icon.component"
 import { FriendRequestComponent } from "./components/user-page/user-friends-view/friend-request/friend-request.component"
+import { RelatedChatsComponent } from "./components/chat-page/global-chat/related-chats/related-chats.component"
+
 
 @NgModule({
   declarations: [
@@ -87,7 +89,8 @@ import { FriendRequestComponent } from "./components/user-page/user-friends-view
     RecommendedChatsComponent,
     ChatSubscribeAdminDialogComponent,
     ChatIconComponent,
-    FriendRequestComponent
+    FriendRequestComponent,
+    RelatedChatsComponent
   ],
   imports: [
     BrowserModule,

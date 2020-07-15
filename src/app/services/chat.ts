@@ -154,7 +154,7 @@ export class ChatService {
   //Checks if user on chat is the chat's admin
   isAdmin(userId: string) {
           if (this.chat === undefined || userId === undefined) return false
-          if (this.chat.admin._id === userId) return true
+          if (this.chat.adminId === userId) return true
           return false
   }  
 
