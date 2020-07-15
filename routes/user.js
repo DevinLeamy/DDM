@@ -137,6 +137,7 @@ function userExistsWithId(userId) {
     database.users.findOne({_id: mongojs.ObjectId(userId)}, function(err, user) {
       if (err || user === null || user === undefined) {
         reject("User does not exist")
+        return
       } 
       resolve(user)
     })
@@ -147,7 +148,10 @@ function getUserById(userId) {
   return new Promise((resolve, reject) => {
     if (userId === null || userId === undefined || !isString(userId)) reject("Bad Data")
     database.users.findOne({_id: mongojs.ObjectId(userId)}, (err, user) => {
-      if (err || user === null || user === undefined) reject("Error retrieving user data from database")
+      if (err || user === null || user === undefined) {
+        reject("Error retrieving user data from database")
+        return
+      }
       resolve(user)
     })
   })
@@ -155,9 +159,15 @@ function getUserById(userId) {
 
 function getUserByEmail(userEmail) {
   return new Promise((resolve, reject) => {
-    if (userEmail == null || userEmail == undefined) reject("Bad Data")
+    if (userEmail == null || userEmail == undefined) {
+      reject("Bad Data")
+      return
+    }
     database.users.findOne({email: userEmail}, (err, user) => {
-      if (err || user == null || user == undefined) reject("Error retrieving user data from database")
+      if (err || user == null || user == undefined) {
+        reject("Error retrieving user data from database")
+        return
+      }
       resolve(user)
     })
   })
@@ -169,11 +179,15 @@ function alreadySentRequest(receiverEmail, senderId) {
   return new Promise((resolve, reject) => {
     if (senderId === null || senderId === undefined || receiverEmail === null || receiverEmail === undefined) reject("Bad Data")
     database.users.findOne({email: receiverEmail}, function(err, user) {
-      if (err || user === undefined || user === null) reject("Error retrieving user from database")
+      if (err || user === undefined || user === null) {
+        reject("Error retrieving user from database")
+        return
+      } 
       for (var i = 0; i < user.friendReqIds.length; i++) {
         const friendReqId = user.friendReqIds[i]
         if (friendReqId === senderId) {
           reject("Already sent request")
+          return
         }
       }
       resolve("Request has not been sent")
@@ -187,11 +201,15 @@ function alreadyFriends(receiverEmail, senderId) {
   return new Promise((resolve, reject) => {
     if (senderId === null || senderId === undefined || receiverEmail === null || receiverEmail === undefined) reject("Bad Data")
     database.users.findOne({email: receiverEmail}, function(err, user) {
-      if (err || user === undefined || user === null) reject("Error retrieving user from database")
+      if (err || user === undefined || user === null) {
+        reject("Error retrieving user from database")
+        return
+      }
       for (var i = 0; i < user.friendIds.length; i++) {
         const friendId = user.friendIds[i]
         if (friendId === senderId) {
           reject("Already Friends")
+          return 
         }
       }
       resolve("Not friends")
@@ -209,6 +227,7 @@ function sendFriendRequest(receiverEmail, senderId) {
       {$push: { friendReqIds: senderId }}, function(err, user) {
         if (err || user === null || user === undefined) {
           reject("Error updating user")
+          return
         }
         resolve("Send friend request")
       })
@@ -222,7 +241,10 @@ function removeRequest(userId, requestId) {
     database.users.update(
       {_id: mongojs.ObjectId(userId)},
       {$pull: { friendReqIds: requestId }}, function(err, user) {
-        if (err || user === null || user === undefined) reject("Error pulling request from database")
+        if (err || user === null || user === undefined) {
+          reject("Error pulling request from database")
+          return
+        }
         resolve("Request was pulled from user profile")
       }
     )
@@ -236,7 +258,10 @@ function addFriend(userId, friendId) {
     database.users.update(
       {_id: mongojs.ObjectId(userId)},
       {$push: { friendIds: friendId }}, function(err, user) {
-        if (err || user === undefined || user === null) reject("Error adding friend to user database")
+        if (err || user === undefined || user === null) {
+          reject("Error adding friend to user database")
+          return
+        }
         resolve("Users became friends")
       }
     )
@@ -248,7 +273,10 @@ function setProfileImage(image, userId) {
   return new Promise((resolve, reject) => {
     if (image === undefined || image === null || userId === undefined || userId === null) reject("Bad data")
     database.users.update({_id: mongojs.ObjectId(userId)}, { $set: {image: image} }, function(err, user) {
-      if (err || user === null || user === undefined) reject("Error updating user image")
+      if (err || user === null || user === undefined) {
+        reject("Error updating user image")
+        return
+      }
       resolve(user)
     }) 
   })
@@ -259,7 +287,10 @@ function setUserStatus(userId, online) {
   return new Promise((resolve, reject) => {
     if (online === undefined || online === null || userId === undefined || userId === null) reject("Bad data")
     database.users.update({_id: mongojs.ObjectID(userId)}, {$set: {online: online}}, function(err, data) {
-      if (err || data === undefined || data === null) reject("Error updating user status")
+      if (err || data === undefined || data === null) {
+        reject("Error updating user status")
+        return
+      }
       //Success: User status was updated
       resolve(0)
     })

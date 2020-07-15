@@ -28,8 +28,23 @@
 }
 
 .home-link {
-  font-size: 25px;
-  font-weight: 400;
+  font-size: 22px;
+  font-weight: bold;
+  background-color: #3a5266;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: white;
+  border-radius: 3px;
+  border-bottom: solid transparent;
+  border-top: solid transparent;
+}
+
+.home-link:hover {
+  color: rgb(173, 243, 250);
+  border-bottom: solid white;
+  border-top: solid white;
 }
 
 .button-register {
@@ -54,4 +69,41 @@
 .home-container {
   background-color: rgb(63, 81, 90);
   /* background-color: #0e1822; */
+}
+
+.transform-font-size {
+  -webkit-transition: font-size 0.4s;
+  -moz-transition: font-size 0.4s;
+  -o-transition: font-size 0.4s;
+  transition: font-size 0.4s;  
+}
+
+.transform-color {
+  -webkit-transition: color 0.4s;
+  -moz-transition: color 0.4s;
+  -o-transition: color 0.4s;
+  transition: color 0.4s;  
+}
+
+.transform-border-bottom {
+  -webkit-transition: border-bottom 0.2s;
+  -moz-transition: border-bottom 0.2s;
+  -o-transition: border-bottom 0.2s;
+  transition: border-bottom 0.2s;
+}
+
+.transform-border-top {
+  -webkit-transition: border-top 0.2s;
+  -moz-transition: border-top 0.2s;
+  -o-transition: border-top 0.2s;
+  transition: border-top 0.2s;
+}
+
+.no-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none; 
+  -khtml-user-select: none; 
+  -moz-user-select: none; 
+  -ms-user-select: none; 
+  user-select: none;
 }

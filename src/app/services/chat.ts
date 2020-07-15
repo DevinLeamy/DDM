@@ -110,7 +110,10 @@ export class ChatService {
   // Requests a unsubscription to a given chat
   unsubscribeFromChat() {
     return new Promise( (resolve, reject) => {
-      if (this.chatId == undefined || this.chatId == null) reject("Bad Data")
+      if (this.chatId == undefined || this.chatId == null) {
+        reject("Bad Data")
+        return
+      }
       const body = {
         chatId: this.chatId
       }
@@ -119,7 +122,10 @@ export class ChatService {
       this.http.post(CHAT_API + "unsubscribe/", body, { headers: headers })
         .subscribe((res: {status: string, data: string}) => {
           //Get user and not just user id
-          if (res === undefined || res === null) reject("Subscription was unsuccessful")
+          if (res === undefined || res === null) {
+            reject("Subscription was unsuccessful")
+            return
+          }
           const index = this.getIndexOfUserId(res.data)
           if (index !== -1) {
             this.chat.subs.splice(index, 1)

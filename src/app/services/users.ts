@@ -45,7 +45,10 @@ export class UsersService {
         //Promise that resolves a userSub
         getUser(userId: string) {
                 return new Promise((resolve, reject) => {
-                        if (userId === null || userId === undefined) reject("Bad data")
+                        if (userId === null || userId === undefined) {
+                                reject("Bad data")
+                                return
+                        }
                         this.http.get(BASE_URL + "data/" + userId)
                                 .subscribe( (userSub: UserSub) => {
                                         resolve(userSub)

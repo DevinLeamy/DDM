@@ -9,66 +9,66 @@
                                 {{this.user.username}}
                         </div>
                 </div>
-                <div class="user-options-container">
-                        <h1 class="user-options-header">
-                                Options
-                        </h1>
-                        <div class="user-option-container">
-                                <div class="user-option-header">
-                                        Set Your Icon
-                                </div>
-                                <div class="user-option">
-                                        <input type="file"
-                                                accept="image/*"
-                                                (change)="onImageSelected($event)"
-                                                class="image-input"
-                                        >
-                                        <div 
-                                                *ngIf="this.selectedImage != null && this.selectedImage != undefined" 
-                                                (click)="uploadImage()" 
-                                                class="image-upload-button"
-                                        >
-                                                Set Icon
-                                        </div>
+        </div>
+        <h2 class="user-options-header">
+                Options
+        </h2>
+        <div class="user-options-container">
+                <div class="user-option-container">
+                        <div class="user-option-header">
+                                Set Your Icon
+                        </div>
+                        <div class="user-option">
+                                <input type="file"
+                                        accept="image/*"
+                                        (change)="onImageSelected($event)"
+                                        class="image-input"
+                                >
+                                <div 
+                                        *ngIf="this.selectedImage != null && this.selectedImage != undefined" 
+                                        (click)="uploadImage()" 
+                                        class="image-upload-button"
+                                >
+                                        Set Icon
                                 </div>
                         </div>
-                        <div class="user-option-container margin-top">
-                                <div class="user-option-header">
-                                        Send Friend Request
-                                </div>
-                                <div class="user-option">
-                                        <div class="friend-request-form-container">
-                                                <form #friendReqForm="ngForm" (submit)="sendFriendReq(friendReqForm)" class="friend-request-form">
-                                                        <div class="friend-request-input-container">
-                                                                <mat-form-field>
-                                                                        <input
-                                                                                matInput
-                                                                                type="text"
-                                                                                name="email"
-                                                                                ngModel
-                                                                                placeholder="user email"
-                                                                                #email="ngModel"
-                                                                                class="friend-request-email-field"
-                                                                        >
-                                                                </mat-form-field>
-                                                                <button mat-raised-button type="submit" class="form-submit-button">
-                                                                        Send Request
-                                                                </button>
-                                                        </div>
-                                                </form>
-                                        </div>
-                                        <div class="friend-request-button">Send</div>
-                                </div>
+                </div>
+                <div class="user-option-container margin-top">
+                        <div class="user-option-header">
+                                Send Friend Request
                         </div>
-                        <div class="user-option-container margin-top">
-                                <div class="user-option-header">
-                                        Create A New Chat
+                        <div class="user-option">
+                                <div class="friend-request-form-container">
+                                        <form #friendReqForm="ngForm" (submit)="sendFriendReq(friendReqForm)" class="friend-request-form">
+                                                <div class="friend-request-input-container">
+                                                        <mat-form-field>
+                                                                <input
+                                                                        matInput
+                                                                        type="text"
+                                                                        name="email"
+                                                                        ngModel
+                                                                        placeholder="user email"
+                                                                        #email="ngModel"
+                                                                        class="friend-request-email-field"
+                                                                >
+                                                        </mat-form-field>
+                                                        <button mat-raised-button type="submit" class="form-submit-button">
+                                                                Send Request
+                                                        </button>
+                                                </div>
+                                        </form>
                                 </div>
-                                <div class="user-option">
-                                        <div 
-                                                class="create-chat-button"
-                                        >Create
-                                        </div>
+                                <div class="friend-request-button">Send</div>
+                        </div>
+                </div>
+                <div class="user-option-container margin-top">
+                        <div class="user-option-header">
+                                Create A New Chat
+                        </div>
+                        <div class="user-option">
+                                <div 
+                                        class="create-chat-button"
+                                >Create
                                 </div>
                         </div>
                 </div>

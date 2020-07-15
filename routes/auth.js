@@ -97,12 +97,16 @@ router.post("/register/createUser", function(req, res) {
 //Post new user to database
 function postUser(newUser) {
   return new Promise( (resolve, reject) => {
-    if (newUser == undefined || newUser == null) reject("Bad Data")
+    if (newUser == undefined || newUser == null) {
+      reject("Bad Data")
+      return
+    }
     database.users.save(newUser, function(err, user) {
-      if (err) reject("Error posting user")
-      else {
-        resolve(user)
+      if (err || user === undefined || user === null) {
+        reject("Error posting user")
+        return
       }
+      resolve(user)
     })
   })
 }
@@ -111,10 +115,11 @@ function postUser(newUser) {
 function getUserByEmail(email) {
   return new Promise( (resolve, reject) => {
     database.users.findOne({email: email}, function(err, user) {
-      if (err || user == null || user == undefined) reject("Error getting user data")
-      else {
-        resolve(user)
+      if (err || user == null || user == undefined) {
+        reject("Error querying users")
+        return
       }
+      resolve(user)
     })
   })
 }
@@ -123,10 +128,13 @@ function getUserByEmail(email) {
 function takenEmail(email) {
   return new Promise( (resolve, reject) => {
     database.users.count({email: email}, function(err, count) {
-      if (err) reject("Error counting users")
-      if (count > 0) reject("User already exists")
-      else resolve(0)
-
+      if (err || count === undefined || count === null) {
+        reject("Error counting users")
+        return
+      } else if (count > 0) {
+        reject("User already exists")
+      }
+      resolve(0)
     })
   })
 }

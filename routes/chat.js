@@ -317,13 +317,19 @@ function authenticateToken(req, res, next) {
 //Check if the given message exists
 function chatExistsWithId(chatId) {
   return new Promise((resolve, reject) => {
-    if (chatId == undefined || chatId == null) reject("Bad Data")
+    if (chatId == undefined || chatId == null) {
+      reject("Bad Data")
+      return
+    }
     database.chats.count({_id: mongojs.ObjectId(chatId)}, function(err, count) {
-      if (err) reject("Error counting chat")
-      else {
-        if (count == 0) reject("Chat does not exist")
-        else resolve(0)
+      if (err || count === undefined || count === null) {
+        reject("Error counting chat")
+        return
+      } else if (count == 0) {
+        reject("Chat does not exist")
+        return
       }
+      resolve(0)
     })
   })
 }
@@ -331,10 +337,15 @@ function chatExistsWithId(chatId) {
 //Get chat object
 function getChatById(chatId) {
   return new Promise((resolve, reject) => {
-    if (chatId == null || chatId == undefined) reject("Bad Data")
+    if (chatId == null || chatId == undefined) {
+      reject("Bad Data")
+    }
     database.chats.findOne( {_id: mongojs.ObjectId(chatId)}, function(err, chat) {
-      if (err || chat == null || chat == undefined) reject("Error getting chat")
-      else resolve(chat)
+      if (err || chat == null || chat == undefined) {
+        reject("Error querying chats")
+        return
+      }
+      resolve(chat)
     })
   })
 }
@@ -342,14 +353,20 @@ function getChatById(chatId) {
 //Post new message to database
 function postMessage(message, chatId) {
   return new Promise((resolve, reject) => {
-    if (message == null || message == undefined) reject("Bad Data")
+    if (message == null || message == undefined) {
+      reject("Bad Data")
+      return
+    }
     database.chats.update({ _id: mongojs.ObjectId(chatId) }, {
       $push: {
         messages: message
       }
     }, function(err) {
-      if (err || message == null || message == undefined) reject("Error posting message")
-      else resolve(message)
+      if (err || message == null || message == undefined) {
+        reject("Error posting message")
+        return
+      }
+      resolve(message)
     })
   })
 }
@@ -357,11 +374,18 @@ function postMessage(message, chatId) {
 //Check is chat with given name exists
 function chatExistsWithTitle(title) {
   return new Promise((resolve, reject) => {
-    if (title == null || title == undefined) reject("Bad Data")
+    if (title == null || title == undefined) {
+      reject("Bad Data")
+      return 
+    }
     database.chats.count({ title: title }, function(err, count) {
-      if (err || count == null || count == undefined) reject("Error querying chats")
-      if (count > 0) resolve("Chat with given title exists")
-      else reject(0)
+      if (err || count == null || count == undefined) {
+        reject("Error querying chats")
+        return
+      } else if (count > 0) {
+        resolve("Chat with given title exists")
+        return
+      } else reject(0)
     })
   })
 }
@@ -369,10 +393,16 @@ function chatExistsWithTitle(title) {
 //Posts chat
 function postChat(newChat) {
   return new Promise( (resolve, reject) => {
-    if (newChat == null || newChat == undefined) reject("Bad Data")
+    if (newChat == null || newChat == undefined) {
+      reject("Bad Data")
+      return
+    }
     database.chats.save(newChat, function(err, chat) {
-      if (err || chat == null || chat == undefined) reject("Bad Data")
-      else resolve(chat)
+      if (err || chat == null || chat == undefined) {
+        reject("Error querying chats")
+        return
+      }
+      resolve(chat)
     })
   })
 }
@@ -383,9 +413,9 @@ function getChats() {
     database.chats.find({}, function(err, chats) {
       if (err || chats == undefined || chats == null) {
         reject("Error getting chats")
-      } else {
-        resolve(chats)
+        return
       }
+      resolve(chats)
     })
   })
 }
@@ -402,24 +432,37 @@ function getChatIds(rawChats) {
 
 function userExistsWithId(userId) {
   return new Promise((resolve, reject) => {
-    if (userId == undefined || userId == null) reject("Bad Data")
+    if (userId == undefined || userId == null) {
+      reject("Bad Data")
+      return
+    }
     database.users.count({ _id: mongojs.ObjectId(userId) }, function(err, count) {
-      if (err) reject("Error quering database for userId")
-      if (count == 0) reject("User with given id does not exist")
-      else resolve(0)
+      if (err || count === undefined || count === null) {
+        reject("Error quering database for userId")
+        return
+      } else if (count == 0) {
+        reject("User with given id does not exist")
+        return
+      } else resolve(0)
     })
   })
 } 
 
 function addUserToChatSubs(chatId, userId) {
   return new Promise((resolve, reject) => {
-    if (userId == undefined || userId == null || chatId == undefined || chatId == null) reject("Bad data")
+    if (userId == undefined || userId == null || chatId == undefined || chatId == null) {
+      reject("Bad data")
+      return
+    }
     database.chats.update({ _id: mongojs.ObjectId(chatId) }, {
       $push: {
         subs: userId
       }
     }, (err, data) => {
-      if (err) reject("Error posting userSub to chat subIds list")
+      if (err || data === undefined || data === null) {
+        reject("Error posting userSub to chat subIds list")
+        return
+      }
       else resolve(0)
     })
   })
@@ -431,8 +474,10 @@ function chatContainsUser(chatId, userId) {
       (chat) => {
         if (chat.subs.includes(userId)) {
           resolve("Chat contains user");
+          return
         } else {
           reject("Chat does not contain user")
+          return
         }
       }
     ).catch((err) => {
@@ -444,13 +489,19 @@ function chatContainsUser(chatId, userId) {
 
 function addChatToUserSubs(chatId, userId) {
   return new Promise((resolve, reject) => {
-    if (userId == undefined || userId == null || chatId == undefined || chatId == null) reject("Bad data")
+    if (userId == undefined || userId == null || chatId == undefined || chatId == null) {
+      reject("Bad data")
+      return
+    }
     database.users.update({ _id: mongojs.ObjectId(userId) }, {
       $push: {
         chatIds: chatId
       }
     }, (err, data) => {
-      if (err) reject("Error posting chat to user subscriptions list")
+      if (err || data === undefined || data === null) {
+        reject("Error posting chat to user subscriptions list")
+        return
+      }
       resolve(0)
     })
   })
@@ -458,9 +509,15 @@ function addChatToUserSubs(chatId, userId) {
 
 function getUserById(userId) {
   return new Promise((resolve, reject) => {
-    if (userId == null || userId == undefined) reject("Bad Data")
+    if (userId == null || userId == undefined) {
+      reject("Bad Data")
+      return
+    }
     database.users.findOne({_id: mongojs.ObjectId(userId)}, (err, user) => {
-      if (err || user == null || user == undefined) reject("Error retrieving user data from database")
+      if (err || user == null || user == undefined) {
+        reject("Error retrieving user data from database")
+        return
+      }
       resolve(user)
     })
   })
@@ -469,13 +526,19 @@ function getUserById(userId) {
 //Removes userSub from ChatSubs 
 function removeUserFromChatSubs(userId, chatId) {
   return new Promise((resolve, reject) => {
-    if (userId === undefined || userId === null || chatId === undefined || chatId === null) reject("Bad Data")
+    if (userId === undefined || userId === null || chatId === undefined || chatId === null) {
+      reject("Bad Data")
+      return
+    }
     database.chats.update({ _id: mongojs.ObjectId(chatId) }, {
       $pull: {
         subs: userId
       }
     }, (err, data) => {
-      if (err) reject("Error removing userSub from chat subIds list")
+      if (err || data === undefined || data === null) {
+        reject("Error removing userSub from chat subIds list")
+        return
+      }
       else resolve(0)
     })
   })
@@ -484,13 +547,19 @@ function removeUserFromChatSubs(userId, chatId) {
 //Removes chatSub from userSubs
 function removeChatSubFromUserSubs(userId, chatId) {
   return new Promise((resolve, reject) => {
-    if (userId == undefined || userId == null || chatId == undefined || chatId == null) reject("Bad data")
+    if (userId == undefined || userId == null || chatId == undefined || chatId == null) {
+      reject("Bad data")
+      return
+    }
     database.users.update({ _id: mongojs.ObjectId(userId) }, {
       $pull: {
         chatIds: chatId
       }
     }, (err, data) => {
-      if (err) reject("Error removing chatSub from user subscriptions list")
+      if (err || data === undefined || data === null) {
+        reject("Error removing chatSub from user subscriptions list")
+        return
+      } 
       resolve(0)
     })
   })
@@ -499,9 +568,15 @@ function removeChatSubFromUserSubs(userId, chatId) {
 //Queries tags for tags that contain the queryString as a substring
 function queryTags(queryString) {
   return new Promise((resolve, reject) => {
-    if (queryString === undefined || queryString === null) reject("Bad data")
+    if (queryString === undefined || queryString === null) {
+      reject("Bad data")
+      return
+    }
     database.tags.find({tag: new RegExp(queryString, 'i')}, function(err, tags) {
-      if (err || tags === undefined || tags === null) reject("Error querying tags")
+      if (err || tags === undefined || tags === null) {
+        reject("Error querying tags")
+        return
+      }
       resolve(tags)
     })
   })
@@ -510,9 +585,15 @@ function queryTags(queryString) {
 //Queries categories for categories that contain the queryString as a substring
 function queryCategories(queryString) {
   return new Promise((resolve, reject) => {
-    if (queryString === undefined || queryString === null) reject("Bad data")
+    if (queryString === undefined || queryString === null) {
+      reject("Bad data")
+      return
+    }
     database.categories.find({category: new RegExp(queryString, 'i')}, function(err, categories) {
-      if (err || categories === undefined || categories === null) reject("Error querying categories")
+      if (err || categories === undefined || categories === null) {
+        reject("Error querying categories")
+        return
+      }
       resolve(categories)
     })
   })
@@ -521,10 +602,15 @@ function queryCategories(queryString) {
 //Check if a given tag has already been recorded
 function tagExists(tag) {
   return new Promise((resolve, reject) => {
-    if (tag === undefined || tag === null) reject("Bad data")
+    if (tag === undefined || tag === null) {
+      reject("Bad data")
+      return
+    }
     database.tags.findOne({tag: tag}, function(err, data) {
-      if (err || data === undefined || data === null) reject("Tag does not exist")
-      //Tag exists
+      if (err || data === undefined || data === null) {
+        reject("Tag does not exist")
+        return
+      }
       resolve(0)
     })
   })
@@ -533,12 +619,18 @@ function tagExists(tag) {
 //Add a new chatId to a tag 
 function addChatIdToTag(tag, chatId) {
   return new Promise((resolve, reject) => {
-    if (tag === undefined || tag === null || chatId === undefined || chatId === null) reject("Bad data")
+    if (tag === undefined || tag === null || chatId === undefined || chatId === null) {
+      reject("Bad data")
+      return
+    }
     database.tags.update({tag: tag}, 
       {$push: {
         chatIds: chatId
       }}, function(err, data) {
-        if (err || data === undefined || data === null) reject("Error posting chat sub to tag chat subs")
+        if (err || data === undefined || data === null) {
+          reject("Error posting chat sub to tag chat subs")
+          return
+        }
         resolve(0)
       })
   })
@@ -547,10 +639,16 @@ function addChatIdToTag(tag, chatId) {
 //Add new tag to tags collection
 function addNewTag(tag) {
   return new Promise((resolve, reject) => {
-    if (tag === undefined || tag === null) reject("Bad data")
+    if (tag === undefined || tag === null) {
+      reject("Bad data")
+      return
+    }
     const newTag = createTag(tag)
     database.tags.save(newTag, function(err, data) {
-      if (err || data === undefined || data === null) reject("Error posting new tag")
+      if (err || data === undefined || data === null) {
+        reject("Error posting new tag")
+        return
+      }
       //Successfully posted the new tag
       resolve(0)
     })
@@ -560,9 +658,15 @@ function addNewTag(tag) {
 //Check if a given category has already been recorded
 function categoryExists(category) {
   return new Promise((resolve, reject) => {
-    if (category === undefined || category === null) reject("Bad Data")
+    if (category === undefined || category === null) {
+      reject("Bad Data")
+      return
+    }
     database.categories.findOne({category: category}, function(err, data) {
-      if (err || data === null || data === undefined) reject("Category does not exist")
+      if (err || data === null || data === undefined) {
+        reject("Category does not exist")
+        return
+      }
       //Success: Category exists
       resolve(0)
     })
@@ -571,12 +675,18 @@ function categoryExists(category) {
 
 function addChatIdToCategory(category, chatId) {
   return new Promise((resolve, reject) => {
-    if (category === undefined || category === null || chatId === undefined || chatId === null) reject("Bad data")
+    if (category === undefined || category === null || chatId === undefined || chatId === null) {
+      reject("Bad data")
+      return
+    }
     database.categories.update({category: category}, 
       {$push: {
         chatIds: chatId
       }}, function(err, data) {
-        if (err || data === undefined || data === null) reject("Error posting chat sub to category chat subs")
+        if (err || data === undefined || data === null) {
+          reject("Error posting chat sub to category chat subs")
+          return
+        }
         resolve(0)
       })
   })
@@ -585,10 +695,15 @@ function addChatIdToCategory(category, chatId) {
 //Add new category to categories collection
 function addNewCategory(category) {
   return new Promise((resolve, reject) => {
-    if (category === undefined || category === null) reject("Bad data")
+    if (category === undefined || category === null) {
+      reject("Bad data")
+      return
+    }
     const newCategory = createCategory(category)
     database.categories.save(newCategory, function(err, data) {
-      if (err || data === undefined || data === null) reject("Error posting new category")
+      if (err || data === undefined || data === null) {
+        reject("Error posting new category")
+      }
       resolve(0)
     })
   })
@@ -598,7 +713,10 @@ function addNewCategory(category) {
 function getRecentChatIds() {
   return new Promise( (resolve, reject) => {
     database.chats.find({}, {limit: 10}, function(err, chats) {
-      if (err || chats === undefined || chats == null) reject("Error querying chats")
+      if (err || chats === undefined || chats == null) {
+        reject("Error querying chats")
+        return
+      }
       chatIds = []
       for (var i = chats.length - 1; i >= 0; i--) {
         const chatId = chats[i]._id
@@ -619,7 +737,10 @@ function getPopularChatIds() {
   return new Promise((resolve, reject) => {
     //I should add a limit to the number of results returned
     database.chats.find(function(err, chats) {
-        if (err || chats === undefined || chats === null) reject("Error quering chats")
+        if (err || chats === undefined || chats === null) {
+          reject("Error querying chats")
+          return
+        }
         chats.sort(function(chatA, chatB) {
           if (chatA.subs.length > chatB.subs.length) {
             return 1
@@ -662,9 +783,15 @@ function getRecommendedChatIds() {
 //Get chatIds of chats that feature a given category
 function getChatIdsInCategory(category) {
   return new Promise((resolve, reject) => {
-    if (category === undefined || category === null) reject("Bad data")
+    if (category === undefined || category === null) {
+      reject("Bad data")
+      return
+    }
     database.categories.findOne({category: category}, function(err, data) {
-      if (err || data === undefined || data === null) reject("Error querying categories")
+      if (err || data === undefined || data === null) {
+        reject("Error querying categories")
+        return
+      }
       resolve(data.chatIds)
     })
   })
@@ -673,9 +800,15 @@ function getChatIdsInCategory(category) {
 //Get chatIds of chats that feature a given tag
 function getChatIdsInTags(tags) {
   return new Promise((resolve, reject) => {
-    if (tags === undefined || tags === null) reject("Bad data")
+    if (tags === undefined || tags === null) {
+      reject("Bad data")
+      return
+    }
     database.tags.find(function(err, data) {
-      if (err || data === undefined || data === null) reject("Errory querying tags")
+      if (err || data === undefined || data === null) {
+        reject("Errory querying tags")
+        return
+      }
       var chatIds = []
       for (var i = 0; i < data.length; i++) {
         if (tags.indexOf(data[i].tag) !== -1) {
@@ -697,9 +830,15 @@ function getChatIdsInTags(tags) {
 //Updates user profile image
 function setChatImage(image, chatId) {
   return new Promise((resolve, reject) => {
-    if (image === undefined || image === null || chatId === undefined || chatId === null) reject("Bad data")
+    if (image === undefined || image === null || chatId === undefined || chatId === null) {
+      reject("Bad data")
+      return
+    }
     database.chats.update({_id: mongojs.ObjectId(chatId)}, { $set: {image: image} }, function(err, chat) {
-      if (err || chat === null || chat === undefined) reject("Error updating chat image")
+      if (err || chat === null || chat === undefined) {
+        reject("Error updating chat image")
+        return
+      }
       resolve(chat)
     }) 
   })

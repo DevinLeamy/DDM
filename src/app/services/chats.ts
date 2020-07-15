@@ -48,7 +48,10 @@ export class ChatsService {
   //Promise that resolves a chatSub
   getChat(chatId: string) {
     return new Promise((resolve, reject) => {
-      if (chatId === undefined || chatId === null) reject("Bad data")
+      if (chatId === undefined || chatId === null) {
+        reject("Bad data")
+        return
+      }
       //Send get request for chat sub
       const body = {
         _id: chatId
@@ -64,7 +67,7 @@ export class ChatsService {
 
   //Get most recent 10 chats ids
   getRecentChatIds() {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       this.http.get(BASE_URL + "chatIds/recent")
         .subscribe((res: {status: string, data: string[]}) => {
           const chatIds: string[] = res.data
@@ -75,7 +78,7 @@ export class ChatsService {
   
   //Get 10 most popular chats
   getPopularChatIds() {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       this.http.get(BASE_URL + "chatIds/popular")
         .subscribe((res: {status: string, data: string[]}) => {
           const chatIds: string[] = res.data
@@ -86,7 +89,7 @@ export class ChatsService {
 
   //Get 10 recommeded chats
   getRecommendedChatIds() {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       this.http.get(BASE_URL + "chatIds/recommended")
         .subscribe((res: {status: string, data: string[]}) => {
           const chatIds: string[] = res.data
@@ -97,7 +100,7 @@ export class ChatsService {
 
   //Get up to 10 related chats
   getRelatedChatIds(chatTags: string[], chatCategory: string, chatId: string) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       const body = {
         tags: chatTags,
         category: chatCategory,
