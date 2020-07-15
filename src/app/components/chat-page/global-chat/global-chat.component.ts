@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { ChatService } from 'src/app/services/chat';
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { UsersService } from 'src/app/services/users';
 import { Subscription } from 'rxjs';
 import { Chat } from "../../../models/chat"
@@ -15,7 +15,16 @@ import { Chat } from "../../../models/chat"
 export class GlobalChatComponent {
   chatId: string
   chatSub: Subscription
-  constructor(private chatService: ChatService, private route: ActivatedRoute, private usersService: UsersService) {}
+  constructor(
+    private chatService: ChatService, 
+    private route: ActivatedRoute, 
+    private usersService: UsersService,
+    private router: Router
+  ) {
+    //Reloads when params change 
+    this.router.routeReuseStrategy.shouldReuseRoute = 
+      () => false
+  }
 
   ngOnInit() {
     //Set chatId from router link id
