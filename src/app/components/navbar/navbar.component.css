@@ -61,6 +61,19 @@
   flex: 1 1 auto; 
 }
 
+.account-button {
+  border: solid white;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border-width: 3px;
+  z-index: 2;
+}
+
+.account-button:hover {
+  border: solid rgb(173, 243, 250);
+}
+
 .spacer {
   padding-left: 20px;
   padding-right: 20px;
@@ -97,6 +110,20 @@
   -moz-transition: border-top 0.2s;
   -o-transition: border-top 0.2s;
   transition: border-top 0.2s;
+}
+
+.transform-opacity {
+  -webkit-transition: opacity 0.2s;
+  -moz-transition: opacity 0.2s;
+  -o-transition: opacity 0.2s;
+  transition: opacity 0.2s;
+}
+
+.transform-border {
+  -webkit-transition: border 0.2s;
+  -moz-transition: border 0.2s;
+  -o-transition: border 0.2s;
+  transition: border 0.2s;
 }
 
 .no-select {
