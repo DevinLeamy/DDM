@@ -86,8 +86,8 @@ export class ChatSubscribeComponent {
 
         openDialog() {
                 const dialogRef = this.dialog.open(ChatSubscribeAdminDialogComponent, {
-                  width: '250px',
-                  data: { chatId: this.chatService.chatId }
+                        width: '250px',
+                        data: { chatId: this.chatService.chatId }
                 })
                 dialogRef.afterClosed()
                         .subscribe(() => {

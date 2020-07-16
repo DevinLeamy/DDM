@@ -281,13 +281,12 @@ router.post("/query-categories", function(req, res) {
 })
 
 //Formidable middleware parses form data allowing me to send image files
-router.post("/setChatImage/:id", formidable(), authenticateToken, function(req, res) {
+router.post("/setChatImage/:id", authenticateToken, function(req, res) {
   const chatId = req.params.id
-  const imageFile = req.files.image
-  const imageEncoded = 'data:image/*;base64, ' + encodeAsBase64(imageFile.path).split(" ")[0]
+  const imageUrl = req.body.imageUrl
   console.log("Setting chat image", chatId)
-  setChatImage(imageEncoded, chatId).then(
-    () => res.json({status: "0", data: imageEncoded})
+  setChatImage(imageUrl, chatId).then(
+    () => res.json({status: "0", data: imageUrl})
   ).catch((reject) => {
     console.log(reject)
     res.json({status: "1", data: null})

@@ -82,13 +82,14 @@ router.post("/decline-request", authenticateToken, function(req, res) {
 })
 
 //Formidable middleware parses form data allowing me to send image files
-router.post("/setProfileImage", formidable(), authenticateToken, function(req, res) {
+router.post("/setProfileImage", authenticateToken, function(req, res) {
   const userId = req.user._id
-  const imageFile = req.files.image
-  const imageEncoded = 'data:image/*;base64, ' + encodeAsBase64(imageFile.path).split(" ")[0]
+  const imageUrl = req.body.imageUrl
+  // console.log(imageFile)
+  // const imageEncoded = 'data:image/*;base64, ' + encodeAsBase64(imageFile.path).split(" ")[0]
   console.log("Setting profile image")
-  setProfileImage(imageEncoded, userId).then(
-    () => res.json({status: 1, data: imageEncoded})
+  setProfileImage(imageUrl, userId).then(
+    () => res.json({status: 1, data: imageUrl})
   ).catch((reject) => {console.log(reject); res.json({status: 0, data: null})})
 })
 

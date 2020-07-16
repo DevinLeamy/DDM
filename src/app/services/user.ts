@@ -83,10 +83,13 @@ export class UserService {
   }
 
   //Sets profile image
-  setProfileImage(image: File) {
-    const formData = new FormData()
-    formData.append("image", image, image.name)
-    this.http.post(BASE_URL + "setProfileImage", formData) 
+  setProfileImage(dataUrl) {
+    const body = {
+      imageUrl: dataUrl
+    }
+    var headers = new HttpHeaders()
+    headers = headers.append('Content-type', 'application/json')
+    this.http.post(BASE_URL + "setProfileImage", body, { headers: headers }) 
       .subscribe((res: {status: number, data: string}) => {
         if (res.status == 1) {
           this.user.image = res.data

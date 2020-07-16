@@ -148,12 +148,18 @@ export class ChatService {
   }
 
   //Sets chat image
-  setChatImage(image: File) {
-    const formData = new FormData()
-    formData.append("image", image, image.name)
-    this.http.post(CHAT_API + "setChatImage/" + this.chatId, formData) 
-      .subscribe((res: {status: string, data: string}) => {
-        console.log(res)
+  setChatImage(dataUrl) {
+    const body = {
+      imageUrl: dataUrl
+    }
+    var headers = new HttpHeaders()
+    headers = headers.append('Content-type', 'application/json')
+    this.http.post(CHAT_API + "setChatImage/" + this.chatId, body, { headers: headers }) 
+      .subscribe((res: {status: number, data: string}) => {
+        if (res.status == 1) {
+          this.chat.image = res.data
+          this.updateChat()
+        }
       })
   }
 
