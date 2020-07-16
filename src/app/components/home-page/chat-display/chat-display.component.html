@@ -1,17 +1,14 @@
-<div class="container transform-opacity" 
-      (mouseover)="onContainerHover()" 
-      #container>
+<div class="container transform-opacity" >
       <app-chat-title></app-chat-title>
       <app-messages></app-messages>
+      <div 
+            *ngIf="this.selectedChat !== null && this.selectedChat !== undefined" 
+            [routerLink]="['/api/chat/view', this.selectedChat._id]"
+            class="chat-button transform-opacity transform-border transform-top"
+      >CHAT
+      </div>
 </div>
-<div 
-      *ngIf="this.selectedChat !== null && this.selectedChat !== undefined" 
-      [routerLink]="['/api/chat/view', this.selectedChat._id]"
-      class="chat-button transform-opacity transform-border"
-      (mouseover)="onButtonHover()"
-      #chatButton
->CHAT
-</div>
+
 
 
 

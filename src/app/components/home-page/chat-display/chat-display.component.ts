@@ -16,8 +16,6 @@ export class ChatDisplayComponent implements OnInit, OnDestroy {
   selectedChatSub: Subscription
   selectedChat: Chat
   selectedChatIdSub: Subscription
-  @ViewChild("container") container: ElementRef
-  @ViewChild("chatButton") chatButton: ElementRef
   constructor(private chatsService: ChatsService, private chatService: ChatService, private usersService: UsersService) {}
 
   ngOnInit() {
@@ -41,27 +39,13 @@ export class ChatDisplayComponent implements OnInit, OnDestroy {
       this.chatService.getChat(true)
     })
   }
-
-  onContainerHover() {
-    this.chatButton.nativeElement.style.opacity = 1
-  }
-
-  onContainerStopHover() {
-    this.chatButton.nativeElement.style.opacity = 0
-  }
-
-
-  onButtonHover() {
-    this.container.nativeElement.style.opacity = 0.4
-  }
-
-  onButtonStopHover() {
-    this.container.nativeElement.style.opacity = 1
-  }
-
   //Avoid memory leaks
   ngOnDestroy() {
-    this.selectedChatIdSub.unsubscribe()
-    this.selectedChatSub.unsubscribe()
+    if (this.selectedChatIdSub !== undefined && this.selectedChatIdSub === null) {
+      this.selectedChatIdSub.unsubscribe()
+    }
+    if (this.selectedChatSub !== undefined && this.selectedChatSub !== null) {
+      this.selectedChatSub.unsubscribe()
+    }
   }
 }
