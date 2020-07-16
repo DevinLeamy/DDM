@@ -16,22 +16,24 @@
 
 .middle {
   height: 100%;
-  width: calc(50% - 10px);
+  width: calc(50% - 20px);
   margin-left: 10px;
-  background-color: white;
+  margin-right: 10px;
+  /* background-color: rgb(50, 64, 71); */
+  background: linear-gradient(to right, rgb(38, 49, 54) 0px, rgb(38, 49, 54) 50px, rgb(50, 64, 71) 50px, rgb(50, 64, 71) 100%);
   /* background-color: #0e1822; */
   /* background-color: rgb(48, 48, 48); */
   float: left;
 }
 
-.temp {
+/* .temp {
   height: 100%;
   width: 100%;
   background-image: url(../../../assets/images/Moon.jpg);
   background-size: contain;
   background-color: black;
   background-repeat: no-repeat;
-}
+} */
 
 .chat-list-container {
   height: 31%;

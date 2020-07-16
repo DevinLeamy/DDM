@@ -12,12 +12,19 @@ import { ChatSub } from '../models/chat-sub'
 export class ChatsService {
   chats: ChatSub[]
   chatsUpdated = new Subject<ChatSub[]>()
+  selectedChatId: string
+  selectedChatIdUpdated = new Subject<string>()
 
   constructor(private http: HttpClient) {}
 
   //Gets subscription to all chat subs
   getChatsUpdated() {
     return this.chatsUpdated.asObservable()
+  }
+
+  //Get selected chat updated
+  getSelectedChatIdUpdated() {
+    return this.selectedChatIdUpdated.asObservable()
   }
 
   //Gets chatsub from list of chatsubs that have already been gotten
@@ -116,8 +123,21 @@ export class ChatsService {
         })
     }) 
   }
+
+  //Select chat
+  setSelectedChatId(chatId: string) {
+    this.selectedChatId = chatId
+    this.updateSelectedChatId()
+  }
+
   //Update chat 
   updateChats() {
     this.chatsUpdated.next([...this.chats])
+  }
+
+  //Update selected chat id
+  updateSelectedChatId() {
+    if (this.selectedChatId === undefined || this.selectedChatId === null) return
+    this.selectedChatIdUpdated.next(this.selectedChatId)
   }
 }

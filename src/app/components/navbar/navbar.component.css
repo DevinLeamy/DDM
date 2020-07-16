@@ -35,16 +35,16 @@
   padding-right: 10px;
   padding-top: 5px;
   padding-bottom: 5px;
-  color: white;
-  border-radius: 3px;
-  border-bottom: solid transparent;
-  border-top: solid transparent;
-}
-
-.home-link:hover {
   color: rgb(173, 243, 250);
   border-bottom: solid white;
   border-top: solid white;
+  border-radius: 3px;
+}
+
+.home-link:hover {
+  color: white;
+  border-bottom: solid transparent;
+  border-top: solid transparent;
 }
 
 .button-register {

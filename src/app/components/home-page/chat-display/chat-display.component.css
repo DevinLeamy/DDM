@@ -3,3 +3,59 @@
         height: 100%;
 }
 
+.container:hover {
+        opacity: 0.4;
+}
+
+.chat-button {
+        opacity: 0;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-size: 20px;
+        font-weight: bold;
+        background-color: rgb(32, 32, 32);
+        position: absolute;
+        top: 40%; right: 50%;
+        border-left: solid transparent;
+        border-right: solid transparent;
+        color: white;
+        transform: translate(50%, -50%);
+        border-radius: 3px;
+}
+
+.chat-button:hover {
+        opacity: 1;
+        color: rgb(173, 243, 250);
+        border-left: solid white;
+        border-right: solid white;
+}
+
+.transform-opacity {
+        -webkit-transition: opacity 0.4s;
+        -moz-transition: opacity 0.4s;
+        -o-transition: opacity 0.4s;
+        transition: opacity 0.4s;  
+}
+
+.transform-border {
+        -webkit-transition: border 0.2s;
+        -moz-transition: border 0.2s;
+        -o-transition: border 0.2s;
+        transition: border 0.2s;
+}
+
+/*
+font-size: 22px;
+  font-weight: bold;
+  background-color: #3a5266;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: rgb(173, 243, 250);
+  border-bottom: solid white;
+  border-top: solid white;
+  border-radius: 3px;
+*/

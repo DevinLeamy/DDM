@@ -317,7 +317,7 @@ function authenticateToken(req, res, next) {
 //Check if the given message exists
 function chatExistsWithId(chatId) {
   return new Promise((resolve, reject) => {
-    if (chatId == undefined || chatId == null) {
+    if (chatId === undefined || chatId === null || chatId === "undefined") {
       reject("Bad Data")
       return
     }

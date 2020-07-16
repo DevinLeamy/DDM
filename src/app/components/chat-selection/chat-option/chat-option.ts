@@ -56,8 +56,16 @@ export class ChatOptionComponent {
                 }
         }
 
+        //Sets the selected chat id for the chat display
+        setAsSelectedChat() {
+                this.chatsService.setSelectedChatId(this.chatId)
+        }
+
         //Change expand
         toggle() {
                 this.expanded = !this.expanded
+                if (this.expanded) {
+                        this.setAsSelectedChat()
+                }
         }
 }

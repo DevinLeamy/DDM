@@ -2,6 +2,7 @@ import { Component } from "@angular/core"
 import { Subscription } from 'rxjs'
 import { Chat } from 'src/app/models/chat'
 import { ChatService } from "../../../../services/chat"
+import { ChatsService } from "../../../../services/chats"
 
 @Component({
         selector: "app-chat-title",
@@ -11,7 +12,7 @@ import { ChatService } from "../../../../services/chat"
 export class ChatTitleComponent {
         chatSub: Subscription
         chat: Chat
-        constructor(private chatService: ChatService) {}
+        constructor(private chatService: ChatService, public chatsService: ChatsService) {}
 
         ngOnInit() {
                 this.chatSub = this.chatService.getChatUpdated()

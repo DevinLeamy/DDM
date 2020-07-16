@@ -1,7 +1,18 @@
-<div class="container">
-      <!-- <h1 style="background-color: teal; height: 80px; margin: 0;">Some vanilla text</h1> -->
-      <!-- <app-chat-icon *ngFor="let chat of chats"  [chatId]=chat._id> -->
-      <!-- </app-chat-icon> -->
+<div class="container transform-opacity" 
+      (mouseover)="onContainerHover()" 
+      #container>
+      <app-chat-title></app-chat-title>
+      <app-messages></app-messages>
 </div>
+<div 
+      *ngIf="this.selectedChat !== null && this.selectedChat !== undefined" 
+      [routerLink]="['/api/chat/view', this.selectedChat._id]"
+      class="chat-button transform-opacity transform-border"
+      (mouseover)="onButtonHover()"
+      #chatButton
+>CHAT
+</div>
+
+
 
 

@@ -12,6 +12,9 @@ export class HomePageComponent {
 
   ngOnInit() {
     var chatIds = []
+    if (this.chatsService.selectedChatId === undefined || this.chatsService.selectedChatId === null) {
+      this.chatsService.selectedChatId = "--"
+    }
     if (this.chatsService.chats !== undefined) return
     this.chatsService.getPopularChatIds()
       .then( (resolve: string[]) => {
@@ -37,7 +40,11 @@ export class HomePageComponent {
                   chatIds.push(chatId)
                 }
               }
+              if (this.chatsService.selectedChatId === "--") {
+                this.chatsService.setSelectedChatId(chatIds[0])
+              }
               this.chatsService.getChats(chatIds)
+              
           })
       }) 
     })

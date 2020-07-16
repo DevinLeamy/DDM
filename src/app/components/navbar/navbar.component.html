@@ -39,8 +39,9 @@
       no-select"
     >RUMBLE</div> 
     <!-- Shows on large displays (start) -->
-    <span fxShow="true" fxHide.lt-md="true" class="flexExpand"></span>
+    <!-- <span fxShow="true" fxHide.lt-md="true" class="flexExpand"></span> -->
     <div fxShow="true" fxHide.lt-md="true">
+      <span class="flex-expand"></span>
       <button mat-raised-button class="button-login" [routerLink]="'/api/authentication/login'" style="margin-right: 10px;" *ngIf="!isAuthenticated()">Login</button>
       <button mat-raised-button class="button-register" [routerLink]="'/api/authentication/register'" *ngIf="!isAuthenticated()">Register</button>
     </div>
