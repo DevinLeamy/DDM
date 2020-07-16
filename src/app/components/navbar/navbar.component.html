@@ -7,7 +7,7 @@
       </button>
     </div>
     <!-- Shows on small displays (end) -->
-    <span class="spacer"></span>
+    <!-- <span class="spacer"></span> -->
 
     <!-- Div there so the app-user-icon is the right size -->
     <div class="account-button transform-border" *ngIf="this.user != undefined && this.user != null">
@@ -29,7 +29,7 @@
         style="outline: 0 !important;"
       ></app-image-fab>
     </div>
-    <span class="flexExpand"></span>
+    <span *ngIf="this.isAuthenticated()" class="flexExpand"></span>
     <div 
       [routerLink]="''" 
       class="home-link 

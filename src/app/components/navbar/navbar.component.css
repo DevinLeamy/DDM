@@ -62,7 +62,7 @@
 }
 
 .account-button {
-  border: solid white;
+  border: solid transparent;
   width: 55px;
   height: 55px;
   border-radius: 50%;

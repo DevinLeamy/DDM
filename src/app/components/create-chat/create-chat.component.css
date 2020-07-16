@@ -1,21 +1,21 @@
 .one-container {
         width: 100%;
         height: 100%;
+        background-image: url("../../../assets/images/login8.png");
+        background-size: contain;
+        background-color: black;
         display: flex;
-        justify-content: center;
-        background-color: rgb(50, 64, 71);
+        align-content: center;
+        opacity: 0.8;
+        
 }
 
 .two-container {
         width: 400px;
         height: 600px;
-        border: solid white;
-        margin-top: 100px;
-        border-width: 2px;
-        border-radius: 3px;
-        background-color: #6db6ee;
-        display: table-cell;
-        vertical-align: middle;
+        margin: auto;
+        background-color: rgb(32, 32, 32);
+        outline: solid #84c1ff;
 }
 
 .three-container {
@@ -31,11 +31,10 @@
         order: 0;
         margin-top: 10px;
         width: 100%;
-        border: solid white;
-        border-width: 2px;
         height: 50px;
         border-radius: 5px;
-        background-color: rgb(38, 49, 54);
+        border: solid white;
+        border-width: 2px;
 }
 
 .chat-title-input {
@@ -45,33 +44,31 @@
         line-height: 40px;
         margin-top: 5px;
         font-size: 17px;
-        background-color: rgb(38, 49, 54);
         border: none;
         color: white;
 }
-/* background-color: rgb(38, 49, 54); */
 
 /* Category select */
 .category-select-container {
         order: 1;
         width: 100%;
-        height: 40px; 
-        border: solid white; 
-        border-width: 2px;
-        background-color: rgb(38, 49, 54);
+        height: 50px; 
+        /* background-color: rgb(38, 49, 54); */
         margin-top: 10px;
         border-radius: 5px;
 }
 
 .category-select {
-        height: 40px;
+        height: 50px;
         width: 100%;
-        background-color: rgb(38, 49, 54);
+        background-color: rgb(32, 32, 32);
         color: white;
+        font-size: 17px;
 }
 
 .category {
-        height: 10px;
+        height: 20px;
+        font-size: 17px;
         color: white;
         width: 50%;
 }
@@ -87,7 +84,7 @@
 .form-submit-button {
         width: 80px;
         height: 40px;
-        background-color: rgb(38, 49, 54);
+        /* background-color: rgb(38, 49, 54); */
         color: white;
         font-size: 16px;
 }

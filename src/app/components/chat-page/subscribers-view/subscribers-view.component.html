@@ -1,6 +1,6 @@
 <app-header 
         [headerText]="'Admin'" 
-        [imageUrl]="'../../../assets/images/Admin.png'"
+        [imageUrl]="'../../../assets/images/Admin2.png'"
 ></app-header>
 <app-subscriber 
         *ngIf="this.chat !== undefined && this.chat !== null"
@@ -13,7 +13,7 @@
 <app-header 
         [headerText]="'Subscribers'" 
         *ngIf="this.chat !== undefined && this.chat !== null && this.chat.subs.length > 0" 
-        [imageUrl]="'../../../assets/images/SubTwo.jpg'"
+        [imageUrl]="'../../../assets/images/SubTwo.png'"
 ></app-header>
 <div *ngIf="this.chat" class="subscribers-view-container">
         <app-subscriber 
