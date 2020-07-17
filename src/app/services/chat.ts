@@ -49,15 +49,15 @@ export class ChatService {
 
   //Updates chat
   getChat(query=false) {
-    if (query || this.chat == undefined || this.chat == null) {
-      this.http.get(CHAT_API + "data/" + this.chatId)
-      .subscribe((res: Chat) => {
-        this.chat = res
-        this.updateChat()
-      })
-    } else {
+    if (this.chatId === null || this.chatId === undefined || (!query && this.chat !== undefined && this.chat !== null)) {
       this.updateChat()
-    }
+      return
+    } 
+    this.http.get(CHAT_API + "data/" + this.chatId)
+    .subscribe((res: Chat) => {
+      this.chat = res
+      this.updateChat()
+    })
   }
 
   //Creates link between the socket on the client and the socket on the server

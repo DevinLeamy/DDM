@@ -46,9 +46,7 @@ export class MessagesComponent {
 
         //Compresses messages
         compressMessages(messages: Message[]) : Message[] {
-                if (messages.length == 0) {
-                        return []
-                }
+                if (messages === undefined || messages === null || messages.length == 0) return []
                 var compressedMessages: Message[] = [{...messages[0]}]
                 for (var i = 1; i < messages.length; i++) {
                         var len = compressedMessages.length

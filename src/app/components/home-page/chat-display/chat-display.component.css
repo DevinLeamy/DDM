@@ -18,7 +18,7 @@
         font-weight: bold;
         background-color: rgb(32, 32, 32);
         position: absolute;
-        top: 10%; right: 50%;
+        top: 0%; right: 50%;
         border-left: solid transparent;
         border-right: solid transparent;
         color: white;
@@ -48,10 +48,10 @@
 }
 
 .transform-top {
-        -webkit-transition: top 0.2s;
-        -moz-transition: top 0.2s;
-        -o-transition: top 0.2s;
-        transition: top 0.2s;
+        -webkit-transition: top 0.4s;
+        -moz-transition: top 0.4s;
+        -o-transition: top 0.4s;
+        transition: top 0.4s;
 }
 
 /*

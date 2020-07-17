@@ -22,7 +22,7 @@ export class ChatDisplayComponent implements OnInit, OnDestroy {
    this.selectedChatIdSub = this.chatsService.getSelectedChatIdUpdated()
     .subscribe((chatId: string) => {
       if (this.selectedChat !== undefined && this.selectedChat._id === chatId) return
-      this.chatService.initChatService(chatId)
+      this.chatService.setChatId(chatId)
       this.selectedChatSub = this.chatService.getChatUpdated()
         .subscribe(chat => {
           this.selectedChat = chat
