@@ -3,7 +3,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http'
 import { UserSub } from "../models/user-sub"
 import { Subject } from "rxjs"
 
-const BASE_URL = "http://localhost:3000/api/user/"
+const BASE_URL = "https://rumble-thread-based-messenger.herokuapp.com/api/user/"
 
 @Injectable({
         providedIn: "root"

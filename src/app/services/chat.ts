@@ -1,6 +1,6 @@
 //Service for the chat API
 //Handles a single chat
-const CHAT_API = "http://localhost:3000/api/chat/"
+const CHAT_API = "https://rumble-thread-based-messenger.herokuapp.com/api/chat/"
 import { Injectable } from "@angular/core"
 import { HttpHeaders, HttpClient } from '@angular/common/http'
 import { Subject } from 'rxjs'
@@ -28,7 +28,7 @@ export class ChatService {
     this.setChatId(chatId)
     console.log("Chat Service Initialized")
     this.initServerSocket()
-    this.socket = io.connect("http://localhost:3000", )
+    this.socket = io.connect("https://rumble-thread-based-messenger.herokuapp.com", )
     this.initClientSocket()
   }
   //Sets the chat id
