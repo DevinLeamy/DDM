@@ -142,7 +142,7 @@ function takenEmail(email) {
 
 //Get JWT access token
 function getAccessToken(user) {
-  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
+  return jwt.sign(user, "257873abca489e51c9ba3b925fcfc5822a1c4015deb91f6ac537cd08dc11f23f0e955d9455068ff65198e3f8aefe890659964f844898e88c59a6cc51b5a2b1f5")
 }
 
 module.exports = router
