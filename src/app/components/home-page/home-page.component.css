@@ -26,15 +26,22 @@
   float: left;
 }
 
-/* .temp {
-  height: 100%;
-  width: 100%;
-  background-image: url(../../../assets/images/Moon.jpg);
-  background-size: contain;
-  background-color: black;
-  background-repeat: no-repeat;
-} */
-
 .chat-list-container {
   height: 31%;
+}
+
+.middle-small {
+  width: 80%;
+  /* margin: auto; */
+  background: linear-gradient(to right, rgb(38, 49, 54) 0px, rgb(38, 49, 54) 50px, rgb(50, 64, 71) 50px, rgb(50, 64, 71) 100%);
+  height: 100%;
+}
+
+.right-small {
+  width: 80%;
+  height: 100%;
+}
+.container {
+  width: 100%;
+  height: 100%;
 }

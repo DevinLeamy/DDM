@@ -1,25 +1,40 @@
 <app-navbar>
-    <div class="left">
-        <app-header 
-            [headerText]="'Search Chats'" 
-            [imageUrl]="'../../../assets/images/Search2.png'"
-        ></app-header>
-    </div>
-    <div class="middle">
-        <app-chat-display></app-chat-display>
-        <!-- <div class="temp">
-
-        </div> -->
-    </div>
-    <div class="right">
-        <div class="chat-list-container">
-                <app-popular-chats></app-popular-chats>
+    <div fxShow="true" fxHide.lt-md="true" class="container">
+        <div class="left">
+            <app-header 
+                [headerText]="'Search Chats'" 
+                [imageUrl]="'../../../assets/images/Search2.png'"
+            ></app-header>
         </div>
-        <div class="chat-list-container">
-                <app-recent-chats></app-recent-chats>
+        <div class="middle">
+            <app-chat-display></app-chat-display>
         </div>
-        <div class="chat-list-container">
-                <app-recommended-chats></app-recommended-chats>
+        <div class="right">
+            <div class="chat-list-container">
+                    <app-popular-chats></app-popular-chats>
+            </div>
+            <div class="chat-list-container">
+                    <app-recent-chats></app-recent-chats>
+            </div>
+            <div class="chat-list-container">
+                    <app-recommended-chats></app-recommended-chats>
+            </div>
+        </div>
+    </div>
+    <div fxShow="true" fxHide.gt-sm="true" class="container">
+        <div class="middle-small">
+                <app-chat-display></app-chat-display>
+        </div>
+        <div class="right-small">
+                <div class="chat-list-container">
+                        <app-popular-chats></app-popular-chats>
+                </div>
+                <div class="chat-list-container">
+                        <app-recent-chats></app-recent-chats>
+                </div>
+                <div class="chat-list-container">
+                        <app-recommended-chats></app-recommended-chats>
+                </div>
         </div>
     </div>
 </app-navbar>

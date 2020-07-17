@@ -9,6 +9,7 @@ import { FormsModule } from "@angular/forms"
 import { FlexLayoutModule } from "@angular/flex-layout"
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatSidenavModule } from '@angular/material/sidenav'
+import { MatExpansionModule } from "@angular/material/expansion"
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { MatSelectModule } from '@angular/material/select'
@@ -106,7 +107,8 @@ import { RelatedChatsComponent } from "./components/chat-page/global-chat/relate
     MatButtonModule,
     MatIconModule,
     MatSelectModule,
-    MatDialogModule
+    MatDialogModule,
+    MatExpansionModule
   ],
   providers: [
     {
