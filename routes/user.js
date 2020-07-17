@@ -1,4 +1,4 @@
-require("dotenv").config()
+// require("dotenv").config()
 const express = require("express")
 const router = express.Router()
 const mongojs = require("mongojs")
@@ -8,7 +8,8 @@ const { tokenParser, encodeAsBase64, isString, createUserSub, createUser} = requ
 const formidable = require("express-formidable")
 
 //-----------------------------------Initialize Database----------------------------------------
-const databaseUrl = "mongodb+srv://" + process.env.DATABASE_USERNAME + ":" + process.env.DATABASE_PASSWORD + "@messenger-db-jzhdw.mongodb.net/" +  process.env.DATABASE_NAME + "?retryWrites=true&w=majority"
+// const databaseUrl = "mongodb+srv://" + process.env.DATABASE_USERNAME + ":" + process.env.DATABASE_PASSWORD + "@messenger-db-jzhdw.mongodb.net/" +  process.env.DATABASE_NAME + "?retryWrites=true&w=majority"
+const databaseUrl = "mongodb+srv://" + "test" + ":" + "test" + "@messenger-db-jzhdw.mongodb.net/" +  "messenger-database" + "?retryWrites=true&w=majority"
 const database = mongojs(databaseUrl, ["users"])
 
 //-----------------------------------Requests----------------------------------------
