@@ -46,6 +46,7 @@
         width: 60%;
         margin: auto;
         margin-bottom: 20px;
+        color: white;
 }
 
 .user-option-container {
@@ -80,10 +81,11 @@
 .image-input {
         font-size: 15px;
         margin-top: 10px;
+        color: white;
 }
 
 .image-upload-button {
-
+        color: white;
         background-color: rgb(44, 51, 54);
         padding: 5px;
         width: 70px;
@@ -103,6 +105,7 @@
         margin-top: 10px;
         border-radius: 3px;
         text-align: center;
+        color: white;
 }
 
 .create-chat-button:hover {

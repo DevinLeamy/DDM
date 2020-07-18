@@ -53,6 +53,7 @@ import { ChatSubscribeAdminDialogComponent } from "./components/chat-page/messag
 import { ChatIconComponent } from "./components/chat-icon/chat-icon.component"
 import { FriendRequestComponent } from "./components/user-page/user-friends-view/friend-request/friend-request.component"
 import { RelatedChatsComponent } from "./components/chat-page/global-chat/related-chats/related-chats.component"
+import { ChatSearchComponent } from "./components/home-page/chat-search/chat-search.component"
 
 
 @NgModule({
@@ -91,7 +92,8 @@ import { RelatedChatsComponent } from "./components/chat-page/global-chat/relate
     ChatSubscribeAdminDialogComponent,
     ChatIconComponent,
     FriendRequestComponent,
-    RelatedChatsComponent
+    RelatedChatsComponent,
+    ChatSearchComponent
   ],
   imports: [
     BrowserModule,
