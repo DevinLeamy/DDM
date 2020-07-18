@@ -44,43 +44,40 @@ export class HomePageComponent {
   leftExpanded: boolean = false
   rightExpanded: boolean = false
   ngOnInit() {
-    var chatIds = []
     if (this.chatsService.selectedChatId === undefined || this.chatsService.selectedChatId === null) {
       this.chatsService.selectedChatId = "--"
     }
-    if (this.chatsService.chats !== undefined) return
+    if (this.chatsService.chats !== undefined && this.chatsService !== null) return
     this.chatsService.getPopularChatIds()
-      .then( (resolve: string[]) => {
-        for (var i = 0; i < resolve.length; i++) {
-          const chatId = resolve[i]
-          if (chatIds.indexOf(chatId) === -1) {
-            chatIds.push(chatId)
-          }
-        }
-        this.chatsService.getRecentChatIds()
-          .then( (resolve: string[]) => {
-            for (var i = 0; i < resolve.length; i++) {
-              const chatId = resolve[i]
-              if (chatIds.indexOf(chatId) === -1) {
-                chatIds.push(chatId)
-              }
-            }
-            this.chatsService.getRecommendedChatIds()
-            .then( (resolve: string[]) => {
-              for (var i = 0; i < resolve.length; i++) {
-                const chatId = resolve[i]
-                if (chatIds.indexOf(chatId) === -1) {
-                  chatIds.push(chatId)
-                }
-              }
-              if (this.chatsService.selectedChatId === "--") {
-                this.chatsService.setSelectedChatId(chatIds[0])
-              }
-              this.chatsService.getChats(chatIds)
-              
-          })
-      }) 
-    })
+          .then((popChatIds: string[]) => this.chatsService.getRecentChatIds()
+                  .then((recChatIds: string[]) => this.chatsService.getRecommendedChatIds()
+                          .then((recomChatIds: string[]) => {
+                                  var chatIds: string[] = []
+                                  for (var i = 0; i < popChatIds.length; i++) {
+                                          const chatId = popChatIds[i]
+                                          if (chatIds.indexOf(chatId) === -1) {
+                                                  chatIds.push(chatId)
+                                          }
+                                  }
+                                  for (var i = 0; i < recChatIds.length; i++) {
+                                          const chatId = recChatIds[i]
+                                          if (chatIds.indexOf(chatId) === -1) {
+                                                  chatIds.push(chatId)
+                                          }
+                                  }
+                                  for (var i = 0; i < recomChatIds.length; i++) {
+                                          const chatId = recomChatIds[i]
+                                          if (chatIds.indexOf(chatId) === -1) {
+                                                  chatIds.push(chatId)
+                                          }
+                                  }
+                                  if (this.chatsService.selectedChatId === "--") {
+                                          this.chatsService.setSelectedChatId(chatIds[0])
+                                  }
+                                  this.chatsService.getChats(chatIds)
+                          })
+                  )
+          )
   }
 
   //Toggle left expansion panel
