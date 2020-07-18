@@ -1,6 +1,6 @@
 import { Component, Input, AfterContentInit, ElementRef, ViewChild, AfterViewInit } from "@angular/core"
 import { ChatsService } from 'src/app/services/chats'
-import { trigger, state, style, animate, transition } from '@angular/animations';
+import { trigger, state, style, animate, transition } from '@angular/animations'
 
 @Component({
         selector: "app-chat-option",
@@ -37,10 +37,6 @@ export class ChatOptionComponent {
         @ViewChild("chatTitle") chatTitle: ElementRef
         expanded = false;
         constructor(private chatsService: ChatsService) {}
-
-        // ngAfterViewInit() {
-        //         this.chatTitle.nativeElement.style.color = this.color
-        // }
 
         //Get chat sub
         getChatSub() {

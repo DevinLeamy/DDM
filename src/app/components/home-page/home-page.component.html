@@ -21,11 +21,29 @@
             </div>
         </div>
     </div>
-    <div fxShow="true" fxHide.gt-sm="true" class="container">
-        <div class="middle-small">
+    <div fxShow="true" fxHide.gt-sm="true" class="container-small">
+        <div class="header-container float-left no-select transform-color" [@expansionTitle]="!leftExpanded ? 'visible' : 'invisible'" (click)="toggleLeft()">
+                ◀
+        </div>
+        <div class="left-small float-left" [@expansionPanel]="leftExpanded ? 'open' : 'closed'">
+            <app-header 
+                [headerText]="'Search Chats'" 
+                [imageUrl]="'../../../assets/images/Search2.png'"
+            ></app-header>
+        </div>
+
+        <div class="header-container float-left transform-color no-select" [@expansionTitle]="(leftExpanded || rightExpanded) ? 'visible' : 'invisible'" (click)="toggleMiddle()">
+                ◈
+        </div>
+        <div class="middle-small float-left" [@expansionPanel]="(!rightExpanded && !leftExpanded)? 'open' : 'closed'">
                 <app-chat-display></app-chat-display>
         </div>
-        <div class="right-small">
+
+
+        <div class="header-container float-right no-select transform-color" [@expansionTitle]="!rightExpanded ? 'visible' : 'invisible'" (click)="toggleRight()">
+                ▶
+        </div>
+        <div class="right-small float-right" [@expansionPanel]="rightExpanded ? 'open' : 'closed'">
                 <div class="chat-list-container">
                         <app-popular-chats></app-popular-chats>
                 </div>
