@@ -1,5 +1,4 @@
 //-----------------------------------Imports----------------------------------------
-require("dotenv").config()
 const express = require("express")
 const router = express.Router()
 const mongojs = require("mongojs")
@@ -8,26 +7,26 @@ const { passwordIsValid, getNewUser } = require("./functions/authFunc")
 //-----------------------------------Constants----------------------------------------
 
 //-----------------------------------Initialize Database----------------------------------------
-const databaseUrl = "mongodb+srv://" + process.env.DATABASE_USERNAME + ":" + process.env.DATABASE_PASSWORD + "@messenger-db-jzhdw.mongodb.net/" +  process.env.DATABASE_NAME + "?retryWrites=true&w=majority"
+const databaseUrl = "mongodb+srv://" + "test" + ":" + "test" + "@messenger-db-jzhdw.mongodb.net/" +  "messenger-database" + "?retryWrites=true&w=majority"
 const database = mongojs(databaseUrl, ["users"])
 //-----------------------------------Requests----------------------------------------
 // Prevents users from manually changing url
 router.get("/login", function(req, res, next) {
   //If auth token was not sent redirect to home
   if (req.headers["authorization"]) next()
-  else res.redirect("http://localhost:3000")
+  else res.redirect("")
 })
 
 // Prevents users from manually changing url
 router.get("/register", function(req, res, next) {
   //If auth token was not sent redirect to home
   if (req.headers["authorization"]) next()
-  else res.redirect("http://localhost:3000")
+  else res.redirect("")
 })
 
 router.post("/login/authenticate", function(req, res) {
   //Check if user manually changed url
-  if (!req.headers["authorization"]) res.redirect("http://localhost:3000")
+  if (!req.headers["authorization"]) res.redirect("")
   else {
     const credentials = req.body
     const email = credentials.email
