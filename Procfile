@@ -1,1 +1,1 @@
-wed : node server
+web : node server

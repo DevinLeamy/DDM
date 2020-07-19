@@ -1,5 +1,5 @@
 //Service for User API
-const BASE_URL = ""
+const BASE_URL = "https://rumble-thread-based-messenger.herokuapp.com/api/user/"
 import { Injectable } from "@angular/core"
 import { HttpHeaders, HttpClient } from '@angular/common/http'
 import { User } from '../models/user'

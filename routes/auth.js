@@ -14,14 +14,14 @@ const database = mongojs(databaseUrl, ["users"])
 router.get("/login", function(req, res, next) {
   //If auth token was not sent redirect to home
   if (req.headers["authorization"]) next()
-  else res.redirect("")
+  else res.redirect("https://rumble-thread-based-messenger.herokuapp.com")
 })
 
 // Prevents users from manually changing url
 router.get("/register", function(req, res, next) {
   //If auth token was not sent redirect to home
   if (req.headers["authorization"]) next()
-  else res.redirect("")
+  else res.redirect("https://rumble-thread-based-messenger.herokuapp.com")
 })
 
 router.post("/login/authenticate", function(req, res) {

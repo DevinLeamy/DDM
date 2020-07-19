@@ -1,6 +1,6 @@
 //Service for the chat API
 //Handles a single chat
-const CHAT_API = ""
+const CHAT_API = "https://rumble-thread-based-messenger.herokuapp.com/api/chat/"
 import { Injectable } from "@angular/core"
 import { HttpHeaders, HttpClient } from '@angular/common/http'
 import { Subject } from 'rxjs'
