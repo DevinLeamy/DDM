@@ -2,7 +2,7 @@
 .DS_STORE
 .env
 
-/dist/
+# /dist/
 /bazel-out
 /integration/bazel/bazel-*
 *.log
