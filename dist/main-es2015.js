@@ -4213,8 +4213,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const BASE_URL = "";
-const BASE_USER_URL = "";
+const BASE_URL = "https://rumble-thread-based-messenger.herokuapp.com/api/authentication/";
+const BASE_USER_URL = "https://rumble-thread-based-messenger.herokuapp.com/api/user/";
 class AuthenticationService {
     constructor(http, location) {
         this.http = http;
@@ -4342,7 +4342,7 @@ __webpack_require__.r(__webpack_exports__);
 
 //Service for the chat API
 //Handles the creation of a single chat
-const BASE_URL = "";
+const BASE_URL = "https://rumble-thread-based-messenger.herokuapp.com/api/chat/";
 class ChatCreateService {
     constructor(http, location) {
         this.http = http;
@@ -4485,7 +4485,7 @@ __webpack_require__.r(__webpack_exports__);
 
 //Service for the chat API
 //Handles a single chat
-const CHAT_API = "";
+const CHAT_API = "https://rumble-thread-based-messenger.herokuapp.com/api/chat/";
 class ChatService {
     constructor(http) {
         this.http = http;
@@ -4671,7 +4671,7 @@ __webpack_require__.r(__webpack_exports__);
 
 //Service for the chat API
 //Handles multiple chats
-const BASE_URL = "";
+const BASE_URL = "https://rumble-thread-based-messenger.herokuapp.com/api/chat/";
 class ChatsService {
     constructor(http) {
         this.http = http;
@@ -4866,7 +4866,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 //Service for User API
-const BASE_URL = "";
+const BASE_URL = "https://rumble-thread-based-messenger.herokuapp.com/api/user/";
 class UserService {
     constructor(http) {
         this.http = http;
@@ -4994,7 +4994,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const BASE_URL = "";
+const BASE_URL = "https://rumble-thread-based-messenger.herokuapp.com/api/user/";
 class UsersService {
     constructor(http) {
         this.http = http;
