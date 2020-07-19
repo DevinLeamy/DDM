@@ -37,6 +37,7 @@
         font-weight: bolder;
         color: white;
         text-align: center;
+        /* font-family: monospace; */
 }
 
 .header-container:hover {
