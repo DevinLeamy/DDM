@@ -7,7 +7,7 @@ const chatAPI = require("./routes/chat")
 const userAPI = require("./routes/user")
 const socket = require("socket.io")
 const http = require("http")
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 8080
 
 //--------------------------------Configure express app-----------------------------
 app.use(bodyParser.json())
