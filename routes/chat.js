@@ -6,7 +6,6 @@ const jwt = require("jsonwebtoken")
 const { tokenParser, createUserSub, encodeAsBase64 } = require("./functions/userFunc")
 const { createChat, createTag, createCategory, createChatSub } = require("./functions/chatFunc")
 var io;
-const formidable = require("express-formidable")
 //-----------------------------------Constants----------------------------------------
 
 //-----------------------------------Initialize Database----------------------------------------

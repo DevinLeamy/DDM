@@ -26,7 +26,7 @@ export class UsersService {
                                 return this.users[i]
                         }
                 }
-        }
+        } 
 
         //Creates list of user subs from a list of userIds
         getUsers(userIds: string[]) {
