@@ -4,17 +4,51 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { UsersService } from 'src/app/services/users';
 import { Subscription } from 'rxjs';
 import { Chat } from "../../../models/chat"
+import { trigger, state, style, animate, transition } from '@angular/animations'
 
 
 @Component({
   selector: "app-global-chat",
   templateUrl: "global-chat.component.html",
   styleUrls: ["global-chat.component.css"],
+  animations: [
+    trigger("expansionPanel", [
+            state("open", style({
+                    visibility: "visible",
+                    width: "calc(100% - 64px)"
+            })),
+            state("closed", style({
+                    width: "0%",
+                    visibility: "hidden"
+            })),
+            transition("open => closed", [
+                    animate("0.2s")
+            ]),
+            transition("closed => open", [
+                    animate("0.2s")
+            ])
+      ]),
+      trigger("expansionTitle", [
+            state("visible", style({
+                    width: "30px",
+                    lineHeight: "30px",
+                    marginRight: "1px",
+                    marginLeft: "1px",
+                    visibility: "visible"
+            })),
+            state("invisible", style({
+                    width: "0px",
+                    visibility: "hidden"
+            }))
+      ])
+  ],
   providers: [ChatService, UsersService]
 })
-export class GlobalChatComponent {
+export class GlobalChatComponent implements OnInit {
   chatId: string
   chatSub: Subscription
+  leftExpanded: boolean = false
+  rightExpanded: boolean = false
   constructor(
     private chatService: ChatService, 
     private route: ActivatedRoute, 
@@ -53,5 +87,27 @@ export class GlobalChatComponent {
             }
           })
       })
+  }
+
+  //Toggles the left expansion panel
+  toggleLeft() {
+    this.leftExpanded = !this.leftExpanded
+    if (this.leftExpanded) {
+      this.rightExpanded = false
+    }
+  }
+
+  //Toggles the right expansion panel
+  toggleRight() {
+    this.rightExpanded = !this.rightExpanded
+    if (this.rightExpanded) {
+      this.leftExpanded = false
+    }
+  }
+
+  //Toggles the middle expansion panel
+  toggleMiddle() {
+    this.rightExpanded = false
+    this.leftExpanded = false
   }
 }

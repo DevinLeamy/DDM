@@ -1,0 +1,26 @@
+<div class="container">
+        <app-header 
+                [headerText]="'Popular Chats'" 
+                [imageUrl]="'../../../assets/images/PopularTwo.png'"
+        ></app-header>
+        <app-chat-selection 
+                [chatIds]="this.popChatIds"
+                [color]="'rgb(173, 243, 250)'"
+        ></app-chat-selection>
+        <app-header 
+                [headerText]="'New Chats'" 
+                [imageUrl]="'../../../assets/images/NewChatOne.png'"
+        ></app-header>
+        <app-chat-selection 
+                [chatIds]="this.recChatIds"
+                [color]="'rgb(173, 243, 250)'"
+        ></app-chat-selection>
+        <app-header 
+                [headerText]="'Recommended Chats'" 
+                [imageUrl]="'../../../assets/images/RecomOne.png'"
+            ></app-header>
+        <app-chat-selection 
+                [chatIds]="this.recomChatIds"
+                [color]="'rgb(173, 243, 250)'"
+        ></app-chat-selection>
+</div>

@@ -1,15 +1,5 @@
 <div class="nav-container">
   <mat-toolbar class="navbar-main">
-    <!-- Shows on small displays (start) -->
-    <div fxShow="true" fxHide.gt-sm="true">
-      <button mat-icon-button (click)="sidenav.toggle()" class="sandwich-icon">
-        <mat-icon [inline]="true">menu</mat-icon>
-      </button>
-    </div>
-    <!-- Shows on small displays (end) -->
-    <!-- <span class="spacer"></span> -->
-
-    <!-- Div there so the app-user-icon is the right size -->
     <div class="account-button transform-border" *ngIf="this.user != undefined && this.user != null">
       <app-user-icon 
         [routerLink]="'/api/user'"  
@@ -38,26 +28,9 @@
       transform-border-top
       no-select"
     >RUMBLE</div> 
-    <!-- Shows on large displays (start) -->
-    <!-- <span fxShow="true" fxHide.lt-md="true" class="flexExpand"></span> -->
     <span class="flexExpand" *ngIf="!isAuthenticated()"></span>
-    <div fxShow="true" fxHide.lt-md="true">
-      <button mat-raised-button class="button-login" [routerLink]="'/api/authentication/login'" style="margin-right: 10px;" *ngIf="!isAuthenticated()">Login</button>
-      <button mat-raised-button class="button-register" [routerLink]="'/api/authentication/register'" *ngIf="!isAuthenticated()">Register</button>
-    </div>
-    <!-- Shows on large displays (end) -->
+    <button mat-raised-button class="button-login" [routerLink]="'/api/authentication/login'" style="margin-right: 10px;" *ngIf="!isAuthenticated()">Login</button>
+    <button mat-raised-button class="button-register" [routerLink]="'/api/authentication/register'" *ngIf="!isAuthenticated()">Register</button>
   </mat-toolbar>
-
-  <!-- Shows on small displays (start) -->
-  <mat-sidenav-container fxFlexFill class="home-container">
-    <mat-sidenav #sidenav fxLayout="column">
-      <div fxLayout="column">
-        <button mat-raised-button [routerLink]="'/api/authentication/login'" class="button-login" *ngIf="!isAuthenticated()">Login</button>
-        <button mat-raised-button [routerLink]="'/api/authentication/register'" class="button-register" *ngIf="!isAuthenticated()">Register</button>
-        <button (click)="sidenav.toggle()" mat-raised-button>Close</button>
-      </div>
-    </mat-sidenav>
-    <ng-content></ng-content>
-  </mat-sidenav-container>
-  <!-- Shows on small displays (end) -->
+  <ng-content></ng-content>
 </div>

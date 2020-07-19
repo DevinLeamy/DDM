@@ -16,6 +16,8 @@
         border-width: 2px;
         border-radius: 5px;
         text-align: center;
+        color: white;
+        background-color: transparent
 }
 
 .subscribe-button {
@@ -37,6 +39,8 @@
         border-width: 2px;
         border-radius: 5px;
         text-align: center;
+        color: white;
+        background-color: transparent
 }
 
 .subscribed-button {
@@ -57,6 +61,8 @@
         border-width: 2px;
         border-radius: 5px;
         text-align: center;
+        color: white;
+        background-color: transparent
 }
 
 .admin-text {

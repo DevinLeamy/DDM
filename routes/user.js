@@ -1,4 +1,4 @@
-// require("dotenv").config()
+require("dotenv").config()
 const express = require("express")
 const router = express.Router()
 const mongojs = require("mongojs")
@@ -8,8 +8,7 @@ const { tokenParser, encodeAsBase64, isString, createUserSub, createUser} = requ
 const formidable = require("express-formidable")
 
 //-----------------------------------Initialize Database----------------------------------------
-// const databaseUrl = "mongodb+srv://" + process.env.DATABASE_USERNAME + ":" + process.env.DATABASE_PASSWORD + "@messenger-db-jzhdw.mongodb.net/" +  process.env.DATABASE_NAME + "?retryWrites=true&w=majority"
-const databaseUrl = "mongodb+srv://" + "test" + ":" + "test" + "@messenger-db-jzhdw.mongodb.net/" +  "messenger-database" + "?retryWrites=true&w=majority"
+const databaseUrl = "mongodb+srv://" + process.env.DATABASE_USERNAME + ":" + process.env.DATABASE_PASSWORD + "@messenger-db-jzhdw.mongodb.net/" +  process.env.DATABASE_NAME + "?retryWrites=true&w=majority"
 const database = mongojs(databaseUrl, ["users"])
 
 //-----------------------------------Requests----------------------------------------
@@ -118,7 +117,7 @@ function authenticateToken(req, res, next) {
   const bearerToken = req.headers["authorization"]
   if (bearerToken) {
     const token = tokenParser(bearerToken)
-    jwt.verify(token, "257873abca489e51c9ba3b925fcfc5822a1c4015deb91f6ac537cd08dc11f23f0e955d9455068ff65198e3f8aefe890659964f844898e88c59a6cc51b5a2b1f5", function(err, payload) {
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, function(err, payload) {
       if (payload) {
         req.user = payload
         next()

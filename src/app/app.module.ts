@@ -1,3 +1,4 @@
+// Modules
 import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
 import { AppRoutingModule } from './app-routing.module'
@@ -9,17 +10,20 @@ import { FormsModule } from "@angular/forms"
 import { FlexLayoutModule } from "@angular/flex-layout"
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatSidenavModule } from '@angular/material/sidenav'
+import { MatExpansionModule } from "@angular/material/expansion"
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { MatSelectModule } from '@angular/material/select'
 import { MatDialogModule } from "@angular/material/dialog"
+//Services
+import { AuthenticationService } from './services/authentication'
+import { UserService } from './services/user'
+//Components
 import { HomePageComponent } from './components/home-page/home-page.component'
 import { RegisterPageComponent } from "./components/register-page/register-page.component"
 import { LoginPageComponent } from './components/login-page/login-page.component'
 import { NavbarComponent } from './components/navbar/navbar.component'
 import { AppComponent } from './app.component'
-import { AuthenticationService } from './services/authentication'
-import { UserService } from './services/user'
 import { GlobalChatComponent } from './components/chat-page/global-chat/global-chat.component'
 import { HTTP_INTERCEPTORS } from "@angular/common/http"
 import { TokenInterceptor } from './services/token.interceptor'
@@ -45,14 +49,12 @@ import { HeaderComponent } from "./components/header/header.component"
 import { SubscriberComponent } from "./components/chat-page/subscribers-view/subscriber/subscriber.component"
 import { ChatSelectionComponent } from './components/chat-selection/chat-selection'
 import { ChatOptionComponent } from './components/chat-selection/chat-option/chat-option'
-import { RecentChatsComponent } from './components/home-page/recent-chats/recent-chats.component'
-import { PopularChatsComponent } from './components/home-page/popular-chats/popular-chats.component'
-import { RecommendedChatsComponent } from './components/home-page/recommended-chats/recommended-chats.component'
 import { ChatSubscribeAdminDialogComponent } from "./components/chat-page/message-view/chat-title/chat-subscribe/chat-subscribe-admin-dialog/chat-subscribe-admin-dialog.component"
 import { ChatIconComponent } from "./components/chat-icon/chat-icon.component"
 import { FriendRequestComponent } from "./components/user-page/user-friends-view/friend-request/friend-request.component"
 import { RelatedChatsComponent } from "./components/chat-page/global-chat/related-chats/related-chats.component"
-
+import { ChatSearchComponent } from "./components/home-page/chat-search/chat-search.component"
+import { ChatListsComponent } from './components/home-page/chat-lists/chat-lists.component'
 
 @NgModule({
   declarations: [
@@ -84,13 +86,12 @@ import { RelatedChatsComponent } from "./components/chat-page/global-chat/relate
     SubscriberComponent,
     ChatSelectionComponent,
     ChatOptionComponent,
-    RecentChatsComponent,
-    PopularChatsComponent,
-    RecommendedChatsComponent,
     ChatSubscribeAdminDialogComponent,
     ChatIconComponent,
     FriendRequestComponent,
-    RelatedChatsComponent
+    RelatedChatsComponent,
+    ChatSearchComponent,
+    ChatListsComponent
   ],
   imports: [
     BrowserModule,
@@ -106,7 +107,8 @@ import { RelatedChatsComponent } from "./components/chat-page/global-chat/relate
     MatButtonModule,
     MatIconModule,
     MatSelectModule,
-    MatDialogModule
+    MatDialogModule,
+    MatExpansionModule
   ],
   providers: [
     {

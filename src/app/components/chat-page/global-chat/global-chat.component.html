@@ -1,11 +1,37 @@
 <app-navbar style="margin: auto; max-width: 2000px;">
-        <div class="left">
-                <app-related-chats></app-related-chats>
+        <div fxShow="true" fxHide.lt-md="true" class="container">
+                <div class="left">
+                        <app-related-chats></app-related-chats>
+                </div>
+                <div class="middle">
+                        <app-message-view></app-message-view>
+                </div>
+                <div class="right">
+                        <app-subscribers-view></app-subscribers-view>
+                </div>
         </div>
-        <div class="middle">
-                <app-message-view></app-message-view>
+        <div fxShow="true" fxHide.gt-sm="true" class="container-small">
+                <div class="header-container float-left no-select transform-color" [@expansionTitle]="!leftExpanded ? 'visible' : 'invisible'" (click)="toggleLeft()">
+                        ◀&#xFE0E;
+                </div>
+                <div class="left-small float-left" [@expansionPanel]="leftExpanded ? 'open' : 'closed'">
+                        <app-related-chats></app-related-chats>
+                </div>
+        
+                <div class="header-container float-left transform-color no-select" [@expansionTitle]="(leftExpanded || rightExpanded) ? 'visible' : 'invisible'" (click)="toggleMiddle()">
+                        ◈&#xFE0E;
+                </div>
+                <div class="middle-small float-left" [@expansionPanel]="(!rightExpanded && !leftExpanded)? 'open' : 'closed'">
+                        <app-message-view></app-message-view>
+                </div>
+        
+        
+                <div class="header-container float-right no-select transform-color" [@expansionTitle]="!rightExpanded ? 'visible' : 'invisible'" (click)="toggleRight()">
+                        ▶&#xFE0E;
+                </div>
+                <div class="right-small float-right" [@expansionPanel]="rightExpanded ? 'open' : 'closed'">
+                        <app-subscribers-view></app-subscribers-view>
+                </div>
         </div>
-        <div class="right">
-                <app-subscribers-view></app-subscribers-view>
-        </div>
+        
 </app-navbar>
