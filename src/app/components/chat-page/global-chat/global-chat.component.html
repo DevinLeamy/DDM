@@ -1,5 +1,5 @@
-<app-navbar style="margin: auto; max-width: 2000px;">
-        <div fxShow="true" fxHide.lt-md="true" class="container">
+<app-navbar>
+        <div *ngIf="this.media.isActive('gt-sm')" fxShow="true" fxHide.lt-md="true" class="container">
                 <div class="left">
                         <app-related-chats></app-related-chats>
                 </div>
@@ -10,7 +10,7 @@
                         <app-subscribers-view></app-subscribers-view>
                 </div>
         </div>
-        <div fxShow="true" fxHide.gt-sm="true" class="container-small">
+        <div *ngIf="this.media.isActive('lt-md')" fxShow="true" fxHide.gt-sm="true" class="container-small">
                 <div class="header-container float-left no-select transform-color" [@expansionTitle]="!leftExpanded ? 'visible' : 'invisible'" (click)="toggleLeft()">
                         ◀&#xFE0E;
                 </div>

@@ -10,11 +10,10 @@
 }
 
 .register-form-card {
-  height: 500px;
-  width: 400px;
+  height: 550px;
+  width: 350px;
   margin: auto;
   background-color: rgb(32, 32, 32);
-  outline: solid #84c1ff;
 }
 
 .register-form-container {
@@ -47,7 +46,27 @@
 
 .error-message {
   margin-top: 10px;
-  color: red;
+  color: rgb(255, 105, 105);
   width: 100%;
+}
+
+.message-container {
+  width: 200px;
+}
+.placeholder-text {
+  color: rgb(180, 180, 180);
+}
+
+.login-button {
+  color: white;
+  -webkit-transition: font-size 0.2s;
+  -moz-transition: font-size 0.2s;
+  -o-transition: font-size 0.2s;
+  transition: font-size 0.2s;
+}
+
+.login-button:hover {
+  color: rgb(121, 212, 248);
+  font-size: 17px;
 }
 
