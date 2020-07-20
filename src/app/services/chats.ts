@@ -204,6 +204,27 @@ export class ChatsService {
     }
   }
 
+  //Search chats based on title prefix, category and tags
+  searchChats(category: string, title: string, tags: string[]) {
+    return new Promise((resolve, reject) => {
+      const body = {
+        category: category,
+        title: title,
+        tags: tags
+      }
+      var headers = new HttpHeaders()
+      headers.append('Content-type', 'application/json')
+      this.http.post(BASE_URL + "searchChats", body, { headers: headers })
+        .subscribe((res: {status: string, data: any}) => {
+          if (res.status === "0") {
+            resolve(res.data)
+          } else {
+            reject(res.data)
+          }
+        })
+    })
+  }
+
   //Select chat
   setSelectedChatId(chatId: string) {
     this.selectedChatId = chatId

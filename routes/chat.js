@@ -55,6 +55,16 @@ router.get("/chatIds/recommended", function(req, res) {
     .catch( (reject) => console.log(reject))
 })
 
+//Search chats
+router.post("/searchChats", function(req, res) {
+  const category = req.body.category
+  const title = req.body.title
+  const tags = req.body.tags
+  searchChats(title, category, tags)
+    .then((results) => res.json({status: "0", data: results}))
+    .catch((reject) => res.json({status: "1", data: reject}))
+})
+
 //Get chat ids of related chats
 router.post("/chatIds/related", function(req, res) {
   const tags = req.body.tags
@@ -118,31 +128,32 @@ router.get("/allChatTitles", function(req, res) {
 router.get("/init", function(req, res) {
   if (!io) {
     io = req.app.get("io")
-  }
-  io.on("connect", function(socket) {
-  console.log("Socket connected to client")
-  socket.on("message-posted-to-server", function(rawMessage) {
-    const userId = rawMessage.senderId
-    getUserById(userId).then(
-      () => {
-        const message = {
-          senderId: userId, 
-          text: rawMessage.text,
-          _id: new mongojs.ObjectId(),
-          timestamp: rawMessage.timestamp
-        }
-        postMessage(message, rawMessage.chatId).then(
-          (message) => {
-            //Only posts to sockets connected to chat from which the message was sent
-            console.log("message-posted-to-chat-" + rawMessage.chatId)
-            io.sockets.emit("message-posted-to-chat-" + rawMessage.chatId, message)
+    io.on("connect", function(socket) {
+    console.log("Socket connected to client")
+    socket.on("message-posted-to-server", function(rawMessage) {
+      const userId = rawMessage.senderId
+      getUserById(userId).then(
+        () => {
+          const message = {
+            senderId: userId, 
+            text: rawMessage.text,
+            _id: new mongojs.ObjectId(),
+            timestamp: rawMessage.timestamp
           }
-        ).catch((reject) => console.log(reject))
-      }
-    ).catch((reject) => console.log(reject))
+          postMessage(message, rawMessage.chatId).then(
+            (message) => {
+              //Only posts to sockets connected to chat from which the message was sent
+              console.log("message-posted-to-chat-" + rawMessage.chatId)
+              io.sockets.emit("message-posted-to-chat-" + rawMessage.chatId, message)
+            }
+          ).catch((reject) => console.log(reject))
+        }
+      ).catch((reject) => console.log(reject))
+      })
     })
-  })
-  res.json("Socket connected to client")
+    res.json("Socket connected to client")
+  } 
+
 })
 
 //Protects chat-create route from not-login-in users
@@ -609,6 +620,39 @@ function queryCategories(queryString) {
         return
       }
       resolve(categories)
+    })
+  })
+}
+
+//Query chats for chats that have a title with prefix matching a querystring
+function searchChats(queryString, queryCategory, queryTags) {
+  return new Promise((resolve, reject) => {
+    if (queryString === undefined || queryString === null) {
+      reject("Bad Data")
+      return 
+    }
+    database.chats.find({title: {$regex: new RegExp("^" + queryString, "i")}}, {category: 1, tags: 1}, function(err, chats) {
+      if (err || chats === undefined || chats === null) {
+        reject("Bad data")
+        return 
+      }
+      var searchResults = []
+      for (var i = 0; i < chats.length; i++) {
+        const chat = chats[i]
+        if (queryCategory === chat.category || queryCategory === "Any") {
+          var works = true
+          for (var j = 0; j < queryTags.length; j++) {
+            const tag = queryTags[j]
+            if (chat.tags.indexOf(tag) === -1) {
+              works = false
+            }
+          }
+          if (works) {
+            searchResults.push(chat._id)
+          }
+        }
+      }
+      resolve(searchResults)
     })
   })
 }

@@ -144,13 +144,45 @@
 
 /* Search button */
 .search-button {
-        height: 20px;
+        height: 30px;
+        line-height: 30px;
+        border-radius: 5px;
         width: 100%;
         text-align: center;
         margin-top: 15px;
         background-color: rgb(38, 49, 54);;
         color: white;
         font-size: 17px;
+        -webkit-transition: color 0.2s;
+        -moz-transition: color 0.2s;
+        -o-transition: color 0.2s;
+        transition: color 0.2s;
+        color: rgb(177, 177, 177);
+}
+
+.search-button:hover {
+        color: white;
+}
+
+.searching-label {
+        height: 25px;
+        line-height: 25px;
+        border-radius: 5px;
+        width: 100%;
+        text-align: center;
+        margin-top: 15px;
+        background-color: rgb(38, 49, 54);;
+        color: white;
+        font-size: 15px;
+        -webkit-transition: color 0.2s;
+        -moz-transition: color 0.2s;
+        -o-transition: color 0.2s;
+        transition: color 0.2s;
+        color: white;
+}
+
+.results-container {
+        margin-top: 5px;
 }
 
 .no-select {

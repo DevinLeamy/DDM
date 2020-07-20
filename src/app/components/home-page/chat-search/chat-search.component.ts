@@ -20,8 +20,8 @@ export class ChatSearchComponent implements OnInit, OnDestroy {
                 "Sports",
                 "Other"
         ]
-        titleValue: string
-        tagValue: string
+        titleValue: string = ""
+        tagValue: string = ""
         queriedTags: boolean = false
         queriedTitles: boolean = false
         titleOptions: string[] = []
@@ -31,6 +31,8 @@ export class ChatSearchComponent implements OnInit, OnDestroy {
         filteredTitleOptions: Observable<string[]>
         filteredTagOptions: Observable<string[]>
         tags: string[] = []
+        searching: boolean = false
+        searchResults: string[] = [] //Chat ids
         constructor(private chatsService: ChatsService) {}
 
         ngOnInit() {
@@ -92,7 +94,22 @@ export class ChatSearchComponent implements OnInit, OnDestroy {
         }
 
         //Search chats based on query params
-        searchChats() {
+        searchChats(category: string) {
+                if (this.searching) return
+                this.searching = true
+                if (category === undefined || category === null || category === "") {
+                        category = "Any"
+                }
+                this.chatsService.searchChats(category, this.titleValue, this.tags)
+                        .then((results: string[]) => {
+                                this.searchResults = results
+                                this.chatsService.getChats(this.searchResults)
+                                this.searching = false
+                        })
+                        .catch(reject => {
+                                console.log(reject)
+                                this.searching = false
+                        })
                 return
         }
 

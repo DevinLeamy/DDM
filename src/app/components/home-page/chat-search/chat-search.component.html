@@ -1,3 +1,5 @@
+<!-- NOTE ngModel with formControl is deprecated and will be removed -->
+
 <div class="container">
         <app-header 
                 [headerText]="'Search Chats'" 
@@ -61,11 +63,16 @@
                                 </form> 
                         </div>
                 </div>
-                <div class="search-button" (click)="searchChats()">
+                <div class="search-button" (click)="searchChats(category.value)">
                         search
                 </div>
+                <div class="results-container">
+                        <div class="searching-label" *ngIf="this.searching">loading...</div>
+                        <app-chat-selection 
+                                [chatIds]="this.searchResults" 
+                                [color]="'rgb(173, 243, 250)'">
+                        </app-chat-selection>
+                </div>
         </div>
-        <div class="chats-list">
-
-        </div>
+       
 </div>
