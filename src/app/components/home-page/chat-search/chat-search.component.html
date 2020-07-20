@@ -1,5 +1,3 @@
-<!-- NOTE ngModel with formControl is deprecated and will be removed -->
-
 <div class="container">
         <app-header 
                 [headerText]="'Search Chats'" 
@@ -24,8 +22,8 @@
                         </mat-option>
                 </mat-autocomplete>
                 <div class="chat-category-container">
-                        <mat-select placeholder="Category" ngModel #category="ngModel" name="category" class="category-select">
-                                <mat-option *ngFor="let category of categories" class="category" [value]="category">
+                        <mat-select placeholder="Category" ngModel #category="ngModel" name="category">
+                                <mat-option *ngFor="let category of categories" [value]="category">
                                         {{category}}
                                 </mat-option>
                         </mat-select>

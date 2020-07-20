@@ -16,13 +16,11 @@
           >
         </div>
         <!-- Mat select for categories -->
-        <div class="category-select-container">
-          <!-- This will replace the current select https://mdbootstrap.com/snippets/jquery/mdbootstrap/921549 -->
-            <mat-select placeholder="Select a Category" ngModel #category="ngModel" name="category" class="category-select">
-              <mat-option *ngFor="let category of categories" class="category" [value]="category">
+        <div class="chat-category-container">
+            <mat-select placeholder="Select a Category" ngModel #category="ngModel" name="category">
+              <mat-option *ngFor="let category of categories" [value]="category">
                 {{category}}
               </mat-option>
-              <!-- </mat-option> -->
             </mat-select>
         </div>
         <app-chat-tags style="order: 2;"></app-chat-tags>
@@ -33,4 +31,3 @@
     </div>
   </div>
 </div>
-
