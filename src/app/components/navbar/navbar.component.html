@@ -1,6 +1,6 @@
 <div class="nav-container">
   <mat-toolbar class="navbar-main">
-    <div class="account-button transform-border" *ngIf="this.user != undefined && this.user != null">
+    <div class="account-button transform-border" *ngIf="this.user !== undefined && this.user !== null">
       <app-user-icon 
         [routerLink]="'/api/user'"  
         *ngIf="this.user.image === '$$$Default$$$'" 

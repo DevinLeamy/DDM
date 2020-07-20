@@ -13,9 +13,13 @@ const database = mongojs(databaseUrl, ["users"])
 
 //-----------------------------------Requests----------------------------------------
 router.get("/data", authenticateToken, function(req, res) {
+  if (req.user === null || req.user === undefined) {
+    res.json({status: "1", data: "Bad data"})
+    return
+  }
   getUserById(req.user._id).then(
-    (user) => res.json(createUser(user))
-  ).catch((reject) => console.log(reject))
+    (user) => res.json({status: "0", data: createUser(user)})
+  ).catch((reject) => res.json({status: "1", data: reject}))
 })
 
 //Gets user sub
@@ -113,19 +117,18 @@ router.post("/userOffline", authenticateToken, function(req, res) {
 
 //Checks if tokens exists and extracts the user from it if it does
 function authenticateToken(req, res, next) {
+  
   console.log("Authenticating Token")
   const bearerToken = req.headers["authorization"]
-  if (bearerToken) {
+  if (bearerToken !== "Bearer null") {
     const token = tokenParser(bearerToken)
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, function(err, payload) {
       if (payload) {
         req.user = payload
-        next()
       }
     })
-  } else {
-    res.send("BAD")
-  }
+  } 
+  next()
 }
 //----------------------------Promises-------------------------------
 

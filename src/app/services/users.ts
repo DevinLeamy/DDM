@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core"
-import { HttpHeaders, HttpClient } from '@angular/common/http'
+import { HttpClient } from '@angular/common/http'
 import { UserSub } from "../models/user-sub"
 import { Subject } from "rxjs"
 
@@ -9,7 +9,8 @@ const BASE_URL = "http://localhost:3000/api/user/"
         providedIn: "root"
 })
 export class UsersService {
-        users: UserSub[]
+        users: UserSub[] = []
+        userIds: string[] = []
         usersUpdated = new Subject<UserSub[]>()
 
         constructor(private http: HttpClient) {}
@@ -28,12 +29,21 @@ export class UsersService {
                 }
         }
 
+        //Check if user service contains a user sub
+        containsUserSub(userId: string) {
+                for (var i = 0; i < this.userIds.length; i++) {
+                        if (this.userIds[i] === userId) return true
+                }
+                return false
+        }
+
         //Creates list of user subs from a list of userIds
         getUsers(userIds: string[]) {
                 console.log("Getting users", userIds)
-                this.users = []
                 for (var i = 0; i < userIds.length; i++) {
                         const userId = userIds[i]
+                        if (this.containsUserSub(userId)) continue
+                        this.userIds.push(userId)
                         this.getUser(userId)
                                 .then( (userSub: UserSub) => {
                                         this.users.push(userSub)

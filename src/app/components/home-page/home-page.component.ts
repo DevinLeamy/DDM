@@ -1,6 +1,9 @@
-import { Component } from '@angular/core'
+import { Component, OnInit, OnDestroy } from '@angular/core'
 import { ChatsService } from 'src/app/services/chats'
 import { trigger, state, style, animate, transition } from '@angular/animations'
+import { Subscription } from "rxjs"
+import { MediaObserver } from "@angular/flex-layout"
+import { ChatService } from 'src/app/services/chat'
 
 @Component({
   selector: "app-home-page",
@@ -37,47 +40,19 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   ],
   templateUrl: "home-page.component.html",
   styleUrls: ["home-page.component.css"],
-  providers: [ChatsService]
+  providers: [ChatService]
 })
-export class HomePageComponent {
-  constructor(private chatsService: ChatsService) {}
+export class HomePageComponent implements OnInit, OnDestroy {
+  constructor(private chatsService: ChatsService, public media: MediaObserver, private chatService: ChatService) {}
   leftExpanded: boolean = false
   rightExpanded: boolean = false
+  popChatIdsSub: Subscription
   ngOnInit() {
-    if (this.chatsService.selectedChatId === undefined || this.chatsService.selectedChatId === null) {
-      this.chatsService.selectedChatId = "--"
-    }
-    if (this.chatsService.chats !== undefined && this.chatsService !== null) return
-    this.chatsService.getPopularChatIds()
-          .then((popChatIds: string[]) => this.chatsService.getRecentChatIds()
-                  .then((recChatIds: string[]) => this.chatsService.getRecommendedChatIds()
-                          .then((recomChatIds: string[]) => {
-                                  var chatIds: string[] = []
-                                  for (var i = 0; i < popChatIds.length; i++) {
-                                          const chatId = popChatIds[i]
-                                          if (chatIds.indexOf(chatId) === -1) {
-                                                  chatIds.push(chatId)
-                                          }
-                                  }
-                                  for (var i = 0; i < recChatIds.length; i++) {
-                                          const chatId = recChatIds[i]
-                                          if (chatIds.indexOf(chatId) === -1) {
-                                                  chatIds.push(chatId)
-                                          }
-                                  }
-                                  for (var i = 0; i < recomChatIds.length; i++) {
-                                          const chatId = recomChatIds[i]
-                                          if (chatIds.indexOf(chatId) === -1) {
-                                                  chatIds.push(chatId)
-                                          }
-                                  }
-                                  if (this.chatsService.selectedChatId === "--") {
-                                          this.chatsService.setSelectedChatId(chatIds[0])
-                                  }
-                                  this.chatsService.getChats(chatIds)
-                          })
-                  )
-          )
+        this.popChatIdsSub = this.chatsService.getPopularChatIdsUpdated()
+                .subscribe(popularChatsIds => {
+                        this.chatsService.setSelectedChatId(popularChatsIds[0])
+                        this.popChatIdsSub.unsubscribe()
+                })
   }
 
   //Toggle left expansion panel
@@ -100,5 +75,9 @@ export class HomePageComponent {
   toggleMiddle() {
     this.rightExpanded = false
     this.leftExpanded = false
+  }
+
+  ngOnDestroy() {
+        this.popChatIdsSub.unsubscribe()
   }
 }

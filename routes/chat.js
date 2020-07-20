@@ -98,36 +98,51 @@ router.post("/chatSub", function(req, res) {
     ).catch((reject) => console.log(reject))
 })
 
+//Get all tags that have been used
+router.get("/allTags", function(req, res) {
+  console.log("Getting all tags")
+  getAllTags()
+    .then((tags) => res.json({status: "0", data: tags}))
+    .catch((reject) => res.json({status: "1", data: reject}))
+})
+
+//Get all chat titles in use
+router.get("/allChatTitles", function(req, res) {
+  console.log("Getting all chat titles")
+  getAllChatTitles()
+    .then((chatTitles) => res.json({status: "0", data: chatTitles}))
+    .catch((reject) => res.json({status: "1", data: reject}))
+})
+
 //Initialize socket.io
 router.get("/init", function(req, res) {
-  //Change this
   if (!io) {
     io = req.app.get("io")
-    io.on("connect", function(socket) {
-    console.log("Socket connected to client")
-    socket.on("message-posted-to-server", function(rawMessage) {
-      const userId = rawMessage.senderId
-      getUserById(userId).then(
-        () => {
-          const message = {
-            senderId: userId, 
-            text: rawMessage.text,
-            _id: new mongojs.ObjectId(),
-            timestamp: rawMessage.timestamp
-          }
-          postMessage(message, rawMessage.chatId).then(
-            (message) => {
-              //Only posts to sockets connected to chat from which the message was sent
-              console.log("message-posted-to-chat-" + rawMessage.chatId)
-              io.sockets.emit("message-posted-to-chat-" + rawMessage.chatId, message)
-            }
-          ).catch((reject) => console.log(reject))
-        }
-      ).catch((reject) => console.log(reject))
-      })
-    })
-    res.json("Socket connected to client")
   }
+  io.on("connect", function(socket) {
+  console.log("Socket connected to client")
+  socket.on("message-posted-to-server", function(rawMessage) {
+    const userId = rawMessage.senderId
+    getUserById(userId).then(
+      () => {
+        const message = {
+          senderId: userId, 
+          text: rawMessage.text,
+          _id: new mongojs.ObjectId(),
+          timestamp: rawMessage.timestamp
+        }
+        postMessage(message, rawMessage.chatId).then(
+          (message) => {
+            //Only posts to sockets connected to chat from which the message was sent
+            console.log("message-posted-to-chat-" + rawMessage.chatId)
+            io.sockets.emit("message-posted-to-chat-" + rawMessage.chatId, message)
+          }
+        ).catch((reject) => console.log(reject))
+      }
+    ).catch((reject) => console.log(reject))
+    })
+  })
+  res.json("Socket connected to client")
 })
 
 //Protects chat-create route from not-login-in users
@@ -711,7 +726,7 @@ function addNewCategory(category) {
 //Get most recent chat Ids
 function getRecentChatIds() {
   return new Promise( (resolve, reject) => {
-    database.chats.find({}, {limit: 10}, function(err, chats) {
+    database.chats.find({}, {_id: 1}, function(err, chats) {
       if (err || chats === undefined || chats == null) {
         reject("Error querying chats")
         return
@@ -735,7 +750,7 @@ function getRecentChatIds() {
 function getPopularChatIds() {
   return new Promise((resolve, reject) => {
     //I should add a limit to the number of results returned
-    database.chats.find(function(err, chats) {
+    database.chats.find({}, {subs: 1}, function(err, chats) {
         if (err || chats === undefined || chats === null) {
           reject("Error querying chats")
           return
@@ -765,13 +780,17 @@ function getPopularChatIds() {
 //Get recommended chats (random chats)
 function getRecommendedChatIds() {
   return new Promise( (resolve, reject) => {
-    database.chats.aggregate([{ $sample: { size: 10 } }], function(err, chats) {
+    database.chats.aggregate([ { $group: { _id: "$_id" } }, { $sample: { size: 10 } }],  function(err, chats) {
+      if (err || chats === undefined || chats === null) {
+        reject("Error querying chats")
+        return
+      }
       chatIds = []
       for (var i = 0; i < chats.length; i++) {
         chatId = chats[i]._id
         chatIds.push(chatId)
         if (chatIds.length === 10) {
-          break;
+          break
         }
       }
       resolve(chatIds)
@@ -840,6 +859,47 @@ function setChatImage(image, chatId) {
       }
       resolve(chat)
     }) 
+  })
+}
+
+//Get all tags in use
+function getAllTags() {
+  return new Promise((resolve, reject) => {
+    database.tags.find({}, function(err, tags) {
+      if (err || tags === undefined || tags === null) {
+        reject("Error querying tags")
+        return
+      }
+      var tagValues = []
+      for (var i = 0; i < tags.length; i++) {
+        const tag = tags[i]
+        const tagText = tag.tag
+        if (tagValues.indexOf(tagText) === -1) {
+          tagValues.push(tagText)
+        }
+      }
+      resolve(tagValues)
+    })
+  })
+}
+
+//Get all chat titles in use
+function getAllChatTitles() {
+  return new Promise((resolve, reject) => {
+    database.chats.find({}, {title: 1, _id: 0}, function(err, chatTitlesRaw) {
+      if (err || chatTitlesRaw === undefined || chatTitlesRaw === null) {
+        reject("Error querying chat titles")
+        return
+      }
+      var chatTitles = []
+      for (var i = 0; i < chatTitlesRaw.length; i++) {
+        const chatTitle = chatTitlesRaw[i].title
+        if (chatTitles.indexOf(chatTitle) === -1) {
+          chatTitles.push(chatTitle)
+        }
+      }
+      resolve(chatTitles)
+    })
   })
 }
 

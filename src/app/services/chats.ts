@@ -10,8 +10,19 @@ import { ChatSub } from '../models/chat-sub'
   providedIn: "root"
 })
 export class ChatsService {
-  chats: ChatSub[]
+  chats: ChatSub[] = []
+  chatIds: string[] = []
   chatsUpdated = new Subject<ChatSub[]>()
+  popChatIds: string[] = []
+  recChatIds: string[] = []
+  recomChatIds: string[] = []
+  popChatIdsUpdated = new Subject<string[]>()
+  recChatIdsUpdated = new Subject<string[]>()
+  recomChatIdsUpdated = new Subject<string[]>()
+  chatTitles: string[] = []
+  chatTags: string[] = []
+  chatTitlesUpdated = new Subject<string[]>()
+  chatTagsUpdated = new Subject<string[]>()
   selectedChatId: string
   selectedChatIdUpdated = new Subject<string>()
 
@@ -27,6 +38,31 @@ export class ChatsService {
     return this.selectedChatIdUpdated.asObservable()
   }
 
+  //Get observable for recent chat Ids
+  getRecentChatIdsUpdated() {
+    return this.recChatIdsUpdated.asObservable()
+  }
+
+  //Get observable for popular chat Ids
+  getPopularChatIdsUpdated() {
+    return this.popChatIdsUpdated.asObservable()
+  }
+
+  //Get observable for recent chat Ids
+  getRecommendedChatIdsUpdated() {
+    return this.recomChatIdsUpdated.asObservable()
+  }
+
+  //Gets observable for all tags in use
+  getTagsUpdated() {
+    return this.chatTagsUpdated.asObservable()
+  }
+
+  //Gets observable for all chat titles in use
+  getChatTitlesUpdated() {
+    return this.chatTitlesUpdated.asObservable()
+  }
+
   //Gets chatsub from list of chatsubs that have already been gotten
   getChatSub(chatId: string) {
     if (this.chats === undefined || this.chats === null) return
@@ -37,13 +73,21 @@ export class ChatsService {
     }
   }
 
+  //Checks if service has already searched for a given chat
+  containsChatSub(chatId: string) {
+    for (var i = 0; i < this.chatIds.length; i++) {
+      if (this.chatIds[i] === chatId) return true
+    }
+    return false
+  }
+
   //Creates list of chat subs from a list of chatIds
   getChats(chatIds: string[]) {
     console.log("Getting chats", chatIds)
-    this.chats = []
     for (var i = 0; i < chatIds.length; i++) {
       const chatId = chatIds[i]
-      //Get chat
+      if (this.containsChatSub(chatId)) continue 
+      this.chatIds.push(chatId)
       this.getChat(chatId) 
         .then( (chatSub: ChatSub) => {
           this.chats.push(chatSub)
@@ -74,35 +118,41 @@ export class ChatsService {
 
   //Get most recent 10 chats ids
   getRecentChatIds() {
-    return new Promise((resolve) => {
+    if (this.recChatIds.length === 0) {
       this.http.get(BASE_URL + "chatIds/recent")
-        .subscribe((res: {status: string, data: string[]}) => {
-          const chatIds: string[] = res.data
-          resolve(chatIds)
-        })
-    })
+      .subscribe((res: {status: string, data: string[]}) => {
+        this.recChatIds = res.data
+        this.updateRecentChatIds()
+      })
+    } else {
+      this.updateRecentChatIds()
+    }
   }
   
   //Get 10 most popular chats
   getPopularChatIds() {
-    return new Promise((resolve) => {
+    if (this.popChatIds.length === 0) {
       this.http.get(BASE_URL + "chatIds/popular")
         .subscribe((res: {status: string, data: string[]}) => {
-          const chatIds: string[] = res.data
-          resolve(chatIds)
+          this.popChatIds = res.data
+          this.updatePopularChatIds()
         })
-    })
+    } else {
+      this.updatePopularChatIds()
+    }
   }
 
   //Get 10 recommeded chats
   getRecommendedChatIds() {
-    return new Promise((resolve) => {
+    if (this.recomChatIds.length === 0) {
       this.http.get(BASE_URL + "chatIds/recommended")
         .subscribe((res: {status: string, data: string[]}) => {
-          const chatIds: string[] = res.data
-          resolve(chatIds)
+          this.recomChatIds = res.data
+          this.updateRecommendedChatIds()
         })
-    })
+    } else {
+      this.updateRecommendedChatIds()
+    }
   }
 
   //Get up to 10 related chats
@@ -124,6 +174,36 @@ export class ChatsService {
     }) 
   }
 
+  //Get all tags in use
+  getAllTags() {
+     if (this.chatTags.length === 0) {
+      this.http.get(BASE_URL + "allTags")
+        .subscribe((res: {status: string, data: any}) => {
+          if (res.status === '0') {
+            this.chatTags = res.data
+            this.updateChatTags()
+          } 
+        })
+    } else {
+      this.updateChatTags()
+    }
+  }
+
+  //Get all chat titles in use
+  getAllChatTitles() {
+    if (this.chatTitles.length === 0) {
+      this.http.get(BASE_URL + "allChatTitles")
+      .subscribe((res: {status: string, data: any}) => {
+        if (res.status === '0') {
+          this.chatTitles = res.data
+          this.updateChatTitles()
+        } 
+      })
+    } else {
+      this.updateChatTitles()
+    }
+  }
+
   //Select chat
   setSelectedChatId(chatId: string) {
     this.selectedChatId = chatId
@@ -139,5 +219,30 @@ export class ChatsService {
   updateSelectedChatId() {
     if (this.selectedChatId === undefined || this.selectedChatId === null) return
     this.selectedChatIdUpdated.next(this.selectedChatId)
+  }
+
+  //Updated recent chat ids
+  updateRecentChatIds() {
+    this.recChatIdsUpdated.next([...this.recChatIds])
+  }
+
+  //Updated recent chat ids
+  updatePopularChatIds() {
+    this.popChatIdsUpdated.next([...this.popChatIds])
+  }
+
+  //Updated recent chat ids
+  updateRecommendedChatIds() {
+    this.recomChatIdsUpdated.next([...this.recomChatIds])
+  }
+
+  //Update chat tags
+  updateChatTags() {
+    this.chatTagsUpdated.next([...this.chatTags])
+  }
+
+  //Updates chat titles
+  updateChatTitles() {
+    this.chatTitlesUpdated.next([...this.chatTitles])
   }
 }

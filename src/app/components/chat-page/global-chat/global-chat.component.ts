@@ -5,6 +5,7 @@ import { UsersService } from 'src/app/services/users';
 import { Subscription } from 'rxjs';
 import { Chat } from "../../../models/chat"
 import { trigger, state, style, animate, transition } from '@angular/animations'
+import { MediaObserver } from "@angular/flex-layout"
 
 
 @Component({
@@ -42,7 +43,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
             }))
       ])
   ],
-  providers: [ChatService, UsersService]
+  providers: [ChatService]
 })
 export class GlobalChatComponent implements OnInit {
   chatId: string
@@ -53,7 +54,8 @@ export class GlobalChatComponent implements OnInit {
     private chatService: ChatService, 
     private route: ActivatedRoute, 
     private usersService: UsersService,
-    private router: Router
+    private router: Router,
+    public media: MediaObserver
   ) {
     //Reloads when params change 
     this.router.routeReuseStrategy.shouldReuseRoute = 
@@ -69,22 +71,20 @@ export class GlobalChatComponent implements OnInit {
         this.chatService.getChat()
         this.chatSub = this.chatService.getChatUpdated()
           .subscribe((chat: Chat) => {
-            if (this.usersService.users === null || this.usersService.users === undefined) {
-              var userIds = []
-              for (var i = 0; i < chat.subs.length; i++) {
-                const userId = chat.subs[i]
-                if (userIds.indexOf(userId) === -1 && !this.usersService.getUserSub(userId)) {
-                  userIds.push(userId)
-                }
+            var userIds = []
+            for (var i = 0; i < chat.subs.length; i++) {
+              const userId = chat.subs[i]
+              if (!this.usersService.containsUserSub(userId) && userIds.indexOf(userId) === -1) {
+                userIds.push(userId)
               }
-              for (var i = 0; i < chat.messages.length; i++) {
-                const userId = chat.messages[i].senderId
-                if (userIds.indexOf(userId) === -1 && !this.usersService.getUserSub(userId)) {
-                  userIds.push(userId)
-                }
-              }
-              this.usersService.getUsers(userIds)
             }
+            for (var i = 0; i < chat.messages.length; i++) {
+              const userId = chat.messages[i].senderId
+              if (!this.usersService.containsUserSub(userId) && userIds.indexOf(userId) === -1) {
+                userIds.push(userId)
+              }
+            }
+            this.usersService.getUsers(userIds)
           })
       })
   }

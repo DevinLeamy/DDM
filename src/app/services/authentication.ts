@@ -24,15 +24,14 @@ export class AuthenticationService {
     sessionStorage.clear()
   }
 
-  setAccessToken(token) {
+  setAccessToken(token: string) {
     this.clearTokens()
     sessionStorage.setItem("accessToken", token)
   }
 
   isAuthenticated() {
-    const token = this.getToken()
-    if (token) return true
-    else return false
+    if (this.getToken()) return true
+    return false
   }
 
   //Changes client url

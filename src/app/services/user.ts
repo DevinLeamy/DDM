@@ -7,7 +7,7 @@ import { Subject } from 'rxjs'
 
 @Injectable({ providedIn: "root"} )
 export class UserService {
-  user : User;
+  user : User
   userUpdated = new Subject<User>()
   constructor(private http: HttpClient) {
     console.log("User Service Initialized")
@@ -21,13 +21,15 @@ export class UserService {
     if (query || this.user == undefined || this.user == null) {
       //Query for user
       this.http.get(BASE_URL + "data")
-      .subscribe((user : User) => {
-        this.user = user
-        this.updateUser()
+      .subscribe((res : {status: string, data: any}) => {
+        if (res.status === '0') {
+          this.user = res.data
+          this.updateUser()
+        }
       })
     } else {
       //Update subscription with existing user
-      this.updateUser();
+      this.updateUser()
     }
   }
 

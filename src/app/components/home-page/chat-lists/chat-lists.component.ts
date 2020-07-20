@@ -1,47 +1,48 @@
-import { Component, OnInit } from "@angular/core"
+import { Component, OnInit, OnDestroy } from "@angular/core"
 import { ChatsService } from 'src/app/services/chats';
+import { Subscription } from 'rxjs';
 
 @Component({
         selector: "app-chat-lists",
         templateUrl: "chat-lists.component.html",
         styleUrls: ["chat-lists.component.css"]
 })
-export class ChatListsComponent implements OnInit {
-        chatIds: string[] = []
-        popChatIds: string[] = []
-        recChatIds: string[] = []
-        recomChatIds: string[] = []
+export class ChatListsComponent implements OnInit, OnDestroy {
+        popChatIds: string[]
+        recChatIds: string[]
+        recomChatIds: string[]
+        popChatIdsSub: Subscription
+        recChatIdsSub: Subscription
+        recomChatIdsSub: Subscription
         constructor(private chatsService: ChatsService) {}
 
         ngOnInit() {    
-                if (this.chatIds.length > 0) return 
+                this.popChatIdsSub = this.chatsService.getPopularChatIdsUpdated()
+                        .subscribe(popChatIds => {
+                                this.popChatIds = popChatIds
+                                this.chatsService.getChats(this.popChatIds)
+                                this.popChatIdsSub.unsubscribe()
+                        })
+                this.recomChatIdsSub = this.chatsService.getRecommendedChatIdsUpdated()
+                        .subscribe(recomChatIds => {
+                                this.recomChatIds = recomChatIds
+                                this.chatsService.getChats(this.recomChatIds)
+                                this.recomChatIdsSub.unsubscribe()
+                        })
+                this.recChatIdsSub = this.chatsService.getRecentChatIdsUpdated()
+                        .subscribe(recChatIds => {
+                                this.recChatIds = recChatIds
+                                this.chatsService.getChats(this.recChatIds)
+                                this.recChatIdsSub.unsubscribe()
+                        })
                 this.chatsService.getPopularChatIds()
-                        .then((popChatIds: string[]) => this.chatsService.getRecentChatIds()
-                                .then((recChatIds: string[]) => this.chatsService.getRecommendedChatIds()
-                                        .then((recomChatIds: string[]) => {
-                                                for (var i = 0; i < popChatIds.length; i++) {
-                                                        const chatId = popChatIds[i]
-                                                        if (this.chatIds.indexOf(chatId) === -1) {
-                                                                this.chatIds.push(chatId)
-                                                        }
-                                                }
-                                                for (var i = 0; i < recChatIds.length; i++) {
-                                                        const chatId = recChatIds[i]
-                                                        if (this.chatIds.indexOf(chatId) === -1) {
-                                                                this.chatIds.push(chatId)
-                                                        }
-                                                }
-                                                for (var i = 0; i < recomChatIds.length; i++) {
-                                                        const chatId = recomChatIds[i]
-                                                        if (this.chatIds.indexOf(chatId) === -1) {
-                                                                this.chatIds.push(chatId)
-                                                        }
-                                                }
-                                                this.popChatIds = popChatIds
-                                                this.recChatIds = recChatIds
-                                                this.recomChatIds = recomChatIds
-                                        })
-                                )
-                        )
+                this.chatsService.getRecentChatIds()
+                this.chatsService.getRecommendedChatIds()
+        }
+
+        ngOnDestroy() {
+                this.popChatIdsSub.unsubscribe()
+                this.recChatIdsSub.unsubscribe()
+                this.recomChatIdsSub.unsubscribe()
         }
 }

@@ -10,7 +10,7 @@
 
 .text-container {
         float: left;
-        color: white;
+        color: #7abffc;
         line-height: 30px;
         margin-left: 5px;
         -webkit-transition: color 0.2s;
@@ -33,17 +33,17 @@
 }
 
 .button-container:hover {
-        color: rgb(145, 53, 53);
+        color: rgb(255, 105, 105);
 }
 
-.container:hover {
+/* .container:hover {
         height: 35px;
 
 }
 
 .container:hover .text-container {
         color: #7abffc;
-}
+} */
 
 /* Prevents users from selecting text */
 .no-select {
