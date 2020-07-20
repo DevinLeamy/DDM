@@ -2,7 +2,7 @@
       <app-chat-title></app-chat-title>
       <app-messages></app-messages>
       <div 
-            *ngIf="this.selectedChat !== null && this.selectedChat !== undefined" 
+            *ngIf="this.chatsService.selectedChatId !== null && this.chatsService.selectedChatId" 
             [routerLink]="['/api/chat/view', this.chatsService.selectedChatId]"
             class="chat-button transform-opacity transform-border transform-top no-select"
       >CHAT

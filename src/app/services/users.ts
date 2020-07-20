@@ -39,6 +39,7 @@ export class UsersService {
 
         //Creates list of user subs from a list of userIds
         getUsers(userIds: string[]) {
+                if (userIds.length === 0) return
                 console.log("Getting users", userIds)
                 for (var i = 0; i < userIds.length; i++) {
                         const userId = userIds[i]

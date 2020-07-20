@@ -28,6 +28,7 @@
 .subscribe-button-container:hover .subscribe-button {
         background-color: hotpink;
         color: black;
+        cursor: pointer;
 }
 
 /* Subscribed */
@@ -51,6 +52,7 @@
 .subscribed-button-container:hover .subscribed-button {
         background-color: hotpink;
         color: black;
+        cursor: pointer;
 }
 
 /* Subscribe */
@@ -73,6 +75,7 @@
 .admin-container:hover .admin-text {
         background-color: hotpink;
         color: black;
+        cursor: pointer;
 }
 
 /* Transforms */

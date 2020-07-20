@@ -1,4 +1,4 @@
-import { Component } from "@angular/core"
+import { Component, Input } from "@angular/core"
 import { Subscription } from 'rxjs'
 import { Chat } from 'src/app/models/chat'
 import { ChatService } from "../../../../services/chat"
@@ -12,6 +12,7 @@ import { ChatsService } from "../../../../services/chats"
 export class ChatTitleComponent {
         chatSub: Subscription
         chat: Chat
+        @Input() onChatPage: boolean = false
         constructor(private chatService: ChatService, public chatsService: ChatsService) {}
 
         ngOnInit() {

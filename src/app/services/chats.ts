@@ -83,6 +83,7 @@ export class ChatsService {
 
   //Creates list of chat subs from a list of chatIds
   getChats(chatIds: string[]) {
+    if (chatIds.length === 0) return
     console.log("Getting chats", chatIds)
     for (var i = 0; i < chatIds.length; i++) {
       const chatId = chatIds[i]
