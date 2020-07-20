@@ -4,7 +4,7 @@
       <div 
             *ngIf="this.selectedChat !== null && this.selectedChat !== undefined" 
             [routerLink]="['/api/chat/view', this.chatsService.selectedChatId]"
-            class="chat-button transform-opacity transform-border transform-top"
+            class="chat-button transform-opacity transform-border transform-top no-select"
       >CHAT
       </div>
 </div>

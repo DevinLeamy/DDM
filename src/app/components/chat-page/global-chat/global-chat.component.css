@@ -37,12 +37,12 @@
         font-weight: bolder;
         color: white;
         text-align: center;
-        /* font-family: monospace; */
 }
 
 .header-container:hover {
         /* color: rgb(173, 243, 250); */
         color: black;
+        cursor: pointer;
 }
 
 .float-left {

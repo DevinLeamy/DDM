@@ -42,6 +42,7 @@
 .header-container:hover {
         /* color: rgb(173, 243, 250); */
         color: black;
+        cursor: pointer;
 }
 
 .float-left {
