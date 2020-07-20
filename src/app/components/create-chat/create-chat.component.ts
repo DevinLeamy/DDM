@@ -15,8 +15,10 @@ import { ChatCreateService } from 'src/app/services/chat-create'
 export class CreateChatComponent implements OnInit, OnDestroy {
   categories: String[] = [
     "Science and Tech",
-    "Food",
-    "Esports"
+    "Entertainment",
+    "Esports",
+    "Sports",
+    "Other"
   ]
   user: User;
   userSub: Subscription

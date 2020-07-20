@@ -15,7 +15,7 @@ export class ChatSearchComponent implements OnInit, OnDestroy {
         categories: String[] = [
                 "Any",
                 "Science and Tech",
-                "Food",
+                "Entertainment",
                 "Esports",
                 "Sports",
                 "Other"

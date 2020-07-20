@@ -9,5 +9,6 @@ import { UsersService } from "./services/users"
   providers: [ChatsService, UsersService]
 })
 export class AppComponent {
+  title = 'messenger-app'
   constructor(private chatsService: ChatsService, private usersService: UsersService) {}
 }
