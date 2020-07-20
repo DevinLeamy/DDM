@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy } from "@angular/core"
-import { NgForm, FormControl } from "@angular/forms"
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from "@angular/core"
+import { FormControl } from "@angular/forms"
 import { ChatsService } from "../../../services/chats"
 import { Observable, Subscription } from "rxjs"
 import { map, startWith } from 'rxjs/operators'
@@ -10,6 +10,7 @@ import { map, startWith } from 'rxjs/operators'
         styleUrls: ["chat-search.component.css"]
 })
 export class ChatSearchComponent implements OnInit, OnDestroy {
+        @ViewChild("tagInput") tagInput: ElementRef
         formControlTags = new FormControl()
         formControlTitles = new FormControl()
         categories: String[] = [
@@ -69,6 +70,9 @@ export class ChatSearchComponent implements OnInit, OnDestroy {
                         .split(/\s+/g)
                         .join('‑')
                 this.tagValue = ""
+                if (this.tagInput !== undefined && this.tagInput !== null) {
+                        this.tagInput.nativeElement.value = ""
+                }
                 if (newTag === null || newTag === undefined || newTag === "" || newTag === "new tag") return
                 if (this.tags.indexOf(newTag) === -1 && this.tags.length <= 6) {
                         this.tags.push(newTag)
@@ -120,11 +124,13 @@ export class ChatSearchComponent implements OnInit, OnDestroy {
 
         //https://stackblitz.com/angular/mjxnrkeoknp?file=src%2Fapp%2Fautocomplete-auto-active-first-option-example.ts
         tagFilter(value: string): string[] {
+                this.tagValue = value
                 const filterValue = value.toLowerCase()    
                 return this.tagOptions.filter(option => option.toLowerCase().indexOf(filterValue) === 0)
         }
 
         titleFilter(value: string): string[] {
+                this.titleValue = value
                 const filterValue = value.toLowerCase()
                 return this.titleOptions.filter(option => option.toLowerCase().indexOf(filterValue) === 0)
         }

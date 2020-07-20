@@ -11,7 +11,6 @@
                                 type="text"
                                 matInput
                                 name="title"
-                                [(ngModel)]="this.titleValue"
                                 placeholder="title"
                                 maxlength="40"
                                 class="chat-title"
@@ -47,8 +46,8 @@
                                                 <input class="add-tag-input" 
                                                         type="text"
                                                         matInput
+                                                        #tagInput
                                                         name="tag"
-                                                        [(ngModel)]="this.tagValue"
                                                         placeholder="tag"
                                                         maxlength="25"
                                                         [matAutocomplete]="autoTags"

@@ -152,8 +152,9 @@ router.get("/init", function(req, res) {
       })
     })
     res.json("Socket connected to client")
-  } 
-
+  } else {
+    res.json("Socket already connected to client")
+  }
 })
 
 //Protects chat-create route from not-login-in users
@@ -943,6 +944,26 @@ function getAllChatTitles() {
         }
       }
       resolve(chatTitles)
+    })
+  })
+}
+
+//Get all chat ids
+function getAllChatIds() {
+  return new Promise((resolve, reject) => {
+    database.chats.find({}, {}, function(err, chatIds) {
+      if (err || chatIds === undefined || chatIds === null) {
+        reject("Error querying chats")
+        return
+      }
+      var chatIds = []
+      for (var i = 0; i < chatIds.length; i++) {
+        const chatId = chatIds[i]
+        if (chatIds.indexOf(chatId) === -1) {
+          chatIds.push(chatId)
+        }
+      }
+      resolve(chatIds)
     })
   })
 }
