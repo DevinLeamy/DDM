@@ -9,12 +9,13 @@
   align-content: center;
 }
 
-/* For large displays */
-.container {
+.login-form-card {
   height: 100%;
-  width: calc(100% - 30px);
+  width: calc(100% - 30px); 
   max-height: 400px;
   max-width: 350px;
+  /* width: 350px;
+  height: 400px; */
   margin: auto;
   background-color: rgb(32, 32, 32);
 }

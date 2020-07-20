@@ -10,8 +10,10 @@
 }
 
 .register-form-card {
-  height: 550px;
-  width: 350px;
+  height: 100%;
+  width: calc(100% - 30px);
+  max-height: 550px;
+  max-width: 350px;
   margin: auto;
   background-color: rgb(32, 32, 32);
 }
