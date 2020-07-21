@@ -6,8 +6,8 @@
         -moz-transition: border 0.2s;
         -o-transition: border 0.2s;
         transition: border 0.2s;
-        border-top: 2px solid transparent;
-        border-bottom: 2px solid transparent;
+        border-top: 1px solid transparent;
+        border-bottom: 1px solid transparent;
 
 }
 
