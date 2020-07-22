@@ -11,23 +11,29 @@
                 </div>
         </div>
         <div *ngIf="this.media.isActive('lt-md')" fxShow="true" fxHide.gt-sm="true" class="container-small">
-                <div class="header-container float-left no-select transform-color" [@expansionTitle]="!leftExpanded ? 'visible' : 'invisible'" (click)="toggleLeft()">
-                        ◀&#xFE0E;
+                <div class="header-container float-left" [@expansionTitle]="!leftExpanded ? 'visible' : 'invisible'" (click)="toggleLeft()">
+                        <span class="header-text no-select transform-color">
+                                ◀&#xFE0E;
+                        </span> 
                 </div>
                 <div class="left-small float-left" [@expansionPanel]="leftExpanded ? 'open' : 'closed'">
                         <app-chat-search></app-chat-search>
                 </div> 
 
-                <div class="header-container float-left transform-color no-select" [@expansionTitle]="(leftExpanded || rightExpanded) ? 'visible' : 'invisible'" (click)="toggleMiddle()">
-                        ◈&#xFE0E;
+                <div class="header-container float-left" [@expansionTitle]="(leftExpanded || rightExpanded) ? 'visible' : 'invisible'" (click)="toggleMiddle()">
+                        <span class="header-text transform-color no-select">
+                                ◈&#xFE0E;
+                        </span>
                 </div>
                 <div class="middle-small float-left" [@expansionPanel]="(!rightExpanded && !leftExpanded)? 'open' : 'closed'">
                         <app-chat-display></app-chat-display>
                 </div>
 
 
-                <div class="header-container float-right no-select transform-color" [@expansionTitle]="!rightExpanded ? 'visible' : 'invisible'" (click)="toggleRight()">
-                        ▶&#xFE0E;
+                <div class="header-container float-right" [@expansionTitle]="!rightExpanded ? 'visible' : 'invisible'" (click)="toggleRight()">
+                        <span class="header-text no-select transform-color">
+                                ▶&#xFE0E;
+                        </span>
                 </div>
                 <div class="right-small float-right" [@expansionPanel]="rightExpanded ? 'open' : 'closed'">
                         <app-chat-lists></app-chat-lists>

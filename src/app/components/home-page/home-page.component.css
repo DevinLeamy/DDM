@@ -28,19 +28,25 @@
 }
 
 .header-container {
+  display: flex;
   height: 100%;
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
   background-color: rgb(56, 63, 65);
+  justify-content: center;
+  align-items: center;
+}
+
+.header-text {
   font-size: 30px;
   font-weight: bolder;
   color: white;
-  text-align: center;
 }
 
 .header-container:hover {
-  color: black;
   cursor: pointer;
+}
+
+.header-container:hover .header-text {
+  color: black;
 }
 
 .float-left {
