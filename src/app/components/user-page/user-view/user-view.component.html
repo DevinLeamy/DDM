@@ -1,8 +1,13 @@
 <div class="container">
         <div class="user-container">
                 <div class="user-icon-container">
-                        <app-image-fab *ngIf="this.user.image != '$$$Default$$$'" [imageUrl]="this.user.image"></app-image-fab>
-                        <app-user-icon *ngIf="this.user.image === '$$$Default$$$'"></app-user-icon>
+                        <app-image-fab 
+                                *ngIf="this.user.image != '$$$Default$$$'" 
+                                [imageUrl]="this.user.image" 
+                        ></app-image-fab>
+                        <app-user-icon 
+                                *ngIf="this.user.image === '$$$Default$$$'"
+                        ></app-user-icon>
                 </div>
                 <div class="user-username-container">
                         <div class="user-username">

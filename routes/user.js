@@ -7,7 +7,6 @@ const { tokenParser, isString, createUser} = require("./functions/userFunc")
 //-----------------------------------Initialize Database----------------------------------------
 const databaseUrl = process.env.DATABASE_URL
 const database = mongojs(databaseUrl, ["users"])
-
 //-----------------------------------Requests----------------------------------------
 router.get("/data", authenticateToken, function(req, res) {
   if (req.user === null || req.user === undefined) {

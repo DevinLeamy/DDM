@@ -10,6 +10,10 @@
         margin-bottom: 5px;
         border-radius: 5px;
         background-color: rgb(32, 32, 32);
+        display: flex;
+        overflow-y: scroll;
+        flex-direction: column;
+        height: calc(100% - 105px);
 }
 /* Title */
 .chat-title-container {
@@ -17,7 +21,8 @@
         height: 50px;
         border-radius: 5px;
         background-color: rgb(38, 49, 54);
-        box-sizing: border-box
+        box-sizing: border-box;
+        order: 0;
 }
 
 .chat-title {
@@ -46,6 +51,10 @@
         background-color: rgb(38, 49, 54);
 }
 /* Tags */
+.chat-tags-container {
+        order: 2;
+}
+
 .tags-container {
         display: flex;
         flex-wrap: wrap;
@@ -174,6 +183,7 @@
         -o-transition: color 0.2s;
         transition: color 0.2s;
         color: rgb(177, 177, 177);
+        order: 3;
 }
 
 .search-button:hover {
@@ -200,6 +210,7 @@
 
 .results-container {
         margin-top: 5px;
+        order: 4;
 }
 
 .no-select {

@@ -16,6 +16,7 @@ import { UserViewChatCreateDialogComponent } from './user-view-chat-create-dialo
 export class UserViewComponent implements OnInit, OnDestroy {
         user: User
         userSub: Subscription
+        sendingFriendRequest: boolean = false
         constructor(
                 private userService: UserService, 
                 public DomSanitationService: DomSanitizer,
@@ -33,8 +34,19 @@ export class UserViewComponent implements OnInit, OnDestroy {
         //Sends a friend request
         sendFriendReq(requestForm: NgForm) {
                 const email = requestForm.value.email.trim()
-                if (email == "" || email == "null" || email == undefined) { return }
+                if (email == "" || email == "null" || email == undefined || this.sendingFriendRequest) return
+                this.sendingFriendRequest = true
                 this.userService.sendFriendRequestToEmail(email)
+                        .then( resolve => {
+                                alert(resolve)
+                                this.sendingFriendRequest = false
+                                requestForm.resetForm()
+                        })
+                        .catch( reject => {
+                                alert(reject)
+                                this.sendingFriendRequest = false
+                                requestForm.resetForm()
+                        })
         }
 
         //Opens the image icon select dialog

@@ -41,6 +41,7 @@
         text-align: center;
         margin-top: 5px;
         font-size: 20px;
+        color: white;
 }
 
 .request-decline {
@@ -51,6 +52,7 @@
         text-align: center;
         margin-top: 5px;
         font-size: 20px;
+        color: white;
 }
 
 .request-decline:hover {
