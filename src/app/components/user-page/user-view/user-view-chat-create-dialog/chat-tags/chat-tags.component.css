@@ -7,7 +7,7 @@
         display: flex;
         flex-wrap: wrap;
         border-radius: 5px;
-        background-color: rgb(32, 32, 32);
+        background-color: transparent;
 }
 
 .tag-container {
@@ -39,6 +39,7 @@
         color: rgb(177, 177, 177);
         border: none;
         padding: none;
+        cursor: pointer; 
 }
 
 .add-tag-button:hover {

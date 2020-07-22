@@ -100,3 +100,8 @@
         -o-transition: background-color 0.2s;
         transition: background-color 0.2s;
 }
+
+::ng-deep .mat-dialog-container {
+        padding: 0px !important;
+        background-color: rgb(32, 32, 32) !important;
+}

@@ -38,7 +38,7 @@ export class ChatCreateService {
         //Adds a tag to the new chat
         addTag(newTag: string) {
                 if (this.newChat === undefined || this.newChat === null) return 
-                else if (this.newChat.tags.indexOf(newTag) == -1 && this.newChat.tags.length < 10) {
+                else if (this.newChat.tags.indexOf(newTag) == -1 && this.newChat.tags.length < 8) {
                         this.newChat.tags.push(newTag)
                         this.updateNewChat()
                 }

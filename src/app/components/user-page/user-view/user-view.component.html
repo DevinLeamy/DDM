@@ -19,18 +19,11 @@
                                 Set Your Icon
                         </div>
                         <div class="user-option">
-                                <input type="file"
-                                        accept="image/*"
-                                        (change)="onImageSelected($event)"
-                                        class="image-input"
-                                >
-                                <div 
-                                        *ngIf="this.selectedImage != null && this.selectedImage != undefined" 
-                                        class="image-upload-button
-                                        transform-color
-                                        no-select" 
-                                        (click)="uploadImage()" 
-                                >Set Icon</div>
+                                <div class="edit-image-button 
+                                        transform-color 
+                                        no-select"
+                                        (click)="openIconDialog()"
+                                >Edit</div>
                         </div>
                 </div>
                 <div class="user-option-container margin-top">
@@ -50,6 +43,7 @@
                                                                         placeholder="email"
                                                                         #email="ngModel"
                                                                         class="friend-request-email-field"
+                                                                        autocomplete="off"
                                                                 >
                                                         </mat-form-field>
                                                         <div 
@@ -71,7 +65,7 @@
                         </div>
                         <div class="user-option">
                                 <div 
-                                        [routerLink]="'/api/chat/chat-create'"
+                                        (click)="openChatCreateDialog()"
                                         class="create-chat-button
                                         transform-color
                                         no-select" 

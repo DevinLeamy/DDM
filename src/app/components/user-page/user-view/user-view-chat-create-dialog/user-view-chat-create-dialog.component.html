@@ -1,0 +1,42 @@
+<div class="two-container">
+        <div class="three-container">
+                <form #chatForm="ngForm">
+                        <div class="chat-title-input-container">
+                                <input
+                                        type="text"
+                                        matInput
+                                        name="title"
+                                        ngModel
+                                        required
+                                        #title="ngModel"
+                                        placeholder="title"
+                                        maxlength="40"
+                                        class="chat-title-input"
+                                        autocomplete="off"
+                                >
+                        </div>
+                        <!-- Mat select for categories -->
+                        <div class="chat-category-container">
+                                <mat-select placeholder="Select a Category" ngModel #category="ngModel" name="category">
+                                        <mat-option *ngFor="let category of categories" [value]="category">
+                                                {{category}}
+                                        </mat-option>
+                                </mat-select>
+                        </div>
+                        <app-chat-tags class="chat-tags"></app-chat-tags>
+                        <div class="form-submit-container" mat-dialog-actions>
+                                <button 
+                                        mat-button 
+                                        (click)="createChat(chatForm)"
+                                        class="form-submit-button" 
+                                        *ngIf="title.value !== '' && !(category.value === undefined || category.value === null || category.value === '')" 
+                                >Create</button>
+                                <button 
+                                        mat-button 
+                                        (click)="onExit()" 
+                                        class="dialog-button"
+                                >Exit</button>
+                        </div>
+                </form>
+        </div>
+</div>
