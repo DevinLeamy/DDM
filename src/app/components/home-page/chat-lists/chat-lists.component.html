@@ -4,6 +4,7 @@
                 [imageUrl]="'../../../assets/images/PopularTwo.png'"
         ></app-header>
         <app-chat-selection 
+                *ngIf="this.popChatIds !== undefined"
                 [chatIds]="this.popChatIds"
                 [color]="'rgb(173, 243, 250)'"
         ></app-chat-selection>
@@ -12,6 +13,7 @@
                 [imageUrl]="'../../../assets/images/NewChatOne.png'"
         ></app-header>
         <app-chat-selection 
+                *ngIf="this.recChatIds !== undefined"
                 [chatIds]="this.recChatIds"
                 [color]="'rgb(173, 243, 250)'"
         ></app-chat-selection>
@@ -20,6 +22,7 @@
                 [imageUrl]="'../../../assets/images/RecomOne.png'"
             ></app-header>
         <app-chat-selection 
+                *ngIf="this.recomChatIds !== undefined"
                 [chatIds]="this.recomChatIds"
                 [color]="'rgb(173, 243, 250)'"
         ></app-chat-selection>

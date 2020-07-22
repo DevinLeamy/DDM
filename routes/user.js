@@ -12,9 +12,13 @@ const database = mongojs(databaseUrl, ["users"])
 
 //-----------------------------------Requests----------------------------------------
 router.get("/data", authenticateToken, function(req, res) {
+  if (req.user === null || req.user === undefined) {
+    res.json({status: "1", data: "Bad data"})
+    return
+  }
   getUserById(req.user._id).then(
-    (user) => res.json(createUser(user))
-  ).catch((reject) => console.log(reject))
+    (user) => res.json({status: "0", data: createUser(user)})
+  ).catch((reject) => res.json({status: "1", data: reject}))
 })
 
 //Gets user sub
@@ -101,30 +105,29 @@ router.get("/userOnline", authenticateToken, function(req, res) {
 })
 
 //Set user.online = false a.k.a set user status as offline
-router.post("/userOffline", authenticateToken, function(req, res) {
+router.get("/userOffline", authenticateToken, function(req, res) {
   const userId = req.user._id
   console.log("Trying to set the user offline")
   setUserStatus(userId, false)
     .then( () => res.json({status: "0", data: "Successfully updated user status"}) )
-    .catch( (reject) => console.log(reject) )
+    .catch( (reject) => res.json({status: "1", data: "Failed to change user status"}))
 })
 //----------------------------Middle ware-------------------------------
 
 //Checks if tokens exists and extracts the user from it if it does
 function authenticateToken(req, res, next) {
+  
   console.log("Authenticating Token")
   const bearerToken = req.headers["authorization"]
-  if (bearerToken) {
+  if (bearerToken !== "Bearer null") {
     const token = tokenParser(bearerToken)
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, function(err, payload) {
       if (payload) {
         req.user = payload
-        next()
       }
     })
-  } else {
-    res.send("BAD")
-  }
+  } 
+  next()
 }
 //----------------------------Promises-------------------------------
 

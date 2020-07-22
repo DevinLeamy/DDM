@@ -15,7 +15,7 @@ import { MatDialog } from "@angular/material/dialog"
         templateUrl: "chat-subscribe.component.html",
         styleUrls: ["chat-subscribe.component.css"]
 })
-export class ChatSubscribeComponent {
+export class ChatSubscribeComponent implements OnInit, OnDestroy {
         user: User
         userSub: Subscription
         subscribing: boolean = false
@@ -86,7 +86,8 @@ export class ChatSubscribeComponent {
 
         openDialog() {
                 const dialogRef = this.dialog.open(ChatSubscribeAdminDialogComponent, {
-                        width: '250px',
+                        width: '350px',
+                        height: "350px",
                         data: { chatId: this.chatService.chatId }
                 })
                 dialogRef.afterClosed()

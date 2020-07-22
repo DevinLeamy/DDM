@@ -6,6 +6,7 @@ import { AuthenticationService } from 'src/app/services/authentication'
 import { ChatsService } from 'src/app/services/chats'
 import { UsersService } from 'src/app/services/users'
 import { trigger, state, style, animate, transition } from '@angular/animations'
+import { MediaObserver } from "@angular/flex-layout"
 
 @Component({
         selector: "app-user-page",
@@ -41,53 +42,50 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
                                 visibility: "hidden"
                         }))
                   ])
-        ],
-        providers: [ChatsService, UsersService]
+        ]
 })
 export class UserPageComponent implements OnInit, OnDestroy {
         user: User
         userSub: Subscription
         leftExpanded: boolean = false
         rightExpanded: boolean = true
+        queried: boolean = false
         constructor(
                 private userService: UserService, 
                 private authService: AuthenticationService, 
                 private chatsService: ChatsService,
-                private usersService: UsersService
+                private usersService: UsersService,
+                public media: MediaObserver
         ) {}
 
         ngOnInit() {
+                if (this.queried) return
+                this.queried = true
                 this.userSub = this.userService.getUserUpdated()
                         .subscribe(user => {
                                 this.user = user
-                                //Collects needed chat subs from database if they have not already been collected
-                                if (this.chatsService.chats === undefined || this.chatsService.chats === null) {
-                                        var chatIds = []
-                                        for (var i = 0; i < this.user.chatIds.length; i++) {
-                                                const chatId = this.user.chatIds[i]
-                                                if (chatIds.indexOf(chatId) === -1) {
-                                                        chatIds.push(chatId)
-                                                }
+                                var chatIds = []
+                                for (var i = 0; i < this.user.chatIds.length; i++) {
+                                        const chatId = this.user.chatIds[i]
+                                        if (!this.chatsService.containsChatSub(chatId) && chatIds.indexOf(chatId) === -1) {
+                                                chatIds.push(chatId)
                                         }
-                                        this.chatsService.getChats(chatIds)
                                 }
-                                //Collect needed user subs from database if they have not already been collected
-                                if (this.usersService.users === undefined || this.usersService.users === null) {
-                                        var userIds = []
-                                        for (var i = 0; i < this.user.friendIds.length; i++) {
-                                                const userId = this.user.friendIds[i]
-                                                if (userIds.indexOf(userId) === -1) {
-                                                        userIds.push(userId)
-                                                }
+                                this.chatsService.getChats(chatIds)
+                                var userIds = []
+                                for (var i = 0; i < this.user.friendIds.length; i++) {
+                                        const userId = this.user.friendIds[i]
+                                        if (!this.usersService.containsUserSub(userId) && userIds.indexOf(userId) === -1) {
+                                                userIds.push(userId)
                                         }
-                                        for (var i = 0; i < this.user.friendReqIds.length; i++) {
-                                                const userId = this.user.friendReqIds[i]
-                                                if (userIds.indexOf(userId) === -1) {
-                                                        userIds.push(userId)
-                                                }
-                                        }
-                                        this.usersService.getUsers(userIds)
                                 }
+                                for (var i = 0; i < this.user.friendReqIds.length; i++) {
+                                        const userId = this.user.friendReqIds[i]
+                                        if (!this.usersService.containsUserSub(userId) && userIds.indexOf(userId) === -1) {
+                                                userIds.push(userId)
+                                        }
+                                }
+                                this.usersService.getUsers(userIds)
                         })
                 this.userService.getUser()
         }

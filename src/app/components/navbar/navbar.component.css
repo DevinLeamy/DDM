@@ -22,9 +22,28 @@
 
 .button-login {
   margin-right: 10px;
-  color: #2a4d69;
-  background-color: white;
+  color: white;
+  border: 2px solid white;
+  background-color: transparent;
   font-size: 18px;
+  margin-right: 10px;
+  opacity: 1;
+}
+
+.button-register {
+  color: white;
+  background-color: rgb(32, 32, 32);
+  font-size: 18px;
+  border: 2px solid rgb(32, 32, 32);
+  opacity: 1;
+}
+
+.button-register:hover {
+  opacity: 0.6;
+}
+
+.button-login:hover {
+  opacity: 0.6;
 }
 
 .home-link {
@@ -45,17 +64,9 @@
   color: white;
   border-bottom: solid transparent;
   border-top: solid transparent;
+  cursor: pointer; 
 }
 
-.button-register {
-  color: #2a4d69;
-  background-color: white;
-  font-size: 18px;
-}
-
-.change-on-hover:hover {
-  opacity: 0.5;
-}
 
 .flexExpand {
   flex: 1 1 auto; 
@@ -72,6 +83,7 @@
 
 .account-button:hover {
   border: solid rgb(173, 243, 250);
+  cursor: pointer; 
 }
 
 .spacer {

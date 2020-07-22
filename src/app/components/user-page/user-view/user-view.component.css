@@ -1,7 +1,7 @@
 .container {
         width: 100%;
         height: 100%;
-        background-color: rgb(38, 49, 54);
+        background-image: linear-gradient(rgb(36, 36, 36), rgb(38, 49, 54));
 }
 
 .user-container {
@@ -55,16 +55,38 @@
         border-radius: 5px;
 }
 
+.friend-request-email-field {
+        color: white;
+}
+
 .friend-request-button {
         background-color: rgb(44, 51, 54);
         padding: 5px;
-        width: 40px;
+        width: 50px;
+        margin-top: 10px;
         border-radius: 3px;
         text-align: center;
+        color: white;
 }
 
 .friend-request-button:hover {
         color: #7abffc;
+        cursor: pointer;
+}
+
+.edit-image-button {
+        background-color: rgb(44, 51, 54);
+        padding: 5px;
+        width: 50px;
+        margin-top: 10px;
+        border-radius: 3px;
+        text-align: center;
+        color: white;
+}
+
+.edit-image-button:hover {
+        color: #7abffc;
+        cursor: pointer;   
 }
 
 .user-option-header {
@@ -110,12 +132,31 @@
 
 .create-chat-button:hover {
         color: #7abffc; 
+        cursor: pointer;
+}
+
+.log-out-button {
+        background-color: rgb(44, 51, 54);
+        padding: 5px;
+        width: 50px;
+        margin-top: 10px;
+        border-radius: 3px;
+        text-align: center;
+        color: white; 
+}
+
+.log-out-button:hover {
+        color: #7abffc; 
+        cursor: pointer;  
 }
 
 .margin-top {
         margin-top: 30px;
 }
 
+.chat-create-dialog .mat-dialog-container {
+        padding: 0px;
+}
 
 .transform-color {
         -webkit-transition: color 0.2s;
@@ -131,4 +172,10 @@
         -moz-user-select: none; 
         -ms-user-select: none; 
         user-select: none;
+}
+
+
+::ng-deep .mat-dialog-container {
+        padding: 0px !important;
+        background-color: rgb(32, 32, 32) !important;
 }

@@ -4,12 +4,13 @@ import { Injectable } from "@angular/core"
 import { HttpHeaders, HttpClient } from '@angular/common/http'
 import { User } from '../models/user'
 import { Subject } from 'rxjs'
+import { Location } from '@angular/common'
 
 @Injectable({ providedIn: "root"} )
 export class UserService {
-  user : User;
+  user : User
   userUpdated = new Subject<User>()
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private location: Location) {
     console.log("User Service Initialized")
   }
 
@@ -21,13 +22,15 @@ export class UserService {
     if (query || this.user == undefined || this.user == null) {
       //Query for user
       this.http.get(BASE_URL + "data")
-      .subscribe((user : User) => {
-        this.user = user
-        this.updateUser()
+      .subscribe((res : {status: string, data: any}) => {
+        if (res.status === '0') {
+          this.user = res.data
+          this.updateUser()
+        }
       })
     } else {
       //Update subscription with existing user
-      this.updateUser();
+      this.updateUser()
     }
   }
 
@@ -42,6 +45,27 @@ export class UserService {
       .subscribe((res: {status: string, data: any}) => {
         console.log(res)
       })
+  }
+
+  //Logs out the user
+  logOut() {
+    //Sets user status as offline
+    this.http.get(BASE_URL + "userOffline")
+      .subscribe((res: {status: string, data: string}) => {
+        console.log(res)
+        //Deletes authentication token
+        sessionStorage.clear()
+        //Deletes user data
+        this.user = undefined
+        //Routes to the home page and reloads
+        this.go("")
+      })
+  }
+
+  //Changes client url
+  go(route: string) {
+    this.location.replaceState(route);
+    window.location.reload()
   }
 
   acceptFriendRequest(requestId: string) {

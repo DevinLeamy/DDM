@@ -18,8 +18,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.userSub = this.userService.getUserUpdated()
       .subscribe(user => {
         this.user = user
-    })
-    this.userService.getUser()
+      })
+    if (this.authService.isAuthenticated()) {
+      this.userService.getUser()
+    }
   }
 
   //Checks if user is logged in

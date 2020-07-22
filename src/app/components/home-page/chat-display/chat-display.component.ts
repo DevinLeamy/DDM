@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from "@angular/core"
+import { Component, OnInit, OnDestroy } from "@angular/core"
 import { ChatsService } from "../../../services/chats"
 import { Subscription } from "rxjs"
 import { Chat } from "../../../models/chat"
@@ -9,14 +9,13 @@ import { ChatService } from 'src/app/services/chat'
 @Component({
   selector: "app-chat-display",
   templateUrl: "chat-display.component.html",
-  styleUrls: ["chat-display.component.css"],
-  providers: [ChatService]
+  styleUrls: ["chat-display.component.css"]
 })
 export class ChatDisplayComponent implements OnInit, OnDestroy {
   selectedChatSub: Subscription
   selectedChat: Chat
   selectedChatIdSub: Subscription
-  constructor(private chatsService: ChatsService, private chatService: ChatService, private usersService: UsersService) {}
+  constructor(public chatsService: ChatsService, private chatService: ChatService, private usersService: UsersService) {}
 
   ngOnInit() {
    this.selectedChatIdSub = this.chatsService.getSelectedChatIdUpdated()
@@ -25,16 +24,17 @@ export class ChatDisplayComponent implements OnInit, OnDestroy {
       this.chatService.setChatId(chatId)
       this.selectedChatSub = this.chatService.getChatUpdated()
         .subscribe(chat => {
-          this.selectedChat = chat
-          this.usersService.users = undefined
-          var userIds = []
-          for (var i = 0; i < this.selectedChat.subs.length; i++) {
-            const userId = this.selectedChat.subs[i]
-            if (userIds.indexOf(userId) === -1) {
-              userIds.push(userId)
+          if (this.selectedChat === undefined || this.selectedChat === null || this.selectedChat._id !== this.chatsService.selectedChatId) {
+            this.selectedChat = chat
+            var userIds = []
+            for (var i = 0; i < this.selectedChat.subs.length; i++) {
+              const userId = this.selectedChat.subs[i]
+              if (!this.usersService.containsUserSub(userId) && userIds.indexOf(userId) === -1) {
+                userIds.push(userId)
+              }
             }
+            this.usersService.getUsers(userIds)
           }
-          this.usersService.getUsers(userIds)
         })
       this.chatService.getChat(true)
     })

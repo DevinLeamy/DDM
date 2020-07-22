@@ -53,6 +53,7 @@ export class MessagesComponent {
                         if (messages[i].senderId == compressedMessages[len-1].senderId) {
                                 compressedMessages[len-1].text = compressedMessages[len-1].text
                                         .concat("\n", messages[i].text)
+                                compressedMessages[len - 1].timestamp = messages[i].timestamp
                         } else {
                                 compressedMessages.push({...messages[i]})
                         }

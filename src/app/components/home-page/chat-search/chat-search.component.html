@@ -3,4 +3,73 @@
                 [headerText]="'Search Chats'" 
                 [imageUrl]="'../../../assets/images/Search2.png'"
         ></app-header>
+        <div class="chat-search-container">
+                <div class="chat-title-container">
+                        <input
+                                type="text"
+                                matInput
+                                name="title"
+                                placeholder="title"
+                                maxlength="40"
+                                class="chat-title"
+                                [matAutocomplete]="autoTitles"
+                                [formControl]="this.formControlTitles"
+                        >
+                </div>
+                <mat-autocomplete autoActiveFirstOption #autoTitles="matAutocomplete">
+                        <mat-option *ngFor="let title of filteredTitleOptions | async" [value]="title">
+                                        {{title}}
+                        </mat-option>
+                </mat-autocomplete>
+                <div class="chat-category-container">
+                        <mat-select placeholder="Category" ngModel #category="ngModel" name="category">
+                                <mat-option *ngFor="let category of categories" [value]="category">
+                                        {{category}}
+                                </mat-option>
+                        </mat-select>
+                </div>
+                <div class="chat-tags-container">
+                        <div class="tags-container">
+                                <div class="tag-container" *ngFor="let tag of tags">
+                                        <div class="tag-text-container no-select">
+                                                {{tag}}
+                                        </div>
+                                        <div class="tag-button-container no-select" (click)="removeTag(tag)">
+                                                x
+                                        </div>
+                                </div>
+                                <button class="add-tag-button no-select" (click)="addTag()">+</button>
+                                <form (submit)="addTag()">
+                                        <div class="add-tag-input-container">
+                                                <input class="add-tag-input" 
+                                                        type="text"
+                                                        matInput
+                                                        #tagInput
+                                                        name="tag"
+                                                        placeholder="tag"
+                                                        maxlength="25"
+                                                        [matAutocomplete]="autoTags"
+                                                        [formControl]="this.formControlTags"
+                                                >
+                                        </div>
+                                        <mat-autocomplete autoActiveFirstOption #autoTags="matAutocomplete">
+                                                <mat-option *ngFor="let tag of filteredTagOptions | async" [value]="tag">
+                                                          {{tag}}
+                                                </mat-option>
+                                        </mat-autocomplete>
+                                </form> 
+                        </div>
+                </div>
+                <div class="search-button" (click)="searchChats(category.value)">
+                        search
+                </div>
+                <div class="results-container">
+                        <div class="searching-label" *ngIf="this.searching">loading...</div>
+                        <app-chat-selection 
+                                [chatIds]="this.searchResults" 
+                                [color]="'rgb(173, 243, 250)'">
+                        </app-chat-selection>
+                </div>
+        </div>
+       
 </div>

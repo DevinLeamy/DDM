@@ -1,29 +1,29 @@
 <app-navbar>
-        <div class="container" fxShow="true" fxHide.lt-md="true">
+        <div *ngIf="this.media.isActive('gt-sm')" class="container" fxShow="true" fxHide.lt-md="true">
                 <div class="left" *ngIf="this.user != null && this.user != undefined">
-                        <app-user-chats-view></app-user-chats-view>
+                        <app-user-friends-view></app-user-friends-view>
                 </div>
                 <div class="middle" *ngIf="this.user != null && this.user != undefined">
-                        <app-user-friends-view></app-user-friends-view>
+                        <app-user-chats-view></app-user-chats-view>
                 </div>
                 <div class="right" *ngIf="this.user != null && this.user != undefined">
                         <app-user-view></app-user-view>
                 </div>
         </div>
         
-        <div fxShow="true" fxHide.gt-sm="true" class="container-small">
+        <div *ngIf="this.media.isActive('lt-md')" fxShow="true" fxHide.gt-sm="true" class="container-small">
                 <div class="header-container float-left no-select transform-color" [@expansionTitle]="!leftExpanded ? 'visible' : 'invisible'" (click)="toggleLeft()">
                         ◀&#xFE0E;
                 </div>
                 <div class="left-small float-left" [@expansionPanel]="leftExpanded ? 'open' : 'closed'">
-                        <app-user-chats-view></app-user-chats-view>
+                        <app-user-friends-view></app-user-friends-view>
                 </div>
         
                 <div class="header-container float-left transform-color no-select" [@expansionTitle]="(leftExpanded || rightExpanded) ? 'visible' : 'invisible'" (click)="toggleMiddle()">
                         ◈
                 </div>
                 <div class="middle-small float-left" [@expansionPanel]="(!rightExpanded && !leftExpanded)? 'open' : 'closed'">
-                        <app-user-friends-view></app-user-friends-view>
+                        <app-user-chats-view></app-user-chats-view>
                 </div>
         
         

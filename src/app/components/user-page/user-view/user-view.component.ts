@@ -4,19 +4,23 @@ import { UserService } from "../../../services/user"
 import { User } from 'src/app/models/user'
 import { Subscription } from 'rxjs'
 import { DomSanitizer } from "@angular/platform-browser"
+import { MatDialog } from "@angular/material/dialog"
+import { UserViewIconDialogComponent } from './user-view-icon-dialog/user-view-icon-dialog.component'
+import { UserViewChatCreateDialogComponent } from './user-view-chat-create-dialog/user-view-chat-create-dialog.component'
 
 @Component({
         selector: "app-user-view",
         templateUrl: "user-view.component.html",
         styleUrls: ["user-view.component.css"]
 })
-export class UserViewComponent {
+export class UserViewComponent implements OnInit, OnDestroy {
         user: User
         userSub: Subscription
-        selectedImageUrl
-        selectedImage
-
-        constructor(private userService: UserService, public DomSanitationService: DomSanitizer) {}
+        constructor(
+                private userService: UserService, 
+                public DomSanitationService: DomSanitizer,
+                private dialog: MatDialog
+        ) {}
         
         ngOnInit() {
                 this.userSub = this.userService.getUserUpdated()
@@ -25,44 +29,7 @@ export class UserViewComponent {
                         })
                 this.userService.getUser()
         }
-
-        //Sets the selected image to the image selected by the user
-        onImageSelected(event) {
-                this.selectedImage = event.target.files[0]
-                const reader = new FileReader()
-                reader.readAsDataURL(this.selectedImage)
-                reader.onload = () => {
-                        const originalDataUrl = reader.result
-                        //Scaled the image down to a 400 X 400 square
-                        this.scaleImage(originalDataUrl, 400, 400, this.selectedImage.type, 0.7, (dataUrl) => {
-                                this.selectedImageUrl = dataUrl
-                        })
-                }
-        }
-
-        //https://codepen.io/shrinivas93/pen/xdLLPN
-        scaleImage(dataUrl, newWidth: number, newHeight: number, imageType: string, imageArguments: number, callback) {
-                imageType = imageType || "image/jpeg";
-                imageArguments = imageArguments || 0.7;
-                const image = new Image();
-                image.onload = function() {
-                  const canvas = document.createElement("canvas");
-                  canvas.width = newWidth;
-                  canvas.height = newHeight;
-                  const ctx = canvas.getContext("2d");
-                  ctx.drawImage(image, 0, 0, newWidth, newHeight);
-                  const newDataUrl = canvas.toDataURL(imageType, imageArguments);
-                  callback(newDataUrl);
-                }
-                image.src = dataUrl;
-        }
-
-        //Uploads image
-        uploadImage() {
-                if (this.selectedImageUrl === undefined || this.selectedImageUrl === null) return
-                this.userService.setProfileImage(this.selectedImageUrl)
-        }
-
+        
         //Sends a friend request
         sendFriendReq(requestForm: NgForm) {
                 const email = requestForm.value.email.trim()
@@ -70,6 +37,35 @@ export class UserViewComponent {
                 this.userService.sendFriendRequestToEmail(email)
         }
 
+        //Opens the image icon select dialog
+        openIconDialog() {
+                const dialogRef = this.dialog.open(UserViewIconDialogComponent, {
+                        width: "350px",
+                        height: "350px"
+                })
+                dialogRef.afterClosed()
+                        .subscribe(() => {
+                                //Gets the new user icon image from the database
+                                this.userService.getUser(true)
+                        })
+        }
+
+        //Opens the chat create dialog
+        openChatCreateDialog() {
+                this.dialog.open(UserViewChatCreateDialogComponent, {
+                        width: "350px",
+                        height: "550px"
+                })
+                
+        }
+
+        //Logs out the user
+        logOut() {
+                
+                this.userService.logOut()
+        }
+
+        //Avoid memory leaks
         ngOnDestroy() {
                 this.userSub.unsubscribe()
         }

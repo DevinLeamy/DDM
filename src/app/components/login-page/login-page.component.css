@@ -10,11 +10,12 @@
 }
 
 .login-form-card {
-  height: 400px;
-  width: 400px;
+  height: 100%;
+  width: calc(100% - 30px); 
+  max-height: 400px;
+  max-width: 350px;
   margin: auto;
   background-color: rgb(32, 32, 32);
-  outline: solid #84c1ff;
 }
 
 .login-form-container {
@@ -31,7 +32,7 @@
 
 .form-input-container {
   width: 100%;
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 .input-field {
@@ -42,11 +43,31 @@
   display: flex;
   justify-content: center;
 }
+
 .form-submit-button {
   width: 100%;
-  margin-top: 75px;
+  margin-top: 60px;
   background-color: white;
   color: black;
   font-size: 17px;
 }
 
+.message-container {
+  width: 200px;
+}
+.placeholder-text {
+  color: rgb(180, 180, 180);
+}
+
+.register-button {
+  color: white;
+  -webkit-transition: font-size 0.2s;
+  -moz-transition: font-size 0.2s;
+  -o-transition: font-size 0.2s;
+  transition: font-size 0.2s;
+}
+
+.register-button:hover {
+  color: rgb(121, 212, 248);
+  font-size: 17px;
+}

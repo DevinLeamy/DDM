@@ -15,6 +15,8 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { MatSelectModule } from '@angular/material/select'
 import { MatDialogModule } from "@angular/material/dialog"
+import { MatAutocompleteModule } from "@angular/material/autocomplete"
+import { ReactiveFormsModule } from "@angular/forms"
 //Services
 import { AuthenticationService } from './services/authentication'
 import { UserService } from './services/user'
@@ -31,7 +33,6 @@ import { MessageViewComponent } from './components/chat-page/message-view/messag
 import { MessageCreateComponent } from './components/chat-page/message-view/message-create/message-create.component'
 import { MessageReceivedComponent } from './components/chat-page/message-view/messages/message-received/message-received.component'
 import { MessageSentComponent } from "./components/chat-page/message-view/messages/message-sent/message-sent.component"
-import { CreateChatComponent } from "./components/create-chat/create-chat.component"
 import { ChatDisplayComponent } from "./components/home-page/chat-display/chat-display.component"
 import { UserPageComponent } from "./components/user-page/user-page.component"
 import { UserIconComponent } from "./components/user-icon/user-icon.component"
@@ -43,18 +44,20 @@ import { UserFriendsViewComponent } from "./components/user-page/user-friends-vi
 import { UserViewComponent } from "./components/user-page/user-view/user-view.component"
 import { UserChatsViewComponent } from "./components/user-page/user-chats-view/user-chats-view.component"
 import { ImageFabComponent } from "./components/image-fab/image-fab.component"
-import { ChatTagsComponent } from "./components/create-chat/chat-tags/chat-tags.component"
-import { TagComponent } from "./components/create-chat/chat-tags/tag/tag.component"
+import { ChatTagsComponent } from "./components/user-page/user-view/user-view-chat-create-dialog/chat-tags/chat-tags.component"
+import { TagComponent } from "./components/user-page/user-view/user-view-chat-create-dialog/chat-tags/tag/tag.component"
 import { HeaderComponent } from "./components/header/header.component"
 import { SubscriberComponent } from "./components/chat-page/subscribers-view/subscriber/subscriber.component"
 import { ChatSelectionComponent } from './components/chat-selection/chat-selection'
 import { ChatOptionComponent } from './components/chat-selection/chat-option/chat-option'
 import { ChatSubscribeAdminDialogComponent } from "./components/chat-page/message-view/chat-title/chat-subscribe/chat-subscribe-admin-dialog/chat-subscribe-admin-dialog.component"
 import { ChatIconComponent } from "./components/chat-icon/chat-icon.component"
+import { UserViewIconDialogComponent } from "./components/user-page/user-view/user-view-icon-dialog/user-view-icon-dialog.component"
 import { FriendRequestComponent } from "./components/user-page/user-friends-view/friend-request/friend-request.component"
 import { RelatedChatsComponent } from "./components/chat-page/global-chat/related-chats/related-chats.component"
 import { ChatSearchComponent } from "./components/home-page/chat-search/chat-search.component"
 import { ChatListsComponent } from './components/home-page/chat-lists/chat-lists.component'
+import { UserViewChatCreateDialogComponent } from "./components/user-page/user-view/user-view-chat-create-dialog/user-view-chat-create-dialog.component"
 
 @NgModule({
   declarations: [
@@ -68,7 +71,6 @@ import { ChatListsComponent } from './components/home-page/chat-lists/chat-lists
     MessageReceivedComponent,
     MessageSentComponent,
     GlobalChatComponent,
-    CreateChatComponent,
     ChatDisplayComponent,
     UserPageComponent,
     UserIconComponent,
@@ -91,7 +93,9 @@ import { ChatListsComponent } from './components/home-page/chat-lists/chat-lists
     FriendRequestComponent,
     RelatedChatsComponent,
     ChatSearchComponent,
-    ChatListsComponent
+    ChatListsComponent,
+    UserViewIconDialogComponent,
+    UserViewChatCreateDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -108,7 +112,9 @@ import { ChatListsComponent } from './components/home-page/chat-lists/chat-lists
     MatIconModule,
     MatSelectModule,
     MatDialogModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule
   ],
   providers: [
     {

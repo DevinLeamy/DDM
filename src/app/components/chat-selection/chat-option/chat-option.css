@@ -114,15 +114,12 @@
         border-radius: 5px;
         font-size: 17px;
         color: rgb(105, 255, 185);
-        /* color: rgb(146, 146, 146); */
-        /* border: solid transparent; */
-        border: solid white;
-        border-width: 2px;
+        border: 2px solid white;
 }
 
 .go-button:hover {
         opacity: 0.6;
-        /* border: solid white; */
+        cursor: pointer;
 }
 
 .transform-color {

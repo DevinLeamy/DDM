@@ -3,7 +3,7 @@ const express = require("express")
 const router = express.Router()
 const mongojs = require("mongojs")
 const jwt = require("jsonwebtoken")
-const { tokenParser, createUserSub, encodeAsBase64 } = require("./functions/userFunc")
+const { tokenParser } = require("./functions/userFunc")
 const { createChat, createTag, createCategory, createChatSub } = require("./functions/chatFunc")
 var io;
 //-----------------------------------Constants----------------------------------------
@@ -53,6 +53,16 @@ router.get("/chatIds/recommended", function(req, res) {
     .catch( (reject) => console.log(reject))
 })
 
+//Search chats
+router.post("/searchChats", function(req, res) {
+  const category = req.body.category
+  const title = req.body.title
+  const tags = req.body.tags
+  searchChats(title, category, tags)
+    .then((results) => res.json({status: "0", data: results}))
+    .catch((reject) => res.json({status: "1", data: reject}))
+})
+
 //Get chat ids of related chats
 router.post("/chatIds/related", function(req, res) {
   const tags = req.body.tags
@@ -96,9 +106,24 @@ router.post("/chatSub", function(req, res) {
     ).catch((reject) => console.log(reject))
 })
 
+//Get all tags that have been used
+router.get("/allTags", function(req, res) {
+  console.log("Getting all tags")
+  getAllTags()
+    .then((tags) => res.json({status: "0", data: tags}))
+    .catch((reject) => res.json({status: "1", data: reject}))
+})
+
+//Get all chat titles in use
+router.get("/allChatTitles", function(req, res) {
+  console.log("Getting all chat titles")
+  getAllChatTitles()
+    .then((chatTitles) => res.json({status: "0", data: chatTitles}))
+    .catch((reject) => res.json({status: "1", data: reject}))
+})
+
 //Initialize socket.io
 router.get("/init", function(req, res) {
-  //Change this
   if (!io) {
     io = req.app.get("io")
     io.on("connect", function(socket) {
@@ -125,6 +150,8 @@ router.get("/init", function(req, res) {
       })
     })
     res.json("Socket connected to client")
+  } else {
+    res.json("Socket already connected to client")
   }
 })
 
@@ -417,34 +444,6 @@ function getChats() {
   })
 }
 
-//Get chat ids from given chats
-function getChatIds(rawChats) {
-  if (rawChats == undefined || rawChats == null) return []
-  var chatIds = []
-  for (var i = 0; i < rawChats.length; i++) {
-    chatIds.push(rawChats[i]._id)
-  }
-  return chatIds
-}
-
-function userExistsWithId(userId) {
-  return new Promise((resolve, reject) => {
-    if (userId == undefined || userId == null) {
-      reject("Bad Data")
-      return
-    }
-    database.users.count({ _id: mongojs.ObjectId(userId) }, function(err, count) {
-      if (err || count === undefined || count === null) {
-        reject("Error quering database for userId")
-        return
-      } else if (count == 0) {
-        reject("User with given id does not exist")
-        return
-      } else resolve(0)
-    })
-  })
-} 
-
 function addUserToChatSubs(chatId, userId) {
   return new Promise((resolve, reject) => {
     if (userId == undefined || userId == null || chatId == undefined || chatId == null) {
@@ -596,6 +595,39 @@ function queryCategories(queryString) {
   })
 }
 
+//Query chats for chats that have a title with prefix matching a querystring
+function searchChats(queryString, queryCategory, queryTags) {
+  return new Promise((resolve, reject) => {
+    if (queryString === undefined || queryString === null) {
+      reject("Bad Data")
+      return 
+    }
+    database.chats.find({title: {$regex: new RegExp("^" + queryString, "i")}}, {category: 1, tags: 1}, function(err, chats) {
+      if (err || chats === undefined || chats === null) {
+        reject("Bad data")
+        return 
+      }
+      var searchResults = []
+      for (var i = 0; i < chats.length; i++) {
+        const chat = chats[i]
+        if (queryCategory === chat.category || queryCategory === "Any") {
+          var works = true
+          for (var j = 0; j < queryTags.length; j++) {
+            const tag = queryTags[j]
+            if (chat.tags.indexOf(tag) === -1) {
+              works = false
+            }
+          }
+          if (works) {
+            searchResults.push(chat._id)
+          }
+        }
+      }
+      resolve(searchResults)
+    })
+  })
+}
+
 //Check if a given tag has already been recorded
 function tagExists(tag) {
   return new Promise((resolve, reject) => {
@@ -709,7 +741,7 @@ function addNewCategory(category) {
 //Get most recent chat Ids
 function getRecentChatIds() {
   return new Promise( (resolve, reject) => {
-    database.chats.find({}, {limit: 10}, function(err, chats) {
+    database.chats.find({}, {_id: 1}, function(err, chats) {
       if (err || chats === undefined || chats == null) {
         reject("Error querying chats")
         return
@@ -733,7 +765,7 @@ function getRecentChatIds() {
 function getPopularChatIds() {
   return new Promise((resolve, reject) => {
     //I should add a limit to the number of results returned
-    database.chats.find(function(err, chats) {
+    database.chats.find({}, {subs: 1}, function(err, chats) {
         if (err || chats === undefined || chats === null) {
           reject("Error querying chats")
           return
@@ -763,13 +795,17 @@ function getPopularChatIds() {
 //Get recommended chats (random chats)
 function getRecommendedChatIds() {
   return new Promise( (resolve, reject) => {
-    database.chats.aggregate([{ $sample: { size: 10 } }], function(err, chats) {
+    database.chats.aggregate([ { $group: { _id: "$_id" } }, { $sample: { size: 10 } }],  function(err, chats) {
+      if (err || chats === undefined || chats === null) {
+        reject("Error querying chats")
+        return
+      }
       chatIds = []
       for (var i = 0; i < chats.length; i++) {
         chatId = chats[i]._id
         chatIds.push(chatId)
         if (chatIds.length === 10) {
-          break;
+          break
         }
       }
       resolve(chatIds)
@@ -838,6 +874,67 @@ function setChatImage(image, chatId) {
       }
       resolve(chat)
     }) 
+  })
+}
+
+//Get all tags in use
+function getAllTags() {
+  return new Promise((resolve, reject) => {
+    database.tags.find({}, function(err, tags) {
+      if (err || tags === undefined || tags === null) {
+        reject("Error querying tags")
+        return
+      }
+      var tagValues = []
+      for (var i = 0; i < tags.length; i++) {
+        const tag = tags[i]
+        const tagText = tag.tag
+        if (tagValues.indexOf(tagText) === -1) {
+          tagValues.push(tagText)
+        }
+      }
+      resolve(tagValues)
+    })
+  })
+}
+
+//Get all chat titles in use
+function getAllChatTitles() {
+  return new Promise((resolve, reject) => {
+    database.chats.find({}, {title: 1, _id: 0}, function(err, chatTitlesRaw) {
+      if (err || chatTitlesRaw === undefined || chatTitlesRaw === null) {
+        reject("Error querying chat titles")
+        return
+      }
+      var chatTitles = []
+      for (var i = 0; i < chatTitlesRaw.length; i++) {
+        const chatTitle = chatTitlesRaw[i].title
+        if (chatTitles.indexOf(chatTitle) === -1) {
+          chatTitles.push(chatTitle)
+        }
+      }
+      resolve(chatTitles)
+    })
+  })
+}
+
+//Get all chat ids
+function getAllChatIds() {
+  return new Promise((resolve, reject) => {
+    database.chats.find({}, {}, function(err, chatIds) {
+      if (err || chatIds === undefined || chatIds === null) {
+        reject("Error querying chats")
+        return
+      }
+      var chatIds = []
+      for (var i = 0; i < chatIds.length; i++) {
+        const chatId = chatIds[i]
+        if (chatIds.indexOf(chatId) === -1) {
+          chatIds.push(chatId)
+        }
+      }
+      resolve(chatIds)
+    })
   })
 }
 

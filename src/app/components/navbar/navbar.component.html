@@ -1,6 +1,6 @@
 <div class="nav-container">
   <mat-toolbar class="navbar-main">
-    <div class="account-button transform-border" *ngIf="this.user != undefined && this.user != null">
+    <div class="account-button transform-border" *ngIf="this.user !== undefined && this.user !== null">
       <app-user-icon 
         [routerLink]="'/api/user'"  
         *ngIf="this.user.image === '$$$Default$$$'" 
@@ -29,8 +29,8 @@
       no-select"
     >RUMBLE</div> 
     <span class="flexExpand" *ngIf="!isAuthenticated()"></span>
-    <button mat-raised-button class="button-login" [routerLink]="'/api/authentication/login'" style="margin-right: 10px;" *ngIf="!isAuthenticated()">Login</button>
-    <button mat-raised-button class="button-register" [routerLink]="'/api/authentication/register'" *ngIf="!isAuthenticated()">Register</button>
+    <button mat-raised-button class="button-login transform-opacity" [routerLink]="'/api/authentication/login'" *ngIf="!isAuthenticated()">Login</button>
+    <button mat-raised-button class="button-register transform-opacity" [routerLink]="'/api/authentication/register'" *ngIf="!isAuthenticated()">Register</button>
   </mat-toolbar>
   <ng-content></ng-content>
 </div>

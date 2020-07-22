@@ -3,7 +3,7 @@
                 <div class="tag-container" *ngFor="let tag of newChat.tags">
                         <app-tag [tagText]="tag"></app-tag>
                 </div>
-                <button class="add-tag-button tag-container no-select" (click)="addTag(tagForm)">+</button>
+                <button class="add-tag-button no-select" (click)="addTag(tagForm)">+</button>
                 <form #tagForm="ngForm" (submit)="addTag(tagForm)">
                         <div class="add-tag-input-container tag-container">
                                 <input class="add-tag-input" 
@@ -14,6 +14,7 @@
                                         #tag="ngModel"
                                         placeholder="tag"
                                         maxlength="25"
+                                        autocomplete="off"
                                 >
                         </div>
                 </form> 
