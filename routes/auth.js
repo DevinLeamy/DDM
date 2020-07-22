@@ -8,7 +8,7 @@ const { passwordIsValid, getNewUser } = require("./functions/authFunc")
 //-----------------------------------Constants----------------------------------------
 
 //-----------------------------------Initialize Database----------------------------------------
-const databaseUrl = "mongodb+srv://" + process.env.DATABASE_USERNAME + ":" + process.env.DATABASE_PASSWORD + "@messenger-db-jzhdw.mongodb.net/" +  process.env.DATABASE_NAME + "?retryWrites=true&w=majority"
+const databaseUrl = process.env.DATABASE_URL
 const database = mongojs(databaseUrl, ["users"])
 //-----------------------------------Requests----------------------------------------
 // Prevents users from manually changing url
