@@ -11,6 +11,9 @@ var io;
 //-----------------------------------Initialize Database----------------------------------------
 const databaseUrl = process.env.DATABASE_URL
 const database = mongojs(databaseUrl, ["chats", "users", "categories", "tags"])
+database.on("ready", function() {
+  console.log("database connected successfully")
+})
 //-----------------------------------Requests----------------------------------------
 
 //Gets chat by ID

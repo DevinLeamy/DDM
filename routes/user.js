@@ -114,7 +114,6 @@ router.get("/userOffline", authenticateToken, function(req, res) {
 
 //Checks if tokens exists and extracts the user from it if it does
 function authenticateToken(req, res, next) {
-  
   console.log("Authenticating Token")
   const bearerToken = req.headers["authorization"]
   if (bearerToken !== "Bearer null") {
