@@ -51,7 +51,7 @@ export class UserService {
   logOut() {
     //Sets user status as offline
     this.http.get(BASE_URL + "userOffline")
-      .subscribe((res: {status: string, data: string})=> {
+      .subscribe((res: {status: string, data: string}) => {
         console.log(res)
         //Deletes authentication token
         sessionStorage.clear()
