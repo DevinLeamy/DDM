@@ -27,22 +27,25 @@
 
 /* Small displays */
 .header-container {
+        display: flex;
         height: 100%;
-        writing-mode: vertical-rl;
-        text-orientation: mixed;
         background-color: rgb(56, 63, 65);
-        /* border: 2px solid black; */
+        justify-content: center;
+        align-items: center;
+}
+
+.header-text {
         font-size: 30px;
         font-weight: bolder;
         color: white;
-        text-align: center;
-        /* font-family: monospace; */
 }
 
 .header-container:hover {
-        /* color: rgb(173, 243, 250); */
-        color: black;
         cursor: pointer;
+}
+
+.header-container:hover .header-text {
+        color: black;
 }
 
 .float-left {
