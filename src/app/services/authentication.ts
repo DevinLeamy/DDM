@@ -2,7 +2,7 @@
 import { Injectable } from "@angular/core"
 import { HttpHeaders, HttpClient } from '@angular/common/http'
 import { Tokens } from "../models/token"
-import { Location } from '@angular/common';
+import { Location } from '@angular/common'
 const BASE_URL = "http://localhost:3000/api/authentication/"
 const BASE_USER_URL = "http://localhost:3000/api/user/"
 

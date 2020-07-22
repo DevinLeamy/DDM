@@ -106,12 +106,12 @@ router.get("/userOnline", authenticateToken, function(req, res) {
 })
 
 //Set user.online = false a.k.a set user status as offline
-router.post("/userOffline", authenticateToken, function(req, res) {
+router.get("/userOffline", authenticateToken, function(req, res) {
   const userId = req.user._id
   console.log("Trying to set the user offline")
   setUserStatus(userId, false)
     .then( () => res.json({status: "0", data: "Successfully updated user status"}) )
-    .catch( (reject) => console.log(reject) )
+    .catch( (reject) => res.json({status: "1", data: "Failed to change user status"}))
 })
 //----------------------------Middle ware-------------------------------
 

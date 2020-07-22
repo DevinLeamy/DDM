@@ -135,6 +135,21 @@
         cursor: pointer;
 }
 
+.log-out-button {
+        background-color: rgb(44, 51, 54);
+        padding: 5px;
+        width: 50px;
+        margin-top: 10px;
+        border-radius: 3px;
+        text-align: center;
+        color: white; 
+}
+
+.log-out-button:hover {
+        color: #7abffc; 
+        cursor: pointer;  
+}
+
 .margin-top {
         margin-top: 30px;
 }

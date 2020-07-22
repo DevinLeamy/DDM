@@ -13,7 +13,7 @@ import { UserViewChatCreateDialogComponent } from './user-view-chat-create-dialo
         templateUrl: "user-view.component.html",
         styleUrls: ["user-view.component.css"]
 })
-export class UserViewComponent {
+export class UserViewComponent implements OnInit, OnDestroy {
         user: User
         userSub: Subscription
         constructor(
@@ -57,6 +57,12 @@ export class UserViewComponent {
                         height: "550px"
                 })
                 
+        }
+
+        //Logs out the user
+        logOut() {
+                
+                this.userService.logOut()
         }
 
         //Avoid memory leaks
