@@ -1,7 +1,7 @@
 <div class="container transform-height" *ngIf="this.isAuthenticated()">
         <div class="admin-container transform-background-color" *ngIf="this.isAdmin()" (click)="openDialog()">
                 <div class="admin-text transform-color">
-                        Admin
+                        Edit
                 </div>
         </div>
         <div class="subscribe-button-container transform-background-color" *ngIf="!this.isSubscribed()" (click)="this.subscribe()">

@@ -19,10 +19,7 @@
   width: calc(50% - 20px);
   margin-left: 10px;
   margin-right: 10px;
-  /* background-color: rgb(50, 64, 71); */
   background: linear-gradient(to right, rgb(38, 49, 54) 0px, rgb(38, 49, 54) 50px, rgb(50, 64, 71) 50px, rgb(50, 64, 71) 100%);
-  /* background-color: #0e1822; */
-  /* background-color: rgb(48, 48, 48); */
   float: left;
 }
 
@@ -35,16 +32,13 @@
   writing-mode: vertical-rl;
   text-orientation: mixed;
   background-color: rgb(56, 63, 65);
-  /* border: 2px solid black; */
   font-size: 30px;
   font-weight: bolder;
   color: white;
   text-align: center;
-  /* font-family: monospace; */
 }
 
 .header-container:hover {
-  /* color: rgb(173, 243, 250); */
   color: black;
   cursor: pointer;
 }

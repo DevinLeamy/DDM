@@ -36,15 +36,22 @@ export class UserService {
 
   //Send friend request
   sendFriendRequestToEmail(userEmail: String) {
-    const body = {
-      email: userEmail
-    }
-    var headers = new HttpHeaders()
-    headers = headers.append('Content-type', 'application/json')
-    this.http.post(BASE_URL + "friend-request", body, { headers: headers })
-      .subscribe((res: {status: string, data: any}) => {
-        console.log(res)
-      })
+    return new Promise((resolve, reject) => {
+      const body = {
+        email: userEmail
+      }
+      var headers = new HttpHeaders()
+      headers = headers.append('Content-type', 'application/json')
+      this.http.post(BASE_URL + "friend-request", body, { headers: headers })
+        .subscribe((res: {status: string, data: any}) => {
+          if (res.status === '0') {
+            resolve(res.data)
+          } else {
+            reject(res.data)
+          }
+        })
+    })
+    
   }
 
   //Logs out the user

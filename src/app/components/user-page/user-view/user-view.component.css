@@ -9,7 +9,6 @@
         width: 60%;
         margin: auto;
         height: 40%;
-        /* background-color: orange; */
 }
 
 .user-icon-container {
@@ -22,17 +21,20 @@
         width: 100%;
         margin: auto;
         height: 60px;
-        font-weight: 400;
+        font-weight: bolder;
         text-align: center;
         font-size: 30px;
         margin-top: -10px;
-        color: hotpink;
         text-align: center;
+}
+
+.user-username {
+        color: hotpink;
 }
 
 .user-options-container {
         width: 60%;
-        height: calc(60% - 120px);
+        height: calc(60% - 130px);
         margin: auto;
         display: flex;
         overflow-y: scroll;
