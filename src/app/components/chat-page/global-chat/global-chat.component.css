@@ -31,6 +31,7 @@
 .header-container {
         height: 100%;
         writing-mode: vertical-rl;
+        text-orientation: upright;
         background-color: rgb(56, 63, 65);
         font-size: 30px;
         font-weight: bolder;
