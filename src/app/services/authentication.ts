@@ -1,16 +1,10 @@
 //Service for the authentication API
 import { Injectable } from "@angular/core"
 import { HttpHeaders, HttpClient } from '@angular/common/http'
-import { Tokens } from "../models/token"
-<<<<<<< HEAD
 import { Location } from '@angular/common';
 const BASE_URL = "https://rumble-thread-based-messenger.herokuapp.com/api/authentication/"
 const BASE_USER_URL = "https://rumble-thread-based-messenger.herokuapp.com/api/user/"
-=======
-import { Location } from '@angular/common'
-const BASE_URL = "http://localhost:3000/api/authentication/"
-const BASE_USER_URL = "http://localhost:3000/api/user/"
->>>>>>> 835c730e15bfbbb7bb2e1cd104f79b91993b2b5f
+
 
 @Injectable({
   providedIn: "root"

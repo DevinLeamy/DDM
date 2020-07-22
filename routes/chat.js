@@ -9,7 +9,7 @@ var io;
 //-----------------------------------Constants----------------------------------------
 
 //-----------------------------------Initialize Database----------------------------------------
-const databaseUrl = "mongodb+srv://" + "test" + ":" + "test" + "@messenger-db-jzhdw.mongodb.net/" +  "messenger-database" + "?retryWrites=true&w=majority"
+const databaseUrl = process.env.DATABASE_URL
 const database = mongojs(databaseUrl, ["chats", "users", "categories", "tags"])
 //-----------------------------------Requests----------------------------------------
 
@@ -157,7 +157,7 @@ router.get("/init", function(req, res) {
 
 //Protects chat-create route from not-login-in users
 router.get("/chat-create", function(req, res) {
-  if (!req.headers["authorization"]) res.redirect("http://localhost:3000")
+  if (!req.headers["authorization"]) res.redirect("https://rumble-thread-based-messenger.herokuapp.com")
   else { 
     res.next()
   }

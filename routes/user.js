@@ -2,12 +2,10 @@ const express = require("express")
 const router = express.Router()
 const mongojs = require("mongojs")
 const jwt = require("jsonwebtoken")
-const path = require("path")
-const { tokenParser, encodeAsBase64, isString, createUserSub, createUser} = require("./functions/userFunc")
-const formidable = require("express-formidable")
+const { tokenParser, isString, createUser} = require("./functions/userFunc")
 
 //-----------------------------------Initialize Database----------------------------------------
-const databaseUrl = "mongodb+srv://" + "test" + ":" + "test" + "@messenger-db-jzhdw.mongodb.net/" +  "messenger-database" + "?retryWrites=true&w=majority"
+const databaseUrl = process.env.DATABASE_URL
 const database = mongojs(databaseUrl, ["users"])
 
 //-----------------------------------Requests----------------------------------------
@@ -37,7 +35,7 @@ router.get("/data/:_id", function(req, res) {
 
 //Protects user route from not-login-in users
 router.get("", function(req, res) {
-  if (!req.headers["authorization"]) res.redirect("http://localhost:3000")
+  if (!req.headers["authorization"]) res.redirect("https://rumble-thread-based-messenger.herokuapp.com")
   else { 
     res.next()
   }

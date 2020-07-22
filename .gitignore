@@ -2,13 +2,8 @@
 .DS_STORE
 .env
 
-<<<<<<< HEAD
-# /dist/
-/bazel-out
-/integration/bazel/bazel-*
-=======
 /dist/
->>>>>>> 835c730e15bfbbb7bb2e1cd104f79b91993b2b5f
+
 *.log
 node_modules
 

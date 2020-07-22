@@ -27,13 +27,7 @@ export class ChatService {
   initChatService(chatId: string) {
     this.setChatId(chatId)
     console.log("Chat Service Initialized")
-<<<<<<< HEAD
-    this.initServerSocket()
     this.socket = io.connect("", )
-=======
-    // this.initServerSocket()
-    this.socket = io.connect("http://localhost:3000", )
->>>>>>> 835c730e15bfbbb7bb2e1cd104f79b91993b2b5f
     this.initClientSocket()
   }
   //Sets the chat id
