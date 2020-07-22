@@ -4356,6 +4356,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                   }
                 }
 
+                for (var i = 0; i < _this15.selectedChat.messages.length; i++) {
+                  var _userId2 = _this15.selectedChat.messages[i].senderId;
+
+                  if (!_this15.usersService.containsUserSub(_userId2) && userIds.indexOf(_userId2) === -1) {
+                    userIds.push(_userId2);
+                  }
+                }
+
                 _this15.usersService.getUsers(userIds);
               }
             });
@@ -7587,10 +7595,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }
 
             for (var i = 0; i < _this25.user.friendReqIds.length; i++) {
-              var _userId2 = _this25.user.friendReqIds[i];
+              var _userId3 = _this25.user.friendReqIds[i];
 
-              if (!_this25.usersService.containsUserSub(_userId2) && userIds.indexOf(_userId2) === -1) {
-                userIds.push(_userId2);
+              if (!_this25.usersService.containsUserSub(_userId3) && userIds.indexOf(_userId3) === -1) {
+                userIds.push(_userId3);
               }
             }
 

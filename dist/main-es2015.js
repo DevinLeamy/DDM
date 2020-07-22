@@ -2308,6 +2308,12 @@ class ChatDisplayComponent {
                             userIds.push(userId);
                         }
                     }
+                    for (var i = 0; i < this.selectedChat.messages.length; i++) {
+                        const userId = this.selectedChat.messages[i].senderId;
+                        if (!this.usersService.containsUserSub(userId) && userIds.indexOf(userId) === -1) {
+                            userIds.push(userId);
+                        }
+                    }
                     this.usersService.getUsers(userIds);
                 }
             });
