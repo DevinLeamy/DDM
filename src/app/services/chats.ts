@@ -1,6 +1,6 @@
 //Service for the chat API
 //Handles multiple chats
-const BASE_URL = "https://rumble-thread-based-messenger.herokuapp.com/api/chat/"
+const BASE_URL = "https://ddm-rumble.herokuapp.com/api/chat/"
 import { Injectable } from "@angular/core"
 import { HttpHeaders, HttpClient } from '@angular/common/http'
 import { Subject } from 'rxjs'

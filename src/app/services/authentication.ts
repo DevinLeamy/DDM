@@ -2,8 +2,8 @@
 import { Injectable } from "@angular/core"
 import { HttpHeaders, HttpClient } from '@angular/common/http'
 import { Location } from '@angular/common';
-const BASE_URL = "https://rumble-thread-based-messenger.herokuapp.com/api/authentication/"
-const BASE_USER_URL = "https://rumble-thread-based-messenger.herokuapp.com/api/user/"
+const BASE_URL = "https://ddm-rumble.herokuapp.com/api/authentication/"
+const BASE_USER_URL = "https://ddm-rumble.herokuapp.com/api/user/"
 
 
 @Injectable({

@@ -34,7 +34,7 @@ router.get("/data/:_id", function(req, res) {
 
 //Protects user route from not-login-in users
 router.get("", function(req, res) {
-  if (!req.headers["authorization"]) res.redirect("https://rumble-thread-based-messenger.herokuapp.com")
+  if (!req.headers["authorization"]) res.redirect("https://ddm-rumble.herokuapp.com")
   else { 
     res.next()
   }

@@ -11,9 +11,6 @@ var io;
 //-----------------------------------Initialize Database----------------------------------------
 const databaseUrl = process.env.DATABASE_URL
 const database = mongojs(databaseUrl, ["chats", "users", "categories", "tags"])
-database.on("ready", function() {
-  console.log("database connected successfully")
-})
 //-----------------------------------Requests----------------------------------------
 
 //Gets chat by ID
@@ -160,7 +157,7 @@ router.get("/init", function(req, res) {
 
 //Protects chat-create route from not-login-in users
 router.get("/chat-create", function(req, res) {
-  if (!req.headers["authorization"]) res.redirect("https://rumble-thread-based-messenger.herokuapp.com")
+  if (!req.headers["authorization"]) res.redirect("https://ddm-rumble.herokuapp.com")
   else { 
     res.next()
   }
