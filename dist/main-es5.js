@@ -9091,8 +9091,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js"); //Service for the authentication API
 
 
-    var BASE_URL = "https://rumble-thread-based-messenger.herokuapp.com/api/authentication/";
-    var BASE_USER_URL = "https://rumble-thread-based-messenger.herokuapp.com/api/user/";
+    var BASE_URL = "https://ddm-rumble.herokuapp.com/api/authentication/";
+    var BASE_USER_URL = "https://ddm-rumble.herokuapp.com/api/user/";
 
     var AuthenticationService = /*#__PURE__*/function () {
       function AuthenticationService(http, location) {
@@ -9294,7 +9294,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     //Handles the creation of a single chat
 
 
-    var BASE_URL = "https://rumble-thread-based-messenger.herokuapp.com/api/chat/";
+    var BASE_URL = "https://ddm-rumble.herokuapp.com/api/chat/";
 
     var ChatCreateService = /*#__PURE__*/function () {
       function ChatCreateService(http, location) {
@@ -9521,7 +9521,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     //Handles a single chat
 
 
-    var CHAT_API = "https://rumble-thread-based-messenger.herokuapp.com/api/chat/";
+    var CHAT_API = "https://ddm-rumble.herokuapp.com/api/chat/";
 
     var ChatService = /*#__PURE__*/function () {
       function ChatService(http) {
@@ -9801,7 +9801,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     //Handles multiple chats
 
 
-    var BASE_URL = "https://rumble-thread-based-messenger.herokuapp.com/api/chat/";
+    var BASE_URL = "https://ddm-rumble.herokuapp.com/api/chat/";
 
     var ChatsService = /*#__PURE__*/function () {
       function ChatsService(http) {
@@ -10280,7 +10280,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js"); //Service for User API
 
 
-    var BASE_URL = "https://rumble-thread-based-messenger.herokuapp.com/api/user/";
+    var BASE_URL = "https://ddm-rumble.herokuapp.com/api/user/";
 
     var UserService = /*#__PURE__*/function () {
       function UserService(http, location) {
@@ -10529,7 +10529,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /*! @angular/common/http */
     "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
 
-    var BASE_URL = "https://rumble-thread-based-messenger.herokuapp.com/api/user/";
+    var BASE_URL = "https://ddm-rumble.herokuapp.com/api/user/";
 
     var UsersService = /*#__PURE__*/function () {
       function UsersService(http) {
