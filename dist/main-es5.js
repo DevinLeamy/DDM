@@ -6456,8 +6456,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "passwordIsSafe",
         value: function passwordIsSafe(password) {
-          var regex = /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$/;
-          return regex.test(password);
+          // const regex = /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$/
+          // return regex.test(password)
+          return true;
         } //Checks if email syntax is correct
 
       }, {
