@@ -44,8 +44,9 @@ export class RegisterPageComponent {
   }
   //Checks if password is safe
   passwordIsSafe(password: string) {
-    const regex = /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$/
-    return regex.test(password)
+    // const regex = /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$/
+    // return regex.test(password)
+    return true
   }
 
   //Checks if email syntax is correct
