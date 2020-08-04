@@ -1,4 +1,3 @@
 # DDM
 Devin's Dope MEAN Stack Messenger <br/>
-A MEAN Stack thread-based messenger application. <br/>
-https://rumble-thread-based-messenger.herokuapp.com/
+A MEAN Stack thread-based messenger application. 
