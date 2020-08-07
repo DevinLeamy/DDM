@@ -3,6 +3,13 @@
         height: 100%;
 }
 
+.chat-search-container-main {
+        height: calc(100% - 105px);
+        display: flex;
+        overflow-y: scroll;
+        flex-direction: column;
+}
+
 .chat-search-container {
         box-sizing: border-box;
         padding: 5px;
@@ -10,10 +17,6 @@
         margin-bottom: 5px;
         border-radius: 5px;
         background-color: rgb(32, 32, 32);
-        display: flex;
-        overflow-y: scroll;
-        flex-direction: column;
-        height: calc(100% - 105px);
 }
 /* Title */
 .chat-title-container {
