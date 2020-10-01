@@ -21,8 +21,7 @@
             "aot": true,
             "assets": [
               "src/favicon.png",
-              "src/assets",
-              "src/fonts"
+              "src/assets"
             ],
             "styles": [
               "src/styles.css",
@@ -87,8 +86,7 @@
             "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              "src/fonts"
+              "src/assets"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
