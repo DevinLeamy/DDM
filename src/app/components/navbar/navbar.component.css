@@ -47,7 +47,8 @@
 }
 
 .home-link {
-  font-size: 22px;
+  font-family: 'momcake';
+  font-size: 32px;
   font-weight: bold;
   background-color: #3a5266;
   padding-left: 10px;
@@ -60,12 +61,7 @@
   border-radius: 3px;
 }
 
-.home-link:hover {
-  color: white;
-  border-bottom: solid transparent;
-  border-top: solid transparent;
-  cursor: pointer; 
-}
+.home-link:hover { cursor: pointer; }
 
 
 .flexExpand {

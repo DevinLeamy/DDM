@@ -42,10 +42,8 @@
 }
 
 .username {
-  /* order: 0; */
   float: left;
-  font-family: Arial, sans-serif;
-  font-weight: 400;
+  font-family: 'poppins-semibold';
   color: hotpink;
   font-size: 18px;
 }
@@ -56,7 +54,6 @@
   overflow-wrap: break-word;
   font-size: 15px;
   color: white;
-  font-family: Arial, sans-serif;
 }
 
 .timestamp {

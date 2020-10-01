@@ -8,35 +8,35 @@ import { ChatService } from 'src/app/services/chat'
 @Component({
   selector: "app-home-page",
   animations: [
-          trigger("expansionPanel", [
-                  state("open", style({
-                          visibility: "visible",
-                          width: "calc(100% - 64px)"
-                  })),
-                  state("closed", style({
-                          width: "0%",
-                          visibility: "hidden"
-                  })),
-                  transition("open => closed", [
-                          animate("0.2s")
-                  ]),
-                  transition("closed => open", [
-                          animate("0.2s")
-                  ])
+        trigger("expansionPanel", [
+                state("open", style({
+                        visibility: "visible",
+                        width: "calc(100% - 64px)"
+                })),
+                state("closed", style({
+                        width: "0%",
+                        visibility: "hidden"
+                })),
+                transition("open => closed", [
+                        animate("0.2s")
+                ]),
+                transition("closed => open", [
+                        animate("0.2s")
+                ])
           ]),
           trigger("expansionTitle", [
-                  state("visible", style({
-                          width: "30px",
-                          lineHeight: "30px",
-                          marginRight: "1px",
-                          marginLeft: "1px",
-                          visibility: "visible"
-                  })),
-                  state("invisible", style({
-                          width: "0px",
-                          visibility: "hidden"
-                  }))
-            ])
+                state("visible", style({
+                        width: "30px",
+                        lineHeight: "30px",
+                        marginRight: "1px",
+                        marginLeft: "1px",
+                        visibility: "visible"
+                })),
+                state("invisible", style({
+                        width: "0px",
+                        visibility: "hidden"
+                }))
+          ])
   ],
   templateUrl: "home-page.component.html",
   styleUrls: ["home-page.component.css"],

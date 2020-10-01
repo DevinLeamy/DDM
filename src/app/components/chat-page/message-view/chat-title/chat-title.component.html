@@ -9,7 +9,7 @@
                         *ngIf="this.chat === undefined || this.chat === null ||this.chat.image === '$$$Default$$$'" 
                 ></app-chat-icon>
         </div>
-        <div class="title-container">
+        <div [class]="'title-container ' + (this.onChatPage? 'title-width-small' : 'title-width-large')">
                 <div class="title"  *ngIf="this.chat !== undefined && this.chat !== null">
                         {{this.chat.title}}
                 </div>
