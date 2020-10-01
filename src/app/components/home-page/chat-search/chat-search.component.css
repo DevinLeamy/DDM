@@ -13,7 +13,7 @@
 .chat-search-container {
         box-sizing: border-box;
         padding: 5px;
-        margin-top: 5px;
+        /* margin-top: 5px; */
         margin-bottom: 5px;
         border-radius: 5px;
         background-color: rgb(32, 32, 32);
@@ -38,7 +38,10 @@
         border: none;
         color: white;
         background-color: rgb(38, 49, 54);
+        font-family: 'poppins-medium';
 }
+
+.chat-title::placeholder { font-family: 'poppins-medium'; }
 
 /* Category Select */
 .chat-category-container {
@@ -63,6 +66,7 @@
         flex-wrap: wrap;
         background-color: rgb(32, 32, 32);
         border-radius: 5px;
+        margin-top: 10px;
 }
 
 .add-tag-button {
@@ -114,6 +118,11 @@
         background-color: rgb(38, 49, 54);
         border: none;
         font-size: 16px;
+        font-family: 'poppins-medium';
+}
+
+.add-tag-input::placeholder {
+        font-family: 'poppins-medium';
 }
 
 .tag-container {

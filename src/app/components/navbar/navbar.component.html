@@ -20,14 +20,7 @@
       ></app-image-fab>
     </div>
     <span *ngIf="this.isAuthenticated()" class="flexExpand"></span>
-    <div 
-      [routerLink]="''" 
-      class="home-link 
-      transform-color 
-      transform-border-bottom 
-      transform-border-top
-      no-select"
-    >RUMBLE</div> 
+    <div [routerLink]="''" class="home-link">RUMBLE</div> 
     <span class="flexExpand" *ngIf="!isAuthenticated()"></span>
     <button mat-raised-button class="button-login transform-opacity" [routerLink]="'/api/authentication/login'" *ngIf="!isAuthenticated()">Login</button>
     <button mat-raised-button class="button-register transform-opacity" [routerLink]="'/api/authentication/register'" *ngIf="!isAuthenticated()">Register</button>

@@ -7,48 +7,194 @@ body, html {
 }
 
 body {
-  /* background-color: #0e1822; */
-  background-color: rgb(63, 81, 90);
-  /* font-family: Arial, sans-serif; */
-  font-family: Roboto, Arial, sans-serif;
-  max-width: 1366px;
+  background-color: rgb(71, 71, 71);
+  font-family: 'poppins-medium';
+  /* max-width: 1500px; */
   margin: auto;
 }
+
 /* Make scroll bar invisible */
 ::-webkit-scrollbar {
   width: 0px;
-  background: transparent; /* make scrollbar transparent */
+  height: 0px;
+  background: transparent;
 }
 
 /* Removes blue border of selected buttons */
-button:focus {
-  outline: 0;
+button:focus { outline: 0; }
+div:focus { outline: 0; }
+span:focus { outline: 0; }
+img:focus { outline: 0; }
+textarea:focus { outline: 0; }
+p:focus { outline: 0; }
+input:focus { outline: 0; }
+select:focus { outline: 0; }
+app-arrow-button:focus { outline: 0; }
+
+/* Fonts */
+@font-face {
+  font-family: 'life-is-okay';
+  src: url(src/assets/fonts/life-is-okay-font/LifeIsOkay-PzAE.ttf);
+  font-style: normal;
 }
 
-div:focus {
-  outline: 0;
+@font-face {
+  font-family: 'momcake';
+  src: url(src/assets/fonts/momcake-font/MomcakeBold-WyonA.otf);
+  font-style: normal;
 }
 
-span:focus {
-  outline: 0;
+@font-face {
+  font-family: 'poppins-regular';
+  src: url(src/assets/fonts/poppins/Poppins-Regular.ttf);
+  font-style: normal;
 }
 
-img:focus {
-  outline: 0;
+@font-face {
+  font-family: 'poppins-medium';
+  src: url(src/assets/fonts/poppins/Poppins-Medium.ttf);
+  font-style: normal;
 }
 
-textarea:focus {
-  outline: 0;
+@font-face {
+  font-family: 'poppins-semibold';
+  src: url(src/assets/fonts/poppins/Poppins-SemiBold.ttf);
+  font-style: normal;
+}
+@font-face {
+  font-family: 'quacker';
+  src: url(src/assets/fonts/quacker-font/Quacker-vmAvD.otf);
+  font-style: normal;
+}
+@font-face {
+  font-family: 'beautiful-regular';
+  src: url(src/assets/fonts/beautiful-people-font/regular.ttf);
+  font-style: normal;
+}
+@font-face {
+  font-family: 'beautiful-slanted';
+  src: url(src/assets/fonts/beautiful-people-font/slanted.ttf);
+  font-style: normal;
+}
+@font-face {
+  font-family: 'dreamwood';
+  src: url(src/assets/fonts/dreamwood-font/DreamwoodDemoRegular-Zj3q.ttf);
+  font-style: normal;
 }
 
-p:focus {
-  outline: 0;
+@font-face {
+  font-family: 'typographica';
+  src: url(src/assets/fonts/typographica-font/Typographica-Blp5.ttf);
+  font-style: normal;
 }
 
-input:focus {
-  outline: 0;
+@font-face {
+  font-family: 'landasans-medium';
+  src: url(src/assets/fonts/landasans-font/medium.otf);
+  font-style: normal;
 }
 
-select:focus {
-  outline: 0;
+@font-face {
+  font-family: 'landasans-light';
+  src: url(src/assets/fonts/landasans-font/light.otf);
+  font-style: normal;
+}
+
+/* Transforms */
+.transform-color {
+  -webkit-transition: color 0.2s;
+  -moz-transition: color 0.2s;
+  -o-transition: color 0.2s;
+  transition: color 0.2s;
+}
+
+.transform-border-radius {
+  -webkit-transition: border-radius 0.2s;
+  -moz-transition: border-radius 0.2s;
+  -o-transition: border-radius 0.2s;
+  transition: border-radius 0.2s;
+}
+
+.transform-background-color {
+  -webkit-transition: background-color 0.2s;
+  -moz-transition: background-color 0.2s;
+  -o-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+}
+
+.transform-width {
+  -webkit-transition: width 0.2s;
+  -moz-transition: width 0.2s;
+  -o-transition: width 0.2s;
+  transition: width 0.2s;
+}
+
+.transform-border {
+  -webkit-transition: border 0.2s;
+  -moz-transition: border 0.2s;
+  -o-transition: border 0.2s;
+  transition: border 0.2s;
+}
+
+.tranform-blur {
+  -webkit-transition: filter 0.2s;
+  -moz-transition: filter 0.2s;
+  -o-transition: filter 0.2s;
+  transition: filter 0.2s;
+}
+
+.tranform-webkit-filter {
+  -webkit-transition: -webkit-filter 0.2s;
+  -moz-transition: -webkit-filter 0.2s;
+  -o-transition: -webkit-filter 0.2s;
+  transition: -webkit-filter 0.2s;
+}
+
+.transform-height {
+  -webkit-transition: height 0.2s;
+  -moz-transition: height 0.2s;
+  -o-transition: height 0.2s;
+  transition: height 0.2s;
+}
+
+.transform-opacity {
+  -webkit-transition: opacity 0.2s;
+  -moz-transition: opacity 0.2s;
+  -o-transition: opacity 0.2s;
+  transition: opacity 0.2s;
+}
+
+.transform-line-height {
+  -webkit-transition: line-height 0.2s;
+  -moz-transition: line-height 0.2s;
+  -o-transition: line-height 0.2s;
+  transition: line-height 0.2s;
+}
+
+.transform-font-size {
+  -webkit-transition: font-size 0.2s;
+  -moz-transition: font-size 0.2s;
+  -o-transition: font-size 0.2s;
+  transition: font-size 0.2s;
+}
+
+.transform-margin {
+  -webkit-transition: margin 0.2s;
+  -moz-transition: margin 0.2s;
+  -o-transition: margin 0.2s;
+  transition: margin 0.2s;
+}
+
+/* Remove default style from links */
+a:link { text-decoration: none; }
+a:visited { text-decoration: none; }
+a:hover { text-decoration: none; }
+a:active { text-decoration: none; }
+
+/* Raised Effect */
+.raised {
+  box-shadow: 
+  inset 0 -3em 3em rgba(0,0,0,0.1), 
+        /* 0 0  0 2px rgb(255,255,255), */
+        0.3em 0.3em 1em rgba(0,0,0,0.3); 
 }

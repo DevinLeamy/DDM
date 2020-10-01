@@ -10,7 +10,7 @@
                                         type="text"
                                         matInput
                                         name="title"
-                                        placeholder="title"
+                                        placeholder="Title"
                                         maxlength="40"
                                         class="chat-title"
                                         [matAutocomplete]="autoTitles"
@@ -22,13 +22,13 @@
                                                 {{title}}
                                 </mat-option>
                         </mat-autocomplete>
-                        <div class="chat-category-container">
+                        <!-- <div class="chat-category-container">
                                 <mat-select placeholder="Category" ngModel #category="ngModel" name="category">
                                         <mat-option *ngFor="let category of categories" [value]="category">
                                                 {{category}}
                                         </mat-option>
                                 </mat-select>
-                        </div>
+                        </div> -->
                         <div class="chat-tags-container">
                                 <div class="tags-container">
                                         <div class="tag-container" *ngFor="let tag of tags">
@@ -47,7 +47,7 @@
                                                                 matInput
                                                                 #tagInput
                                                                 name="tag"
-                                                                placeholder="tag"
+                                                                placeholder="Tag"
                                                                 maxlength="25"
                                                                 [matAutocomplete]="autoTags"
                                                                 [formControl]="this.formControlTags"
@@ -61,7 +61,10 @@
                                         </form> 
                                 </div>
                         </div>
-                        <div class="search-button" (click)="searchChats(category.value)">
+                        <!-- <div class="search-button" (click)="searchChats(category.value)">
+                                search
+                        </div> -->
+                        <div class="search-button" (click)="searchChats(undefined)">
                                 search
                         </div>
                         <div class="results-container">
