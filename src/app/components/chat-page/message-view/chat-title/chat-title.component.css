@@ -6,6 +6,7 @@
         border-radius: 5px;
         padding-top: 5px;
         padding-bottom: 5px;
+        overflow: hidden;
 }
 
 .icon-container {
@@ -23,11 +24,9 @@
         margin-bottom: 3px;
 }
 
-.title-width-small {
-        width: calc(100% - 120px);
-}
+.title-width-small { width: calc(100% - 120px); }
 
-.title-width-large { width: 100%; }
+.title-width-large { width: calc(100% - 50px); }
 
 .title {
         font-family: 'poppins-semibold';
@@ -40,13 +39,12 @@
 .chat-subscribe-container {
         margin-right: 5px;
 }
-.flex-expand {
-        flex: 1 1 auto; 
-}
+.flex-expand { flex: 1 1 auto; }
 
 /* Tags container */
 .tags-container {
-        overflow-x: scroll;
+        width: 100%;
+        /* overflow-x: scroll; */
         overflow-y: hidden;
         height: 25px;
         display: flex;
@@ -54,9 +52,7 @@
 }
 
 /* Makes horizontal scroll bar invisible */
-.tags-container::-webkit-scrollbar {
-        height: 0px;
-}
+.tags-container::-webkit-scrollbar { height: 0px; }
 
 .tag-container {
         line-height: 22px;

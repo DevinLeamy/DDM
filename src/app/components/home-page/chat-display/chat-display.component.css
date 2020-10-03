@@ -3,28 +3,23 @@
         width: 100%;
         height: 100%;
 }
-/* 
-.container:hover .chat-button {
-        opacity: 1;
-        top: 45%;
-} */
 
 .chat-button {
         position: absolute;
-        bottom: 45px;
+        bottom: 50px;
         right: 50%;
         width: 100%;
         box-sizing: border-box;
         padding: 5px;
         text-align: center;
-        font-size: 20px;
+        font-size: 25px;
         background-color: rgb(32, 32, 32);
         border-left: solid white;
         border-right: solid white;
         color: rgb(173, 243, 250);
         transform: translate(50%, -50%);
         border-radius: 3px;
-        font-family: 'poppins-semibold';
+        font-family: 'momcake';
 }
 
 .chat-button:hover {
