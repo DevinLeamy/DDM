@@ -5,10 +5,7 @@
 
 .container:hover { background-color: rgb(30, 40, 50); }
 
-.container:hover .top-container .title-container .title {
-        font-size: 19px !important;
-        color: #7abffc !important;
-}
+.container:hover .top-container .title-container .title { color: #7abffc !important; }
 
 /* Top container  (Icon and title) */
 .top-container {
@@ -35,15 +32,12 @@
         text-align: center;
         width: 100%;
         font-size: 17px;
-        /* color: hotpink; */
 }
 .title-expanded {
         text-align: center;
         width: 100%;
-        font-size: 19px;
         color: #7abffc;
 }
-
 
 /* Bottom container */
 .bottom-container { height: 50px; }

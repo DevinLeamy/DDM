@@ -1,10 +1,7 @@
 .login-background {
   height: 100%;
   width: 100%;
-  background-image: url("../../../assets/images/login8.png");
-  opacity: 0.8;
-  background-size: contain;
-  background-color: black;
+  background-color: #203a50;
   display: flex;
   align-content: center;
 }
@@ -28,6 +25,7 @@
   margin-top: 10px;
   color: rgb(255, 105, 105);
   width: 100%;
+  font-family: 'poppins-medium';
 }
 
 .form-input-container {
@@ -37,6 +35,7 @@
 
 .input-field {
   color: white;
+  font-family: 'poppins-medium';
 }
 
 .form-button-container {
@@ -48,26 +47,23 @@
   width: 100%;
   margin-top: 60px;
   background-color: white;
-  color: black;
-  font-size: 17px;
+  color: rgb(32, 32, 32);
+  font-size: 18px;
+  font-family: 'poppins-semibold';
 }
 
-.message-container {
-  width: 200px;
-}
-.placeholder-text {
-  color: rgb(180, 180, 180);
+.message-container { width: 200px; }
+.placeholder-text { 
+  font-family: 'poppins-medium'; 
+  color: rgb(180, 180, 180); 
 }
 
 .register-button {
+  font-size: 17px;
+  width: 100%;
   color: white;
-  -webkit-transition: font-size 0.2s;
-  -moz-transition: font-size 0.2s;
-  -o-transition: font-size 0.2s;
-  transition: font-size 0.2s;
+  font-family: 'poppins-semibold';
+  text-align: center;
 }
 
-.register-button:hover {
-  color: rgb(121, 212, 248);
-  font-size: 17px;
-}
+.register-button:hover { color: rgb(121, 212, 248); }
