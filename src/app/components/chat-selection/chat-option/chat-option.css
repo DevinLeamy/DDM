@@ -3,9 +3,7 @@
         padding-bottom: 5px;
 }
 
-.container:hover {
-        background-color: rgb(30, 40, 50);
-}
+.container:hover { background-color: rgb(30, 40, 50); }
 
 .container:hover .top-container .title-container .title {
         font-size: 19px !important;
@@ -47,10 +45,8 @@
 }
 
 
-/* Bottom container (tags, GO and sub count */
-.bottom-container {
-        height: 50px;
-}
+/* Bottom container */
+.bottom-container { height: 50px; }
 
 .tags-container {
         width: calc(100% - 10px);
@@ -64,9 +60,7 @@
 }
 
 /* Makes horizontal scroll bar invisible */
-.tags-container::-webkit-scrollbar {
-        height: 0px;
-}
+.tags-container::-webkit-scrollbar { height: 0px; }
 
 .tag-container {
         line-height: 25px;
@@ -98,12 +92,11 @@
         line-height: 25px;
         height: 25px;
         color: rgb(163, 163, 163);
-        font-size: 15px;
+        font-size: 20px;
+        font-family: 'momcake';
 }
 
-.flex-expand {
-        flex: 1 1 auto; 
-}
+.flex-expand { flex: 1 1 auto; }
 
 .go-button {
         float: right;
@@ -112,9 +105,9 @@
         line-height: 20px;
         width: 70px;
         border-radius: 5px;
-        font-size: 17px;
+        font-size: 20px;
+        font-family: 'momcake';
         color: rgb(105, 255, 185);
-        border: 2px solid white;
 }
 
 .go-button:hover {
@@ -155,14 +148,4 @@
         -moz-transition: border 0.2s;
         -o-transition: border 0.2s;
         transition: border 0.2s;
-}
-
-/* Prevents users from selecting text */
-.no-select {
-        -webkit-touch-callout: none;
-        -webkit-user-select: none; 
-        -khtml-user-select: none; 
-        -moz-user-select: none; 
-        -ms-user-select: none; 
-        user-select: none;
 }
