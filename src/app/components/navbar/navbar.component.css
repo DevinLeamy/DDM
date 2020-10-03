@@ -7,7 +7,8 @@
 }
 
 .navbar-main {
-  background-color: #203a50;
+  /* background-color: #203a50; */
+  background-color: #134169;
   color: white;
   height: 60px;
   top: 0px;
@@ -21,6 +22,7 @@
 }
 
 .button-login {
+  font-family: 'poppins-semibold';
   margin-right: 10px;
   color: white;
   border: 2px solid white;
@@ -31,6 +33,7 @@
 }
 
 .button-register {
+  font-family: 'poppins-semibold';
   color: white;
   background-color: rgb(32, 32, 32);
   font-size: 18px;
@@ -64,9 +67,7 @@
 .home-link:hover { cursor: pointer; }
 
 
-.flexExpand {
-  flex: 1 1 auto; 
-}
+.flexExpand { flex: 1 1 auto; }
 
 .account-button {
   border: solid transparent;
