@@ -4,6 +4,7 @@
 
 /dist/
 *.log
+*.swp
 node_modules
 
 .vscode/launch.json

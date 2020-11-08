@@ -1,6 +1,6 @@
 // Modules
 import { BrowserModule } from '@angular/platform-browser'
-import { NgModule } from '@angular/core'
+import { NgModule, APP_INITIALIZER } from '@angular/core'
 import { AppRoutingModule } from './app-routing.module'
 import { HttpClientModule } from '@angular/common/http'
 import { MatInputModule } from '@angular/material/input'
@@ -17,13 +17,13 @@ import { MatSelectModule } from '@angular/material/select'
 import { MatDialogModule } from "@angular/material/dialog"
 import { MatAutocompleteModule } from "@angular/material/autocomplete"
 import { ReactiveFormsModule } from "@angular/forms"
+// import { KeycloakAngularModule } from "keycloak-angular";
 //Services
 import { AuthenticationService } from './services/authentication'
 import { UserService } from './services/user'
+// import { KeycloakService } from "keycloak-angular"
 //Components
 import { HomePageComponent } from './components/home-page/home-page.component'
-import { RegisterPageComponent } from "./components/register-page/register-page.component"
-import { LoginPageComponent } from './components/login-page/login-page.component'
 import { NavbarComponent } from './components/navbar/navbar.component'
 import { AppComponent } from './app.component'
 import { GlobalChatComponent } from './components/chat-page/global-chat/global-chat.component'
@@ -63,8 +63,6 @@ import { UserViewChatCreateDialogComponent } from "./components/user-page/user-v
   declarations: [
     AppComponent,
     HomePageComponent,
-    LoginPageComponent,
-    RegisterPageComponent,
     NavbarComponent,
     MessageViewComponent,
     MessageCreateComponent,
@@ -114,7 +112,8 @@ import { UserViewChatCreateDialogComponent } from "./components/user-page/user-v
     MatDialogModule,
     MatExpansionModule,
     MatAutocompleteModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    // KeycloakAngularModule
   ],
   providers: [
     {
@@ -123,7 +122,13 @@ import { UserViewChatCreateDialogComponent } from "./components/user-page/user-v
       multi: true
     },
     AuthenticationService,
-    UserService
+    UserService,
+    // {
+    //   provide: APP_INITIALIZER,
+    //   useFactory: initializeKeycloak,
+    //   multi: true,
+    //   deps: [KeycloakService],
+    // }
   ],
   bootstrap: [AppComponent]
 })

@@ -22,8 +22,8 @@
     <span *ngIf="this.isAuthenticated()" class="flexExpand"></span>
     <div [routerLink]="''" class="home-link">RUMBLE</div> 
     <span class="flexExpand" *ngIf="!isAuthenticated()"></span>
-    <button mat-raised-button class="button-login transform-opacity" [routerLink]="'/api/authentication/login'" *ngIf="!isAuthenticated()">Login</button>
-    <button mat-raised-button class="button-register transform-opacity" [routerLink]="'/api/authentication/register'" *ngIf="!isAuthenticated()">Register</button>
+    <button mat-raised-button class="button-login transform-opacity" (click)="this.loginWithKeycloak()" *ngIf="!isAuthenticated()">Login</button>
+    <button mat-raised-button class="button-register transform-opacity" (click)='this.logoutWithKeycloak()' *ngIf="!isAuthenticated()">Logout</button>
   </mat-toolbar>
   <ng-content></ng-content>
 </div>

@@ -4,6 +4,7 @@ const express = require("express")
 const router = express.Router()
 const mongojs = require("mongojs")
 const jwt = require("jsonwebtoken")
+const { keycloak } = require("../server")
 const { passwordIsValid, getNewUser } = require("./functions/authFunc")
 //-----------------------------------Constants----------------------------------------
 
@@ -11,12 +12,6 @@ const { passwordIsValid, getNewUser } = require("./functions/authFunc")
 const databaseUrl = process.env.DATABASE_URL
 const database = mongojs(databaseUrl, ["users"])
 //-----------------------------------Requests----------------------------------------
-// Prevents users from manually changing url
-router.get("/login", function(req, res, next) {
-  //If auth token was not sent redirect to home
-  if (req.headers["authorization"]) next()
-  else res.redirect("http://localhost:3000")
-})
 
 // Prevents users from manually changing url
 router.get("/register", function(req, res, next) {
@@ -25,44 +20,19 @@ router.get("/register", function(req, res, next) {
   else res.redirect("http://localhost:3000")
 })
 
-router.post("/login/authenticate", function(req, res) {
-  //Check if user manually changed url
-  if (!req.headers["authorization"]) res.redirect("http://localhost:3000")
-  else {
-    const credentials = req.body
-    const email = credentials.email
-    const password = credentials.password
-    takenEmail(email).then(
-        () => res.json({
-          status: "1",
-          data: "Incorrect username or password"
-        })
-      ).catch(
-        //User exists
-        () => getUserByEmail(email).then(
-          (user) => {
-            const passwordHash = user.password_hash
-            const salt = user.salt
-            if (passwordIsValid(password, passwordHash, salt)) {
-              res.json(
-                { 
+router.post("/login", keycloak.protect(), function(req, res, next) {
+	console.log("user has logged in with keycloak")
+    const credentials = req.kauth.grant.access_token.content.email; 
+    getUserByEmail(email).then((user) => {
+              res.json({ 
                   status: "0",
                   data: getAccessToken({_id: user._id, username: user.username})
-                }
-              )
-            } else {
-              res.json({
-                status: "1",
-                data: "Incorrect username or password"
+                })
               })
-            }
-          }
-        ).catch(() => res.json({
+        .catch(() => res.json({
           status: "1",
           data: "Incorrect username or password"
         }))
-      )
-  }
 })
 
 router.post("/register/createUser", function(req, res) {

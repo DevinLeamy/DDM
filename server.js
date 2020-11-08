@@ -1,20 +1,37 @@
 const express = require("express");
+const Keycloak = require("keycloak-connect");
+const session = require("express-session");
 const app = express()
 const bodyParser = require("body-parser")
 const path = require("path")
-const authAPI = require("./routes/auth")
-const chatAPI = require("./routes/chat")
-const userAPI = require("./routes/user")
 const socket = require("socket.io")
 const http = require("http")
 const PORT = process.env.PORT || 3000
+const cors = require('cors');
 
+// Configure express for keycloak
+const memoryStore = new session.MemoryStore();
+// Accesses keycloak.json to create keycloak object
+app.use(session({
+	secret: 'secret',
+	resave: false,
+	saveUninitialized: true,
+	store: memoryStore
+}));
+const keycloak = new Keycloak({ store: memoryStore });
 //--------------------------------Configure express app-----------------------------
+// Allows for the use of keycloak.project middleware
+app.use(cors());
+app.use(keycloak.middleware());
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded( { extended: false } ))
 app.use(express.static(path.join(__dirname, "dist")))
 
+module.exports = {keycloak};
 //Set routes to api services
+const authAPI = require("./routes/auth")
+const chatAPI = require("./routes/chat")
+const userAPI = require("./routes/user")
 app.use("/api/authentication", authAPI)
 app.use("/api/chat", chatAPI)
 app.use("/api/user", userAPI)
@@ -34,4 +51,5 @@ server.listen(PORT, function() {
 const io = socket(server)
 
 app.set("io", io)
-//--------------------------------Middle ware-----------------------------
+
+

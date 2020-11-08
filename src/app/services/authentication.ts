@@ -2,6 +2,7 @@
 import { Injectable } from "@angular/core"
 import { HttpHeaders, HttpClient } from '@angular/common/http'
 import { Tokens } from "../models/token"
+// import { KeycloakService } from "keycloak-angular";
 import { Location } from '@angular/common'
 const BASE_URL = "http://localhost:3000/api/authentication/"
 const BASE_USER_URL = "http://localhost:3000/api/user/"
@@ -10,7 +11,7 @@ const BASE_USER_URL = "http://localhost:3000/api/user/"
   providedIn: "root"
 })
 export class AuthenticationService {
-  constructor(private http: HttpClient, private location : Location) {
+  constructor(private http: HttpClient, private location : Location) {//, private keycloakService: KeycloakService) {
     console.log("Authentication Service Initialized")
   }
 
@@ -67,15 +68,12 @@ export class AuthenticationService {
   }
 
   //Logs in a given user
-  login(email: string, password: string) {
+  login() {
     return new Promise(resolve => {
-      var headers = new HttpHeaders()
-      headers = headers.append('Content-type', 'application/json')
-      const body = {
-        email: email,
-        password: password
-      }
-      this.http.post(BASE_URL + "login/authenticate", body, { headers: headers })
+	    var headers = new HttpHeaders()
+	    // headers.append('Access-Control-Allow-Origin', '*')
+	    // headers.append('Access-Control-Allow-Methods', "GET, POST, PUT, DELETE, PATCH, OPTIONS")
+      this.http.post(BASE_URL + "login/", {}, { headers: headers })
         .subscribe((res: {status: string, data: any}) => {
           if (res.status === '0') {
             const accessToken = res.data

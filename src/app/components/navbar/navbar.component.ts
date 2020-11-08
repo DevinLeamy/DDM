@@ -3,6 +3,7 @@ import { AuthenticationService } from "../../services/authentication"
 import { UserService } from "../../services/user"
 import { Subscription } from 'rxjs'
 import { User } from 'src/app/models/user'
+import { Location } from "@angular/common";
 
 @Component({
   selector: "app-navbar",
@@ -12,7 +13,7 @@ import { User } from 'src/app/models/user'
 export class NavbarComponent implements OnInit, OnDestroy {
   userSub : Subscription
   user : User
-  constructor(private authService : AuthenticationService, private userService : UserService) {}
+  constructor(private authService : AuthenticationService, private userService : UserService, private location : Location) {}
 
   ngOnInit() {
     this.userSub = this.userService.getUserUpdated()
@@ -29,6 +30,18 @@ export class NavbarComponent implements OnInit, OnDestroy {
     return this.authService.isAuthenticated()
   }
 
+  // logout of keycloak register page
+  logoutWithKeycloak() {
+	  const keycloakLogoutUrl: string = "http://localhost:3000/logout"; 
+	  window.location.href = keycloakLogoutUrl;
+	  console.log("logout of keycloak");
+  }
+
+  // redirect to keycloack login page
+  loginWithKeycloak() {
+	  this.authService.login();
+	  console.log("redirecting to keycloak login page");
+  }
   //Avoids memory leak
   ngOnDestroy() {
     this.userSub.unsubscribe()
