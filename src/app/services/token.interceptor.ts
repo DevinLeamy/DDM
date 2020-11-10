@@ -15,7 +15,7 @@ export class TokenInterceptor implements HttpInterceptor {
     // console.log("Injecting token")
     request = request.clone({
       setHeaders: {
-        authorization: "Bearer " + this.authService.getToken(),
+        authorization: "Bearer " + this.authService.getToken()
       }
     })
     //Sends request to next handler

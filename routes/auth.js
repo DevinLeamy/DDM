@@ -20,22 +20,23 @@ router.get("/register", function(req, res, next) {
   else res.redirect("http://localhost:3000")
 })
 
-router.post("/login", keycloak.protect(), function(req, res, next) {
+router.get("/login", keycloak.protect(), function(req, res) {
 	console.log("user has logged in with keycloak")
-    const credentials = req.kauth.grant.access_token.content.email; 
+    const email = req.kauth.grant.access_token.content.email;
+	console.log(email);
     getUserByEmail(email).then((user) => {
-              res.json({ 
-                  status: "0",
-                  data: getAccessToken({_id: user._id, username: user.username})
-                })
-              })
-        .catch(() => res.json({
-          status: "1",
-          data: "Incorrect username or password"
-        }))
+        res.json({
+            status: '0',
+            token: getAccessToken({_id: user._id, username: user.username})
+        })
+    }).catch(() => res.json({
+        status: "1",
+        data: "Unable to log in user"
+    }))
 })
 
 router.post("/register/createUser", function(req, res) {
+    console.log(req.body.token)
   const user = req.body
   const username = user.username
   const email = user.email
@@ -85,7 +86,7 @@ function postUser(newUser) {
 function getUserByEmail(email) {
   return new Promise( (resolve, reject) => {
     database.users.findOne({email: email}, function(err, user) {
-      if (err || user == null || user == undefined) {
+      if (err || user === null || user === undefined) {
         reject("Error querying users")
         return
       }

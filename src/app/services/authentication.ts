@@ -1,8 +1,9 @@
 //Service for the authentication API
 import { Injectable } from "@angular/core"
-import { HttpHeaders, HttpClient } from '@angular/common/http'
+import { HttpHeaders, HttpClient, HttpRequest } from '@angular/common/http'
 import { Tokens } from "../models/token"
-// import { KeycloakService } from "keycloak-angular";
+import * as io from 'socket.io-client'
+import { Router } from "@angular/router"
 import { Location } from '@angular/common'
 const BASE_URL = "http://localhost:3000/api/authentication/"
 const BASE_USER_URL = "http://localhost:3000/api/user/"
@@ -11,15 +12,18 @@ const BASE_USER_URL = "http://localhost:3000/api/user/"
   providedIn: "root"
 })
 export class AuthenticationService {
-  constructor(private http: HttpClient, private location : Location) {//, private keycloakService: KeycloakService) {
+  constructor(private http: HttpClient, private location : Location, private router: Router) {
     console.log("Authentication Service Initialized")
+    // router.events.subscribe((val) => {
+    //     console.log("here", val)
+    // });
   }
 
   //Returns clients jwt token
   getToken() {
     return sessionStorage.getItem("accessToken")
   }
-  
+
   //Removes token from session storage
   clearTokens() {
     sessionStorage.clear()
@@ -67,28 +71,26 @@ export class AuthenticationService {
     })
   }
 
-  //Logs in a given user
-  login() {
+
+//Logs in a given user
+login() {
     return new Promise(resolve => {
-	    var headers = new HttpHeaders()
-	    // headers.append('Access-Control-Allow-Origin', '*')
-	    // headers.append('Access-Control-Allow-Methods', "GET, POST, PUT, DELETE, PATCH, OPTIONS")
-      this.http.post(BASE_URL + "login/", {}, { headers: headers })
-        .subscribe((res: {status: string, data: any}) => {
-          if (res.status === '0') {
-            const accessToken = res.data
-            if (accessToken) {
-              //User was authenticated
-              this.setAccessToken(accessToken)
-              this.setUserStatusOnline()
-                .then( () => this.go("") )
-            }
-          } else {
-            resolve(res.data)
-          }
-        })
+        this.http.get(BASE_URL + "login")
+            .subscribe((res: {status: string, data: any}) => {
+                if (res.status === '0') {
+                    const accessToken = res.data
+                    if (accessToken) {
+                        //User was authenticated
+                        this.setAccessToken(accessToken)
+                        this.setUserStatusOnline()
+                        .then( () => this.go("") )
+                    }
+                } else {
+                    resolve(res.data)
+                }
+            })
     })
-  }
+}
 
   //Set user status as online
   setUserStatusOnline() {

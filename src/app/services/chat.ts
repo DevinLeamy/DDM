@@ -70,10 +70,9 @@ export class ChatService {
 
   //Declares function of client socket
   initClientSocket() {
-    const _this = this
-    this.socket.on("message-posted-to-chat-" + this.chatId, function(message: Message) {
-      _this.chat.messages.push(message)
-      _this.updateChat()
+    this.socket.on("message-posted-to-chat-" + this.chatId, (message: Message) => {
+      this.chat.messages.push(message)
+      this.updateChat()
     })
   }
 

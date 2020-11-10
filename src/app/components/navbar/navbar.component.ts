@@ -39,8 +39,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   // redirect to keycloack login page
   loginWithKeycloak() {
-	  this.authService.login();
-	  console.log("redirecting to keycloak login page");
+    console.log("redirecting to keycloak login page");
+    this.authService.login()
   }
   //Avoids memory leak
   ngOnDestroy() {

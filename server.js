@@ -21,6 +21,8 @@ app.use(session({
 const keycloak = new Keycloak({ store: memoryStore });
 //--------------------------------Configure express app-----------------------------
 // Allows for the use of keycloak.project middleware
+
+// Add headers
 app.use(cors());
 app.use(keycloak.middleware());
 app.use(bodyParser.json())
