@@ -5,8 +5,8 @@ import { Tokens } from "../models/token"
 import * as io from 'socket.io-client'
 import { Router } from "@angular/router"
 import { Location } from '@angular/common'
-const BASE_URL = "http://localhost:3000/api/authentication/"
-const BASE_USER_URL = "http://localhost:3000/api/user/"
+const BASE_URL = "https://ddm-rumble-keycloak.herokuapp.com/api/authentication/"
+const BASE_USER_URL = "https://ddm-rumble-keycloak.herokuapp.com/api/user/"
 
 @Injectable({
   providedIn: "root"

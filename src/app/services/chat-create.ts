@@ -1,6 +1,6 @@
 //Service for the chat API
 //Handles the creation of a single chat
-const BASE_URL = "http://localhost:3000/api/chat/"
+const BASE_URL = "https://ddm-rumble-keycloak.herokuapp.com/api/chat/"
 import { Injectable } from "@angular/core"
 import { Location } from "@angular/common"
 import { HttpHeaders, HttpClient } from '@angular/common/http'

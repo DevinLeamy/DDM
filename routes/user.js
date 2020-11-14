@@ -35,7 +35,7 @@ router.get("/data/:_id", function(req, res) {
 
 //Protects user route from not-login-in users
 router.get("", function(req, res) {
-  if (!req.headers["authorization"]) res.redirect("http://localhost:3000")
+  if (!req.headers["authorization"]) res.redirect("https://ddm-rumble-keycloak.herokuapp.com")
   else { 
     res.next()
   }

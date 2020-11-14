@@ -158,7 +158,7 @@ router.get("/init", function(req, res) {
 
 //Protects chat-create route from not-login-in users
 router.get("/chat-create", function(req, res) {
-  if (!req.headers["authorization"]) res.redirect("http://localhost:3000")
+  if (!req.headers["authorization"]) res.redirect("https://ddm-rumble-keycloak.herokuapp.com")
   else { 
     res.next()
   }

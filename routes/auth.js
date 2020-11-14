@@ -17,7 +17,7 @@ const database = mongojs(databaseUrl, ["users"])
 router.get("/register", function(req, res, next) {
   //If auth token was not sent redirect to home
   if (req.headers["authorization"]) next()
-  else res.redirect("http://localhost:3000")
+  else res.redirect("https://ddm-rumble-keycloak.herokuapp.com")
 })
 
 router.get("/login", keycloak.protect(), function(req, res) {
