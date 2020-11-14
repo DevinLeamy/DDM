@@ -2,9 +2,10 @@ FROM node:12
 
 WORKDIR /
 
-COPY package*.json ./
+COPY package*.json .
 
 RUN npm install
+RUN npm install -g @angular/cli@7.3.9
 
 COPY . .
 
