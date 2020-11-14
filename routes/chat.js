@@ -747,7 +747,7 @@ function getRecentChatIds() {
         reject("Error querying chats")
         return
       }
-      chatIds = []
+      var chatIds = []
       for (var i = chats.length - 1; i >= 0; i--) {
         const chatId = chats[i]._id
         if (chatIds.indexOf(chatId) === -1) {
@@ -778,7 +778,7 @@ function getPopularChatIds() {
             return -1
           }
         })
-        chatIds = []
+        var chatIds = []
         for (var i = chats.length - 1; i >= 0; i--) {
           const chatId = chats[i]._id
           if (chatIds.indexOf(chatId) === -1) {
@@ -801,9 +801,9 @@ function getRecommendedChatIds() {
         reject("Error querying chats")
         return
       }
-      chatIds = []
+      var chatIds = []
       for (var i = 0; i < chats.length; i++) {
-        chatId = chats[i]._id
+        var chatId = chats[i]._id
         chatIds.push(chatId)
         if (chatIds.length === 10) {
           break
