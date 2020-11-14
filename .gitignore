@@ -2,7 +2,6 @@
 .DS_STORE
 .env
 
-/dist/
 *.log
 *.swp
 node_modules
