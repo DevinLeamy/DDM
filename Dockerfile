@@ -1,14 +1,14 @@
 FROM node:12
 
-WORKDIR /
+WORKDIR /app
 
-COPY package*.json ./
+COPY package*.json /app
 
 RUN npm install
 
-COPY . .
+COPY . /app
 
-CMD [ "npm", "run-script", "build" ]
+RUN npm run build
 
 EXPOSE 4200
 CMD [ "node", "server.js" ]
