@@ -25,9 +25,10 @@ const keycloak = new Keycloak({ store: memoryStore });
 // Add headers
 app.use(cors());
 app.use(keycloak.middleware());
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded( { extended: false } ))
-app.use(express.static(path.join(__dirname, "dist")))
+// app.use(bodyParser.json())
+// app.use(bodyParser.urlencoded( { extended: false } ))
+app.use(express.json());
+app.use(express.static(path.join(__dirname, "dist")));
 
 module.exports = {keycloak};
 //Set routes to api services
