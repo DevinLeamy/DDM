@@ -5853,7 +5853,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "logoutWithKeycloak",
         value: function logoutWithKeycloak() {
-          var keycloakLogoutUrl = "http://localhost:3000/logout";
+          var keycloakLogoutUrl = "https://ddm-rumble-keycloak.herokuapp.com/logout";
           window.location.href = keycloakLogoutUrl;
           console.log("logout of keycloak");
         } // redirect to keycloack login page

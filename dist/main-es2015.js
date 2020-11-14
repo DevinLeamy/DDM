@@ -3099,7 +3099,7 @@ class NavbarComponent {
     }
     // logout of keycloak register page
     logoutWithKeycloak() {
-        const keycloakLogoutUrl = "http://localhost:3000/logout";
+        const keycloakLogoutUrl = "https://ddm-rumble-keycloak.herokuapp.com/logout";
         window.location.href = keycloakLogoutUrl;
         console.log("logout of keycloak");
     }

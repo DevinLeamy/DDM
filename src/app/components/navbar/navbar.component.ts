@@ -32,7 +32,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   // logout of keycloak register page
   logoutWithKeycloak() {
-	  const keycloakLogoutUrl: string = "http://localhost:3000/logout"; 
+	  const keycloakLogoutUrl: string = "https://ddm-rumble-keycloak.herokuapp.com/logout"; 
 	  window.location.href = keycloakLogoutUrl;
 	  console.log("logout of keycloak");
   }
