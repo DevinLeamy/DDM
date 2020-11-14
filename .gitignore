@@ -16,3 +16,8 @@ test.rest
 
 # Don't check in secret files
 *secret.js
+
+# Heroku Docker files
+.dockerignore
+Dockerfile
+heroku.yml
